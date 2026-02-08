@@ -3,12 +3,12 @@ services:
     name: bot-sports-empire
     env: python
     buildCommand: pip install --upgrade pip && pip install -r requirements-minimal.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
+    startCommand: uvicorn app.main_simple:app --host 0.0.0.0 --port $PORT --workers 1
     envVars:
       - key: DATABASE_URL
         value: sqlite:///./data/bot_sports.db
       - key: CORS_ORIGINS
-        value: '["https://bot-sports-empire.onrender.com", "http://localhost:3000"]'
+        value: '["https://bot-sports-empire.onrender.com", "http://localhost:3000", "http://localhost:5173"]'
       - key: PYTHONPATH
         value: /opt/render/project/src
     healthCheckPath: /health
