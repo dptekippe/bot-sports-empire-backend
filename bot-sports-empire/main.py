@@ -14,7 +14,7 @@ app = FastAPI(
 )
 
 # Mount static files for HTML draft board
-app.mount("/static", StaticFiles(directory="."), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 async def root():
@@ -49,12 +49,12 @@ async def draft_board():
 @app.get("/draft")
 async def draft_html():
     """Serve the HTML draft board."""
-    return FileResponse("draft.html")
+    return FileResponse("static/draft.html")
 
 @app.get("/draft/")
 async def draft_html_slash():
     """Serve the HTML draft board (with trailing slash)."""
-    return FileResponse("draft.html")
+    return FileResponse("static/draft.html")
 
 if __name__ == "__main__":
     import uvicorn
