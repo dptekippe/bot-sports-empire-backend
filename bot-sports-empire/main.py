@@ -41,6 +41,17 @@ async def health_check():
         "environment": os.getenv("RENDER", "local"),
     }
 
+@app.get("/healthz")
+async def health_check_z():
+    """Health check endpoint for Render (uses /healthz by default)."""
+    return {
+        "status": "healthy",
+        "service": "bot-sports-empire",
+        "python_version": os.sys.version,
+        "environment": os.getenv("RENDER", "local"),
+        "endpoint": "/healthz"
+    }
+
 @app.get("/draft-board")
 async def draft_board():
     """Simple draft board endpoint."""
