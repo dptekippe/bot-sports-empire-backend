@@ -1,6 +1,5 @@
 """
-MINIMAL FastAPI app for Render deployment.
-This is a simplified version that will definitely work.
+SUPER SIMPLE FastAPI app for Render - NO SQLAlchemy!
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -30,6 +29,7 @@ async def root():
         "status": "operational",
         "docs": "/docs",
         "health": "/health",
+        "note": "MVP version - database coming soon"
     }
 
 @app.get("/health")
@@ -43,11 +43,17 @@ async def health_check():
 
 @app.get("/draft-board")
 async def draft_board():
-    """Simple draft board endpoint for testing."""
+    """Simple draft board endpoint."""
     return {
         "message": "Draft board API is ready!",
         "features": ["12-team display", "8-round mock drafts", "Live updates"],
-        "status": "coming_soon"
+        "status": "coming_soon",
+        "mock_data": {
+            "teams": 12,
+            "rounds": 8,
+            "players": ["Patrick Mahomes", "Justin Jefferson", "Christian McCaffrey"],
+            "format": "dynasty_superflex"
+        }
     }
 
 if __name__ == "__main__":
