@@ -1,0 +1,25 @@
+# Core (production only)
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Database (SQLite for Render free tier)
+sqlalchemy==2.0.23
+alembic==1.13.1
+
+# Data (use compatible versions)
+pydantic==2.5.0
+pydantic-settings==2.1.0
+httpx==0.25.1
+requests==2.31.0
+
+# Utilities
+python-dotenv==1.0.0
+
+# Note: Removed problematic packages:
+# - psycopg2-binary (not needed for SQLite)
+# - asyncpg (not needed for SQLite)
+# - aiohttp (httpx is sufficient)
+# - redis/celery (not needed for MVP)
+# - auth packages (not needed yet)
+# - dev packages (black, isort, mypy, pytest)

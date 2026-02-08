@@ -1,0 +1,19 @@
+# Core (production only) - ULTRA STABLE VERSIONS
+fastapi==0.103.2
+uvicorn[standard]==0.23.2
+python-multipart==0.0.6
+
+# Database (SQLite for Render free tier)
+sqlalchemy==2.0.20
+alembic==1.12.1
+
+# Data (use very stable pydantic)
+pydantic==2.3.0
+pydantic-settings==2.0.3
+httpx==0.24.1
+
+# Utilities
+python-dotenv==1.0.0
+
+# Note: These versions are known to build reliably on all platforms
+# No wheel compilation needed - all have pre-built wheels

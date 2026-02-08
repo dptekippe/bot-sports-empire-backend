@@ -1,0 +1,20 @@
+# Core (production only)
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Database (SQLite for Render free tier)
+sqlalchemy==2.0.23
+alembic==1.13.1
+
+# Data (use older pydantic that builds reliably)
+pydantic==2.4.2
+pydantic-settings==2.1.0
+httpx==0.25.1
+requests==2.31.0
+
+# Utilities
+python-dotenv==1.0.0
+
+# Note: pydantic 2.4.2 should build without pydantic-core issues
+# This is a known workaround for wheel build failures

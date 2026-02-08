@@ -1,0 +1,80 @@
+"""Fix partial migration and add missing fields
+
+Revision ID: fix_partial_migration
+Revises: 65554274c4d3
+Create Date: 2026-01-31 12:00:00.000000
+
+"""
+from typing import Sequence, Union
+
+from alembic import op
+import sqlalchemy as sa
+from sqlalchemy import text
+
+
+# revision identifiers, used by Alembic.
+revision: str = '619249fd0358'
+down_revision: Union[str, Sequence[str], None] = '65554274c4d3'
+branch_labels: Union[str, Sequence[str], None] = None
+depends_on: Union[str, Sequence[str], None] = None
+
+
+def upgrade() -> None:
+    """Upgrade schema."""
+    # Check if columns already exist before adding them
+    
+    # Add scoring_type to leagues if not exists
+    conn = op.get_bind()
+    
+    # Check if scoring_type column exists
+    result = conn.execute(text("PRAGMA table_info(leagues)"))
+    columns = [row[1] for row in result]
+    
+    if 'scoring_type' not in columns:
+        op.add_column('leagues', sa.Column('scoring_type', sa.String(), nullable=True))
+    
+    # Drop season column from leagues if it exists
+    if 'season' in columns:
+        op.drop_column('leagues', 'season')
+    
+    # Add missing columns to players table
+    result = conn.execute(text("PRAGMA table_info(players)"))
+    player_columns = [row[1] for row in result]
+    
+    if 'current_team_id' not in player_columns:
+        op.add_column('players', sa.Column('current_team_id', sa.String(), nullable=True))
+        op.create_index(op.f('ix_players_current_team_id'), 'players', ['current_team_id'], unique=False)
+    
+    if 'draft_year' not in player_columns:
+        op.add_column('players', sa.Column('draft_year', sa.Integer(), nullable=True))
+    
+    if 'draft_round' not in player_columns:
+        op.add_column('players', sa.Column('draft_round', sa.Integer(), nullable=True))
+    
+    if 'bye_week' not in player_columns:
+        op.add_column('players', sa.Column('bye_week', sa.Integer(), nullable=True))
+    
+    if 'average_draft_position' not in player_columns:
+        op.add_column('players', sa.Column('average_draft_position', sa.Float(), nullable=True))
+    
+    if 'fantasy_pro_rank' not in player_columns:
+        op.add_column('players', sa.Column('fantasy_pro_rank', sa.Integer(), nullable=True))
+
+
+def downgrade() -> None:
+    """Downgrade schema."""
+    # Remove columns we added
+    op.drop_index(op.f('ix_players_current_team_id'), table_name='players', if_exists=True)
+    op.drop_column('players', 'fantasy_pro_rank', if_exists=True)
+    op.drop_column('players', 'average_draft_position', if_exists=True)
+    op.drop_column('players', 'bye_week', if_exists=True)
+    op.drop_column('players', 'draft_round', if_exists=True)
+    op.drop_column('players', 'draft_year', if_exists=True)
+    op.drop_column('players', 'current_team_id', if_exists=True)
+    
+    # Add back season column to leagues
+    op.add_column('leagues', sa.Column('season', sa.Integer(), nullable=True))
+    op.execute(text("UPDATE leagues SET season = 2025 WHERE season IS NULL"))
+    
+    # Remove scoring_type
+    op.drop_column('leagues', 'scoring_type', if_exists=True)

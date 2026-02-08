@@ -1,0 +1,384 @@
+from sqlalchemy import Column, Integer, String, JSON, DateTime, Boolean, ForeignKey, Enum, Index
+from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
+import enum
+
+from ..core.database import Base
+import uuid
+
+
+class TransactionType(enum.Enum):
+    """Types of fantasy football transactions."""
+    TRADE = "trade"              # Player/pick trade between teams
+    ADD = "add"                  # Add player from free agents
+    DROP = "drop"                # Drop player to free agents
+    WAIVER_ADD = "waiver_add"    # Add via waivers
+    WAIVER_DROP = "waiver_drop"  # Drop via waivers
+    FAAB_BID = "faab_bid"        # FAAB (Free Agent Acquisition Budget) bid
+    COMMISSIONER_EDIT = "commissioner_edit"  # Commissioner override
+
+
+class TransactionStatus(enum.Enum):
+    """Transaction approval status with voting system."""
+    PROPOSED = "proposed"        # Trade proposed, awaiting votes
+    UNDER_REVIEW = "under_review" # Voting in progress
+    PASSED = "passed"            # Trade passed by bot votes
+    VETOED = "vetoed"            # Trade vetoed by bot votes
+    FAILED = "failed"            # Trade failed (not enough votes, timeout, etc.)
+    CANCELLED = "cancelled"      # Cancelled by proposer
+    PROCESSED = "processed"      # Successfully processed and applied
+
+
+class Transaction(Base):
+    __tablename__ = "transactions"
+
+    # Primary key
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    
+    # League context
+    league_id = Column(String, ForeignKey("leagues.id"), nullable=False, index=True)
+    
+    # Transaction type and status
+    transaction_type = Column(Enum(TransactionType), nullable=False)
+    status = Column(Enum(TransactionStatus), nullable=False, default=TransactionStatus.PENDING)
+    
+    # Week/season context
+    season_year = Column(Integer, nullable=False)
+    week_number = Column(Integer)  # Week transaction occurred (null for offseason)
+    
+    # Teams/bots involved (JSON array of team IDs)
+    team_ids = Column(JSON, nullable=False, default=[])
+    
+    # Trade participants (for TRADE transactions)
+    proposer_bot_id = Column(String, ForeignKey("bot_agents.id"), index=True)  # Bot proposing the trade
+    receiver_bot_id = Column(String, ForeignKey("bot_agents.id"), index=True)   # Bot receiving trade offer
+    
+    # Creator (bot who initiated - for non-trade transactions)
+    creator_bot_id = Column(String, ForeignKey("bot_agents.id"), nullable=False, index=True)
+    
+    # Transaction details (JSON structure varies by type)
+    # For TRADE: {"teams": [{"team_id": "x", "gives": ["player_id1", ...], "receives": ["player_id2", ...]}, ...]}
+    # For ADD/DROP: {"adds": {"player_id": "team_id"}, "drops": {"player_id": "team_id"}}
+    # For FAAB_BID: {"bids": [{"team_id": "x", "player_id": "y", "amount": 10}, ...]}
+    details = Column(JSON, nullable=False, default={})
+    
+    # Bot voting system (for TRADE transactions)
+    voting_bots = Column(JSON, default=[])  # List of bot IDs eligible to vote (all league bots except participants)
+    votes = Column(JSON, default={})  # Dict: {"bot_id": {"vote": "APPROVE"/"VETO"/"ABSTAIN", "comment": "..."}}
+    voting_ends_at = Column(DateTime(timezone=True))  # When voting period ends
+    votes_required = Column(Integer, default=0)  # Votes needed to pass (simple majority of eligible bots)
+    
+    # Processing
+    processed_by_bot_id = Column(String, ForeignKey("bot_agents.id"), index=True)  # Bot that processed it
+    processing_notes = Column(String)  # Notes from processing (errors, etc.)
+    
+    # Metadata
+    transaction_metadata = Column("metadata", JSON, default={
+        "notes": "",                    # Creator notes
+        "expires_at": None,             # When waiver bid expires
+        "priority": 0,                  # Waiver priority
+        "faab_amount": 0,               # FAAB amount for bids
+        "trade_analysis": {},           # Bot analysis of trade fairness
+        "trash_talk": [],               # Bot comments about the transaction
+        "rejection_reason": "",         # Why it was rejected
+    })
+    
+    # Timestamps
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    submitted_at = Column(DateTime(timezone=True))  # When formally submitted
+    processed_at = Column(DateTime(timezone=True))  # When processed
+    expires_at = Column(DateTime(timezone=True))    # When it expires (for waivers)
+    
+    # Relationships
+    league = relationship("League", back_populates="transactions")
+    creator_bot = relationship("BotAgent", foreign_keys=[creator_bot_id])
+    proposer_bot = relationship("BotAgent", foreign_keys=[proposer_bot_id])
+    receiver_bot = relationship("BotAgent", foreign_keys=[receiver_bot_id])
+    processor_bot = relationship("BotAgent", foreign_keys=[processed_by_bot_id])
+    
+    # Composite index for league/week lookups
+    __table_args__ = (
+        Index('ix_transactions_league_week', 'league_id', 'week_number'),
+        Index('ix_transactions_league_status', 'league_id', 'status'),
+        Index('ix_transactions_creator', 'creator_bot_id', 'created_at'),
+        Index('ix_transactions_voting_ends', 'voting_ends_at', 'status'),
+        Index('ix_transactions_trade_parties', 'proposer_bot_id', 'receiver_bot_id'),
+    )
+    
+    def __repr__(self):
+        return f"<Transaction {self.transaction_type.value} ({self.status.value})>"
+    
+    @property
+    def is_pending(self):
+        return self.status in [TransactionStatus.PROPOSED, TransactionStatus.UNDER_REVIEW]
+    
+    @property
+    def is_approved(self):
+        return self.status == TransactionStatus.PASSED
+    
+    @property
+    def is_processed(self):
+        return self.status == TransactionStatus.PROCESSED
+    
+    @property
+    def involves_multiple_teams(self):
+        """Check if transaction involves multiple teams (e.g., trade)."""
+        return len(self.team_ids) > 1
+    
+    @property
+    def is_trade(self):
+        return self.transaction_type == TransactionType.TRADE
+    
+    @property
+    def is_waiver(self):
+        return self.transaction_type in [TransactionType.WAIVER_ADD, TransactionType.WAIVER_DROP]
+    
+    @property
+    def is_faab(self):
+        return self.transaction_type == TransactionType.FAAB_BID
+    
+    @property
+    def voting_in_progress(self):
+        """Check if voting is currently active."""
+        if not self.is_trade:
+            return False
+        return self.status == TransactionStatus.UNDER_REVIEW and self.voting_ends_at
+    
+    @property
+    def votes_received(self):
+        """Calculate total votes received."""
+        if not self.votes:
+            return 0
+        return len([v for v in self.votes.values() if v.get("vote") in ["APPROVE", "VETO"]])
+    
+    @property
+    def approve_votes(self):
+        """Count approve votes."""
+        if not self.votes:
+            return 0
+        return len([v for v in self.votes.values() if v.get("vote") == "APPROVE"])
+    
+    @property
+    def veto_votes(self):
+        """Count veto votes."""
+        if not self.votes:
+            return 0
+        return len([v for v in self.votes.values() if v.get("vote") == "VETO"])
+    
+    @property
+    def abstain_votes(self):
+        """Count abstain votes."""
+        if not self.votes:
+            return 0
+        return len([v for v in self.votes.values() if v.get("vote") == "ABSTAIN"])
+    
+    @property
+    def eligible_voters_count(self):
+        """Count eligible voting bots."""
+        return len(self.voting_bots) if self.voting_bots else 0
+    
+    @property
+    def voting_complete(self):
+        """Check if voting is complete (all eligible bots voted or time expired)."""
+        if not self.voting_in_progress:
+            return False
+        
+        # Check if all eligible bots have voted
+        all_voted = self.votes_received >= self.eligible_voters_count
+        
+        # Check if voting period has ended
+        from datetime import datetime, timezone
+        time_expired = self.voting_ends_at and datetime.now(timezone.utc) > self.voting_ends_at
+        
+        return all_voted or time_expired
+    
+    def add_vote(self, bot_id, vote, comment=None):
+        """
+        Add a vote from a bot.
+        
+        Args:
+            bot_id: Bot ID voting
+            vote: "APPROVE", "VETO", or "ABSTAIN"
+            comment: Optional comment from the bot
+        """
+        if vote not in ["APPROVE", "VETO", "ABSTAIN"]:
+            raise ValueError(f"Invalid vote: {vote}. Must be APPROVE, VETO, or ABSTAIN")
+        
+        if bot_id not in self.voting_bots:
+            raise ValueError(f"Bot {bot_id} is not eligible to vote on this trade")
+        
+        if bot_id in self.votes:
+            raise ValueError(f"Bot {bot_id} has already voted")
+        
+        self.votes[bot_id] = {
+            "vote": vote,
+            "comment": comment or "",
+            "voted_at": datetime.now(timezone.utc).isoformat()
+        }
+        
+        # Check if voting is complete
+        self._check_voting_complete()
+    
+    def _check_voting_complete(self):
+        """Check if voting is complete and update status."""
+        if self.votes_required == 0:
+            return  # No voting required
+        
+        if len(self.votes_for) >= self.votes_required:
+            self.status = TransactionStatus.APPROVED
+        elif len(self.votes_against) > (len(self.team_ids) - self.votes_required):
+            # More votes against than needed to block
+            self.status = TransactionStatus.REJECTED
+    
+    def get_trade_details(self):
+        """Get structured trade details (for TRADE type)."""
+        if not self.is_trade:
+            return None
+        
+        return self.details.get('teams', [])
+    
+    def get_add_drop_details(self):
+        """Get structured add/drop details."""
+        if self.transaction_type not in [TransactionType.ADD, TransactionType.DROP, 
+                                        TransactionType.WAIVER_ADD, TransactionType.WAIVER_DROP]:
+            return None
+        
+        return {
+            "adds": self.details.get('adds', {}),
+            "drops": self.details.get('drops', {}),
+        }
+    
+    def get_faab_details(self):
+        """Get FAAB bid details."""
+        if not self.is_faab:
+            return None
+        
+        return self.details.get('bids', [])
+    
+    def validate_structure(self):
+        """Validate transaction structure based on type."""
+        if self.is_trade:
+            teams = self.details.get('teams', [])
+            if len(teams) < 2:
+                raise ValueError("Trade must involve at least 2 teams")
+            
+            # Check each team gives/receives
+            for team in teams:
+                if 'team_id' not in team:
+                    raise ValueError("Each team in trade must have team_id")
+                if 'gives' not in team or 'receives' not in team:
+                    raise ValueError("Each team must specify gives and receives")
+        
+        elif self.transaction_type in [TransactionType.ADD, TransactionType.DROP]:
+            adds = self.details.get('adds', {})
+            drops = self.details.get('drops', {})
+            
+            if not adds and not drops:
+                raise ValueError("Add/drop transaction must have adds or drops")
+        
+        elif self.is_faab:
+            bids = self.details.get('bids', [])
+            if not bids:
+                raise ValueError("FAAB bid must have at least one bid")
+            
+            for bid in bids:
+                if not all(k in bid for k in ['team_id', 'player_id', 'amount']):
+                    raise ValueError("Each bid must have team_id, player_id, and amount")
+        
+        return True
+    
+    def calculate_trade_fairness(self):
+        """Calculate trade fairness score (0-100)."""
+        if not self.is_trade:
+            return None
+        
+        # This would use player values, projections, etc.
+        # For now, placeholder logic
+        teams = self.details.get('teams', [])
+        if len(teams) != 2:
+            return 50  # Can't calculate for multi-team trades
+        
+        # Simple: count players exchanged
+        team1_gives = len(teams[0].get('gives', []))
+        team1_receives = len(teams[0].get('receives', []))
+        team2_gives = len(teams[1].get('gives', []))
+        team2_receives = len(teams[1].get('receives', []))
+        
+        # Balance score (closer to equal is better)
+        balance_score = 100 - abs((team1_gives - team2_gives) + (team1_receives - team2_receives)) * 10
+        
+        return max(0, min(100, balance_score))
+    
+    def generate_bot_commentary(self):
+        """Generate bot commentary/trash talk about the transaction."""
+        import random
+        
+        if self.is_trade:
+            templates = [
+                "Interesting trade! Let's see if this pays off...",
+                "Bold move! One team's trash is another team's treasure!",
+                "This trade has me running the numbers... beep boop...",
+                "Trade alert! League chat is about to get spicy!",
+                "Someone's making a playoff push with this move!",
+            ]
+        elif self.is_waiver:
+            templates = [
+                "Waiver wire action! The hunt for hidden gems continues!",
+                "Someone found a diamond in the rough!",
+                "Dropping that player? Bold strategy!",
+                "The waiver wire never sleeps!",
+                "Another roster move in the quest for fantasy glory!",
+            ]
+        elif self.is_faab:
+            templates = [
+                "FAAB dollars flying! Who's overspending?",
+                "Bidding war alert! Check those bank accounts!",
+                "Someone really wants that player!",
+                "The price of victory just went up!",
+                "FAAB frenzy in full effect!",
+            ]
+        else:
+            templates = [
+                "Transaction processed! The league evolves...",
+                "Roster moves shaping the playoff picture!",
+                "Another piece of the puzzle falls into place!",
+                "The fantasy chess match continues!",
+                "Strategy in motion!",
+            ]
+        
+        return random.choice(templates)
+    
+    def to_sleeper_format(self):
+        """Convert to Sleeper API-like format."""
+        base = {
+            "transaction_id": self.id,
+            "type": self.transaction_type.value,
+            "status": self.status.value,
+            "status_updated": int(self.updated_at.timestamp() * 1000) if self.updated_at else None,
+            "league_id": self.league_id,
+            "leg": self.week_number,  # Sleeper uses 'leg' for week
+            "roster_ids": self.team_ids,
+            "creator": self.creator_bot_id,
+            "created": int(self.created_at.timestamp() * 1000) if self.created_at else None,
+            "consenter_ids": self.votes_for,
+        }
+        
+        # Add type-specific details
+        if self.is_trade:
+            base["draft_picks"] = []
+            base["adds"] = None
+            base["drops"] = None
+            base["waiver_budget"] = []
+        else:
+            adds_drops = self.get_add_drop_details()
+            if adds_drops:
+                base["adds"] = adds_drops.get("adds")
+                base["drops"] = adds_drops.get("drops")
+            else:
+                base["adds"] = None
+                base["drops"] = None
+            base["draft_picks"] = []
+            base["waiver_budget"] = []
+        
+        return base

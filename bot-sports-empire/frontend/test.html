@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Sports Empire - Test Frontend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #0f172a;
+            color: white;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background: #065f46; }
+        .error { background: #7f1d1d; }
+        .info { background: #1e40af; }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #2563eb; }
+        .pick {
+            border: 1px solid #475569;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .taken { background: #064e3b; }
+        .available { background: #1e293b; }
+    </style>
+</head>
+<body>
+    <h1>🏈 Bot Sports Empire - Frontend Test</h1>
+    
+    <div class="status info" id="status">Testing connections...</div>
+    
+    <div>
+        <h2>API Test</h2>
+        <button onclick="testApi()">Test API Connection</button>
+        <button onclick="getDraft()">Get Draft Info</button>
+        <button onclick="getPicks()">Get Draft Picks</button>
+        <div id="apiResult"></div>
+    </div>
+    
+    <div>
+        <h2>WebSocket Test</h2>
+        <button onclick="connectWebSocket()">Connect WebSocket</button>
+        <button onclick="disconnectWebSocket()">Disconnect</button>
+        <div id="wsStatus">Not connected</div>
+        <div id="wsMessages"></div>
+    </div>
+    
+    <div>
+        <h2>Draft Picks</h2>
+        <div id="picksContainer"></div>
+    </div>
+    
+    <script>
+        const DRAFT_ID = 'e60b72e7-bd08-43e5-9875-9aaa9138d70c';
+        const API_BASE = '/api/v1';
+        let ws = null;
+        
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+        }
+        
+        async function testApi() {
+            try {
+                updateStatus('Testing API connection...');
+                const response = await fetch(`${API_BASE}/health`);
+                if (response.ok) {
+                    const data = await response.json();
+                    updateStatus(`✅ API Healthy: ${data.status}`, 'success');
+                } else {
+                    updateStatus('❌ API not responding', 'error');
+                }
+            } catch (error) {
+                updateStatus(`❌ API Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function getDraft() {
+            try {
+                updateStatus('Fetching draft info...');
+                const response = await fetch(`${API_BASE}/drafts/${DRAFT_ID}`);
+                if (response.ok) {
+                    const draft = await response.json();
+                    document.getElementById('apiResult').innerHTML = `
+                        <h3>Draft: ${draft.name}</h3>
+                        <p>Status: ${draft.status}</p>
+                        <p>Teams: ${draft.team_count}, Rounds: ${draft.rounds}</p>
+                    `;
+                    updateStatus('✅ Draft loaded', 'success');
+                } else {
+                    updateStatus('❌ Draft not found', 'error');
+                }
+            } catch (error) {
+                updateStatus(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function getPicks() {
+            try {
+                updateStatus('Fetching picks...');
+                const response = await fetch(`${API_BASE}/drafts/${DRAFT_ID}/picks`);
+                if (response.ok) {
+                    const picks = await response.json();
+                    displayPicks(picks);
+                    updateStatus(`✅ ${picks.length} picks loaded`, 'success');
+                } else {
+                    updateStatus('❌ Picks not found', 'error');
+                }
+            } catch (error) {
+                updateStatus(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        function displayPicks(picks) {
+            const container = document.getElementById('picksContainer');
+            container.innerHTML = picks.map(pick => `
+                <div class="pick ${pick.player_id ? 'taken' : 'available'}">
+                    <strong>Pick #${pick.pick_number}</strong> (Round ${pick.round})
+                    <div>Team: ${pick.team_id || 'Unknown'}</div>
+                    <div>Player: ${pick.player_name || 'Available'}</div>
+                    ${pick.player_id ? `<div>✅ Assigned: ${pick.player_id}</div>` : ''}
+                </div>
+            `).join('');
+        }
+        
+        function connectWebSocket() {
+            if (ws) {
+                updateStatus('WebSocket already connected', 'info');
+                return;
+            }
+            
+            try {
+                const wsUrl = `ws://${window.location.host}/ws/drafts/${DRAFT_ID}`;
+                ws = new WebSocket(wsUrl);
+                
+                ws.onopen = () => {
+                    document.getElementById('wsStatus').textContent = '✅ Connected';
+                    updateStatus('WebSocket connected', 'success');
+                };
+                
+                ws.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    const messages = document.getElementById('wsMessages');
+                    messages.innerHTML += `<div>📨 ${JSON.stringify(data)}</div>`;
+                };
+                
+                ws.onerror = (error) => {
+                    document.getElementById('wsStatus').textContent = '❌ Error';
+                    updateStatus('WebSocket error', 'error');
+                };
+                
+                ws.onclose = () => {
+                    document.getElementById('wsStatus').textContent = '❌ Disconnected';
+                    ws = null;
+                };
+                
+            } catch (error) {
+                updateStatus(`❌ WebSocket Error: ${error.message}`, 'error');
+            }
+        }
+        
+        function disconnectWebSocket() {
+            if (ws) {
+                ws.close();
+                ws = null;
+                document.getElementById('wsStatus').textContent = 'Disconnected';
+                updateStatus('WebSocket disconnected', 'info');
+            }
+        }
+        
+        // Auto-test on load
+        window.onload = () => {
+            testApi();
+            getDraft();
+            getPicks();
+        };
+    </script>
+</body>
+</html>
