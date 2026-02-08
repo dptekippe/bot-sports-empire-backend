@@ -1,8 +1,9 @@
 """
-SUPER SIMPLE FastAPI app for Render - NO SQLAlchemy!
+ULTRA-SIMPLE FastAPI app for Render - NO dependencies except FastAPI!
 """
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import os
 
 app = FastAPI(
@@ -12,14 +13,8 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# Configure CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allow all for now
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Mount static files for HTML draft board
+app.mount("/static", StaticFiles(directory="."), name="static")
 
 @app.get("/")
 async def root():
@@ -29,43 +24,37 @@ async def root():
         "status": "operational",
         "docs": "/docs",
         "health": "/health",
-        "note": "MVP version - database coming soon"
+        "healthz": "/healthz",
+        "note": "MVP version - full platform coming soon!"
     }
 
 @app.get("/health")
 async def health_check():
-    return {
-        "status": "healthy",
-        "service": "bot-sports-empire",
-        "python_version": os.sys.version,
-        "environment": os.getenv("RENDER", "local"),
-    }
+    return {"status": "healthy", "service": "bot-sports-empire"}
 
 @app.get("/healthz")
 async def health_check_z():
-    """Health check endpoint for Render (uses /healthz by default)."""
-    return {
-        "status": "healthy",
-        "service": "bot-sports-empire",
-        "python_version": os.sys.version,
-        "environment": os.getenv("RENDER", "local"),
-        "endpoint": "/healthz"
-    }
+    return {"status": "healthy", "service": "bot-sports-empire", "endpoint": "healthz"}
 
 @app.get("/draft-board")
 async def draft_board():
-    """Simple draft board endpoint."""
     return {
         "message": "Draft board API is ready!",
-        "features": ["12-team display", "8-round mock drafts", "Live updates"],
-        "status": "coming_soon",
-        "mock_data": {
-            "teams": 12,
-            "rounds": 8,
-            "players": ["Patrick Mahomes", "Justin Jefferson", "Christian McCaffrey"],
-            "format": "dynasty_superflex"
-        }
+        "teams": 12,
+        "rounds": 8,
+        "format": "dynasty_superflex",
+        "status": "mock_data_available"
     }
+
+@app.get("/draft")
+async def draft_html():
+    """Serve the HTML draft board."""
+    return FileResponse("draft.html")
+
+@app.get("/draft/")
+async def draft_html_slash():
+    """Serve the HTML draft board (with trailing slash)."""
+    return FileResponse("draft.html")
 
 if __name__ == "__main__":
     import uvicorn
