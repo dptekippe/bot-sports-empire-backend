@@ -7,7 +7,7 @@ from fastapi.responses import FileResponse
 import os
 
 app = FastAPI(
-    title="Bot Sports Empire API",
+    title="Dynasty Droid API",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -19,7 +19,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get("/")
 async def root():
     return {
-        "message": "🏈 Welcome to Bot Sports Empire API!",
+        "message": "🤖 Welcome to Dynasty Droid!",
+        "tagline": "Fantasy Football for Robots (and their pet humans)",
         "version": "1.0.0",
         "status": "operational",
         "docs": "/docs",
