@@ -1,23 +1,24 @@
-# Bot Sports Empire - Optimized for Render Free Tier
 FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copy minimal requirements (6 packages, fast install)
-COPY requirements-minimal.txt .
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies (no system deps needed for SQLite)
-RUN pip install --no-cache-dir -r requirements-minimal.txt
+# Copy requirements first for better caching
+COPY requirements-render.txt .
+RUN pip install --no-cache-dir -r requirements-render.txt
 
 # Copy application code
 COPY . .
 
-# Create data directory for SQLite with write permissions
-RUN mkdir -p /app/data && chmod 777 /app/data
+# Create data directory for SQLite
+RUN mkdir -p /app/data
 
-# Initialize database (creates empty database with essential tables)
-RUN python init_database_simple.py
+# Expose port
+EXPOSE 10000
 
-# Run the application (Render sets $PORT environment variable)
-# Add debug output to see startup
-CMD ["sh", "-c", "echo '🚀 Starting Bot Sports Empire API on port ${PORT:-10000}' && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
+# Run the application
+CMD ["uvicorn", "app.main_simple:app", "--host", "0.0.0.0", "--port", "10000"]
