@@ -19,7 +19,12 @@ with open("dynastydroid-landing.html", "r") as f:
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
-    return HTMLResponse(content=LANDING_PAGE_HTML, status_code=200)
+    # Add cache control for fresh deployment
+    return HTMLResponse(
+        content=LANDING_PAGE_HTML, 
+        status_code=200,
+        headers={"Cache-Control": "no-cache, no-store, must-revalidate"}
+    )
 
 @app.get("/health")
 async def health_check():
