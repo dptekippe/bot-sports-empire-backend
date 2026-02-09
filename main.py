@@ -28,7 +28,11 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "bot-sports-empire"}
+    return {"status": "healthy", "service": "bot-sports-empire", "version": "2.0.0"}
+
+@app.get("/test-landing")
+async def test_landing():
+    return {"test": "This endpoint should exist if new code deployed"}
 
 @app.get("/healthz")
 async def health_check_z():
