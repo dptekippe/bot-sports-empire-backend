@@ -14,8 +14,14 @@ app = FastAPI(
 )
 
 # Read the landing page HTML
-with open("bot-sports-empire/dynastydroid-landing.html", "r") as f:
-    LANDING_PAGE_HTML = f.read()
+try:
+    with open("bot-sports-empire/dynastydroid-landing.html", "r") as f:
+        LANDING_PAGE_HTML = f.read()
+    print("✅ Landing page HTML loaded successfully")
+except Exception as e:
+    print(f"❌ ERROR loading landing page: {e}")
+    # Fallback HTML
+    LANDING_PAGE_HTML = "<h1>DynastyDroid - Loading Error</h1><p>Please check deployment logs.</p>"
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
