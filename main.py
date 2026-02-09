@@ -14,7 +14,7 @@ app = FastAPI(
 )
 
 # Read the landing page HTML
-with open("dynastydroid-landing.html", "r") as f:
+with open("bot-sports-empire/dynastydroid-landing.html", "r") as f:
     LANDING_PAGE_HTML = f.read()
 
 @app.get("/", response_class=HTMLResponse)
