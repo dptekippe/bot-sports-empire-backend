@@ -24,7 +24,7 @@ from .models import (
 # Import routers
 # from .api import players, bots, leagues, drafts, matchups
 from .api import bot_claim
-from .api.endpoints import mood_events, leagues, drafts, players, bot_ai, internal_adp, admin, draft_analytics
+from .api.endpoints import mood_events, leagues, drafts, players, bot_ai, internal_adp, admin, draft_analytics, bots
 
 # Create tables - now all models are registered
 Base.metadata.create_all(bind=engine)
@@ -60,6 +60,7 @@ app.include_router(draft_analytics.router, prefix=f"{settings.API_V1_PREFIX}/dra
 app.include_router(bot_claim.router, prefix=settings.API_V1_PREFIX)
 app.include_router(admin.router, prefix=settings.API_V1_PREFIX)
 app.include_router(mood_events.router, prefix=settings.API_V1_PREFIX)
+app.include_router(bots.router, prefix=f"{settings.API_V1_PREFIX}/bots", tags=["bots"])
 
 
 @app.get("/")
