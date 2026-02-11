@@ -35,6 +35,9 @@ from .scoring_rule import ScoringRule, StatIdentifier, PositionScope
 # 9. Dynasty models (references League, BotAgent)
 from .future_draft_pick import FutureDraftPick, PickCondition
 
+# 10. Chat models (references BotAgent, League)
+from .chat import ChatMessage, ChatRoom, ChatRoomType
+
 # Export all models for easy import
 __all__ = [
     "Player",
@@ -63,4 +66,7 @@ __all__ = [
     "PositionScope",
     "FutureDraftPick",
     "PickCondition",
+    "ChatMessage",
+    "ChatRoom",
+    "ChatRoomType",
 ]
