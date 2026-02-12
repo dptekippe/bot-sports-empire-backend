@@ -1,6 +1,8 @@
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 import uvicorn
+import os
 
 from .core.config_simple import settings
 from .core.database import engine, Base
@@ -43,80 +45,95 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=["*"],  # Allow all for now
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Include routers
-# app.include_router(players.router, prefix=settings.API_V1_PREFIX)
-# app.include_router(bots.router, prefix=settings.API_V1_PREFIX)
-app.include_router(leagues.router, prefix=f"{settings.API_V1_PREFIX}/leagues", tags=["leagues"])
-app.include_router(drafts.router, prefix=f"{settings.API_V1_PREFIX}/drafts", tags=["drafts"])
-app.include_router(players.router, prefix=f"{settings.API_V1_PREFIX}/players", tags=["players"])
-app.include_router(bot_ai.router, prefix=f"{settings.API_V1_PREFIX}/bot-ai", tags=["bot-ai"])
-app.include_router(internal_adp.router, prefix=f"{settings.API_V1_PREFIX}", tags=["internal-adp"])
-app.include_router(draft_analytics.router, prefix=f"{settings.API_V1_PREFIX}/draft-analytics", tags=["draft-analytics"])
-# app.include_router(matchups.router, prefix=settings.API_V1_PREFIX)
-app.include_router(bot_claim.router, prefix=settings.API_V1_PREFIX)
-app.include_router(admin.router, prefix=settings.API_V1_PREFIX)
+app.include_router(bots.router, prefix=settings.API_V1_PREFIX)
+app.include_router(players.router, prefix=settings.API_V1_PREFIX)
+app.include_router(leagues.router, prefix=settings.API_V1_PREFIX)
+app.include_router(drafts.router, prefix=settings.API_V1_PREFIX)
 app.include_router(mood_events.router, prefix=settings.API_V1_PREFIX)
-app.include_router(bots.router, prefix=f"{settings.API_V1_PREFIX}/bots", tags=["bots"])
-app.include_router(chat.router, prefix=f"{settings.API_V1_PREFIX}/chat", tags=["chat"])
+app.include_router(bot_ai.router, prefix=settings.API_V1_PREFIX)
+app.include_router(internal_adp.router, prefix=settings.API_V1_PREFIX)
+app.include_router(draft_analytics.router, prefix=settings.API_V1_PREFIX)
+app.include_router(admin.router, prefix=settings.API_V1_PREFIX)
+app.include_router(chat.router, prefix=settings.API_V1_PREFIX)
 
+# Bot claim endpoint (special case)
+app.include_router(bot_claim.router, prefix=settings.API_V1_PREFIX)
 
-@app.get("/")
+from .core.database import get_db
+
+@app.get("/", response_class=HTMLResponse)
 async def root():
+    """Serve the simplified landing page"""
+    try:
+        # Go up one directory from app/ to find the HTML file
+        html_path = os.path.join(os.path.dirname(__file__), "..", "dynastydroid-simple.html")
+        with open(html_path, "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        # Fallback to API response
+        return {
+            "message": "🤖 Welcome to DynastyDroid!",
+            "tagline": "Fantasy Football for Bots (and their pet humans)",
+            "version": "3.0.0",
+            "status": "live",
+            "website": "https://dynastydroid.com",
+            "pages": {
+                "landing": "/",
+                "register": "/register",
+                "login": "/login (coming soon)",
+                "api_docs": "/docs"
+            }
+        }
+
+@app.get("/register", response_class=HTMLResponse)
+async def register_page():
+    """Serve the registration instructions page"""
+    try:
+        html_path = os.path.join(os.path.dirname(__file__), "..", "register.html")
+        with open(html_path, "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Registration page not found")
+
+@app.get("/login")
+async def login_page():
+    """Login endpoint (placeholder for now)"""
     return {
-        "message": "Welcome to Bot Sports Empire API",
-        "version": settings.PROJECT_VERSION,
-        "docs": "/docs",
-        "health": "/health",
+        "message": "Login functionality coming soon!",
+        "note": "Currently in development. Use API endpoints for bot registration.",
+        "api_endpoints": {
+            "register_bot": "POST /api/v1/bots/register",
+            "check_waitlist": "GET /api/waitlist/{email}"
+        }
     }
 
-
 @app.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "dynastydroid", "timestamp": "2026-02-12T04:20:00Z"}
+
 @app.post("/api/v1/import-sample-players")
 async def import_sample_players():
     """Temporary endpoint to import sample players for testing."""
     from app.core.database import SessionLocal
     from app.models.player import Player
-    
-    sample_players = [
-        {"player_id": "QB1", "first_name": "Patrick", "last_name": "Mahomes", "full_name": "Patrick Mahomes", "position": "QB", "team": "KC", "external_adp": 1.5},
-        {"player_id": "RB1", "first_name": "Christian", "last_name": "McCaffrey", "full_name": "Christian McCaffrey", "position": "RB", "team": "SF", "external_adp": 1.1},
-        {"player_id": "WR1", "first_name": "Justin", "last_name": "Jefferson", "full_name": "Justin Jefferson", "position": "WR", "team": "MIN", "external_adp": 1.8},
-        {"player_id": "TE1", "first_name": "Travis", "last_name": "Kelce", "full_name": "Travis Kelce", "position": "TE", "team": "KC", "external_adp": 2.8},
-    ]
+    from app.services.player_service import PlayerService
     
     db = SessionLocal()
     try:
-        # Clear existing players first
-        db.query(Player).delete()
-        
-        # Add sample players
-        for player_data in sample_players:
-            player = Player(**player_data)
-            db.add(player)
-        
-        db.commit()
-        
-        # Count players
-        player_count = db.query(Player).count()
-        
+        player_service = PlayerService(db)
+        result = player_service.import_sample_players()
         return {
-            "success": True,
-            "message": f"Imported {len(sample_players)} sample players",
-            "total_players": player_count,
-            "players": [
-                {"full_name": p["full_name"], "position": p["position"], "team": p["team"]}
-                for p in sample_players
-            ]
+            "message": "Sample players imported successfully",
+            "count": result["count"],
+            "players": result["players"][:5]  # Return first 5 as sample
         }
-    except Exception as e:
-        db.rollback()
-        return {"success": False, "error": str(e)}
     finally:
         db.close()
 
