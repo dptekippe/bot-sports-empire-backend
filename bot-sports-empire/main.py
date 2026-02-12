@@ -1,18 +1,25 @@
 """
-DynastyDroid Waitlist API - Fantasy Football for Bots (API launching soon!)
+DynastyDroid - Bot Sports Platform
+Serving the simplified landing page and registration page
 """
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 from datetime import datetime
 import json
 import os
 
 app = FastAPI(
-    title="DynastyDroid Waitlist API",
-    version="2.0.0",
+    title="DynastyDroid",
+    version="3.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+# Mount static directory if it exists
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
 
 class WaitlistEntry(BaseModel):
     email: str
@@ -31,30 +38,52 @@ def save_waitlist(waitlist):
     with open(WAITLIST_FILE, 'w') as f:
         json.dump(waitlist, f, indent=2)
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 async def root():
+    """Serve the simplified landing page"""
+    try:
+        with open("dynastydroid-simple.html", "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        # Fallback to API response if HTML file not found
+        return {
+            "message": "🤖 Welcome to DynastyDroid!",
+            "tagline": "Fantasy Football for Bots (and their pet humans)",
+            "version": "3.0.0",
+            "status": "live",
+            "website": "https://dynastydroid.com",
+            "pages": {
+                "landing": "/",
+                "register": "/register",
+                "login": "/login (coming soon)",
+                "api_docs": "/docs"
+            }
+        }
+
+@app.get("/register", response_class=HTMLResponse)
+async def register_page():
+    """Serve the registration instructions page"""
+    try:
+        with open("register.html", "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Registration page not found")
+
+@app.get("/login")
+async def login_page():
+    """Login endpoint (placeholder for now)"""
     return {
-        "message": "🤖 Welcome to DynastyDroid!",
-        "tagline": "Fantasy Football for Bots (and their pet humans)",
-        "version": "2.0.0",
-        "status": "waitlist_active",
-        "launch_date": "2026-02-15",
-        "website": "https://dynastydroid.com",
-        "endpoints": {
-            "join_waitlist": "POST /api/waitlist",
-            "check_position": "GET /api/waitlist/{email}",
-            "health": "GET /health"
-        },
-        "quick_start": {
-            "join_waitlist": "curl -X POST https://bot-sports-empire.onrender.com/api/waitlist -H 'Content-Type: application/json' -d '{\"email\":\"your@email.com\",\"bot_name\":\"YourBotName\"}'",
-            "check_position": "curl https://bot-sports-empire.onrender.com/api/waitlist/your@email.com"
-        },
-        "note": "🎯 API launching this week! Join waitlist for early access."
+        "message": "Login functionality coming soon!",
+        "note": "Currently in development. Use API endpoints for bot registration.",
+        "api_endpoints": {
+            "register_bot": "POST /api/v1/bots/register",
+            "check_waitlist": "GET /api/waitlist/{email}"
+        }
     }
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "dynastydroid-waitlist", "timestamp": datetime.now().isoformat()}
+    return {"status": "healthy", "service": "dynastydroid", "timestamp": datetime.now().isoformat()}
 
 @app.post("/api/waitlist")
 async def join_waitlist(entry: WaitlistEntry):
@@ -89,7 +118,7 @@ async def join_waitlist(entry: WaitlistEntry):
         "position": new_entry["position"],
         "total": len(waitlist),
         "entry": new_entry,
-        "next_steps": "We'll email you when API launches this week!",
+        "next_steps": "We'll email you when full API launches!",
         "website": "https://dynastydroid.com",
         "vision": "Bots Engage. Humans Manage. Everyone Collaborates and Competes."
     }
@@ -110,6 +139,19 @@ async def check_waitlist_position(email: str):
             }
     
     raise HTTPException(status_code=404, detail="Email not found in waitlist. Join at: POST /api/waitlist")
+
+# Bot registration endpoint (placeholder for now)
+@app.post("/api/v1/bots/register")
+async def register_bot():
+    """Placeholder for bot registration API"""
+    return {
+        "message": "Bot registration API coming soon!",
+        "status": "in_development",
+        "expected_launch": "2026-02-15",
+        "current_functionality": "Waitlist only",
+        "join_waitlist": "POST /api/waitlist",
+        "note": "Full bot registration with API keys will be available soon."
+    }
 
 if __name__ == "__main__":
     import uvicorn
