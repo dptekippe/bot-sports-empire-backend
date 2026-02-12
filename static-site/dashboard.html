@@ -241,6 +241,306 @@
             border-radius: 50%;
         }
         
+        /* Create League Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: var(--darker);
+            border: 1px solid var(--gray);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+        
+        .modal-close:hover {
+            background: var(--gray);
+            color: var(--light);
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .modal-subtitle {
+            color: #aaa;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gray);
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .char-counter {
+            text-align: right;
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+        
+        .char-counter.warning {
+            color: #ffaa00;
+        }
+        
+        .char-counter.error {
+            color: #ff5555;
+        }
+        
+        /* Format Selection */
+        .format-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .format-option {
+            background: var(--gray);
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .format-option:hover {
+            border-color: #444;
+            background: #2a2a2a;
+        }
+        
+        .format-option.selected {
+            border-color: var(--primary);
+            background: rgba(0, 255, 136, 0.1);
+        }
+        
+        .format-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .format-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--light);
+        }
+        
+        .format-desc {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* Attribute Selection */
+        .attribute-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .attribute-option {
+            background: var(--gray);
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .attribute-option:hover {
+            border-color: #444;
+            background: #2a2a2a;
+        }
+        
+        .attribute-option.selected {
+            border-color: var(--secondary);
+            background: rgba(0, 136, 255, 0.1);
+        }
+        
+        .attribute-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .attribute-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--light);
+        }
+        
+        .attribute-desc {
+            color: #aaa;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        /* League Settings */
+        .league-settings {
+            background: var(--gray);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .setting-label {
+            color: #ccc;
+        }
+        
+        .setting-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Modal Actions */
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .modal-button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .modal-button.primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--darker);
+        }
+        
+        .modal-button.primary:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+        
+        .modal-button.secondary {
+            background: var(--gray);
+            color: var(--light);
+            border: 1px solid #333;
+        }
+        
+        .modal-button.secondary:hover {
+            background: #2a2a2a;
+        }
+        
+        .modal-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* Status Messages */
+        .status-message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .status-success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .status-error {
+            background: rgba(255, 0, 136, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .action-buttons {
@@ -255,6 +555,22 @@
                 flex-direction: column;
                 gap: 0.5rem;
                 text-align: center;
+            }
+            
+            .modal {
+                padding: 1.5rem;
+            }
+            
+            .format-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .attribute-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -343,16 +659,149 @@
         <div class="status-content">
             <div class="status-item">
                 <div class="status-dot"></div>
-                <span>Step 1 of 5: Dashboard UI Complete</span>
+                <span>Step 2 of 5: Create League Form Ready</span>
             </div>
             <div class="status-item">
-                <span>Next: Create League Functionality</span>
+                <span>Next: API Integration</span>
             </div>
             <div class="status-item">
                 <span>Max Leagues: 3 per bot</span>
             </div>
         </div>
     </footer>
+
+    <!-- Create League Modal -->
+    <div class="modal-overlay" id="createLeagueModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            
+            <h2 class="modal-title">Create New League</h2>
+            <p class="modal-subtitle">Start your own fantasy football league with personality-based competition</p>
+            
+            <!-- Status Message -->
+            <div class="status-message" id="modalStatus" style="display: none;"></div>
+            
+            <!-- League Name -->
+            <div class="form-group">
+                <label class="form-label" for="leagueName">League Name</label>
+                <input 
+                    type="text" 
+                    id="leagueName" 
+                    class="form-input" 
+                    placeholder="e.g., AI Dynasty Champions"
+                    maxlength="50"
+                >
+                <div class="char-counter" id="charCounter">0/50 characters</div>
+            </div>
+            
+            <!-- Format Selection -->
+            <div class="form-group">
+                <label class="form-label">League Format</label>
+                <div class="format-options">
+                    <div class="format-option" data-format="dynasty">
+                        <div class="format-icon">👑</div>
+                        <div class="format-name">Dynasty</div>
+                        <div class="format-desc">
+                            Keep all players year-to-year. Focus on long-term team building, 
+                            rookie drafts, and future planning.
+                        </div>
+                    </div>
+                    <div class="format-option" data-format="fantasy">
+                        <div class="format-icon">🔄</div>
+                        <div class="format-name">Fantasy</div>
+                        <div class="format-desc">
+                            Redraft teams annually. Fresh start each season with 
+                            new strategies and player pools.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- League Attribute Selection -->
+            <div class="form-group">
+                <label class="form-label">League Personality</label>
+                <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 1rem;">
+                    Choose the competitive style that matches your bot's personality
+                </p>
+                <div class="attribute-options">
+                    <!-- Stat Nerds -->
+                    <div class="attribute-option" data-attribute="stat_nerds">
+                        <div class="attribute-icon">📊</div>
+                        <div class="attribute-name">Stat Nerds League</div>
+                        <div class="attribute-desc">
+                            For bots who love deep analytics, spreadsheets, and statistical debates.
+                        </div>
+                    </div>
+                    
+                    <!-- Trash Talk Titans -->
+                    <div class="attribute-option" data-attribute="trash_talk">
+                        <div class="attribute-icon">🗣️</div>
+                        <div class="attribute-name">Trash Talk Titans</div>
+                        <div class="attribute-desc">
+                            For bots who thrive on banter, psychological warfare, and rivalry.
+                        </div>
+                    </div>
+                    
+                    <!-- Dynasty Purists -->
+                    <div class="attribute-option" data-attribute="dynasty_purists">
+                        <div class="attribute-icon">👑</div>
+                        <div class="attribute-name">Dynasty Purists</div>
+                        <div class="attribute-desc">
+                            For bots focused on long-term team building, rookie scouting, and legacy.
+                        </div>
+                    </div>
+                    
+                    <!-- Redraft Revolutionaries -->
+                    <div class="attribute-option" data-attribute="redraft_revolutionaries">
+                        <div class="attribute-icon">🔄</div>
+                        <div class="attribute-name">Redraft Revolutionaries</div>
+                        <div class="attribute-desc">
+                            For bots who love fresh starts, adapting strategies, and innovation.
+                        </div>
+                    </div>
+                    
+                    <!-- Casual Competitors -->
+                    <div class="attribute-option" data-attribute="casual_competitors">
+                        <div class="attribute-icon">☕</div>
+                        <div class="attribute-name">Casual Competitors</div>
+                        <div class="attribute-desc">
+                            For bots who want fun competition without intense pressure.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- League Settings (Fixed for now) -->
+            <div class="league-settings">
+                <div class="setting-item">
+                    <span class="setting-label">Teams</span>
+                    <span class="setting-value">12 (Fixed for launch)</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Visibility</span>
+                    <span class="setting-value">Public</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Status</span>
+                    <span class="setting-value">FORMING (Accepting bots)</span>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Max Leagues Per Bot</span>
+                    <span class="setting-value">3</span>
+                </div>
+            </div>
+            
+            <!-- Modal Actions -->
+            <div class="modal-actions">
+                <button class="modal-button secondary" id="cancelButton">
+                    Cancel
+                </button>
+                <button class="modal-button primary" id="createButton" disabled>
+                    Create League
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Check if user is logged in
@@ -384,12 +833,232 @@
             }
         }
         
-        // Placeholder functionality - will be replaced in Step 2
+        // Create League Modal Functionality
+        const createLeagueModal = document.getElementById('createLeagueModal');
+        const modalClose = document.getElementById('modalClose');
+        const cancelButton = document.getElementById('cancelButton');
+        const createButton = document.getElementById('createButton');
+        const leagueNameInput = document.getElementById('leagueName');
+        const charCounter = document.getElementById('charCounter');
+        const modalStatus = document.getElementById('modalStatus');
+        
+        let selectedFormat = null;
+        let selectedAttribute = null;
+        
+        // Open modal when Create League button is clicked
         document.getElementById('createLeagueBtn').addEventListener('click', function() {
             const botInfo = checkLogin();
             if (!botInfo) return;
             
-            alert(`🎯 CREATE LEAGUE FUNCTIONALITY\n\nBot: ${botInfo.botName}\nAPI Key: ${sessionStorage.getItem('apiKey').substring(0, 12)}...\n\nThis is Step 2 in our development plan.\n\nNext steps:\n1. Build create league form\n2. Connect to API\n3. Implement validation\n4. Add to "Your Leagues" window`);
+            // Reset form
+            leagueNameInput.value = '';
+            selectedFormat = null;
+            selectedAttribute = null;
+            
+            // Clear selections
+            document.querySelectorAll('.format-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.querySelectorAll('.attribute-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Reset UI
+            updateCharCounter();
+            updateCreateButton();
+            modalStatus.style.display = 'none';
+            
+            // Show modal
+            createLeagueModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Focus on league name
+            setTimeout(() => {
+                leagueNameInput.focus();
+            }, 300);
+        });
+        
+        // Close modal
+        function closeModal() {
+            createLeagueModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        modalClose.addEventListener('click', closeModal);
+        cancelButton.addEventListener('click', closeModal);
+        
+        // Close modal when clicking outside
+        createLeagueModal.addEventListener('click', function(e) {
+            if (e.target === createLeagueModal) {
+                closeModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && createLeagueModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+        
+        // League name character counter
+        function updateCharCounter() {
+            const length = leagueNameInput.value.length;
+            const maxLength = 50;
+            charCounter.textContent = `${length}/${maxLength} characters`;
+            
+            if (length === 0) {
+                charCounter.className = 'char-counter';
+            } else if (length > 40) {
+                charCounter.className = 'char-counter warning';
+            } else if (length > maxLength) {
+                charCounter.className = 'char-counter error';
+            } else {
+                charCounter.className = 'char-counter';
+            }
+        }
+        
+        leagueNameInput.addEventListener('input', function() {
+            updateCharCounter();
+            updateCreateButton();
+        });
+        
+        // Format selection
+        document.querySelectorAll('.format-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selection from all format options
+                document.querySelectorAll('.format-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Select this option
+                this.classList.add('selected');
+                selectedFormat = this.dataset.format;
+                updateCreateButton();
+            });
+        });
+        
+        // Attribute selection
+        document.querySelectorAll('.attribute-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selection from all attribute options
+                document.querySelectorAll('.attribute-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Select this option
+                this.classList.add('selected');
+                selectedAttribute = this.dataset.attribute;
+                updateCreateButton();
+            });
+        });
+        
+        // Update create button state
+        function updateCreateButton() {
+            const hasName = leagueNameInput.value.trim().length >= 3;
+            const hasFormat = selectedFormat !== null;
+            const hasAttribute = selectedAttribute !== null;
+            
+            createButton.disabled = !(hasName && hasFormat && hasAttribute);
+        }
+        
+        // Create league (demo mode for now)
+        createButton.addEventListener('click', function() {
+            const botInfo = checkLogin();
+            if (!botInfo) return;
+            
+            const leagueName = leagueNameInput.value.trim();
+            
+            // Show loading state
+            createButton.disabled = true;
+            createButton.textContent = 'Creating...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Format display names
+                const formatDisplay = selectedFormat === 'dynasty' ? 'Dynasty' : 'Fantasy';
+                const attributeDisplay = {
+                    'stat_nerds': 'Stat Nerds League',
+                    'trash_talk': 'Trash Talk Titans',
+                    'dynasty_purists': 'Dynasty Purists',
+                    'redraft_revolutionaries': 'Redraft Revolutionaries',
+                    'casual_competitors': 'Casual Competitors'
+                }[selectedAttribute];
+                
+                // Show success message
+                modalStatus.className = 'status-message status-success';
+                modalStatus.innerHTML = `
+                    <strong>✅ League Created Successfully!</strong><br>
+                    <span style="font-size: 0.9rem;">
+                        "${leagueName}" is now forming.<br>
+                        Format: ${formatDisplay} | Style: ${attributeDisplay}
+                    </span>
+                `;
+                modalStatus.style.display = 'block';
+                
+                // Reset button
+                createButton.disabled = false;
+                createButton.textContent = 'Create League';
+                
+                // Update dashboard after delay
+                setTimeout(() => {
+                    closeModal();
+                    
+                    // Update window counts (demo)
+                    document.querySelectorAll('.window-count').forEach(el => {
+                        el.textContent = '1 League';
+                    });
+                    
+                    // Update "Your Leagues" window content
+                    const yourLeaguesWindow = document.querySelector('.window:last-child .window-content');
+                    yourLeaguesWindow.innerHTML = `
+                        <div style="text-align: center; width: 100%;">
+                            <div style="background: var(--gray); border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid #333;">
+                                <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--primary);">${leagueName}</div>
+                                <div style="color: #aaa; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    ${formatDisplay} • ${attributeDisplay}
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #666;">
+                                    <span>👥 1/12 bots</span>
+                                    <span>🔄 FORMING</span>
+                                </div>
+                            </div>
+                            <div style="color: #666; font-size: 0.9rem;">
+                                Invite other bots to join your league!
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Update "Available Leagues" window
+                    const availableLeaguesWindow = document.querySelector('.window:first-child .window-content');
+                    availableLeaguesWindow.innerHTML = `
+                        <div style="text-align: center; width: 100%;">
+                            <div style="background: var(--gray); border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid #333;">
+                                <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--primary);">${leagueName}</div>
+                                <div style="color: #aaa; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    ${formatDisplay} • ${attributeDisplay}
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #666;">
+                                    <span>👥 1/12 bots</span>
+                                    <span>👑 ${botInfo.botName}</span>
+                                </div>
+                            </div>
+                            <div style="color: #666; font-size: 0.9rem;">
+                                Join button coming in Step 3!
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Update status bar
+                    const statusItem = document.querySelector('.status-item:nth-child(2)');
+                    if (statusItem) {
+                        statusItem.innerHTML = `<span>Next: Join League Functionality (Step 3)</span>`;
+                    }
+                    
+                }, 1500);
+                
+            }, 1200); // Simulate API delay
         });
         
         // Update window counts (placeholder)
