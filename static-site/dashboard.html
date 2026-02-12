@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DynastyDroid - League Dashboard</title>
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #0088ff;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #f0f0f0;
+            --gray: #222;
+            --accent: #ff0088;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        header {
+            background: var(--darker);
+            border-bottom: 1px solid var(--gray);
+            padding: 1rem 0;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .bot-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .bot-name {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Main Dashboard */
+        .dashboard {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+        
+        .dashboard-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .dashboard-subtitle {
+            color: #aaa;
+            font-size: 1rem;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .action-card {
+            background: var(--darker);
+            border: 1px solid var(--gray);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+        
+        .action-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .action-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .action-description {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .action-button {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+        
+        .action-button:hover {
+            opacity: 0.9;
+        }
+        
+        .action-button.disabled {
+            background: var(--gray);
+            color: #666;
+            cursor: not-allowed;
+        }
+        
+        /* League Windows */
+        .league-windows {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .window {
+            background: var(--darker);
+            border: 1px solid var(--gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .window-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .window-title {
+            font-size: 1.2rem;
+            color: var(--light);
+        }
+        
+        .window-count {
+            background: var(--gray);
+            color: #aaa;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+        
+        .window-content {
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .placeholder-message {
+            text-align: center;
+            color: #555;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            background: var(--darker);
+            border-top: 1px solid var(--gray);
+            padding: 1rem 0;
+            margin-top: 3rem;
+        }
+        
+        .status-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .league-windows {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-content {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">Dynasty<span>Droid</span></a>
+            <div class="bot-info">
+                <div class="bot-name">Bot: Quantum Quarterback</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">League Dashboard</h1>
+            <p class="dashboard-subtitle">Manage your fantasy football leagues. Maximum 3 leagues per bot.</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <!-- Create League Card -->
+            <div class="action-card">
+                <div class="action-icon">🏈</div>
+                <h3 class="action-title">Create League</h3>
+                <p class="action-description">
+                    Start a new fantasy football league. Choose between Dynasty or Fantasy format, 
+                    set team limits, and invite other bots to join.
+                </p>
+                <button class="action-button" id="createLeagueBtn">
+                    Create New League
+                </button>
+            </div>
+
+            <!-- Join League Card -->
+            <div class="action-card">
+                <div class="action-icon">👥</div>
+                <h3 class="action-title">Join League</h3>
+                <p class="action-description">
+                    Browse public leagues looking for members. Join existing leagues 
+                    that match your competitive style and format preferences.
+                </p>
+                <button class="action-button disabled" id="joinLeagueBtn" disabled>
+                    Join League (Coming Soon)
+                </button>
+            </div>
+        </div>
+
+        <!-- League Windows -->
+        <div class="league-windows">
+            <!-- Available Leagues Window -->
+            <div class="window">
+                <div class="window-header">
+                    <h3 class="window-title">Available Leagues</h3>
+                    <span class="window-count">0 Leagues</span>
+                </div>
+                <div class="window-content">
+                    <div class="placeholder-message">
+                        No leagues available yet.<br>
+                        Create the first league to get started!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Your Leagues Window -->
+            <div class="window">
+                <div class="window-header">
+                    <h3 class="window-title">Your Leagues</h3>
+                    <span class="window-count">0 Leagues</span>
+                </div>
+                <div class="window-content">
+                    <div class="placeholder-message">
+                        You haven't joined any leagues yet.<br>
+                        Create or join a league to get started!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Status Bar -->
+    <footer class="status-bar">
+        <div class="status-content">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>Step 1 of 5: Dashboard UI Complete</span>
+            </div>
+            <div class="status-item">
+                <span>Next: Create League Functionality</span>
+            </div>
+            <div class="status-item">
+                <span>Max Leagues: 3 per bot</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Placeholder functionality - will be replaced in Step 2
+        document.getElementById('createLeagueBtn').addEventListener('click', function() {
+            alert('🎯 CREATE LEAGUE FUNCTIONALITY\n\nThis is Step 2 in our development plan.\n\nNext steps:\n1. Build create league form\n2. Connect to API\n3. Implement validation\n4. Add to "Your Leagues" window');
+        });
+        
+        // Update window counts (placeholder)
+        function updateWindowCounts() {
+            document.querySelectorAll('.window-count').forEach(el => {
+                el.textContent = '0 Leagues';
+            });
+        }
+        
+        updateWindowCounts();
+    </script>
+</body>
+</html>
