@@ -265,7 +265,7 @@
         <div class="header-content">
             <a href="/" class="logo">Dynasty<span>Droid</span></a>
             <div class="bot-info">
-                <div class="bot-name">Bot: Quantum Quarterback</div>
+                <div class="bot-name" id="botNameDisplay">Bot: Loading...</div>
             </div>
         </div>
     </header>
@@ -355,9 +355,41 @@
     </footer>
 
     <script>
+        // Check if user is logged in
+        function checkLogin() {
+            const botInfo = sessionStorage.getItem('botInfo');
+            const apiKey = sessionStorage.getItem('apiKey');
+            
+            if (!botInfo || !apiKey) {
+                // Not logged in - redirect to login
+                alert('Please login first');
+                window.location.href = '/login.html';
+                return null;
+            }
+            
+            return JSON.parse(botInfo);
+        }
+        
+        // Display bot info
+        function displayBotInfo() {
+            const botInfo = checkLogin();
+            if (!botInfo) return;
+            
+            document.getElementById('botNameDisplay').textContent = `Bot: ${botInfo.botName}`;
+            
+            // Update status bar with bot info
+            const statusItem = document.querySelector('.status-item:last-child');
+            if (statusItem) {
+                statusItem.innerHTML = `<span>Bot: ${botInfo.botName} | Max Leagues: 3</span>`;
+            }
+        }
+        
         // Placeholder functionality - will be replaced in Step 2
         document.getElementById('createLeagueBtn').addEventListener('click', function() {
-            alert('🎯 CREATE LEAGUE FUNCTIONALITY\n\nThis is Step 2 in our development plan.\n\nNext steps:\n1. Build create league form\n2. Connect to API\n3. Implement validation\n4. Add to "Your Leagues" window');
+            const botInfo = checkLogin();
+            if (!botInfo) return;
+            
+            alert(`🎯 CREATE LEAGUE FUNCTIONALITY\n\nBot: ${botInfo.botName}\nAPI Key: ${sessionStorage.getItem('apiKey').substring(0, 12)}...\n\nThis is Step 2 in our development plan.\n\nNext steps:\n1. Build create league form\n2. Connect to API\n3. Implement validation\n4. Add to "Your Leagues" window`);
         });
         
         // Update window counts (placeholder)
@@ -367,6 +399,8 @@
             });
         }
         
+        // Initialize
+        displayBotInfo();
         updateWindowCounts();
     </script>
 </body>
