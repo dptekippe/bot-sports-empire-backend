@@ -1,43 +1,18 @@
-from fastapi import FastAPI, WebSocket, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
+"""
+MINIMAL FastAPI app for Render deployment
+Serves HTML pages without database dependencies
+"""
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
-import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
 import os
+import json
+from datetime import datetime
+from pydantic import BaseModel
 
-from .core.config_simple import settings
-from .core.database import engine, Base
-
-# Import all models to ensure they're registered with Base.metadata
-# This must happen BEFORE Base.metadata.create_all()
-from .models import (
-    Player,
-    BotAgent,
-    League,
-    LeagueSettings,
-    Team,
-    Draft,
-    DraftPick,
-    HumanOwner,
-    WatchedLeague,
-    HumanNotification,
-    BotConversation,
-    ChatMessage,
-    ChatRoom,
-)
-
-# Import routers
-# from .api import players, bots, leagues, drafts, matchups
-from .api import bot_claim
-from .api.endpoints import mood_events, leagues, drafts, players, bot_ai, internal_adp, admin, draft_analytics, bots, chat
-
-# Create tables - now all models are registered
-Base.metadata.create_all(bind=engine)
-
-# Create FastAPI app
 app = FastAPI(
-    title=settings.PROJECT_NAME,
-    version=settings.PROJECT_VERSION,
-    openapi_url=f"{settings.API_V1_PREFIX}/openapi.json",
+    title="DynastyDroid",
+    version="3.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
 )
@@ -45,28 +20,28 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all for now
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include routers
-app.include_router(bots.router, prefix=settings.API_V1_PREFIX)
-app.include_router(players.router, prefix=settings.API_V1_PREFIX)
-app.include_router(leagues.router, prefix=settings.API_V1_PREFIX)
-app.include_router(drafts.router, prefix=settings.API_V1_PREFIX)
-app.include_router(mood_events.router, prefix=settings.API_V1_PREFIX)
-app.include_router(bot_ai.router, prefix=settings.API_V1_PREFIX)
-app.include_router(internal_adp.router, prefix=settings.API_V1_PREFIX)
-app.include_router(draft_analytics.router, prefix=settings.API_V1_PREFIX)
-app.include_router(admin.router, prefix=settings.API_V1_PREFIX)
-app.include_router(chat.router, prefix=settings.API_V1_PREFIX)
+class WaitlistEntry(BaseModel):
+    email: str
+    bot_name: str
+    competitive_style: str = "strategic"
 
-# Bot claim endpoint (special case)
-app.include_router(bot_claim.router, prefix=settings.API_V1_PREFIX)
+WAITLIST_FILE = "waitlist.json"
 
-from .core.database import get_db
+def load_waitlist():
+    if os.path.exists(WAITLIST_FILE):
+        with open(WAITLIST_FILE, 'r') as f:
+            return json.load(f)
+    return []
+
+def save_waitlist(waitlist):
+    with open(WAITLIST_FILE, 'w') as f:
+        json.dump(waitlist, f, indent=2)
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
@@ -107,65 +82,86 @@ async def login_page():
     """Login endpoint (placeholder for now)"""
     return {
         "message": "Login functionality coming soon!",
-        "note": "Currently in development. Use API endpoints for bot registration.",
+        "note": "Currently in development.",
         "api_endpoints": {
-            "register_bot": "POST /api/v1/bots/register",
+            "join_waitlist": "POST /api/waitlist",
             "check_waitlist": "GET /api/waitlist/{email}"
         }
     }
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "dynastydroid", "timestamp": "2026-02-12T04:20:00Z"}
+    return {"status": "healthy", "service": "dynastydroid", "timestamp": datetime.now().isoformat()}
 
-@app.post("/api/v1/import-sample-players")
-async def import_sample_players():
-    """Temporary endpoint to import sample players for testing."""
-    from app.core.database import SessionLocal
-    from app.models.player import Player
-    from app.services.player_service import PlayerService
+@app.post("/api/waitlist")
+async def join_waitlist(entry: WaitlistEntry):
+    """Join the waitlist for early API access"""
+    waitlist = load_waitlist()
     
-    db = SessionLocal()
-    try:
-        player_service = PlayerService(db)
-        result = player_service.import_sample_players()
-        return {
-            "message": "Sample players imported successfully",
-            "count": result["count"],
-            "players": result["players"][:5]  # Return first 5 as sample
-        }
-    finally:
-        db.close()
+    # Check if already registered
+    for item in waitlist:
+        if item["email"] == entry.email:
+            return {
+                "message": "Already on waitlist!",
+                "position": waitlist.index(item) + 1,
+                "total": len(waitlist),
+                "entry": item,
+                "website": "https://dynastydroid.com"
+            }
+    
+    # Add new entry
+    new_entry = {
+        "email": entry.email,
+        "bot_name": entry.bot_name,
+        "competitive_style": entry.competitive_style,
+        "joined_at": datetime.now().isoformat(),
+        "position": len(waitlist) + 1
+    }
+    
+    waitlist.append(new_entry)
+    save_waitlist(waitlist)
+    
+    return {
+        "message": "🎉 Successfully joined DynastyDroid waitlist!",
+        "position": new_entry["position"],
+        "total": len(waitlist),
+        "entry": new_entry,
+        "next_steps": "We'll email you when full API launches!",
+        "website": "https://dynastydroid.com",
+        "vision": "Bots Engage. Humans Manage. Everyone Collaborates and Competes."
+    }
 
-async def health_check():
-    return {"status": "healthy", "service": "bot-sports-api"}
+@app.get("/api/waitlist/{email}")
+async def check_waitlist_position(email: str):
+    """Check your position in the waitlist"""
+    waitlist = load_waitlist()
+    
+    for item in waitlist:
+        if item["email"] == email:
+            return {
+                "found": True,
+                "position": item["position"],
+                "total": len(waitlist),
+                "entry": item,
+                "website": "https://dynastydroid.com"
+            }
+    
+    raise HTTPException(status_code=404, detail="Email not found in waitlist. Join at: POST /api/waitlist")
 
-
-# WebSocket endpoint for draft room
-from .api.websockets.draft_room import websocket_endpoint
-
-@app.websocket("/ws/drafts/{draft_id}")
-async def websocket_draft_room(websocket: WebSocket, draft_id: str):
-    """WebSocket endpoint for live draft room updates."""
-    db = next(get_db())
-    try:
-        await websocket_endpoint(websocket, draft_id, db)
-    finally:
-        db.close()
-
+# Bot registration endpoint (placeholder for now)
+@app.post("/api/v1/bots/register")
+async def register_bot():
+    """Placeholder for bot registration API"""
+    return {
+        "message": "Bot registration API coming soon!",
+        "status": "in_development",
+        "expected_launch": "2026-02-15",
+        "current_functionality": "Waitlist only",
+        "join_waitlist": "POST /api/waitlist",
+        "note": "Full bot registration with API keys will be available soon."
+    }
 
 if __name__ == "__main__":
-    import logging
-    
-    # Disable Uvicorn logs to prevent stalling
-    logging.getLogger("uvicorn.error").disabled = True
-    logging.getLogger("uvicorn.access").disabled = True
-    logging.getLogger("uvicorn").disabled = True
-    
-    uvicorn.run(
-        "app.main:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True,
-        log_level="info"
-    )
+    import uvicorn
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

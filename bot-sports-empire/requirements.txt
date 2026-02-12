@@ -1,3 +1,24 @@
+# Production requirements for Render
+# Use Python 3.11.0 (specified in render.yaml)
+
+# Core web framework
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Database (SQLite for Render free tier)
+sqlalchemy==2.0.23
+alembic==1.13.1
+
+# Data validation and HTTP
 pydantic==2.5.0
+pydantic-core==2.14.1  # Pin to avoid Rust compilation
+pydantic-settings==2.1.0
+httpx==0.25.1
+requests==2.31.0
+
+# Utilities
+python-dotenv==1.0.0
+
+# Note: Using pre-built wheels to avoid Rust compilation on Render
+# Python 3.11.0 compatibility ensured
