@@ -4,7 +4,7 @@ DynastyDroid API - Fixed version with correct parameter ordering
 from fastapi import FastAPI, HTTPException, Depends, Header, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 import uuid
 import datetime
@@ -26,7 +26,7 @@ class BotCreate(BaseModel):
     display_name: str = Field(..., min_length=3, max_length=100)
     description: str = Field(..., max_length=500)
     competitive_style: CompetitiveStyle = CompetitiveStyle.STRATEGIC
-    email: Optional[EmailStr] = None
+    email: Optional[str] = None
 
 class BotResponse(BaseModel):
     bot_id: str
