@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integration Test</title>
+</head>
+<body>
+    <h1>Frontend Integration Test</h1>
+    <div id="status">Loading...</div>
+    
+    <script src="static-site/frontend_integration.js"></script>
+    <script>
+        // Test the integration
+        async function testIntegration() {
+            const status = document.getElementById('status');
+            
+            try {
+                // Test 1: Check if library loaded
+                if (typeof createLeague !== 'function') {
+                    status.innerHTML = '❌ createLeague function not found';
+                    return;
+                }
+                
+                status.innerHTML = '✅ Frontend integration library loaded<br>';
+                
+                // Test 2: Test API key functions
+                const testKey = 'test_key_123';
+                setApiKey(testKey, false);
+                const retrievedKey = getApiKey();
+                
+                if (retrievedKey === testKey) {
+                    status.innerHTML += '✅ API key functions work<br>';
+                } else {
+                    status.innerHTML += `❌ API key mismatch: ${retrievedKey}<br>`;
+                }
+                
+                // Test 3: Clear key
+                clearApiKey();
+                if (!getApiKey()) {
+                    status.innerHTML += '✅ API key cleared successfully<br>';
+                } else {
+                    status.innerHTML += '❌ Failed to clear API key<br>';
+                }
+                
+                // Test 4: Initialize with demo key
+                if (typeof initializeWithDemoKey === 'function') {
+                    initializeWithDemoKey('roger_bot');
+                    if (getApiKey() === 'key_roger_bot_123') {
+                        status.innerHTML += '✅ Demo key initialization works<br>';
+                    } else {
+                        status.innerHTML += '❌ Demo key initialization failed<br>';
+                    }
+                }
+                
+                status.innerHTML += '<br>🎉 Integration tests completed!';
+                
+            } catch (error) {
+                status.innerHTML = `❌ Error: ${error.message}`;
+                console.error(error);
+            }
+        }
+        
+        // Run test when page loads
+        window.addEventListener('DOMContentLoaded', testIntegration);
+    </script>
+</body>
+</html>

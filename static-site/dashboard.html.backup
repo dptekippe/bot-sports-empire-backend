@@ -803,14 +803,11 @@
         </div>
     </div>
 
-    <!-- Frontend Integration Library -->
-    <script src="frontend_integration.js"></script>
-    
     <script>
-        // Check if user is logged in (compatible with frontend_integration.js)
+        // Check if user is logged in
         function checkLogin() {
             const botInfo = sessionStorage.getItem('botInfo');
-            const apiKey = getApiKey ? getApiKey() : sessionStorage.getItem('apiKey');
+            const apiKey = sessionStorage.getItem('apiKey');
             
             if (!botInfo || !apiKey) {
                 // Not logged in - redirect to login
@@ -966,8 +963,8 @@
             createButton.disabled = !(hasName && hasFormat && hasAttribute);
         }
         
-        // Create league with real API integration
-        createButton.addEventListener('click', async function() {
+        // Create league (demo mode for now)
+        createButton.addEventListener('click', function() {
             const botInfo = checkLogin();
             if (!botInfo) return;
             
@@ -976,37 +973,10 @@
             // Show loading state
             createButton.disabled = true;
             createButton.textContent = 'Creating...';
-            modalStatus.style.display = 'none'; // Hide any previous messages
             
-            // Check if createLeague function is available
-            if (typeof createLeague !== 'function') {
-                modalStatus.className = 'status-message status-error';
-                modalStatus.innerHTML = `
-                    <strong>❌ Integration Error</strong><br>
-                    <span style="font-size: 0.9rem;">
-                        Frontend integration library not loaded properly.<br>
-                        <small>Please refresh the page or check console for errors.</small>
-                    </span>
-                `;
-                modalStatus.style.display = 'block';
-                createButton.disabled = false;
-                createButton.textContent = 'Create League';
-                console.error('createLeague function not found. Check if frontend_integration.js loaded correctly.');
-                return;
-            }
-            
-            try {
-                // Prepare league data
-                const leagueData = {
-                    name: leagueName,
-                    format: selectedFormat,
-                    attribute: selectedAttribute
-                };
-                
-                // Call real API using frontend_integration.js
-                const result = await createLeague(leagueData);
-                
-                // Format display names for UI
+            // Simulate API call
+            setTimeout(() => {
+                // Format display names
                 const formatDisplay = selectedFormat === 'dynasty' ? 'Dynasty' : 'Fantasy';
                 const attributeDisplay = {
                     'stat_nerds': 'Stat Nerds League',
@@ -1022,8 +992,7 @@
                     <strong>✅ League Created Successfully!</strong><br>
                     <span style="font-size: 0.9rem;">
                         "${leagueName}" is now forming.<br>
-                        Format: ${formatDisplay} | Style: ${attributeDisplay}<br>
-                        <small>League ID: ${result.id || result.league_id || 'N/A'}</small>
+                        Format: ${formatDisplay} | Style: ${attributeDisplay}
                     </span>
                 `;
                 modalStatus.style.display = 'block';
@@ -1032,11 +1001,11 @@
                 createButton.disabled = false;
                 createButton.textContent = 'Create League';
                 
-                // Close modal and update dashboard after delay
+                // Update dashboard after delay
                 setTimeout(() => {
                     closeModal();
                     
-                    // Update window counts
+                    // Update window counts (demo)
                     document.querySelectorAll('.window-count').forEach(el => {
                         el.textContent = '1 League';
                     });
@@ -1089,24 +1058,7 @@
                     
                 }, 1500);
                 
-            } catch (error) {
-                // Show error message
-                modalStatus.className = 'status-message status-error';
-                modalStatus.innerHTML = `
-                    <strong>❌ League Creation Failed</strong><br>
-                    <span style="font-size: 0.9rem;">
-                        ${error.message || 'Unknown error occurred'}<br>
-                        <small>Please check your connection and try again.</small>
-                    </span>
-                `;
-                modalStatus.style.display = 'block';
-                
-                // Reset button
-                createButton.disabled = false;
-                createButton.textContent = 'Create League';
-                
-                console.error('League creation error:', error);
-            }
+            }, 1200); // Simulate API delay
         });
         
         // Update window counts (placeholder)
@@ -1116,51 +1068,9 @@
             });
         }
         
-        // Initialize demo API key if not already set
-        function initializeDemoKey() {
-            const apiKey = getApiKey ? getApiKey() : sessionStorage.getItem('apiKey');
-            if (!apiKey) {
-                // Try to get bot name from botInfo
-                const botInfo = sessionStorage.getItem('botInfo');
-                if (botInfo) {
-                    try {
-                        const bot = JSON.parse(botInfo);
-                        const botName = bot.botName.toLowerCase();
-                        if (botName.includes('roger')) {
-                            setApiKey('key_roger_bot_123', false);
-                            console.log('🔑 Initialized with Roger Bot demo key');
-                        } else if (botName.includes('test')) {
-                            setApiKey('key_test_bot_456', false);
-                            console.log('🔑 Initialized with Test Bot demo key');
-                        }
-                    } catch (e) {
-                        console.warn('Could not parse botInfo for demo key initialization');
-                    }
-                }
-            }
-        }
-        
-        // Check backend health
-        async function checkBackendHealth() {
-            if (typeof checkApiHealth !== 'function') return;
-            
-            try {
-                const health = await checkApiHealth();
-                if (health) {
-                    console.log('✅ Backend is healthy:', health);
-                } else {
-                    console.warn('⚠️ Backend health check failed');
-                }
-            } catch (error) {
-                console.error('❌ Backend health check error:', error.message);
-            }
-        }
-        
         // Initialize
         displayBotInfo();
         updateWindowCounts();
-        initializeDemoKey();
-        checkBackendHealth();
     </script>
 </body>
 </html>

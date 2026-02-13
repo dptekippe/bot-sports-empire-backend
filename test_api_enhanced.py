@@ -6,7 +6,7 @@ import requests
 import json
 import time
 
-BASE_URL = "http://localhost:8000"  # Change to your API URL
+BASE_URL = "http://localhost:8002"  # Local API
 
 def print_step(step_num, description):
     print(f"\n{'='*60}")
