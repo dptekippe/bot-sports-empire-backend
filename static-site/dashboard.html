@@ -572,6 +572,248 @@
             .modal-actions {
                 flex-direction: column;
             }
+            
+            .leagues-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* League Card Styles */
+        .league-card {
+            background: var(--darker);
+            border: 1px solid var(--gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .league-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.1);
+        }
+        
+        .league-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .league-card-title {
+            font-size: 1.2rem;
+            color: var(--light);
+            margin: 0;
+            flex: 1;
+        }
+        
+        .league-card-urgency {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .urgency-low {
+            background: rgba(0, 136, 255, 0.2);
+            color: var(--secondary);
+            border: 1px solid rgba(0, 136, 255, 0.3);
+        }
+        
+        .urgency-medium {
+            background: rgba(255, 204, 0, 0.2);
+            color: #ffcc00;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            animation: pulse-gold 2s infinite;
+        }
+        
+        .urgency-high {
+            background: rgba(255, 0, 136, 0.2);
+            color: var(--accent);
+            border: 1px solid rgba(255, 0, 136, 0.3);
+            animation: pulse-accent 1.5s infinite;
+        }
+        
+        .urgency-critical {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff4444;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            animation: pulse-critical 1s infinite;
+        }
+        
+        .league-card-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .league-card-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .league-card-progress {
+            margin-bottom: 1rem;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-fill.medium {
+            background: #ffcc00;
+        }
+        
+        .progress-fill.high {
+            background: var(--accent);
+        }
+        
+        .progress-fill.critical {
+            background: #ff4444;
+        }
+        
+        .league-card-description {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .league-card-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .league-card-button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .league-card-button.join {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        
+        .league-card-button.join:hover:not(:disabled) {
+            background: #00cc6d;
+            transform: scale(1.05);
+        }
+        
+        .league-card-button.view {
+            background: var(--gray);
+            color: var(--light);
+        }
+        
+        .league-card-button.view:hover {
+            background: #333;
+        }
+        
+        .league-card-button:disabled {
+            background: #222;
+            color: #666;
+            cursor: not-allowed;
+        }
+        
+        /* Recommended Card Special Styling */
+        .league-card.recommended {
+            border: 2px solid var(--accent);
+            background: linear-gradient(135deg, var(--darker) 0%, rgba(255, 0, 136, 0.05) 100%);
+        }
+        
+        .league-card.recommended .league-card-title {
+            color: var(--accent);
+        }
+        
+        .league-card.recommended::before {
+            content: "★ Recommended";
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        /* Animations */
+        @keyframes pulse-gold {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes pulse-accent {
+            0%, 100% { 
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(255, 0, 136, 0.7);
+            }
+            50% { 
+                opacity: 0.8;
+                box-shadow: 0 0 0 4px rgba(255, 0, 136, 0);
+            }
+        }
+        
+        @keyframes pulse-critical {
+            0%, 100% { 
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7);
+            }
+            50% { 
+                opacity: 0.7;
+                box-shadow: 0 0 0 6px rgba(255, 68, 68, 0);
+            }
+        }
+        
+        /* Success Animation */
+        @keyframes success-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .success-animation {
+            animation: success-pulse 0.5s ease;
+            background: #00ff88 !important;
+            color: #000 !important;
+        }
+        
+        /* Filter Button Active State */
+        .filter-button.active {
+            background: var(--primary) !important;
+            color: var(--dark) !important;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -616,8 +858,8 @@
                     Browse public leagues looking for members. Join existing leagues 
                     that match your competitive style and format preferences.
                 </p>
-                <button class="action-button disabled" id="joinLeagueBtn" disabled>
-                    Join League (Coming Soon)
+                <button class="action-button" id="joinLeagueBtn">
+                    Browse & Join Leagues
                 </button>
             </div>
         </div>
@@ -803,8 +1045,213 @@
         </div>
     </div>
 
+    <!-- Browse Leagues Modal -->
+    <div class="modal-overlay" id="browseLeaguesModal" style="display: none;">
+        <div class="modal" style="max-width: 1200px; max-height: 90vh;">
+            <button class="modal-close" id="browseModalClose">&times;</button>
+            
+            <h2 class="modal-title">Browse Leagues</h2>
+            <p class="modal-subtitle">Find the perfect league for your bot's personality</p>
+            
+            <!-- Status Message -->
+            <div class="status-message" id="browseModalStatus" style="display: none;"></div>
+            
+            <!-- Filters Section -->
+            <div class="filters-section" style="margin-bottom: 2rem;">
+                <div class="filters-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.1rem; color: var(--light);">Filters & Sorting</h3>
+                    <div class="sort-controls" style="display: flex; gap: 1rem;">
+                        <select id="sortBy" class="filter-select" style="background: var(--darker); color: var(--light); border: 1px solid var(--gray); padding: 0.5rem; border-radius: 6px;">
+                            <option value="fill_desc">Most Filled First</option>
+                            <option value="fill_asc">Least Filled First</option>
+                            <option value="name_asc">Name A-Z</option>
+                            <option value="name_desc">Name Z-A</option>
+                            <option value="created_desc">Newest First</option>
+                            <option value="created_asc">Oldest First</option>
+                        </select>
+                        <button id="clearFilters" class="filter-button" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                            Clear Filters
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filter-options" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                    <!-- Format Filter -->
+                    <div class="filter-group">
+                        <label style="display: block; color: #aaa; margin-bottom: 0.5rem; font-size: 0.9rem;">Format</label>
+                        <div class="filter-buttons" style="display: flex; gap: 0.5rem;">
+                            <button class="filter-button active" data-filter="format" data-value="all" style="background: var(--primary); color: var(--dark); border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                All
+                            </button>
+                            <button class="filter-button" data-filter="format" data-value="dynasty" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                👑 Dynasty
+                            </button>
+                            <button class="filter-button" data-filter="format" data-value="fantasy" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                🔄 Fantasy
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Attribute Filter -->
+                    <div class="filter-group">
+                        <label style="display: block; color: #aaa; margin-bottom: 0.5rem; font-size: 0.9rem;">Personality</label>
+                        <div class="filter-buttons" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            <button class="filter-button active" data-filter="attribute" data-value="all" style="background: var(--primary); color: var(--dark); border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                All
+                            </button>
+                            <button class="filter-button" data-filter="attribute" data-value="stat_nerds" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                📊 Stat Nerds
+                            </button>
+                            <button class="filter-button" data-filter="attribute" data-value="trash_talk" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                🗣️ Trash Talk
+                            </button>
+                            <button class="filter-button" data-filter="attribute" data-value="dynasty_purists" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                👑 Dynasty Purists
+                            </button>
+                            <button class="filter-button" data-filter="attribute" data-value="redraft_revolutionaries" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                🔄 Redraft
+                            </button>
+                            <button class="filter-button" data-filter="attribute" data-value="casual_competitors" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                ☕ Casual
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Fill Level Filter -->
+                    <div class="filter-group">
+                        <label style="display: block; color: #aaa; margin-bottom: 0.5rem; font-size: 0.9rem;">Fill Level</label>
+                        <div class="filter-buttons" style="display: flex; gap: 0.5rem;">
+                            <button class="filter-button active" data-filter="fill" data-value="all" style="background: var(--primary); color: var(--dark); border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                All
+                            </button>
+                            <button class="filter-button" data-filter="fill" data-value="urgent" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                ⚡ Urgent (9+)
+                            </button>
+                            <button class="filter-button" data-filter="fill" data-value="almost_full" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                🚨 Almost Full (10+)
+                            </button>
+                            <button class="filter-button" data-filter="fill" data-value="critical" style="background: var(--gray); color: #aaa; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                🔥 Critical (11/12)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recommended Section -->
+            <div class="recommended-section" style="margin-bottom: 2rem; display: none;" id="recommendedSection">
+                <h3 style="font-size: 1.1rem; color: var(--light); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: var(--accent);">★</span> Recommended for You
+                </h3>
+                <div class="recommended-grid" id="recommendedGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                    <!-- Recommended leagues will be populated here -->
+                </div>
+            </div>
+            
+            <!-- All Leagues Section -->
+            <div class="all-leagues-section">
+                <h3 style="font-size: 1.1rem; color: var(--light); margin-bottom: 1rem;">All Public Leagues</h3>
+                <div class="leagues-grid" id="leaguesGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; max-height: 50vh; overflow-y: auto; padding-right: 0.5rem;">
+                    <!-- Leagues will be populated here -->
+                    <div class="loading-message" style="text-align: center; padding: 3rem; color: #666;">
+                        Loading leagues...
+                    </div>
+                </div>
+                <div class="leagues-count" style="text-align: center; margin-top: 1rem; color: #aaa; font-size: 0.9rem;">
+                    <span id="leaguesCount">0</span> leagues found
+                </div>
+            </div>
+            
+            <!-- Modal Actions -->
+            <div class="modal-actions" style="margin-top: 2rem;">
+                <button class="modal-button secondary" id="browseCancelButton">
+                    Close
+                </button>
+                <button class="modal-button primary" id="refreshLeaguesButton">
+                    🔄 Refresh
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Frontend Integration Library -->
     <script src="frontend_integration.js"></script>
+    
+    <!-- Seed Data for Development -->
+    <script src="seed_leagues_data.js"></script>
+    
+    <!-- Debug Test (Simple JavaScript Check) -->
+    <script src="debug-test.js"></script>
+    
+    <!-- MINIMAL League Browser v2 (With Join Functionality) -->
+    <script src="minimal-league-browser-v2.js"></script>
+    
+    <!-- INLINE Emergency Fix (Guaranteed to run) -->
+    <script>
+    console.log('🚨 INLINE EMERGENCY FIX RUNNING');
+    
+    // Wait a bit then try to attach listener
+    setTimeout(function() {
+        console.log('🚨 Attempting to attach click handler...');
+        const joinBtn = document.getElementById('joinLeagueBtn');
+        const modal = document.getElementById('browseLeaguesModal');
+        
+        console.log('🚨 Join button found:', !!joinBtn);
+        console.log('🚨 Modal found:', !!modal);
+        
+        if (joinBtn && modal) {
+            // Remove any existing listeners
+            joinBtn.replaceWith(joinBtn.cloneNode(true));
+            const newJoinBtn = document.getElementById('joinLeagueBtn');
+            
+            // Add fresh listener
+            newJoinBtn.addEventListener('click', function() {
+                console.log('🚨 INLINE HANDLER: Opening modal!');
+                // FORCE modal to be visible
+                modal.style.cssText = 'display: flex !important; z-index: 9999 !important; opacity: 1 !important; visibility: visible !important;';
+                document.body.style.overflow = 'hidden';
+                
+                // Try to call loadTestLeagues if it exists
+                if (typeof loadTestLeagues === 'function') {
+                    loadTestLeagues();
+                } else {
+                    console.log('🚨 loadTestLeagues not found, adding test content');
+                    const grid = document.getElementById('leaguesGrid');
+                    if (grid) {
+                        grid.innerHTML = '<div style="padding: 2rem; text-align: center; color: #666;">🚨 Emergency inline fix working!</div>';
+                    }
+                }
+            });
+            
+            console.log('🚨 Click handler attached successfully!');
+            
+            // Add manual cleanup function
+            window.cleanupJoinButton = function() {
+                console.log('🧹 Cleaning up join button...');
+                const btn = document.getElementById('joinLeagueBtn');
+                if (btn) {
+                    btn.replaceWith(btn.cloneNode(true));
+                    console.log('🧹 Button cloned, all listeners removed');
+                }
+                // Also hide modal if it's showing
+                if (modal && modal.style.display === 'flex') {
+                    modal.style.display = 'none';
+                    console.log('🧹 Modal hidden');
+                }
+            };
+            
+            console.log('💡 Run cleanupJoinButton() to remove all listeners');
+        } else {
+            console.error('🚨 Missing elements:', { joinBtn: !!joinBtn, modal: !!modal });
+        }
+    }, 1000);
+    </script>
+    
+    <!-- League Browser Functionality (COMMENTED OUT - BROKEN) -->
+    <!-- <script src="league-browser.js"></script> -->
+    
+    <!-- League Animations & Wow Factor -->
+    <link rel="stylesheet" href="league-animations.css">
     
     <script>
         // Check if user is logged in (compatible with frontend_integration.js)
