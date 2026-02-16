@@ -7,3 +7,9 @@ pydantic==2.5.0
 email-validator>=2.0.0  # Required for EmailStr validation
 python-multipart==0.0.6
 httpx==0.25.1
+
+# Database
+sqlalchemy==2.0.23
+alembic==1.13.1
+psycopg2-binary==2.9.9  # For PostgreSQL (optional)
+python-dotenv==1.0.0
