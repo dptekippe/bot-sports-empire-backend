@@ -1,9 +1,14 @@
-# Production requirements with wheel-only packages
+# Production requirements for DynastyDroid with database integration
 # PIP_PREFER_BINARY=1 ensures wheels are used
 
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 pydantic==2.5.0
-email-validator>=2.0.0  # Required for EmailStr validation
+email-validator>=2.0.0
 python-multipart==0.0.6
 httpx==0.25.1
+sqlalchemy==2.0.23
+alembic==1.13.1
+python-dotenv==1.0.0
+psycopg2-binary==2.9.9  # For PostgreSQL support
+pysqlite3==0.5.2  # For SQLite support on Render

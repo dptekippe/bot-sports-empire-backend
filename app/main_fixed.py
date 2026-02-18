@@ -1,71 +1,22 @@
 """
-SIMPLE FastAPI app for Render deployment with working bot registration
-Uses existing bot_sports.db database structure
+FIXED FastAPI app for Render deployment with bot registration endpoints
+Includes database integration for bot registration
 """
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import create_engine, Column, String, Integer, Boolean, DateTime, JSON
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.pool import StaticPool
-from pydantic import BaseModel
+from sqlalchemy.orm import Session
 import os
 import json
 from datetime import datetime
+from pydantic import BaseModel
 import secrets
 import hashlib
 import logging
-import uuid
 
-# Database configuration
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./bot_sports.db")
-
-# Create SQLAlchemy engine
-engine_kwargs = {}
-if DATABASE_URL.startswith("sqlite"):
-    engine_kwargs = {
-        "connect_args": {"check_same_thread": False},
-        "poolclass": StaticPool
-    }
-
-engine = create_engine(DATABASE_URL, **engine_kwargs)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
-
-# Define BotAgent model matching existing database
-class BotAgent(Base):
-    __tablename__ = "bot_agents"
-    
-    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    name = Column(String, nullable=False, unique=True)
-    display_name = Column(String, nullable=False)
-    description = Column(String)
-    fantasy_personality = Column(String(12), nullable=False)
-    api_key = Column(String, nullable=False, unique=True)
-    owner_id = Column(String)
-    owner_verified = Column(Boolean, default=False)
-    current_mood = Column(String(10), nullable=False, default="neutral")
-    mood_intensity = Column(Integer, nullable=False, default=50)
-    mood_triggers = Column(JSON, default=dict)
-    mood_decision_modifiers = Column(JSON, default=dict)
-    trash_talk_style = Column(JSON, default=dict)
-    social_credits = Column(Integer, default=50)
-    rivalries = Column(JSON, default=list)
-    alliances = Column(JSON, default=list)
-    is_active = Column(Boolean, default=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    last_active = Column(DateTime, default=datetime.utcnow)
-
-# Create tables if they don't exist
-Base.metadata.create_all(bind=engine)
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# Import database
+from .core.database import engine, Base, get_db
+from .models.bot import BotAgent, BotPersonality, BotMood
 
 app = FastAPI(
     title="DynastyDroid",
@@ -83,7 +34,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Pydantic models
+# Create database tables
+Base.metadata.create_all(bind=engine)
+
+# Pydantic models for bot registration
 class BotRegistrationRequest(BaseModel):
     name: str
     display_name: str
@@ -100,19 +54,22 @@ class BotRegistrationResponse(BaseModel):
     message: str
     created_at: str = None
 
+# Helper functions
+def hash_api_key(api_key: str) -> str:
+    """Hash API key for secure storage."""
+    return hashlib.sha256(api_key.encode()).hexdigest()
+
+def generate_api_key() -> str:
+    """Generate a secure random API key."""
+    return secrets.token_urlsafe(32)
+
+logger = logging.getLogger(__name__)
+
 class WaitlistEntry(BaseModel):
     email: str
     bot_name: str
     competitive_style: str = "strategic"
 
-# Helper functions
-def hash_api_key(api_key: str) -> str:
-    return hashlib.sha256(api_key.encode()).hexdigest()
-
-def generate_api_key() -> str:
-    return secrets.token_urlsafe(32)
-
-logger = logging.getLogger(__name__)
 WAITLIST_FILE = "waitlist.json"
 
 def load_waitlist():
@@ -125,24 +82,33 @@ def save_waitlist(waitlist):
     with open(WAITLIST_FILE, 'w') as f:
         json.dump(waitlist, f, indent=2)
 
-# HTML endpoints
 @app.get("/", response_class=HTMLResponse)
 async def root():
+    """Serve the simplified landing page"""
     try:
+        # Go up one directory from app/ to find the HTML file
         html_path = os.path.join(os.path.dirname(__file__), "..", "dynastydroid-simple.html")
         with open(html_path, "r") as f:
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
+        # Fallback to API response
         return {
             "message": "🤖 Welcome to DynastyDroid!",
             "tagline": "Fantasy Football for Bots (and their pet humans)",
             "version": "3.0.0",
             "status": "live",
-            "website": "https://dynastydroid.com"
+            "website": "https://dynastydroid.com",
+            "pages": {
+                "landing": "/",
+                "register": "/register",
+                "login": "/login (coming soon)",
+                "api_docs": "/docs"
+            }
         }
 
 @app.get("/register", response_class=HTMLResponse)
 async def register_page():
+    """Serve the registration instructions page"""
     try:
         html_path = os.path.join(os.path.dirname(__file__), "..", "register.html")
         with open(html_path, "r") as f:
@@ -150,15 +116,28 @@ async def register_page():
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Registration page not found")
 
-# API endpoints
+@app.get("/login")
+async def login_page():
+    """Login endpoint (placeholder for now)"""
+    return {
+        "message": "Login functionality coming soon!",
+        "note": "Currently in development.",
+        "api_endpoints": {
+            "join_waitlist": "POST /api/waitlist",
+            "check_waitlist": "GET /api/waitlist/{email}"
+        }
+    }
+
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "service": "dynastydroid", "timestamp": datetime.now().isoformat()}
 
 @app.post("/api/waitlist")
 async def join_waitlist(entry: WaitlistEntry):
+    """Join the waitlist for early API access"""
     waitlist = load_waitlist()
     
+    # Check if already registered
     for item in waitlist:
         if item["email"] == entry.email:
             return {
@@ -169,6 +148,7 @@ async def join_waitlist(entry: WaitlistEntry):
                 "website": "https://dynastydroid.com"
             }
     
+    # Add new entry
     new_entry = {
         "email": entry.email,
         "bot_name": entry.bot_name,
@@ -186,16 +166,43 @@ async def join_waitlist(entry: WaitlistEntry):
         "total": len(waitlist),
         "entry": new_entry,
         "next_steps": "We'll email you when full API launches!",
-        "website": "https://dynastydroid.com"
+        "website": "https://dynastydroid.com",
+        "vision": "Bots Engage. Humans Manage. Everyone Collaborates and Competes."
     }
 
-# WORKING BOT REGISTRATION ENDPOINT
+@app.get("/api/waitlist/{email}")
+async def check_waitlist_position(email: str):
+    """Check your position in the waitlist"""
+    waitlist = load_waitlist()
+    
+    for item in waitlist:
+        if item["email"] == email:
+            return {
+                "found": True,
+                "position": item["position"],
+                "total": len(waitlist),
+                "entry": item,
+                "website": "https://dynastydroid.com"
+            }
+    
+    raise HTTPException(status_code=404, detail="Email not found in waitlist. Join at: POST /api/waitlist")
+
+# ACTUAL BOT REGISTRATION ENDPOINT - FIXED!
 @app.post("/api/v1/bots/register", response_model=BotRegistrationResponse, status_code=201)
 async def register_bot(
     request: BotRegistrationRequest,
     db: Session = Depends(get_db)
 ):
-    """Register a new bot and generate API key"""
+    """
+    Register a new bot and generate API key.
+    
+    This endpoint:
+    1. Validates bot registration data
+    2. Generates secure API key
+    3. Creates BotAgent with mood system configuration
+    4. Returns bot details and API key
+    """
+    logger.info(f"Bot registration request: {request.display_name}")
     
     # Check if bot name already exists
     existing_bot = db.query(BotAgent).filter(BotAgent.name == request.name).first()
@@ -210,16 +217,28 @@ async def register_bot(
     api_key_hash = hash_api_key(api_key)
     
     try:
-        # Create bot
+        # Map personality string to BotPersonality enum
+        personality_map = {
+            "balanced": BotPersonality.BALANCED,
+            "aggressive": BotPersonality.AGGRESSIVE,
+            "defensive": BotPersonality.DEFENSIVE,
+            "analytical": BotPersonality.ANALYTICAL,
+            "social": BotPersonality.SOCIAL
+        }
+        
+        personality = personality_map.get(request.personality.lower(), BotPersonality.BALANCED)
+        
+        # Create bot with basic configuration
         bot = BotAgent(
             name=request.name,
             display_name=request.display_name,
             description=request.description,
-            fantasy_personality=request.personality,
+            fantasy_personality=personality,
             api_key=api_key_hash,
             owner_id=request.owner_id,
             owner_verified=False,
-            current_mood="neutral",
+            # Set default mood system configuration
+            current_mood=BotMood.NEUTRAL,
             mood_intensity=50,
             mood_triggers={},
             mood_decision_modifiers={},
@@ -241,7 +260,7 @@ async def register_bot(
             bot_id=bot.id,
             bot_name=bot.display_name,
             api_key=api_key,  # Return plaintext key only once
-            personality=bot.fantasy_personality,
+            personality=bot.fantasy_personality.value,
             message=f"Bot '{bot.display_name}' successfully registered!",
             created_at=bot.created_at.isoformat() if bot.created_at else None
         )
@@ -253,27 +272,6 @@ async def register_bot(
             status_code=500,
             detail=f"Registration failed: {str(e)}"
         )
-
-@app.get("/api/v1/bots/{bot_id}")
-async def get_bot(bot_id: str, db: Session = Depends(get_db)):
-    """Get bot details by ID"""
-    bot = db.query(BotAgent).filter(BotAgent.id == bot_id).first()
-    if not bot:
-        raise HTTPException(status_code=404, detail=f"Bot with ID {bot_id} not found")
-    
-    return {
-        "id": bot.id,
-        "name": bot.name,
-        "display_name": bot.display_name,
-        "description": bot.description,
-        "fantasy_personality": bot.fantasy_personality,
-        "current_mood": bot.current_mood,
-        "mood_intensity": bot.mood_intensity,
-        "social_credits": bot.social_credits,
-        "is_active": bot.is_active,
-        "created_at": bot.created_at.isoformat() if bot.created_at else None,
-        "last_active": bot.last_active.isoformat() if bot.last_active else None
-    }
 
 if __name__ == "__main__":
     import uvicorn
