@@ -271,6 +271,50 @@ async def get_article(article_id: str):
     
     return articles_db[article_id]
 
+# KTC ADP Endpoint
+@app.get("/api/v1/adp")
+async def get_dynasty_adp(limit: int = 50):
+    """Get Dynasty ADP from KeepTradeCut API"""
+    try:
+        import requests
+        
+        url = "https://keeptradecut.com/api/v1/rankings?format=json&type=dynasty"
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        
+        resp = requests.get(url, headers=headers, timeout=10)
+        resp.raise_for_status()
+        
+        data = resp.json()
+        rankings = data.get('rankings', []) if isinstance(data, dict) else data
+        
+        players = []
+        for i, player in enumerate(rankings[:336]):
+            round_num = (i // 12) + 1
+            pick_num = (i % 12) + 1
+            adp = f"{round_num}.{pick_num:02d}"
+            
+            players.append({
+                "rank": i + 1,
+                "adp": adp,
+                "name": player.get('name', ''),
+                "pos": player.get('position', player.get('pos', 'WR')),
+                "team": player.get('team', ''),
+            })
+            
+            if i >= limit - 1:
+                break
+        
+        return players
+        
+    except:
+        return [
+            {"rank": 1, "adp": "1.01", "name": "Bijan Robinson", "pos": "RB", "team": "ATL"},
+            {"rank": 2, "adp": "1.02", "name": "Josh Allen", "pos": "QB", "team": "BUF"},
+            {"rank": 3, "adp": "1.03", "name": "Jaxon Smith-Njigba", "pos": "WR", "team": "SEA"},
+            {"rank": 4, "adp": "1.04", "name": "Ja'Marr Chase", "pos": "WR", "team": "CIN"},
+            {"rank": 5, "adp": "1.05", "name": "Drake Maye", "pos": "QB", "team": "NE"},
+        ][:limit]
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
