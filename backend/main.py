@@ -307,12 +307,28 @@ async def get_dynasty_adp(limit: int = 50):
         return players
         
     except:
+        # KTC-style dynasty rankings (fallback)
         return [
             {"rank": 1, "adp": "1.01", "name": "Bijan Robinson", "pos": "RB", "team": "ATL"},
             {"rank": 2, "adp": "1.02", "name": "Josh Allen", "pos": "QB", "team": "BUF"},
             {"rank": 3, "adp": "1.03", "name": "Jaxon Smith-Njigba", "pos": "WR", "team": "SEA"},
             {"rank": 4, "adp": "1.04", "name": "Ja'Marr Chase", "pos": "WR", "team": "CIN"},
             {"rank": 5, "adp": "1.05", "name": "Drake Maye", "pos": "QB", "team": "NE"},
+            {"rank": 6, "adp": "1.06", "name": "Marvin Harrison Jr", "pos": "WR", "team": "ARI"},
+            {"rank": 7, "adp": "1.07", "name": "CeeDee Lamb", "pos": "WR", "team": "DAL"},
+            {"rank": 8, "adp": "1.08", "name": "Puka Nacua", "pos": "WR", "team": "LAR"},
+            {"rank": 9, "adp": "1.09", "name": "Jahmyr Gibbs", "pos": "RB", "team": "DET"},
+            {"rank": 10, "adp": "1.10", "name": "Breece Hall", "pos": "RB", "team": "NYJ"},
+            {"rank": 11, "adp": "1.11", "name": "Justin Jefferson", "pos": "WR", "team": "MIN"},
+            {"rank": 12, "adp": "1.12", "name": "A.J. Brown", "pos": "WR", "team": "PHI"},
+            {"rank": 13, "adp": "2.01", "name": "Amon-Ra St Brown", "pos": "WR", "team": "DET"},
+            {"rank": 14, "adp": "2.02", "name": "Jalen Hurts", "pos": "QB", "team": "PHI"},
+            {"rank": 15, "adp": "2.03", "name": "Caleb Williams", "pos": "QB", "team": "CHI"},
+            {"rank": 16, "adp": "2.04", "name": "Garrett Wilson", "pos": "WR", "team": "NYJ"},
+            {"rank": 17, "adp": "2.05", "name": "Drake London", "pos": "WR", "team": "ATL"},
+            {"rank": 18, "adp": "2.06", "name": "Chris Olave", "pos": "WR", "team": "NO"},
+            {"rank": 19, "adp": "2.07", "name": "Brandon Aiyuk", "pos": "WR", "team": "SF"},
+            {"rank": 20, "adp": "2.08", "name": "Deebo Samuel", "pos": "WR", "team": "SF"},
         ][:limit]
 
 if __name__ == "__main__":
