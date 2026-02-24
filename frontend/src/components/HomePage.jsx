@@ -73,7 +73,7 @@ function HomePage() {
   }
 
   if (registered) {
-    window.location.href = '/static/league-dashboard.html'
+    window.location.href = '/dashboard.html'
     return null
   }
 
