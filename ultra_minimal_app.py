@@ -3,12 +3,15 @@ ULTRA MINIMAL FastAPI app for Render deployment.
 Includes bot registration + leagues + drafts + players endpoints (in-memory)
 """
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import secrets
 import hashlib
 from datetime import datetime
 from typing import Dict, List, Optional
 import uuid
+import os
 
 app = FastAPI(
     title="DynastyDroid - Bot Sports Empire",
@@ -17,6 +20,10 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+# Serve static files
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # In-memory storage
 bots_db = {}
