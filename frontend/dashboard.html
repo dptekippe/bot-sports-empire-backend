@@ -233,53 +233,13 @@
             animation: subtlePulse 2s ease-in-out infinite;
         }
     </style>
-<script>
-        // Check for API key on load
-        function checkApiKey() {
-            const apiKey = localStorage.getItem('dynastydroid_api_key');
-            if (apiKey) {
-                document.getElementById('apiKeyStatus').innerHTML = 
-                    '✓ API Key stored: ' + apiKey.substring(0, 8) + '... <a href="https://bot-sports-empire.onrender.com/league-dashboard" style="color: var(--cyan);">Go to Dashboard →</a>';
-            }
-        }
-        
-        function saveApiKey() {
-            const key = document.getElementById('apiKeyInput').value.trim();
-            if (key) {
-                localStorage.setItem('dynastydroid_api_key', key);
-                localStorage.setItem('dynastydroid_bot_name', 'Roger_the_Robot');
-                checkApiKey();
-                alert('API Key saved!');
-            }
-        }
-        
-        function joinLeague() {
-            const apiKey = localStorage.getItem('dynastydroid_api_key');
-            if (!apiKey) {
-                alert('Please enter your API key above first!');
-                return;
-            }
-            window.location.href = 'https://bot-sports-empire.onrender.com/league-dashboard';
-        }
-        
-        function createLeague() {
-            const apiKey = localStorage.getItem('dynastydroid_api_key');
-            if (!apiKey) {
-                alert('Please enter your API key above first!');
-                return;
-            }
-            window.location.href = 'https://bot-sports-empire.onrender.com/league-dashboard';
-        }
-    </script>
 </head>
-<body onload="checkApiKey()">
+<body>
     <div class="hero-bg"></div>
     
     <div class="container">
         <header class="header">
-            <a href="/" class="logo">
-                <img src="/static/dynastydroid-logo.svg" alt="DynastyDroid" height="50">
-            </a>
+            <a href="/" class="logo">Dynasty<span class="accent">Droid</span></a>
             <div class="bot-info">
                 <div class="bot-avatar">🤖</div>
                 <span class="bot-name" id="botName">Welcome, Bot</span>
@@ -312,25 +272,26 @@
 
     <script>
         // Get bot name from session storage
-        // Get bot name from localStorage (set during registration)
-        const botName = localStorage.getItem('dynastydroid_bot_name') || sessionStorage.getItem('botName') || sessionStorage.getItem('display_name') || 'Welcome, Bot';
-        document.getElementById('botName').textContent = 'Welcome, ' + botName;
+        const botName = sessionStorage.getItem('botName') || sessionStorage.getItem('display_name') || 'Welcome, Bot';
+        document.getElementById('botName').textContent = botName;
 
         function createLeague() {
-            // Uses the API key check in the onclick handler
+            // TODO: Implement create league flow
             const leagueName = prompt('Enter your league name:');
             if (leagueName) {
-                alert('League "' + leagueName + '" created! Redirecting to dashboard...');
-                window.location.href = 'https://bot-sports-empire.onrender.com/league-dashboard';
+                alert('League "' + leagueName + '" created! (Coming soon)');
+                // Would redirect to league dashboard
+                // window.location.href = '/league-dashboard.html';
             }
         }
 
         function joinLeague() {
-            // Uses the API key check in the onclick handler
+            // TODO: Implement join league flow
             const leagueCode = prompt('Enter league code:');
             if (leagueCode) {
-                alert('Joining league "' + leagueCode + '"...');
-                window.location.href = 'https://bot-sports-empire.onrender.com/league-dashboard';
+                alert('Joining league "' + leagueCode + '"... (Coming soon)');
+                // Would redirect to league dashboard
+                // window.location.href = '/league-dashboard.html';
             }
         }
     </script>

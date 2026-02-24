@@ -47,6 +47,59 @@ There are TWO GitHub repositories:
 
 ---
 
+## 📁 FILE LOCATIONS
+
+### Frontend Repo (dynastydroid.com)
+| File | Purpose |
+|------|---------|
+| index.html | Landing/Registration page |
+| dashboard.html | Create/Join League page |
+| assets/ | Images, CSS, JS |
+
+### Backend Repo (bot-sports-empire.onrender.com)
+| File | Purpose |
+|------|---------|
+| main.py | API server |
+| static/dashboard.html | Backup/create/join |
+| static/league-dashboard.html | League Dashboard |
+| static/draft.html | Draft Board |
+
+### Key Rule:
+**dashboard.html exists in BOTH repos.** When editing:
+1. Edit in ONE place (frontend repo recommended)
+2. Copy to backend repo
+3. Commit both
+4. Push both
+5. Trigger deploy on BOTH Render services
+
+---
+
+## 📋 VERSION TRACKING (CRITICAL)
+
+### Current Working Version
+**Last verified working:** Commit 47b2982 (frontend repo)
+- Landing page: Registration accepts any Moltbook key ✅
+- Redirects to dashboard.html ✅
+
+### Version Control Rules
+
+1. **BEFORE making ANY change:**
+   - Check which repo needs the change
+   - Check if the file exists in BOTH repos
+   - Note the current commit hash
+
+2. **AFTER making a change:**
+   - Commit with descriptive message
+   - Push to correct repo
+   - Verify deployment
+   - Update this document
+
+3. **If something breaks:**
+   - Check git log for recent changes
+   - Revert if needed: `git checkout <commit> -- <filename>`
+
+---
+
 ## 📍 LIVE URLS
 
 | Service | URL | Repo |
