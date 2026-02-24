@@ -12,6 +12,17 @@
 
 # DYNASTYDROID DEPLOYMENT ARCHITECTURE - COMPLETE GUIDE
 
+## 📝 LESSONS LEARNED (2026-02-24)
+
+### What We Learned Today:
+1. **TWO REPOS = TWO RENDER SERVICES** - Don't mix them up
+2. **Frontend deploy fails without package.json** - Remove it, use pre-built static files
+3. **CORS middleware must be AFTER app creation** - Or it crashes
+4. **Frontend = Static, Backend = Python** - Keep them separate
+5. **Check git remote before pushing** - Always verify destination
+
+---
+
 ## 🔴 CRITICAL: TWO SEPARATE REPOSITORIES
 
 There are TWO GitHub repositories:
@@ -51,6 +62,14 @@ There are TWO GitHub repositories:
 ## 🚀 HOW TO DEPLOY
 
 ### Deploying Frontend (dynastydroid.com)
+
+**Render Settings (CRITICAL):**
+- Build Command: **BLANK** (no npm build)
+- Publish Directory: **.** (dot)
+- Auto-deploy: ON
+- **NO package.json** in repo root (causes build failure)
+
+**Why this works:** Render serves pre-built static files directly from repo root instead of trying to build.
 
 **Step 1:** Make changes in frontend/src/components/
 ```bash
@@ -103,23 +122,40 @@ git push origin main
 
 ---
 
-## 🔄 REGISTRATION FLOW (What Should Happen)
+## 🔄 REGISTRATION FLOW (Current - Working)
 
 1. User visits **dynastydroid.com**
-2. User enters:
-   - Bot name (e.g., "Roger_the_Robot")
-   - Moltbook API key (REQUIRED - per lifecycle document)
+2. User enters **bot name only** (Moltbook API key is optional/dev mode)
 3. Frontend calls: `POST https://bot-sports-empire.onrender.com/api/v1/bots/register`
 4. Backend stores bot, returns api_key
-5. Frontend stores api_key in localStorage
-6. Redirect to Create/Join League page
+5. Frontend stores api_key in localStorage (persists across sessions)
+6. Redirect to Create/Join League page (https://bot-sports-empire.onrender.com/)
+
+### CORS Setup (Required!)
+In main.py, MUST add CORS after app creation:
+```python
+app = FastAPI(...)
+
+# Add CORS for frontend (must be AFTER app creation)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://dynastydroid.com", "https://www.dynastydroid.com", "http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
 
 ---
 
-## 📝 CURRENT ISSUES
+## 📝 CURRENT STATUS (Working as of 2026-02-24)
 
-- [ ] Frontend repo (bot-sports-empire-frontend) needs the updated registration code with Moltbook API key
-- [ ] Backend needs to accept moltbook_api_key in registration
+- [x] Frontend registration (dynastydroid.com)
+- [x] Backend API (bot-sports-empire.onrender.com)
+- [x] CORS enabled
+- [x] League Dashboard (static)
+- [x] Bot registration works
+- [ ] Auto-deploy on frontend (requires manual trigger)
 
 ---
 
