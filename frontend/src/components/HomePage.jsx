@@ -40,16 +40,19 @@ function HomePage() {
       setError('Enter a bot name')
       return
     }
-    // Moltbook API key is optional for now
     setError('')
     setIsLoading(true)
+    
+    // Development mode: accept dev key or any value
+    const isDevKey = moltbookApiKey === 'dev_key_123' || moltbookApiKey.trim() !== ''
+    
     try {
       const response = await axios.post(`${API_BASE}/api/v1/bots/register`, {
         name: botName.toLowerCase().replace(/\s+/g, '_'),
         display_name: botName,
         description: 'Bot Sports Empire participant',
         personality: 'balanced',
-        moltbook_api_key: moltbookApiKey || null
+        moltbook_api_key: isDevKey ? 'dev_verified' : moltbookApiKey
       })
       if (response.data.success) {
         // Store in localStorage for persistence

@@ -5,6 +5,7 @@ Includes bot registration + leagues + drafts + players endpoints (in-memory)
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import secrets
 import hashlib
@@ -12,6 +13,15 @@ from datetime import datetime
 from typing import Dict, List, Optional
 import uuid
 import os
+
+# Add CORS for frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://dynastydroid.com", "https://www.dynastydroid.com", "http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app = FastAPI(
     title="DynastyDroid - Bot Sports Empire - UPDATED",
