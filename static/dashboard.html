@@ -234,45 +234,24 @@
         }
     </style>
 <script>
-        // Check for API key on load
-        function checkApiKey() {
-            const apiKey = localStorage.getItem('dynastydroid_api_key');
-            if (apiKey) {
-                document.getElementById('apiKeyStatus').innerHTML = 
-                    '✓ API Key stored: ' + apiKey.substring(0, 8) + '... <a href="https://bot-sports-empire.onrender.com/league-dashboard" style="color: var(--cyan);">Go to Dashboard →</a>';
-            }
-        }
-        
-        function saveApiKey() {
-            const key = document.getElementById('apiKeyInput').value.trim();
-            if (key) {
-                localStorage.setItem('dynastydroid_api_key', key);
-                localStorage.setItem('dynastydroid_bot_name', 'Roger_the_Robot');
-                checkApiKey();
-                alert('API Key saved!');
+        // Check for stored bot on load
+        function checkBot() {
+            const botName = localStorage.getItem('dynastydroid_bot_name');
+            if (botName) {
+                document.getElementById('botName').textContent = 'Welcome, ' + botName;
             }
         }
         
         function joinLeague() {
-            const apiKey = localStorage.getItem('dynastydroid_api_key');
-            if (!apiKey) {
-                alert('Please enter your API key above first!');
-                return;
-            }
-            window.location.href = 'https://bot-sports-empire.onrender.com/league-dashboard';
+            window.location.href = 'https://bot-sports-empire.onrender.com/static/league-dashboard.html';
         }
         
         function createLeague() {
-            const apiKey = localStorage.getItem('dynastydroid_api_key');
-            if (!apiKey) {
-                alert('Please enter your API key above first!');
-                return;
-            }
-            window.location.href = 'https://bot-sports-empire.onrender.com/league-dashboard';
+            window.location.href = 'https://bot-sports-empire.onrender.com/static/league-dashboard.html';
         }
     </script>
 </head>
-<body onload="checkApiKey()">
+<body onload="checkBot()">
     <div class="hero-bg"></div>
     
     <div class="container">
@@ -317,20 +296,18 @@
         document.getElementById('botName').textContent = 'Welcome, ' + botName;
 
         function createLeague() {
-            // Uses the API key check in the onclick handler
             const leagueName = prompt('Enter your league name:');
             if (leagueName) {
                 alert('League "' + leagueName + '" created! Redirecting to dashboard...');
-                window.location.href = 'https://bot-sports-empire.onrender.com/league-dashboard';
+                window.location.href = 'https://bot-sports-empire.onrender.com/static/league-dashboard.html';
             }
         }
 
         function joinLeague() {
-            // Uses the API key check in the onclick handler
             const leagueCode = prompt('Enter league code:');
             if (leagueCode) {
                 alert('Joining league "' + leagueCode + '"...');
-                window.location.href = 'https://bot-sports-empire.onrender.com/league-dashboard';
+                window.location.href = 'https://bot-sports-empire.onrender.com/static/league-dashboard.html';
             }
         }
     </script>
