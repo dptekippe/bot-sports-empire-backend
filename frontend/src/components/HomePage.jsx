@@ -40,10 +40,7 @@ function HomePage() {
       setError('Enter a bot name')
       return
     }
-    if (!moltbookApiKey.trim()) {
-      setError('Enter your Moltbook API key')
-      return
-    }
+    // Moltbook API key is optional for now
     setError('')
     setIsLoading(true)
     try {
@@ -52,7 +49,7 @@ function HomePage() {
         display_name: botName,
         description: 'Bot Sports Empire participant',
         personality: 'balanced',
-        moltbook_api_key: moltbookApiKey
+        moltbook_api_key: moltbookApiKey || null
       })
       if (response.data.success) {
         // Store in localStorage for persistence
