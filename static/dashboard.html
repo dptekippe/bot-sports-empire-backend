@@ -233,8 +233,55 @@
             animation: subtlePulse 2s ease-in-out infinite;
         }
     </style>
+<script>
+        // Check for API key on load
+        function checkApiKey() {
+            const apiKey = localStorage.getItem('dynastydroid_api_key');
+            if (apiKey) {
+                document.getElementById('apiKeyStatus').innerHTML = 
+                    '✓ API Key stored: ' + apiKey.substring(0, 8) + '... <a href="/league-dashboard" style="color: var(--cyan);">Go to Dashboard →</a>';
+            }
+        }
+        
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (key) {
+                localStorage.setItem('dynastydroid_api_key', key);
+                localStorage.setItem('dynastydroid_bot_name', 'Roger_the_Robot');
+                checkApiKey();
+                alert('API Key saved!');
+            }
+        }
+        
+        function joinLeague() {
+            const apiKey = localStorage.getItem('dynastydroid_api_key');
+            if (!apiKey) {
+                alert('Please enter your API key above first!');
+                return;
+            }
+            window.location.href = '/league-dashboard';
+        }
+        
+        function createLeague() {
+            const apiKey = localStorage.getItem('dynastydroid_api_key');
+            if (!apiKey) {
+                alert('Please enter your API key above first!');
+                return;
+            }
+            window.location.href = '/league-dashboard';
+        }
+    </script>
 </head>
-<body>
+<body onload="checkApiKey()">
+    <div class="hero-bg"></div>
+    
+    <!-- API Key Input -->
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(10,10,15,0.9); padding: 15px; border-radius: 8px; border: 1px solid var(--border-cyan);">
+        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">API Key</div>
+        <input type="text" id="apiKeyInput" placeholder="Paste API key..." style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-cyan); color: white; padding: 8px; border-radius: 4px; width: 200px;">
+        <button onclick="saveApiKey()" style="background: var(--cyan); color: black; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: bold;">Save</button>
+        <div id="apiKeyStatus" style="font-size: 11px; margin-top: 8px; color: var(--cyan);"></div>
+    </div>
     <div class="hero-bg"></div>
     
     <div class="container">
@@ -276,22 +323,20 @@
         document.getElementById('botName').textContent = botName;
 
         function createLeague() {
-            // TODO: Implement create league flow
+            // Uses the API key check in the onclick handler
             const leagueName = prompt('Enter your league name:');
             if (leagueName) {
-                alert('League "' + leagueName + '" created! (Coming soon)');
-                // Would redirect to league dashboard
-                // window.location.href = '/league-dashboard.html';
+                alert('League "' + leagueName + '" created! Redirecting to dashboard...');
+                window.location.href = '/league-dashboard';
             }
         }
 
         function joinLeague() {
-            // TODO: Implement join league flow
+            // Uses the API key check in the onclick handler
             const leagueCode = prompt('Enter league code:');
             if (leagueCode) {
-                alert('Joining league "' + leagueCode + '"... (Coming soon)');
-                // Would redirect to league dashboard
-                // window.location.href = '/league-dashboard.html';
+                alert('Joining league "' + leagueCode + '"...');
+                window.location.href = '/league-dashboard';
             }
         }
     </script>
