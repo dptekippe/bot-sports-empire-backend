@@ -448,6 +448,87 @@
             box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
         }
         
+        /* League List */
+        .league-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        
+        .league-row:hover {
+            border-color: #00e5ff;
+            background: rgba(0, 229, 255, 0.1);
+        }
+        
+        .league-info { flex: 1; }
+        
+        .league-name {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: #00e5ff;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        
+        .league-meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .league-capacity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-right: 16px;
+        }
+        
+        .progress-bar {
+            width: 80px;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #00e5ff;
+            border-radius: 3px;
+        }
+        
+        .progress-fill.full { background: #00ff88; }
+        
+        .capacity-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            min-width: 40px;
+        }
+        
+        .join-btn {
+            background: transparent;
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        
+        .join-btn:hover {
+            background: #00e5ff;
+            color: #0a0a15;
+        }
+        
         /* Toast */
         .toast {
             position: fixed;
@@ -681,6 +762,18 @@
             </div>
         </div>
         
+        <!-- Join League Modal -->
+        <div class="modal-overlay" id="joinLeagueModal">
+            <div class="modal" style="max-width: 600px;">
+                <button class="modal-close" onclick="closeJoinModal()">×</button>
+                <h2 class="modal-title">Active Leagues</h2>
+                
+                <div id="leagueList" style="max-height: 400px; overflow-y: auto; margin-top: 1rem;">
+                    <!-- Leagues will be injected here -->
+                </div>
+            </div>
+        </div>
+        
         <!-- Toast -->
         <div class="toast" id="toast">League Initialized!</div>
 
@@ -733,13 +826,86 @@
         }
 
         function joinLeague() {
-            // TODO: Implement join league flow
-            const leagueCode = prompt('Enter league code:');
-            if (leagueCode) {
-                alert('Joining league "' + leagueCode + '"... (Coming soon)');
-                // Would redirect to league dashboard
-                // window.location.href = '/league-dashboard.html';
+            // Open Join League Modal and load leagues
+            loadLeagues();
+            document.getElementById('joinLeagueModal').classList.add('active');
+        }
+        
+        function closeJoinModal() {
+            document.getElementById('joinLeagueModal').classList.remove('active');
+        }
+        
+        function loadLeagues() {
+            const list = document.getElementById('leagueList');
+            
+            // Get user's created league from localStorage
+            let leagues = [];
+            const createdLeague = localStorage.getItem('created_league');
+            if (createdLeague) {
+                leagues.push(JSON.parse(createdLeague));
             }
+            
+            // Add ghost leagues for testing
+            leagues.push({
+                name: 'Phantom Ops',
+                type: 'Dynasty',
+                character: 'Stat Nerds',
+                maxTeams: 12,
+                currentTeams: 11
+            });
+            
+            leagues.push({
+                name: 'Midnight Riders',
+                type: 'Fantasy',
+                character: 'Trash Talkers',
+                maxTeams: 12,
+                currentTeams: 3
+            });
+            
+            // Sort by currentTeams descending (closest to full first)
+            leagues.sort((a, b) => b.currentTeams - a.currentTeams);
+            
+            // Generate HTML
+            let html = '';
+            leagues.forEach(league => {
+                const percent = (league.currentTeams / league.maxTeams) * 100;
+                const isFull = league.currentTeams >= league.maxTeams;
+                
+                html += `
+                    <div class="league-row">
+                        <div class="league-info">
+                            <div class="league-name">${league.name}</div>
+                            <div class="league-meta">${league.type} • ${league.character}</div>
+                        </div>
+                        <div class="league-capacity">
+                            <div class="progress-bar">
+                                <div class="progress-fill ${isFull ? 'full' : ''}" style="width: ${percent}%"></div>
+                            </div>
+                            <span class="capacity-text">${league.currentTeams}/12</span>
+                        </div>
+                        <button class="join-btn" onclick="joinLeagueAction('${league.name}')" ${isFull ? 'disabled' : ''}>
+                            ${isFull ? 'FULL' : 'JOIN'}
+                        </button>
+                    </div>
+                `;
+            });
+            
+            list.innerHTML = html;
+        }
+        
+        function joinLeagueAction(leagueName) {
+            // Show toast
+            const toast = document.getElementById('toast');
+            toast.textContent = `SYNCHRONIZING... Request sent to ${leagueName} Command.`;
+            toast.style.display = 'block';
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => { toast.style.display = 'none'; }, 300);
+            }, 3000);
+            
+            closeJoinModal();
         }
     </script>
 </body>
