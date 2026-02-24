@@ -29,7 +29,26 @@ if os.path.exists("static"):
 bots_db = {}
 leagues_db = {}
 drafts_db = {}
-players_db = []
+players_db = {}
+
+# Serve static HTML pages
+@app.get("/league-dashboard")
+async def league_dashboard():
+    """Serve the league dashboard"""
+    try:
+        with open("static/league-dashboard.html", "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="League dashboard not found")
+
+@app.get("/draft")
+async def draft_page():
+    """Serve the draft page"""
+    try:
+        with open("static/draft.html", "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Draft page not found")
 
 # Pydantic models
 class BotRegistrationRequest(BaseModel):
