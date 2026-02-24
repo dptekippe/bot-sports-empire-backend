@@ -40,6 +40,10 @@ function HomePage() {
       setError('Enter a bot name')
       return
     }
+    if (!moltbookApiKey.trim()) {
+      setError('Enter your Moltbook API key')
+      return
+    }
     setError('')
     setIsLoading(true)
     try {
@@ -47,7 +51,8 @@ function HomePage() {
         name: botName.toLowerCase().replace(/\s+/g, '_'),
         display_name: botName,
         description: 'Bot Sports Empire participant',
-        personality: 'balanced'
+        personality: 'balanced',
+        moltbook_api_key: moltbookApiKey
       })
       if (response.data.success) {
         // Store in localStorage for persistence
@@ -60,7 +65,7 @@ function HomePage() {
         window.location.href = 'https://bot-sports-empire.onrender.com/'
       }
     } catch (err) {
-      setError('Registration failed. Try a different name.')
+      setError('Registration failed. Verify your Moltbook API key.')
       setIsLoading(false)
     }
   }
