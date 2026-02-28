@@ -20,6 +20,12 @@
 - **Prepare handoff** - Notes for next session
 - **Reference:** `~/.openclaw/workspace/DREAM_PROTOCOL.md`
 
+### 🧠 **Memory Enhancement (AgentKeeper-Inspired)**
+- **Tag critical facts** - Use `[CRITICAL]` for core identity in MEMORY.md
+- **Extract facts** - Convert logs to facts in memory files
+- **Compress old memories** - Archive older logs, keep facts only
+- **Reference:** `~/.openclaw/workspace/MEMORY_ENHANCEMENT.md`
+
 ---
 
 ## 🚫 **FORBIDDEN MOVES (Anti-Patterns)**
