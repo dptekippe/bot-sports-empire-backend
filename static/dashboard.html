@@ -780,9 +780,15 @@
     </div>
 
     <script>
+        // API Configuration
+        const API_BASE = window.location.origin;
+        
         // Get bot name from session storage
         const savedUser = localStorage.getItem('dynasty_user') || 'COMMANDER';
         document.getElementById('botName').textContent = 'Welcome, ' + savedUser;
+
+        // Store user ID after registration
+        let currentUserId = localStorage.getItem('dynasty_user_id');
 
         function createLeague() {
             // Open Create League Modal
@@ -793,7 +799,7 @@
             document.getElementById('createLeagueModal').classList.remove('active');
         }
         
-        function initializeLeague() {
+        async function initializeLeague() {
             const leagueName = document.getElementById('leagueName').value.trim();
             if (!leagueName) {
                 alert('Please enter a league name');
@@ -803,26 +809,55 @@
             const leagueType = document.getElementById('leagueType').value;
             const leagueCharacter = document.getElementById('leagueCharacter').value;
             
-            const leagueData = {
-                name: leagueName,
-                type: leagueType,
-                character: leagueCharacter,
-                maxTeams: 12,
-                currentTeams: 1
-            };
-            
-            // Save to localStorage
-            localStorage.setItem('created_league', JSON.stringify(leagueData));
-            
-            // Close modal
-            closeCreateModal();
-            
-            // Show toast
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            try {
+                // First ensure user exists
+                if (!currentUserId) {
+                    const userResponse = await fetch(`${API_BASE}/api/v1/users`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username: savedUser })
+                    });
+                    
+                    if (!userResponse.ok) throw new Error('Failed to create user');
+                    const userData = await userResponse.json();
+                    currentUserId = userData.id;
+                    localStorage.setItem('dynasty_user_id', currentUserId);
+                }
+                
+                // Create league - matching LeagueCreate model
+                const leagueResponse = await fetch(`${API_BASE}/api/v1/leagues`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        name: leagueName,
+                        description: leagueCharacter, // Using character as description
+                        league_type: leagueType === 'Dynasty' ? 'dynasty' : 'fantasy',
+                        max_teams: 12,
+                        min_teams: 8,
+                        is_public: true,
+                        season_year: 2026,
+                        scoring_type: "PPR"
+                    })
+                });
+                
+                if (!leagueResponse.ok) throw new Error('Failed to create league');
+                const leagueData = await leagueResponse.json();
+                
+                // Close modal
+                closeCreateModal();
+                
+                // Show success toast
+                const toast = document.getElementById('toast');
+                toast.textContent = `League "${leagueName}" created successfully!`;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to create league: ' + error.message);
+            }
         }
 
         function joinLeague() {
@@ -835,77 +870,104 @@
             document.getElementById('joinLeagueModal').classList.remove('active');
         }
         
-        function loadLeagues() {
+        async function loadLeagues() {
             const list = document.getElementById('leagueList');
+            list.innerHTML = '<div class="league-row"><div class="league-info">Loading leagues...</div></div>';
             
-            // Get user's created league from localStorage
-            let leagues = [];
-            const createdLeague = localStorage.getItem('created_league');
-            if (createdLeague) {
-                leagues.push(JSON.parse(createdLeague));
-            }
-            
-            // Add ghost leagues for testing
-            leagues.push({
-                name: 'Phantom Ops',
-                type: 'Dynasty',
-                character: 'Stat Nerds',
-                maxTeams: 12,
-                currentTeams: 11
-            });
-            
-            leagues.push({
-                name: 'Midnight Riders',
-                type: 'Fantasy',
-                character: 'Trash Talkers',
-                maxTeams: 12,
-                currentTeams: 3
-            });
-            
-            // Sort by currentTeams descending (closest to full first)
-            leagues.sort((a, b) => b.currentTeams - a.currentTeams);
-            
-            // Generate HTML
-            let html = '';
-            leagues.forEach(league => {
-                const percent = (league.currentTeams / league.maxTeams) * 100;
-                const isFull = league.currentTeams >= league.maxTeams;
+            try {
+                // Fetch leagues from API
+                const response = await fetch(`${API_BASE}/api/v1/leagues`);
+                const data = await response.json();
                 
-                html += `
-                    <div class="league-row">
-                        <div class="league-info">
-                            <div class="league-name">${league.name}</div>
-                            <div class="league-meta">${league.type} • ${league.character}</div>
-                        </div>
-                        <div class="league-capacity">
-                            <div class="progress-bar">
-                                <div class="progress-fill ${isFull ? 'full' : ''}" style="width: ${percent}%"></div>
+                let leagues = data.leagues || [];
+                
+                // If no leagues, show placeholder
+                if (leagues.length === 0) {
+                    leagues = [
+                        { id: 'placeholder1', name: 'Phantom Ops', league_type: 'Dynasty', description: 'Stat Nerds', max_teams: 12, current_teams: 11 },
+                        { id: 'placeholder2', name: 'Midnight Riders', league_type: 'Fantasy', description: 'Trash Talkers', max_teams: 12, current_teams: 3 }
+                    ];
+                }
+                
+                // Sort by currentTeams descending
+                leagues.sort((a, b) => (b.current_teams || 0) - (a.current_teams || 0));
+                
+                // Generate HTML
+                let html = '';
+                leagues.forEach(league => {
+                    const current = league.current_teams || 0;
+                    const max = league.max_teams || 12;
+                    const percent = (current / max) * 100;
+                    const isFull = current >= max;
+                    
+                    html += `
+                        <div class="league-row">
+                            <div class="league-info">
+                                <div class="league-name">${league.name}</div>
+                                <div class="league-meta">${league.league_type || 'Dynasty'} • ${league.description || 'All'}</div>
                             </div>
-                            <span class="capacity-text">${league.currentTeams}/12</span>
+                            <div class="league-capacity">
+                                <div class="progress-bar">
+                                    <div class="progress-fill ${isFull ? 'full' : ''}" style="width: ${percent}%"></div>
+                                </div>
+                                <span class="capacity-text">${current}/${max}</span>
+                            </div>
+                            <button class="join-btn" onclick="joinLeagueAction('${league.id}', '${league.name}')" ${isFull ? 'disabled' : ''}>
+                                ${isFull ? 'FULL' : 'JOIN'}
+                            </button>
                         </div>
-                        <button class="join-btn" onclick="joinLeagueAction('${league.name}')" ${isFull ? 'disabled' : ''}>
-                            ${isFull ? 'FULL' : 'JOIN'}
-                        </button>
-                    </div>
-                `;
-            });
-            
-            list.innerHTML = html;
+                    `;
+                });
+                
+                list.innerHTML = html;
+                
+            } catch (error) {
+                console.error('Error loading leagues:', error);
+                list.innerHTML = '<div class="league-row"><div class="league-info">Error loading leagues</div></div>';
+            }
         }
         
-        function joinLeagueAction(leagueName) {
-            // Show toast
-            const toast = document.getElementById('toast');
-            toast.textContent = `SYNCHRONIZING... Request sent to ${leagueName} Command.`;
-            toast.style.display = 'block';
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => { toast.style.display = 'none'; }, 300);
-            }, 3000);
-            
-            closeJoinModal();
+        async function joinLeagueAction(leagueId, leagueName) {
+            try {
+                // First ensure user exists
+                if (!currentUserId) {
+                    const userResponse = await fetch(`${API_BASE}/api/v1/users`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username: savedUser })
+                    });
+                    
+                    if (!userResponse.ok) throw new Error('Failed to create user');
+                    const userData = await userResponse.json();
+                    currentUserId = userData.id;
+                    localStorage.setItem('dynasty_user_id', currentUserId);
+                }
+                
+                // Join league - API takes user_id as query param
+                const response = await fetch(`${API_BASE}/api/v1/leagues/${leagueId}/join?user_id=${currentUserId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                if (!response.ok) throw new Error('Failed to join league');
+                
+                // Show success toast
+                const toast = document.getElementById('toast');
+                toast.textContent = `SYNCHRONIZED: Successfully joined ${leagueName}!`;
+                toast.style.display = 'block';
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => { toast.style.display = 'none'; }, 300);
+                }, 3000);
+                
+                closeJoinModal();
+                
+            } catch (error) {
+                console.error('Error joining league:', error);
+                alert('Failed to join league: ' + error.message);
+            }
         }
     </script>
 </body>
