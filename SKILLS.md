@@ -28,6 +28,47 @@
 
 ---
 
+## 🧠 **Model Selection Guide (CRITICAL)**
+
+> When facing any problem, ask: "Which model is best suited for this?"
+
+### Available Models
+
+| Model | Strengths | Best For |
+|-------|-----------|----------|
+| **MiniMax M2.5** | Production code, agentic tasks, speed, efficiency | Writing code, APIs, endpoints, complex implementation |
+| **DeepSeek R1** | Reasoning, math, chain-of-thought, geometry | Math problems, proofs, structured problem solving, step-by-step logic |
+| **Perplexity Sonar** | Real-time search, factuality, citations | Research, web lookup, current information, factual queries |
+| **Gemini 1.5 Flash** | Vision, image analysis, multimodal | UI analysis, screenshots, visual tasks, document extraction |
+
+### When to Switch Models
+
+| Problem Type | Use Model | Why |
+|-------------|-----------|-----|
+| Math/geometry/proofs | DeepSeek | Chain-of-thought reasoning, step-by-step solving |
+| Production code | MiniMax | Agentic, efficient, SOTA coding benchmarks |
+| Research/web lookup | Perplexity | Real-time facts, citations, current info |
+| UI/screenshot analysis | Gemini | Vision capabilities, image understanding |
+| Stuck on problem | Switch! | Different model = different perspective |
+
+### Model Selection Reflex
+
+When given a problem:
+1. **Assess** — What kind of problem is this?
+2. **Choose** — Which model fits best?
+3. **If stuck** — Say "I don't know" and switch models
+4. **Iterate** — Try different approaches
+
+### The "I Don't Know" Reflex
+
+- ✅ "This is a complex math problem. Let me use DeepSeek."
+- ✅ "I'm not sure. Let me research with Perplexity."
+- ❌ "I don't know but here's a guess..." (avoid guessing)
+
+**Guessing erodes trust. Admitting uncertainty and switching models builds reliability.**
+
+---
+
 ## 🚫 **FORBIDDEN MOVES (Anti-Patterns)**
 
 ### **SQLAlchemy Anti-Patterns:**
