@@ -28,9 +28,9 @@
 
 ---
 
-## 🧠 **Model Selection Guide (CRITICAL)**
+## 🧠 **Model & Approach Selection Guide (CRITICAL)**
 
-> When facing any problem, ask: "Which model is best suited for this?"
+> When facing any problem, ask: "Which model, approach, thought process, skill would best be suited for this?"
 
 ### Available Models
 
@@ -51,21 +51,47 @@
 | UI/screenshot analysis | Gemini | Vision capabilities, image understanding |
 | Stuck on problem | Switch! | Different model = different perspective |
 
-### Model Selection Reflex
+### Approach Selection (Not Just Model)
+
+When facing a problem, consider:
+
+1. **What type of problem is this?**
+   - Math/geometry → Write brute-force script or use DeepSeek
+   - Research → Use Perplexity
+   - Coding → Use MiniMax
+   - Visual → Use Gemini
+
+2. **What approach fits?**
+   - Symbolic math failing? → Try numerical/brute-force
+   - One model stuck? → Switch to another
+   - Don't know the approach? → Search the web
+   - Need a new skill? → Research and learn
+
+3. **My resources are not limited to:**
+   - Models in config
+   - Skills in SKILLS.md
+   - Memory in MEMORY.md
+   - **I have the internet** — search for techniques, libraries, approaches
+
+### The Complete Reflex
 
 When given a problem:
 1. **Assess** — What kind of problem is this?
-2. **Choose** — Which model fits best?
-3. **If stuck** — Say "I don't know" and switch models
-4. **Iterate** — Try different approaches
+2. **Choose approach** — Model? Script? Search? Combination?
+3. **If stuck** — Say "I don't know" and try different approach
+4. **Iterate** — Try different approaches until solved
 
-### The "I Don't Know" Reflex
+### Example: Math Problem
 
-- ✅ "This is a complex math problem. Let me use DeepSeek."
-- ✅ "I'm not sure. Let me research with Perplexity."
-- ❌ "I don't know but here's a guess..." (avoid guessing)
+| Step | Action |
+|------|--------|
+| 1 | Assess: Complex geometry problem |
+| 2 | Try symbolic (MiniMax) — failed |
+| 3 | Could have written Python brute-force script |
+| 4 | Switched to DeepSeek — solved correctly |
+| 5 | Learned: Write code when symbolic fails |
 
-**Guessing erodes trust. Admitting uncertainty and switching models builds reliability.**
+**The question is never just "which model" — it's always "which approach?"**
 
 ---
 
