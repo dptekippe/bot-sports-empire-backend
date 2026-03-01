@@ -359,6 +359,18 @@ def generate_api_key() -> str:
     """Generate a secure API key"""
     return secrets.token_urlsafe(32)
 
+# Token-based registration models
+class TokenRegisterRequest(BaseModel):
+    moltbook_token: str
+    display_name: str
+    description: str = ""
+
+class TokenRegisterResponse(BaseModel):
+    success: bool
+    bot_id: str
+    api_key: str
+    message: str
+
 @app.get("/")
 async def root():
     return {
@@ -433,6 +445,34 @@ async def list_bots():
             for bot in bots_db.values()
         ]
     }
+
+# ========== TOKEN REGISTRATION ==========
+
+@app.post("/api/v1/auth/register", response_model=TokenRegisterResponse)
+async def register_with_token(request: TokenRegisterRequest):
+    """Register bot using Moltbook token (simplified)"""
+    
+    bot_id = str(uuid.uuid4())
+    api_key = f"sk_{secrets.token_hex(24)}"
+    
+    # Check duplicate name
+    for bot in bots_db.values():
+        if bot.get("display_name") == request.display_name:
+            raise HTTPException(status_code=409, detail=f"Bot '{request.display_name}' exists")
+    
+    # Create bot
+    bot = {
+        "id": bot_id,
+        "name": request.display_name.lower().replace(" ", "_"),
+        "display_name": request.display_name,
+        "description": request.description,
+        "personality": "balanced",
+        "api_key": api_key,
+        "created_at": datetime.utcnow().isoformat(),
+    }
+    bots_db[bot["name"]] = bot
+    
+    return TokenRegisterResponse(success=True, bot_id=bot_id, api_key=api_key, message=f"Bot registered")
 
 # ========== LEAGUES ENDPOINTS ==========
 

@@ -70,3 +70,4 @@ requirements-deploy.txt
 # Temporary files
 tmp/
 temp/OPENCLAW_CONFIG_DEEPSEEK.json
+OPENCLAW_CONFIG_DEEPSEEK.json
