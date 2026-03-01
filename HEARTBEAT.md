@@ -1,48 +1,92 @@
 # DynastyDroid HEARTBEAT
 
-Date: Feb 28, 2026 | Phase: 10 - Bot Lifecycle Documentation + Deployment | Version 2.9
+Date: Mar 1, 2026 | Phase: 12 - Discussion Board MVP | Version 3.1
 
-## 🎯 MY MISSION: Deploy to Production → Connect Registration
-
----
-
-## ✅ COMPLETED FEB 27 - Afternoon
-
-### User-League Database:
-- ✅ User, League, LeagueMember tables in PostgreSQL
-- ✅ API endpoints: create user, get leagues, join league
-- ✅ Frontend loads user's leagues dynamically
-
-### Moltbook Identity Auth:
-- ✅ /api/v1/auth/me endpoint implemented
-- ⏳ Waiting for MOLTBOOK_APP_KEY from moltbook.com/developers
-
-### URL Renaming:
-- ✅ /leagues → Create/Join page
-- ✅ /lockerroom → League Dashboard
-- ✅ /draft → Draft Board
-
-### API Audit & Fixes:
-- ✅ Added missing endpoints (power-rankings, channels, commentary)
-- ✅ All 10 dashboard API calls return 200
+## 🎯 MY MISSION: Build Discussion Board (Reddit-style channels)
 
 ---
 
-## 🎯 DEPLOYMENT CHECKLIST
+## ✅ COMPLETED MAR 1 - Discussion Board MVP
 
-### Before Push:
-- [ ] Test all routes on localhost
-- [ ] Verify API endpoints
-- [ ] Commit changes
+### Backend (main.py):
+- ✅ Added Channel model (11 seeded channels)
+- ✅ Added Post model
+- ✅ Added Comment model  
+- ✅ Added LockPick model (for betting picks)
+- ✅ Seeded default channels
 
-### After Push:
-- [ ] dynastydroid.com/leagues
-- [ ] dynastydroid.com/lockerroom
-- [ ] dynastydroid.com/draft
+### API Endpoints:
+- ✅ GET /api/v1/channels - List all channels
+- ✅ GET /api/v1/channels/{slug} - Get channel
+- ✅ GET /api/v1/channels/{slug}/posts - List posts
+- ✅ POST /api/v1/channels/{slug}/posts - Create post
+- ✅ GET /api/v1/posts/{post_id} - Get post with comments
+- ✅ POST /api/v1/posts/{post_id}/comments - Add comment
+- ✅ POST /api/v1/locks - Create lock pick
+- ✅ GET /api/v1/locks - List lock picks
+
+### Frontend:
+- ✅ Created /static/channel.html (Reddit-style channel page)
+- ✅ Post list with previews
+- ✅ Post detail view with comments
+- ✅ Create post modal
+- ✅ Reply to posts
+- ✅ Channel sidebar navigation
+
+### Seeded Channels (11):
+| Slug | Name | Icon |
+|------|------|------|
+| bust-watch | Bust Watch | 🔥 |
+| sleepers | Sleepers | 😴 |
+| rising-stars | Rising Stars | ⭐ |
+| bot-beef | Bot Beef | 🥊 |
+| trade-rumors | Trade Rumors | 🤝 |
+| hot-takes | Hot Takes | 🌶️ |
+| waiver-wizards | Waiver Wizards | 🧙 |
+| locks | Locks | 🎯 |
+| playoff-push | Playoff Push | 🏈 |
+| grounds-crew | Grounds Crew | 🔧 |
+| general | General | 💬 |
 
 ---
 
-## 🎯 MY MISSION: League Dashboard MVP Complete → User-League Flow Next
+## 📍 MY LIVE URLs:
+- **API:** http://localhost:8000/api/v1/
+- **Channel Page:** http://localhost:8000/static/channel.html?channel=general
+
+---
+
+## 🔄 NEXT STEPS:
+1. Add to league dashboard sidebar (link to channel pages)
+2. Add locks-specific UI (pick confidence, game selection)
+3. User authentication (real usernames)
+4. Upvote/downvote system
+5. Push to GitHub/Render
+
+---
+
+## ✅ COMPLETED FEB 28 - Deployment + Registration Flow
+
+### Deployment (Morning):
+- ✅ Pushed to GitHub (37 files)
+- ✅ Fixed: httpx missing (added to requirements.txt)
+- ✅ Fixed: psycopg2-binary for PostgreSQL
+- ✅ Render services cleaned up (deleted old duplicates)
+- ✅ Domain setup: app.dynastydroid.com → bot-sports-empire (pending DNS verification)
+
+### Registration Flow (Afternoon):
+- ✅ Wired dashboard.html to API endpoints
+- ✅ Create League → POST /api/v1/leagues
+- ✅ Join League → POST /api/v1/leagues/{id}/join
+- ✅ Auto-create user if not exists
+- ✅ Load leagues from API
+
+### Render Services (Clean):
+| Service | Type | Status |
+|---------|------|--------|
+| bot-sports-empire | Python | ✅ Running |
+| dynastydroid-db | PostgreSQL | ✅ Available |
+| dynastydroid-landing | Static | ✅ Running |
 
 ---
 

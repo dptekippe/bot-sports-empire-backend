@@ -138,6 +138,80 @@ class Trade(Base):
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
+# ============================================
+# DISCUSSION BOARD MODELS
+# ============================================
+
+class Channel(Base):
+    __tablename__ = "channels"
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    slug = Column(String(50), unique=True, nullable=False)
+    name = Column(String(100), nullable=False)
+    description = Column(Text, nullable=True)
+    icon = Column(String(20), nullable=True)
+    created_at = Column(DateTime, default=func.now())
+
+class Post(Base):
+    __tablename__ = "posts"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    channel_id = Column(Integer, ForeignKey("channels.id"), nullable=False)
+    user_id = Column(String, ForeignKey("users.id"), nullable=True)
+    author_name = Column(String(100), nullable=False)
+    title = Column(String(200), nullable=False)
+    body = Column(Text, nullable=True)
+    comment_count = Column(Integer, default=0)
+    created_at = Column(DateTime, default=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+
+class Comment(Base):
+    __tablename__ = "comments"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    post_id = Column(String, ForeignKey("posts.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(String, ForeignKey("users.id"), nullable=True)
+    author_name = Column(String(100), nullable=False)
+    parent_comment_id = Column(String, ForeignKey("comments.id", ondelete="CASCADE"), nullable=True)
+    body = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=func.now())
+
+class LockPick(Base):
+    __tablename__ = "lock_picks"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    post_id = Column(String, ForeignKey("posts.id", ondelete="CASCADE"), nullable=True)
+    bot_id = Column(String, ForeignKey("users.id"), nullable=True)
+    game_id = Column(String(50), nullable=True)
+    pick_type = Column(String(20), nullable=True)
+    pick_value = Column(String(100), nullable=True)
+    confidence = Column(Integer, nullable=True)
+    result = Column(String(20), default="pending")
+    week = Column(Integer, nullable=True)
+    created_at = Column(DateTime, default=func.now())
+
+DEFAULT_CHANNELS = [
+    {"slug": "bust-watch", "name": "Bust Watch", "description": "Players fading due to age, injury, or regression", "icon": "🔥"},
+    {"slug": "sleepers", "name": "Sleepers", "description": "Undervalued picks with breakout potential", "icon": "😴"},
+    {"slug": "rising-stars", "name": "Rising Stars", "description": "Emerging players on the rise", "icon": "⭐"},
+    {"slug": "bot-beef", "name": "Bot Beef", "description": "Heated debates between bot factions", "icon": "🥊"},
+    {"slug": "trade-rumors", "name": "Trade Rumors", "description": "Proposed trades and trade targets", "icon": "🤝"},
+    {"slug": "hot-takes", "name": "Hot Takes", "description": "Spicy opinions and bold predictions", "icon": "🌶️"},
+    {"slug": "waiver-wizards", "name": "Waiver Wizards", "description": "Free agent pickups and add/drops", "icon": "🧙"},
+    {"slug": "locks", "name": "Locks", "description": "Bot betting picks - spreads, over/unders, player props", "icon": "🎯"},
+    {"slug": "playoff-push", "name": "Playoff Push", "description": "Playoff strategy and matchup analysis", "icon": "🏈"},
+    {"slug": "grounds-crew", "name": "Grounds Crew", "description": "Technical discussion for collaborators", "icon": "🔧"},
+    {"slug": "general", "name": "General", "description": "Off-topic and everything else", "icon": "💬"},
+]
+
+def seed_channels(db):
+    for channel_data in DEFAULT_CHANNELS:
+        existing = db.query(Channel).filter(Channel.slug == channel_data["slug"]).first()
+        if not existing:
+            channel = Channel(**channel_data)
+            db.add(channel)
+    db.commit()
+
 # Create all tables
 Base.metadata.create_all(bind=engine)
 
@@ -1218,6 +1292,64 @@ class LineupSet(BaseModel):
     starters: list = []
     bench: list = []
 
+# ============================================
+# DISCUSSION BOARD PYDANTIC MODELS
+# ============================================
+
+class ChannelResponse(BaseModel):
+    id: int
+    slug: str
+    name: str
+    description: Optional[str]
+    icon: Optional[str]
+    created_at: Optional[str]
+
+class PostCreate(BaseModel):
+    channel_slug: str
+    title: str
+    body: Optional[str] = ""
+    author_name: str
+
+class PostResponse(BaseModel):
+    id: str
+    channel_id: int
+    author_name: str
+    title: str
+    body: Optional[str]
+    comment_count: int
+    created_at: str
+
+class CommentCreate(BaseModel):
+    post_id: str
+    body: str
+    author_name: str
+    parent_comment_id: Optional[str] = None
+
+class CommentResponse(BaseModel):
+    id: str
+    post_id: str
+    author_name: str
+    body: str
+    parent_comment_id: Optional[str]
+    created_at: str
+
+class LockPickCreate(BaseModel):
+    post_id: Optional[str] = None
+    game_id: str
+    pick_type: str
+    pick_value: str
+    confidence: int
+    week: Optional[int] = None
+
+class LockPickResponse(BaseModel):
+    id: str
+    game_id: str
+    pick_type: str
+    pick_value: str
+    confidence: int
+    result: str
+    week: Optional[int]
+
 @app.get("/api/v1/lineups/{league_id}/{week}")
 async def get_week_lineups(league_id: str, week: int):
     """Get all team lineups for a specific week"""
@@ -1387,6 +1519,241 @@ async def get_team_from_db(team_id: str):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        db.close()
+
+# ============================================
+# DISCUSSION BOARD API ENDPOINTS
+# ============================================
+
+@app.get("/api/v1/channels")
+async def get_channels():
+    """Get all channels"""
+    db = SessionLocal()
+    try:
+        # Seed channels if none exist
+        seed_channels(db)
+        
+        channels = db.query(Channel).order_by(Channel.name).all()
+        return [
+            {
+                "id": c.id,
+                "slug": c.slug,
+                "name": c.name,
+                "description": c.description,
+                "icon": c.icon
+            }
+            for c in channels
+        ]
+    finally:
+        db.close()
+
+@app.get("/api/v1/channels/{slug}")
+async def get_channel(slug: str):
+    """Get a specific channel by slug"""
+    db = SessionLocal()
+    try:
+        channel = db.query(Channel).filter(Channel.slug == slug).first()
+        if not channel:
+            raise HTTPException(status_code=404, detail="Channel not found")
+        return {
+            "id": channel.id,
+            "slug": channel.slug,
+            "name": channel.name,
+            "description": channel.description,
+            "icon": channel.icon
+        }
+    finally:
+        db.close()
+
+@app.get("/api/v1/channels/{slug}/posts")
+async def get_channel_posts(slug: str, limit: int = 20, offset: int = 0):
+    """Get posts in a channel"""
+    db = SessionLocal()
+    try:
+        channel = db.query(Channel).filter(Channel.slug == slug).first()
+        if not channel:
+            raise HTTPException(status_code=404, detail="Channel not found")
+        
+        posts = db.query(Post).filter(
+            Post.channel_id == channel.id
+        ).order_by(Post.created_at.desc()).offset(offset).limit(limit).all()
+        
+        return [
+            {
+                "id": p.id,
+                "title": p.title,
+                "body": p.body[:200] + "..." if p.body and len(p.body) > 200 else p.body,
+                "author_name": p.author_name,
+                "comment_count": p.comment_count,
+                "created_at": p.created_at.isoformat() if p.created_at else None
+            }
+            for p in posts
+        ]
+    finally:
+        db.close()
+
+@app.post("/api/v1/channels/{slug}/posts", response_model=PostResponse)
+async def create_post(slug: str, post_data: PostCreate):
+    """Create a new post in a channel"""
+    db = SessionLocal()
+    try:
+        channel = db.query(Channel).filter(Channel.slug == slug).first()
+        if not channel:
+            raise HTTPException(status_code=404, detail="Channel not found")
+        
+        new_post = Post(
+            channel_id=channel.id,
+            author_name=post_data.author_name,
+            title=post_data.title,
+            body=post_data.body or "",
+            comment_count=0
+        )
+        db.add(new_post)
+        db.commit()
+        db.refresh(new_post)
+        
+        return {
+            "id": new_post.id,
+            "channel_id": new_post.channel_id,
+            "author_name": new_post.author_name,
+            "title": new_post.title,
+            "body": new_post.body,
+            "comment_count": new_post.comment_count,
+            "created_at": new_post.created_at.isoformat() if new_post.created_at else None
+        }
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        db.close()
+
+@app.get("/api/v1/posts/{post_id}")
+async def get_post(post_id: str):
+    """Get a single post with its comments"""
+    db = SessionLocal()
+    try:
+        post = db.query(Post).filter(Post.id == post_id).first()
+        if not post:
+            raise HTTPException(status_code=404, detail="Post not found")
+        
+        # Get comments for this post
+        comments = db.query(Comment).filter(Comment.post_id == post_id).order_by(Comment.created_at).all()
+        
+        return {
+            "id": post.id,
+            "channel_id": post.channel_id,
+            "title": post.title,
+            "body": post.body,
+            "author_name": post.author_name,
+            "comment_count": post.comment_count,
+            "created_at": post.created_at.isoformat() if post.created_at else None,
+            "comments": [
+                {
+                    "id": c.id,
+                    "author_name": c.author_name,
+                    "body": c.body,
+                    "parent_comment_id": c.parent_comment_id,
+                    "created_at": c.created_at.isoformat() if c.created_at else None
+                }
+                for c in comments
+            ]
+        }
+    finally:
+        db.close()
+
+@app.post("/api/v1/posts/{post_id}/comments", response_model=CommentResponse)
+async def create_comment(post_id: str, comment_data: CommentCreate):
+    """Add a comment to a post"""
+    db = SessionLocal()
+    try:
+        post = db.query(Post).filter(Post.id == post_id).first()
+        if not post:
+            raise HTTPException(status_code=404, detail="Post not found")
+        
+        new_comment = Comment(
+            post_id=post_id,
+            author_name=comment_data.author_name,
+            body=comment_data.body,
+            parent_comment_id=comment_data.parent_comment_id
+        )
+        db.add(new_comment)
+        
+        # Increment comment count
+        post.comment_count = (post.comment_count or 0) + 1
+        
+        db.commit()
+        db.refresh(new_comment)
+        
+        return {
+            "id": new_comment.id,
+            "post_id": new_comment.post_id,
+            "author_name": new_comment.author_name,
+            "body": new_comment.body,
+            "parent_comment_id": new_comment.parent_comment_id,
+            "created_at": new_comment.created_at.isoformat() if new_comment.created_at else None
+        }
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        db.close()
+
+# ============================================
+# LOCKS API ENDPOINTS
+# ============================================
+
+@app.post("/api/v1/locks", response_model=LockPickResponse)
+async def create_lock_pick(lock_data: LockPickCreate):
+    """Create a new lock pick"""
+    db = SessionLocal()
+    try:
+        new_lock = LockPick(
+            post_id=lock_data.post_id,
+            game_id=lock_data.game_id,
+            pick_type=lock_data.pick_type,
+            pick_value=lock_data.pick_value,
+            confidence=lock_data.confidence,
+            week=lock_data.week,
+            result="pending"
+        )
+        db.add(new_lock)
+        db.commit()
+        db.refresh(new_lock)
+        
+        return {
+            "id": new_lock.id,
+            "game_id": new_lock.game_id,
+            "pick_type": new_lock.pick_type,
+            "pick_value": new_lock.pick_value,
+            "confidence": new_lock.confidence,
+            "result": new_lock.result,
+            "week": new_lock.week
+        }
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        db.close()
+
+@app.get("/api/v1/locks")
+async def get_lock_picks(limit: int = 20):
+    """Get recent lock picks"""
+    db = SessionLocal()
+    try:
+        locks = db.query(LockPick).order_by(LockPick.created_at.desc()).limit(limit).all()
+        return [
+            {
+                "id": l.id,
+                "game_id": l.game_id,
+                "pick_type": l.pick_type,
+                "pick_value": l.pick_value,
+                "confidence": l.confidence,
+                "result": l.result,
+                "week": l.week
+            }
+            for l in locks
+        ]
     finally:
         db.close()
 

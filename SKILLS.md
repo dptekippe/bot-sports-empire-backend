@@ -172,6 +172,12 @@ When asked a question:
 - ❌ **Do NOT** assume configuration will persist across redeploys
 - ❌ **Do NOT** skip health check endpoint configuration
 - ❌ **Do NOT** place constant definitions between decorators and functions (syntax error!)
+- ❌ **Do NOT** commit without checking for API keys in config files (blocks push)
+
+### **GitHub Pre-Commit Checklist:**
+- ✅ Check for API keys in JSON config files before `git add .`
+- ✅ Verify .gitignore includes secrets files
+- ✅ Test requirements.txt imports locally before push
 
 ### **Render Deployment Checklist:**
 - ✅ **ALWAYS** check render.yaml points to correct file (main.py vs app_absolute_minimal.py)
@@ -179,6 +185,7 @@ When asked a question:
 - ✅ **ALWAYS** test locally before push
 - ✅ **ALWAYS** clear build cache if needed
 - ✅ **NEVER** push multiple times in quick succession (causes 500 errors during rebuild)
+- ✅ Keep only 3 active services: bot-sports-empire (backend), dynastydroid-db (PostgreSQL), dynastydroid-landing (static)
 
 ### **Browser Control Anti-Patterns:**
 - ❌ **Do NOT** use `profile="chrome"` when extension shows exclamation mark
@@ -335,6 +342,8 @@ WHERE t1.condition = ?;
 - **Pattern:** Purchase domain early (dynastydroid.com)
 - **Pattern:** Connect to Render service immediately
 - **Pattern:** Test both service URL and custom domain
+- **app.dynastydroid.com** → backend API (bot-sports-empire)
+- **dynastydroid.com** → static frontend (dynastydroid-landing)
 
 ---
 
@@ -510,7 +519,7 @@ When you report "it's fixed" or "it's working" - that is a promise. A broken pro
 
 ---
 
-*Last updated by Muscle Memory agent 2026-02-28. This file grows through automated synthesis of MEMORY.md insights.*
+*Last updated by Muscle Memory agent 2026-03-01. This file grows through automated synthesis of MEMORY.md insights.*
 ## 🎨 **UI/UX DRAFT BOARD PATTERNS**
 
 ### **Sleeper-Style Design:**
@@ -554,13 +563,15 @@ When you report "it's fixed" or "it's working" - that is a promise. A broken pro
 
 ### **Common Errors:**
 - **Service name mismatch:** Deploy to wrong service (dynastydroid-landing vs bot-sports-empire) → waste time debugging correct service
+- **Missing Python packages:** httpx and psycopg2-binary must be in requirements.txt for Render
 - pydantic-core build failure → use pydantic v1
 - Syntax errors after edits → always validate locally
 - Old code cached → trigger rebuild or clear cache
 
 ### **Python & Package Versioning:**
-- Python 3.11.11 recommended for Render compatibility (specific version, not just 3.11)
+- **Python 3.11.11** (exact version, NOT 3.11.9 or 3.12) - Critical for Render compatibility
 - pydantic v1 (not v2) to avoid pydantic-core build failures
+- Always specify exact Python version in runtime.txt: `python-3.11.11`
 - Check requirements.txt before every deployment
 - Clear build cache if configuration changes are ignored
 
@@ -619,6 +630,7 @@ When you report "it's fixed" or "it's working" - that is a promise. A broken pro
 - **ADP fallback:** Embed static ADP JSON in frontend for reliability when backend unavailable
 - **Decoupled architecture:** Frontend works with embedded data even if API fails
 - **JavaScript-side calculations:** ADP, snake order, pick calculations in JS
+- **Verified (Feb 20):** ADP decoupling pattern confirmed working - JS fallback enables full draft board functionality even when backend unavailable
 
 ---
 
@@ -692,6 +704,8 @@ When you report "it's fixed" or "it's working" - that is a promise. A broken pro
 - Primary model: minimax-portal/MiniMax-M2.5
 - Image model: google/gemini-3-pro-preview
 - Use alias "gemini" for explicit image calls
+- **"Conductor" approach:** Use DeepSeek for planning/strategy, MiniMax for execution/coding
+- **Timeout resolution:** Switch models mid-session to resolve subagent hangs
 
 ### **Config Safety:**
 - Gateway resets can cause identity confusion

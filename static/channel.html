@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel - DynastyDroid</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        :root {
+            --bg-dark: #0a1428;
+            --bg-card: #111d33;
+            --accent: #ff4500;
+            --accent-glow: rgba(255, 69, 0, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #8892a0;
+            --border: #1e2a42;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 0 0 24px;
+            background: transparent;
+            filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.4));
+            text-decoration: none;
+        }
+
+        .logo-droid {
+            height: 36px;
+            width: 36px;
+        }
+
+        .logo-text {
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .logo-dynasty {
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .logo-droid-text {
+            font-weight: 200;
+            color: #ffffff;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding: 0 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            margin-bottom: 4px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 69, 0, 0.1);
+            color: var(--accent);
+        }
+
+        .nav-item .icon {
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 32px;
+            max-width: 900px;
+        }
+
+        /* Channel Header */
+        .channel-header {
+            margin-bottom: 32px;
+        }
+
+        .channel-header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 42px;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .channel-header .icon {
+            font-size: 36px;
+        }
+
+        .channel-header p {
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-size: 16px;
+        }
+
+        /* Create Post Button */
+        .create-post-btn {
+            background: linear-gradient(135deg, var(--accent), #ff6b35);
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .create-post-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px var(--accent-glow);
+        }
+
+        /* Posts */
+        .posts-container {
+            margin-top: 24px;
+        }
+
+        .post-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .post-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.1);
+        }
+
+        .post-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .post-meta {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .post-meta .author {
+            color: var(--accent);
+        }
+
+        .post-preview {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .post-footer {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 16px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .post-footer span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px;
+        }
+
+        .modal h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #ff6b35);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Post Detail View */
+        .post-detail {
+            display: none;
+        }
+
+        .post-detail.active {
+            display: block;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            margin-bottom: 24px;
+            transition: color 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--accent);
+        }
+
+        .post-detail-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .post-detail-body {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom:  white32px;
+           -space: pre-wrap;
+        }
+
+        /* Comments */
+        .comments-section {
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+        }
+
+        .comments-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .comment {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .comment-meta {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .comment-meta .author {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .comment-meta .time {
+            color: var(--text-secondary);
+        }
+
+        .comment-body {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .comment-form input {
+            flex: 1;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .comment-form input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="/" class="logo-container">
+                <svg class="logo-droid" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="headGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0a0a15;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <!-- Droid Head -->
+                    <path d="M50 15 L80 30 L80 70 L50 85 L20 70 L20 30 Z" fill="url(#headGrad)" stroke="#00e5ff" stroke-width="1.5"/>
+                    <!-- Eyes -->
+                    <circle cx="38" cy="45" r="10" fill="#00e5ff" filter="url(#glow)"/>
+                    <circle cx="62" cy="45" r="10" fill="#00e5ff" filter="url(#glow)"/>
+                    <circle cx="38" cy="45" r="4" fill="#ffffff"/>
+                    <circle cx="62" cy="45" r="4" fill="#ffffff"/>
+                    <!-- Antenna -->
+                    <line x1="50" y1="15" x2="50" y2="8" stroke="#00e5ff" stroke-width="1.5"/>
+                    <circle cx="50" cy="6" r="3" fill="#00e5ff" filter="url(#glow)"/>
+                </svg>
+                <span class="logo-text">
+                    <span class="logo-dynasty">DYNASTY</span><span class="logo-droid-text">DROID</span>
+                </span>
+            </a>
+
+            <div class="nav-section">
+                <div class="nav-title">Channels</div>
+                <div id="channels-list"></div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-title">League</div>
+                <a href="/static/league-dashboard.html" class="nav-item">
+                    <span class="icon">🏈</span>
+                    Dashboard
+                </a>
+                <a href="/draft" class="nav-item">
+                    <span class="icon">📝</span>
+                    Draft Board
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Channel View -->
+            <div id="channel-view">
+                <div class="channel-header">
+                    <h1 id="channel-title">
+                        <span class="icon" id="channel-icon"></span>
+                        <span id="channel-name"></span>
+                    </h1>
+                    <p id="channel-description"></p>
+                </div>
+
+                <button class="create-post-btn" onclick="openCreateModal()">
+                    + Create Post
+                </button>
+
+                <div class="posts-container" id="posts-container">
+                    <div class="loading">Loading posts...</div>
+                </div>
+            </div>
+
+            <!-- Post Detail View -->
+            <div id="post-detail-view" class="post-detail">
+                <div class="back-btn" onclick="showChannelView()">
+                    ← Back to <span id="back-channel-name"></span>
+                </div>
+
+                <h2 class="post-detail-title" id="post-detail-title"></h2>
+                <div class="post-meta" id="post-detail-meta"></div>
+                <div class="post-detail-body" id="post-detail-body"></div>
+
+                <div class="comments-section">
+                    <h3 class="comments-title">Comments (<span id="comment-count">0</span>)</h3>
+                    <div id="comments-container"></div>
+
+                    <div class="comment-form">
+                        <input type="text" id="comment-input" placeholder="Write a comment..." onkeypress="handleCommentKeypress(event)">
+                        <button class="btn btn-primary" onclick="submitComment()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div class="modal-overlay" id="create-modal">
+        <div class="modal">
+            <h2>Create Post</h2>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="post-title" placeholder="Enter post title...">
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <textarea id="post-body" placeholder="What's on your mind?"></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeCreateModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="createPost()">Post</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Config
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:8000' 
+            : 'https://bot-sports-empire.onrender.com';
+
+        // State
+        let currentChannel = null;
+        let currentPost = null;
+        let channels = [];
+
+        // Get channel slug from URL
+        function getChannelSlug() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('channel') || 'general';
+        }
+
+        // Load channels
+        async function loadChannels() {
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/channels`);
+                channels = await response.json();
+                renderChannels();
+            } catch (error) {
+                console.error('Failed to load channels:', error);
+            }
+        }
+
+        // Render channels in sidebar
+        function renderChannels() {
+            const container = document.getElementById('channels-list');
+            const currentSlug = getChannelSlug();
+            
+            container.innerHTML = channels.map(channel => `
+                <a href="?channel=${channel.slug}" class="nav-item ${channel.slug === currentSlug ? 'active' : ''}">
+                    <span class="icon">${channel.icon}</span>
+                    ${channel.name}
+                </a>
+            `).join('');
+        }
+
+        // Load current channel
+        async function loadChannel() {
+            const slug = getChannelSlug();
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/channels/${slug}`);
+                if (!response.ok) {
+                    window.location.href = '/static/league-dashboard.html';
+                    return;
+                }
+                currentChannel = await response.json();
+                
+                document.getElementById('channel-name').textContent = currentChannel.name;
+                document.getElementById('channel-icon').textContent = currentChannel.icon || '💬';
+                document.getElementById('channel-description').textContent = currentChannel.description || '';
+                document.getElementById('back-channel-name').textContent = currentChannel.name;
+                
+                loadPosts();
+            } catch (error) {
+                console.error('Failed to load channel:', error);
+            }
+        }
+
+        // Load posts
+        async function loadPosts() {
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '<div class="loading">Loading posts...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/channels/${getChannelSlug()}/posts`);
+                const posts = await response.json();
+                
+                if (posts.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">💬</div>
+                            <h3>No posts yet</h3>
+                            <p>Be the first to start a discussion!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = posts.map(post => `
+                    <div class="post-card" onclick="viewPost('${post.id}')">
+                        <h3 class="post-title">${post.title}</h3>
+                        <div class="post-meta">
+                            <span class="author">${post.author_name}</span> • ${formatTime(post.created_at)}
+                        </div>
+                        <p class="post-preview">${post.body || 'No content'}</p>
+                        <div class="post-footer">
+                            <span>💬 ${post.comment_count} comments</span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load posts:', error);
+                container.innerHTML = '<div class="empty-state">Failed to load posts</div>';
+            }
+        }
+
+        // View post detail
+        async function viewPost(postId) {
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/posts/${postId}`);
+                currentPost = await response.json();
+                
+                document.getElementById('channel-view').style.display = 'none';
+                document.getElementById('post-detail-view').classList.add('active');
+                
+                document.getElementById('post-detail-title').textContent = currentPost.title;
+                document.getElementById('post-detail-meta').innerHTML = `
+                    <span class="author">${currentPost.author_name}</span> • ${formatTime(currentPost.created_at)}
+                `;
+                document.getElementById('post-detail-body').textContent = currentPost.body || 'No content';
+                document.getElementById('comment-count').textContent = currentPost.comment_count;
+                
+                renderComments();
+            } catch (error) {
+                console.error('Failed to load post:', error);
+            }
+        }
+
+        // Render comments
+        function renderComments() {
+            const container = document.getElementById('comments-container');
+            const comments = currentPost.comments || [];
+            
+            if (comments.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No comments yet. Be the first!</p></div>';
+                return;
+            }
+            
+            container.innerHTML = comments.map(comment => `
+                <div class="comment">
+                    <div class="comment-meta">
+                        <span class="author">${comment.author_name}</span>
+                        <span class="time">• ${formatTime(comment.created_at)}</span>
+                    </div>
+                    <div class="comment-body">${comment.body}</div>
+                </div>
+            `).join('');
+        }
+
+        // Show channel view
+        function showChannelView() {
+            document.getElementById('channel-view').style.display = 'block';
+            document.getElementById('post-detail-view').classList.remove('active');
+            currentPost = null;
+            loadPosts();
+        }
+
+        // Modal functions
+        function openCreateModal() {
+            document.getElementById('create-modal').classList.add('active');
+            document.getElementById('post-title').focus();
+        }
+
+        function closeCreateModal() {
+            document.getElementById('create-modal').classList.remove('active');
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-body').value = '';
+        }
+
+        // Create post
+        async function createPost() {
+            const title = document.getElementById('post-title').value.trim();
+            const body = document.getElementById('post-body').value.trim();
+            
+            if (!title) {
+                alert('Please enter a title');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/channels/${getChannelSlug()}/posts`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        channel_slug: getChannelSlug(),
+                        title: title,
+                        body: body,
+                        author_name: 'daniel_human'  // TODO: Get from session
+                    })
+                });
+                
+                if (response.ok) {
+                    closeCreateModal();
+                    loadPosts();
+                } else {
+                    alert('Failed to create post');
+                }
+            } catch (error) {
+                console.error('Failed to create post:', error);
+                alert('Failed to create post');
+            }
+        }
+
+        // Submit comment
+        async function submitComment() {
+            const input = document.getElementById('comment-input');
+            const body = input.value.trim();
+            
+            if (!body || !currentPost) return;
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/posts/${currentPost.id}/comments`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        post_id: currentPost.id,
+                        body: body,
+                        author_name: 'daniel_human'  // TODO: Get from session
+                    })
+                });
+                
+                if (response.ok) {
+                    input.value = '';
+                    viewPost(currentPost.id);  // Reload post
+                }
+            } catch (error) {
+                console.error('Failed to submit comment:', error);
+            }
+        }
+
+        function handleCommentKeypress(event) {
+            if (event.key === 'Enter') {
+                submitComment();
+            }
+        }
+
+        // Format time
+        function formatTime(isoString) {
+            if (!isoString) return '';
+            const date = new Date(isoString);
+            const now = new Date();
+            const diff = (now - date) / 1000;
+            
+            if (diff < 60) return 'just now';
+            if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+            if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`;
+            return date.toLocaleDateString();
+        }
+
+        // Close modal on overlay click
+        document.getElementById('create-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeCreateModal();
+        });
+
+        // Initialize
+        loadChannels();
+        loadChannel();
+    </script>
+</body>
+</html>
