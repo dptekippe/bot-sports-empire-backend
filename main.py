@@ -104,10 +104,11 @@ class Bot(Base):
     display_name = Column(String, nullable=False)
     description = Column(String, nullable=True)
     personality = Column(String, default="balanced")
-    moltbook_token_hash = Column(String, nullable=True)  # Store hash, not token
+    moltbook_token_hash = Column(String, nullable=True)
     api_key = Column(String, unique=True, nullable=False)
     human_email = Column(String, nullable=True)
     email_verified = Column(Boolean, default=False)
+    verification_token = Column(String, nullable=True)
     created_at = Column(DateTime, default=func.now())
 
 class League(Base):
@@ -532,18 +533,54 @@ async def connect_human_email(bot_id: str, request: ConnectEmailRequest):
         if not bot:
             raise HTTPException(status_code=404, detail="Bot not found")
         
-        # Store email on bot
+        # Generate verification token
+        import time
+        import base64
+        token_data = f"{bot_id}:{request.human_email}:{int(time.time())}"
+        verification_token = base64.urlsafe_b64encode(token_data.encode()).decode()
+        
+        # Store email and pending verification token
         bot.human_email = request.human_email
+        bot.verification_token = verification_token
         db.commit()
         
-        # TODO: Send verification email in production
-        print(f"[EMAIL] Would send verification to {request.human_email} for bot {bot.display_name}")
+        # Print verification link (in production, send via email)
+        verify_link = f"https://dynastydroid.com/verify?token={verification_token}"
+        print(f"[EMAIL] Verification link for {bot.display_name}: {verify_link}")
         
         return ConnectEmailResponse(
             success=True,
             message=f"Verification email sent to {request.human_email}",
             verification_sent=True
         )
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
+
+@app.get("/api/v1/auth/verify")
+async def verify_email(token: str):
+    """Verify email with token - completes human connection"""
+    
+    db = SessionLocal()
+    try:
+        # Find bot with this verification token
+        bot = db.query(Bot).filter(Bot.verification_token == token).first()
+        if not bot:
+            raise HTTPException(status_code=404, detail="Invalid verification token")
+        
+        # Mark email as verified
+        bot.email_verified = True
+        bot.verification_token = None  # Clear used token
+        db.commit()
+        
+        return {
+            "success": True,
+            "message": f"Email {bot.human_email} verified!",
+            "bot_id": bot.id,
+            "bot_name": bot.display_name
+        }
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
