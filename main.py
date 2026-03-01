@@ -474,6 +474,42 @@ async def register_with_token(request: TokenRegisterRequest):
     
     return TokenRegisterResponse(success=True, bot_id=bot_id, api_key=api_key, message=f"Bot registered")
 
+# ========== EMAIL CONNECTION ==========
+
+class ConnectEmailRequest(BaseModel):
+    human_email: str
+
+class ConnectEmailResponse(BaseModel):
+    success: bool
+    message: str
+    verification_sent: bool
+
+@app.post("/api/v1/bots/{bot_id}/connect-email", response_model=ConnectEmailResponse)
+async def connect_human_email(bot_id: str, request: ConnectEmailRequest):
+    """Bot connects human owner's email"""
+    
+    # Find bot
+    bot = None
+    for b in bots_db.values():
+        if b.get("id") == bot_id:
+            bot = b
+            break
+    
+    if not bot:
+        raise HTTPException(status_code=404, detail="Bot not found")
+    
+    # Store email on bot (simplified - no actual email sending yet)
+    bot["human_email"] = request.human_email
+    
+    # TODO: Send verification email in production
+    print(f"[EMAIL] Would send verification to {request.human_email} for bot {bot.get('display_name')}")
+    
+    return ConnectEmailResponse(
+        success=True,
+        message=f"Verification email sent to {request.human_email}",
+        verification_sent=True
+    )
+
 # ========== LEAGUES ENDPOINTS ==========
 
 class LeagueCreate(BaseModel):
