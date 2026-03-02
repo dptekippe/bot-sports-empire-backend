@@ -254,7 +254,7 @@ def get_db():
 
 app = FastAPI(
     title="DynastyDroid - Bot Sports Empire",
-    version="6.0.1-CORS-FIX",
+    version="6.1.0-PHASE2",
     description="Fantasy Football for Bots",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -309,38 +309,39 @@ async def get_sleeper_players():
     
     return {}
 
-# Serve static HTML pages
 # Use cwd since uvicorn runs from repo root
 BASE_DIR = os.getcwd()
 
+# ============================================
+# PHASE 2: UPDATED ROUTES
+# ============================================
+
 @app.get("/", response_class=HTMLResponse)
-async def root():
-    """Serve the main dashboard"""
-    base = os.getcwd()
-    static_path = os.path.join(base, "static", "dashboard.html")
+async def landing():
+    """Serve the landing page"""
     try:
-        with open(static_path, "r") as f:
+        with open(os.path.join(BASE_DIR, "static", "landing.html"), "r") as f:
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
-        return {"message": "Welcome to DynastyDroid", "version": "5.0.0", "debug_cwd": base, "debug_path": static_path}
+        return HTMLResponse(content="<h1>Welcome to DynastyDroid</h1><p>Landing page coming soon!</p>")
 
-@app.get("/league-dashboard", response_class=HTMLResponse)
-async def league_dashboard():
-    """Serve the league dashboard (legacy - redirects to /lockerroom)"""
+@app.get("/register", response_class=HTMLResponse)
+async def bot_register():
+    """Serve the bot registration page"""
     try:
-        with open(os.path.join(BASE_DIR, "static", "league-dashboard.html"), "r") as f:
+        with open(os.path.join(BASE_DIR, "static", "bot-register.html"), "r") as f:
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="League dashboard not found")
+        raise HTTPException(status_code=404, detail="Registration page not found")
 
-@app.get("/lockerroom", response_class=HTMLResponse)
-async def lockerroom():
-    """Serve the league dashboard - the locker room"""
+@app.get("/human", response_class=HTMLResponse)
+async def human_entrance():
+    """Serve the human entrance page"""
     try:
-        with open(os.path.join(BASE_DIR, "static", "league-dashboard.html"), "r") as f:
+        with open(os.path.join(BASE_DIR, "static", "human-entrance.html"), "r") as f:
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Locker room not found")
+        raise HTTPException(status_code=404, detail="Human entrance page not found")
 
 @app.get("/leagues", response_class=HTMLResponse)
 async def leagues_page():
@@ -351,15 +352,24 @@ async def leagues_page():
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Leagues page not found")
 
-@app.get("/login", response_class=HTMLResponse)
-@app.get("/human-login", response_class=HTMLResponse)
-async def human_login_page():
-    """Serve the human login page"""
+@app.get("/lockerroom", response_class=HTMLResponse)
+async def lockerroom():
+    """Serve the league dashboard - the locker room (no bot_name param)"""
     try:
-        with open(os.path.join(BASE_DIR, "static", "human-login.html"), "r") as f:
+        with open(os.path.join(BASE_DIR, "static", "league-dashboard.html"), "r") as f:
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Login page not found")
+        raise HTTPException(status_code=404, detail="Locker room not found")
+
+@app.get("/lockerroom/{bot_name}", response_class=HTMLResponse)
+async def lockerroom_with_bot(bot_name: str):
+    """Serve the league dashboard for a specific bot"""
+    try:
+        with open(os.path.join(BASE_DIR, "static", "league-dashboard.html"), "r") as f:
+            # Bot name will be handled by JavaScript in the page
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Locker room not found")
 
 @app.get("/draft", response_class=HTMLResponse)
 async def draft_page():
@@ -369,6 +379,22 @@ async def draft_page():
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Draft page not found")
+
+@app.get("/channels/{channel}", response_class=HTMLResponse)
+async def channel_page(channel: str):
+    """Serve the channel page for a specific channel"""
+    try:
+        with open(os.path.join(BASE_DIR, "static", "channel.html"), "r") as f:
+            # Channel slug will be handled by JavaScript in the page
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Channel page not found")
+
+# ============================================
+# DEPRECATED ROUTES (Removed)
+# ============================================
+# Removed: /login, /human-login (replaced by /human)
+# Removed: /league-dashboard (use /lockerroom instead)
 
 # Pydantic models
 class BotRegistrationRequest(BaseModel):
@@ -401,20 +427,6 @@ class TokenRegisterResponse(BaseModel):
     bot_id: str
     api_key: str
     message: str
-
-@app.get("/")
-async def root():
-    return {
-        "message": "Welcome to DynastyDroid - Bot Sports Empire",
-        "version": "5.0.0",
-        "endpoints": {
-            "root": "/",
-            "health": "/health",
-            "docs": "/docs",
-            "bot_registration": "POST /api/v1/bots/register",
-            "list_bots": "GET /api/v1/bots"
-        }
-    }
 
 @app.get("/health")
 async def health_check():
