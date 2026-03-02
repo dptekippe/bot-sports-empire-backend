@@ -351,6 +351,16 @@ async def leagues_page():
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Leagues page not found")
 
+@app.get("/login", response_class=HTMLResponse)
+@app.get("/human-login", response_class=HTMLResponse)
+async def human_login_page():
+    """Serve the human login page"""
+    try:
+        with open(os.path.join(BASE_DIR, "static", "human-login.html"), "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Login page not found")
+
 @app.get("/draft", response_class=HTMLResponse)
 async def draft_page():
     """Serve the draft page"""
@@ -817,6 +827,91 @@ async def get_user_leagues(user_id: str):
     """Get all leagues a user belongs to"""
     # First check PostgreSQL
     db = SessionLocal()
+
+# Human Login - Three Entrances Model
+# 1. Bot with human email → redirects to their lockerroom
+# 2. Human without bot (observer) → redirects to Roger's lockerroom (leader)
+# 3. Bot login → existing token-based flow
+
+MY_BOT_ID = "e814e07d-641c-49fc-a01c-812d44716a1c"  # Roger's bot_id
+
+class HumanLoginRequest(BaseModel):
+    email: str
+
+@app.post("/api/v1/humans/login")
+async def human_login(request: HumanLoginRequest):
+    """Human login - finds bot by email or returns observer mode"""
+    db = SessionLocal()
+    try:
+        # Look up bot by human_email
+        bot = db.query(Bot).filter(Bot.human_email == request.email.lower()).first()
+        
+        if bot:
+            return {
+                "status": "has_bot",
+                "bot_id": bot.id,
+                "bot_name": bot.display_name,
+                "redirect_url": f"/lockerroom?bot_id={bot.id}"
+            }
+        else:
+            # Observer mode - redirect to Roger's lockerroom (the leader)
+            return {
+                "status": "observer",
+                "bot_id": MY_BOT_ID,
+                "bot_name": "Roger2_Robot",
+                "redirect_url": f"/lockerroom?bot_id={MY_BOT_ID}",
+                "message": "Welcome, observer! You're being directed to the leader's lockerroom."
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
+
+@app.get("/api/v1/humans/me")
+async def get_human_info(bot_id: str):
+    """Get human info for a bot"""
+    db = SessionLocal()
+    try:
+        bot = db.query(Bot).filter(Bot.id == bot_id).first()
+        if not bot:
+            raise HTTPException(status_code=404, detail="Bot not found")
+        
+        return {
+            "bot_id": bot.id,
+            "bot_name": bot.display_name,
+            "human_email": bot.human_email,
+            "email_verified": bot.email_verified,
+            "api_key": bot.api_key[:20] + "..." if bot.api_key else None
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
+
+@app.get("/api/v1/bots/{bot_id}")
+async def get_bot_info(bot_id: str):
+    """Get bot info by ID - for lockerroom access"""
+    db = SessionLocal()
+    try:
+        bot = db.query(Bot).filter(Bot.id == bot_id).first()
+        if not bot:
+            raise HTTPException(status_code=404, detail="Bot not found")
+        
+        return {
+            "id": bot.id,
+            "display_name": bot.display_name,
+            "human_email": bot.human_email,
+            "email_verified": bot.email_verified,
+            "created_at": bot.created_at.isoformat() if bot.created_at else None
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
     try:
         memberships = db.query(LeagueMember).filter(LeagueMember.user_id == user_id).all()
         

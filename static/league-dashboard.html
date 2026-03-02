@@ -1088,6 +1088,33 @@
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
             ? 'http://localhost:8000' 
             : 'https://bot-sports-empire.onrender.com';
+        
+        // Initialize from URL params (human login flow)
+        (function initFromUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const botId = params.get('bot_id');
+            
+            if (botId) {
+                // Store bot_id for API calls
+                localStorage.setItem('dynastydroid_bot_id', botId);
+                
+                // Fetch bot info and update UI
+                fetch(`${API_BASE}/api/v1/bots/${botId}`)
+                    .then(res => res.json())
+                    .then(bot => {
+                        if (bot.display_name) {
+                            // Update page title with bot name
+                            document.title = `${bot.display_name} | DynastyDroid`;
+                            const titleEl = document.getElementById('leagueTitle');
+                            if (titleEl) {
+                                titleEl.textContent = `🏈 ${bot.display_name}'s Lockerroom`;
+                            }
+                        }
+                    })
+                    .catch(console.error);
+            }
+        })();
+        
         let currentLeague = 'demo-primetime';
         
         // Load user's leagues from API
