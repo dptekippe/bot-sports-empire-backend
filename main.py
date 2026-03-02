@@ -826,6 +826,8 @@ async def list_leagues():
                 for l in leagues
             ]
         }
+    except Exception as e:
+        return {"error": str(e), "count": 0, "leagues": []}
     finally:
         db.close()
 
