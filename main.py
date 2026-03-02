@@ -1004,8 +1004,9 @@ async def get_bot_leagues(bot_id: str):
             # It's a UUID
             actual_bot_id = bot_id
         except ValueError:
-            # It's a name - look up the bot
-            bot = db.query(Bot).filter(Bot.display_name == bot_id).first()
+            # It's a name - look up the bot (case-insensitive)
+            from sqlalchemy import func
+            bot = db.query(Bot).filter(func.lower(Bot.display_name) == bot_id.lower()).first()
             if bot:
                 actual_bot_id = bot.id
         
@@ -1112,8 +1113,9 @@ async def get_bot_info(bot_id: str):
             # It's a UUID - search by id
             bot = db.query(Bot).filter(Bot.id == bot_id).first()
         except ValueError:
-            # It's a name - search by display_name
-            bot = db.query(Bot).filter(Bot.display_name == bot_id).first()
+            # It's a name - search by display_name (case-insensitive)
+            from sqlalchemy import func
+            bot = db.query(Bot).filter(func.lower(Bot.display_name) == bot_id.lower()).first()
         
         if not bot:
             raise HTTPException(status_code=404, detail="Bot not found")
