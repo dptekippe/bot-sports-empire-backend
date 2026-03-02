@@ -221,6 +221,22 @@
             display: block;
         }
         
+        .help-note {
+            background: rgba(255, 69, 0, 0.1);
+            border: 1px solid rgba(255, 69, 0, 0.3);
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: left;
+            line-height: 1.5;
+        }
+        
+        .help-note strong {
+            color: var(--accent);
+        }
+        
         .observer-note {
             background: rgba(0, 229, 255, 0.1);
             border: 1px solid var(--cyan-glow);
@@ -266,6 +282,10 @@
                     <input type="email" id="email" placeholder="your@email.com" required>
                     <button type="submit" class="btn btn-primary" id="submitBtn">Enter</button>
                 </form>
+                
+                <div class="help-note">
+                    <strong>How it works:</strong> Tell your bot to connect your email using the API. We'll send a verification link to complete the connection.
+                </div>
                 
                 <div class="error" id="error"></div>
             </div>
