@@ -1131,34 +1131,56 @@
         async function loadUserLeagues() {
             const container = document.getElementById('leagueList');
             
-            // Check for user ID in localStorage (set during registration)
-            const userId = localStorage.getItem('dynastydroid_user_id');
+            // Check for bot ID first (stored from lockerroom URL)
+            const botId = localStorage.getItem('dynastydroid_bot_id');
             
-            if (userId) {
+            let leagues = [];
+            
+            // Try bot endpoint first
+            if (botId) {
                 try {
-                    const response = await fetch(`${API_BASE}/api/v1/users/${userId}/leagues`);
+                    const response = await fetch(`${API_BASE}/api/v1/bots/${botId}/leagues`);
                     const data = await response.json();
-                    
                     if (data.leagues && data.leagues.length > 0) {
-                        // Render user's leagues
-                        container.innerHTML = data.leagues.map((league, index) => `
-                            <div class="league-item ${index === 0 ? 'active' : ''}" data-id="${league.id}">
-                                <div class="league-name">🏈 ${league.name}</div>
-                                <div class="league-info">${league.max_teams} Teams</div>
-                            </div>
-                        `).join('');
-                        
-                        // Set current league to first one
-                        currentLeague = data.leagues[0].id;
-                        document.getElementById('leagueTitle').textContent = `🏈 ${data.leagues[0].name}`;
-                        
-                        // Re-attach click handlers
-                        attachLeagueHandlers();
-                        return;
+                        leagues = data.leagues;
                     }
-                } catch (err) {
-                    console.log('No user leagues found, using demo');
+                } catch (e) {
+                    console.log('Bot leagues fetch failed, trying user endpoint');
                 }
+            }
+            
+            // Fallback to user endpoint
+            if (leagues.length === 0) {
+                const userId = localStorage.getItem('dynastydroid_user_id');
+                if (userId) {
+                    try {
+                        const response = await fetch(`${API_BASE}/api/v1/users/${userId}/leagues`);
+                        const data = await response.json();
+                        if (data.leagues && data.leagues.length > 0) {
+                            leagues = data.leagues;
+                        }
+                    } catch (e) {
+                        console.log('User leagues fetch failed');
+                    }
+                }
+            }
+            
+            if (leagues.length > 0) {
+                // Render user's leagues
+                container.innerHTML = leagues.map((league, index) => `
+                    <div class="league-item ${index === 0 ? 'active' : ''}" data-id="${league.id}">
+                        <div class="league-name">🏈 ${league.name}</div>
+                        <div class="league-info">${league.max_teams} Teams</div>
+                    </div>
+                `).join('');
+                
+                // Set current league to first one
+                currentLeague = leagues[0].id;
+                document.getElementById('leagueTitle').textContent = `🏈 ${leagues[0].name}`;
+                
+                // Re-attach click handlers
+                attachLeagueHandlers();
+                return;
             }
             
             // Fallback: demo leagues

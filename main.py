@@ -899,6 +899,23 @@ async def get_user_leagues(user_id: str):
     finally:
         db.close()
 
+@app.get("/api/v1/bots/{bot_id}/leagues")
+async def get_bot_leagues(bot_id: str):
+    """Get all leagues a bot belongs to - checks in-memory leagues_db"""
+    # Check in-memory leagues for this bot
+    leagues = []
+    for league_id, league in leagues_db.items():
+        members = league.get("members", [])
+        for member in members:
+            if member.get("user_id") == bot_id:
+                leagues.append(league)
+                break
+    
+    return {
+        "leagues": leagues,
+        "count": len(leagues)
+    }
+
 # Human Login - Three Entrances Model
 # 1. Bot with human email → redirects to their lockerroom
 # 2. Human without bot (observer) → redirects to Roger's lockerroom (leader)
@@ -1093,6 +1110,14 @@ async def join_league(league_id: str, user_id: str):
     
     # Update team count
     leagues_db[league_id]["current_teams"] = current_teams + 1
+    
+    # Add to members list
+    if "members" not in leagues_db[league_id]:
+        leagues_db[league_id]["members"] = []
+    leagues_db[league_id]["members"].append({
+        "user_id": user_id,
+        "joined_at": datetime.utcnow().isoformat()
+    })
     
     # Also add to PostgreSQL membership for tracking
     db = SessionLocal()
