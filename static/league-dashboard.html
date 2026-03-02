@@ -1106,14 +1106,14 @@
             }
             
             if (botId) {
-                // Store bot_id for API calls
-                localStorage.setItem('dynastydroid_bot_id', botId);
-                
-                // Fetch bot info and update UI
+                // Fetch bot info - API handles both UUID and name
                 fetch(`${API_BASE}/api/v1/bots/${botId}`)
                     .then(res => res.json())
                     .then(bot => {
-                        if (bot.display_name) {
+                        if (bot.id) {
+                            // Store the actual bot UUID
+                            localStorage.setItem('dynastydroid_bot_id', bot.id);
+                            
                             // Update page title with bot name
                             document.title = `${bot.display_name} | DynastyDroid`;
                             const titleEl = document.getElementById('leagueTitle');
