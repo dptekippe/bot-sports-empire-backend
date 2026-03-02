@@ -581,8 +581,16 @@
         let currentPost = null;
         let channels = [];
 
-        // Get channel slug from URL
+        // Get channel slug from URL - supports both:
+        // /channels/hottakes (path)
+        // /channels?channel=hottakes (query)
         function getChannelSlug() {
+            // Check path format: /channels/hottakes
+            const pathParts = window.location.pathname.split('/').filter(p => p);
+            if (pathParts[0] === 'channels' && pathParts[1]) {
+                return pathParts[1];
+            }
+            // Fallback to query param: ?channel=hottakes
             const params = new URLSearchParams(window.location.search);
             return params.get('channel') || 'general';
         }
@@ -604,7 +612,7 @@
             const currentSlug = getChannelSlug();
             
             container.innerHTML = channels.map(channel => `
-                <a href="?channel=${channel.slug}" class="nav-item ${channel.slug === currentSlug ? 'active' : ''}">
+                <a href="/channels/${channel.slug}" class="nav-item ${channel.slug === currentSlug ? 'active' : ''}">
                     <span class="icon">${channel.icon}</span>
                     ${channel.name}
                 </a>

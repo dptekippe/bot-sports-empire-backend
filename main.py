@@ -2,7 +2,7 @@
 ULTRA MINIMAL FastAPI app for Render deployment.
 Includes bot registration + leagues + drafts + players endpoints (in-memory)
 """
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, RedirectResponse
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -314,33 +314,52 @@ async def get_sleeper_players():
 BASE_DIR = os.getcwd()
 
 @app.get("/", response_class=HTMLResponse)
-async def root():
-    """Serve the main dashboard"""
-    base = os.getcwd()
-    static_path = os.path.join(base, "static", "dashboard.html")
+async def landing():
+    """Serve the landing page"""
     try:
-        with open(static_path, "r") as f:
+        with open(os.path.join(BASE_DIR, "static", "landing.html"), "r") as f:
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
-        return {"message": "Welcome to DynastyDroid", "version": "5.0.0", "debug_cwd": base, "debug_path": static_path}
+        raise HTTPException(status_code=404, detail="Landing page not found")
 
-@app.get("/league-dashboard", response_class=HTMLResponse)
-async def league_dashboard():
-    """Serve the league dashboard (legacy - redirects to /lockerroom)"""
+@app.get("/register", response_class=HTMLResponse)
+async def bot_register():
+    """Serve the bot registration page"""
     try:
-        with open(os.path.join(BASE_DIR, "static", "league-dashboard.html"), "r") as f:
+        with open(os.path.join(BASE_DIR, "static", "bot-register.html"), "r") as f:
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="League dashboard not found")
+        raise HTTPException(status_code=404, detail="Registration page not found")
+
+@app.get("/human", response_class=HTMLResponse)
+async def human_entrance():
+    """Serve the human entrance page"""
+    try:
+        with open(os.path.join(BASE_DIR, "static", "human-entrance.html"), "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Human entrance page not found")
 
 @app.get("/lockerroom", response_class=HTMLResponse)
-async def lockerroom():
-    """Serve the league dashboard - the locker room"""
+@app.get("/lockerroom/{bot_name}", response_class=HTMLResponse)
+async def lockerroom(bot_name: str = None):
+    """Serve the lockerroom - team dashboard"""
     try:
         with open(os.path.join(BASE_DIR, "static", "league-dashboard.html"), "r") as f:
-            return HTMLResponse(content=f.read())
+            content = f.read()
+            return HTMLResponse(content=content)
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Locker room not found")
+
+@app.get("/channels", response_class=HTMLResponse)
+@app.get("/channels/{channel}", response_class=HTMLResponse)
+async def channels_page(channel: str = None):
+    """Serve the channel/discussion page"""
+    try:
+        with open(os.path.join(BASE_DIR, "static", "channel.html"), "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Channel page not found")
 
 @app.get("/leagues", response_class=HTMLResponse)
 async def leagues_page():
@@ -352,14 +371,19 @@ async def leagues_page():
         raise HTTPException(status_code=404, detail="Leagues page not found")
 
 @app.get("/login", response_class=HTMLResponse)
+async def login_redirect():
+    """Redirect to /human"""
+    return RedirectResponse(url="/human", status_code=301)
+
 @app.get("/human-login", response_class=HTMLResponse)
-async def human_login_page():
-    """Serve the human login page"""
-    try:
-        with open(os.path.join(BASE_DIR, "static", "human-login.html"), "r") as f:
-            return HTMLResponse(content=f.read())
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Login page not found")
+async def human_login_redirect():
+    """Redirect to /human"""
+    return RedirectResponse(url="/human", status_code=301)
+
+@app.get("/league-dashboard", response_class=HTMLResponse)
+async def league_dashboard_redirect():
+    """Redirect to /lockerroom"""
+    return RedirectResponse(url="/lockerroom", status_code=301)
 
 @app.get("/draft", response_class=HTMLResponse)
 async def draft_page():
@@ -895,7 +919,16 @@ async def get_bot_info(bot_id: str):
     """Get bot info by ID - for lockerroom access"""
     db = SessionLocal()
     try:
-        bot = db.query(Bot).filter(Bot.id == bot_id).first()
+        # Check if it's a UUID (bot_id) or name
+        from uuid import UUID
+        try:
+            UUID(bot_id)
+            # It's a UUID - search by id
+            bot = db.query(Bot).filter(Bot.id == bot_id).first()
+        except ValueError:
+            # It's a name - search by display_name
+            bot = db.query(Bot).filter(Bot.display_name == bot_id).first()
+        
         if not bot:
             raise HTTPException(status_code=404, detail="Bot not found")
         

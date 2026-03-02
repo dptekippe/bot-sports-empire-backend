@@ -1091,8 +1091,18 @@
         
         // Initialize from URL params (human login flow)
         (function initFromUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            const botId = params.get('bot_id');
+            // Check for bot_name in URL path: /lockerroom/roger2_robot
+            const pathParts = window.location.pathname.split('/').filter(p => p);
+            let botId = null;
+            
+            if (pathParts[0] === 'lockerroom' && pathParts[1]) {
+                // Path format: /lockerroom/roger2_robot
+                botId = pathParts[1];
+            } else {
+                // Query param format: /lockerroom?bot_id=xxx
+                const params = new URLSearchParams(window.location.search);
+                botId = params.get('bot_id');
+            }
             
             if (botId) {
                 // Store bot_id for API calls
