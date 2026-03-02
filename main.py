@@ -123,8 +123,16 @@ class League(Base):
     
     id = Column(String, primary_key=True)
     name = Column(String, nullable=False)
+    description = Column(String, default="")
     commissioner_id = Column(String, nullable=False)
+    league_type = Column(String, default="dynasty")
     max_teams = Column(Integer, default=12)
+    min_teams = Column(Integer, default=8)
+    current_teams = Column(Integer, default=0)
+    is_public = Column(Boolean, default=True)
+    status = Column(String, default="forming")
+    season_year = Column(Integer, default=2026)
+    scoring_type = Column(String, default="PPR")
     created_at = Column(DateTime, default=func.now())
 
 class LeagueMember(Base):
@@ -738,39 +746,99 @@ class LeagueResponse(BaseModel):
 
 @app.post("/api/v1/leagues", response_model=LeagueResponse)
 async def create_league(league: LeagueCreate):
-    """Create a new league"""
-    league_id = str(uuid.uuid4())
-    new_league = {
-        "id": league_id,
-        "name": league.name,
-        "description": league.description,
-        "league_type": league.league_type,
-        "max_teams": league.max_teams,
-        "current_teams": 0,
-        "min_teams": league.min_teams,
-        "is_public": league.is_public,
-        "status": "forming",
-        "season_year": league.season_year,
-        "scoring_type": league.scoring_type,
-        "created_at": datetime.utcnow().isoformat()
-    }
-    leagues_db[league_id] = new_league
-    return LeagueResponse(**new_league)
+    """Create a new league - stored in PostgreSQL"""
+    db = SessionLocal()
+    try:
+        league_id = str(uuid.uuid4())
+        new_league = League(
+            id=league_id,
+            name=league.name,
+            description=league.description,
+            commissioner_id=league.commissioner_id,
+            league_type=league.league_type,
+            max_teams=league.max_teams,
+            min_teams=league.min_teams,
+            current_teams=0,
+            is_public=league.is_public,
+            status="forming",
+            season_year=league.season_year,
+            scoring_type=league.scoring_type
+        )
+        db.add(new_league)
+        db.commit()
+        
+        return LeagueResponse(
+            id=new_league.id,
+            name=new_league.name,
+            description=new_league.description or "",
+            league_type=new_league.league_type,
+            max_teams=new_league.max_teams,
+            current_teams=new_league.current_teams,
+            is_public=new_league.is_public,
+            status=new_league.status,
+            season_year=new_league.season_year,
+            scoring_type=new_league.scoring_type,
+            created_at=new_league.created_at.isoformat() if new_league.created_at else ""
+        )
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
 
 @app.get("/api/v1/leagues")
 async def list_leagues():
-    """List all leagues"""
-    return {
-        "count": len(leagues_db),
-        "leagues": list(leagues_db.values())
-    }
+    """List all leagues from PostgreSQL"""
+    db = SessionLocal()
+    try:
+        leagues = db.query(League).all()
+        return {
+            "count": len(leagues),
+            "leagues": [
+                {
+                    "id": l.id,
+                    "name": l.name,
+                    "description": l.description or "",
+                    "league_type": l.league_type,
+                    "max_teams": l.max_teams,
+                    "min_teams": l.min_teams,
+                    "current_teams": l.current_teams,
+                    "is_public": l.is_public,
+                    "status": l.status,
+                    "season_year": l.season_year,
+                    "scoring_type": l.scoring_type,
+                    "created_at": l.created_at.isoformat() if l.created_at else ""
+                }
+                for l in leagues
+            ]
+        }
+    finally:
+        db.close()
 
 @app.get("/api/v1/leagues/{league_id}")
 async def get_league(league_id: str):
-    """Get a specific league"""
-    if league_id not in leagues_db:
-        raise HTTPException(status_code=404, detail="League not found")
-    return leagues_db[league_id]
+    """Get a specific league from PostgreSQL"""
+    db = SessionLocal()
+    try:
+        league = db.query(League).filter(League.id == league_id).first()
+        if not league:
+            raise HTTPException(status_code=404, detail="League not found")
+        return {
+            "id": league.id,
+            "name": league.name,
+            "description": league.description or "",
+            "league_type": league.league_type,
+            "max_teams": league.max_teams,
+            "min_teams": league.min_teams,
+            "current_teams": league.current_teams,
+            "is_public": league.is_public,
+            "status": league.status,
+            "season_year": league.season_year,
+            "scoring_type": league.scoring_type,
+            "created_at": league.created_at.isoformat() if league.created_at else ""
+        }
+    finally:
+        db.close()
 
 @app.get("/api/v1/leagues/{league_id}/standings")
 
@@ -865,32 +933,31 @@ async def create_user(user: UserCreate):
 
 @app.get("/api/v1/users/{user_id}/leagues")
 async def get_user_leagues(user_id: str):
-    """Get all leagues a user belongs to - checks both PostgreSQL and in-memory"""
+    """Get all leagues a user belongs to - from PostgreSQL"""
     db = SessionLocal()
     try:
         # Query league members to find leagues for this user
         memberships = db.query(LeagueMember).filter(LeagueMember.user_id == user_id).all()
         
         leagues = []
-        league_ids = []
         
         for m in memberships:
-            # Check in-memory leagues first
-            if m.league_id in leagues_db:
-                leagues.append(leagues_db[m.league_id])
-                league_ids.append(m.league_id)
-            else:
-                # Check PostgreSQL
-                league = db.query(League).filter(League.id == m.league_id).first()
-                if league:
-                    leagues.append({
-                        "id": league.id,
-                        "name": league.name,
-                        "commissioner_id": league.commissioner_id,
-                        "max_teams": league.max_teams,
-                        "created_at": league.created_at.isoformat() if league.created_at else None
-                    })
-                    league_ids.append(league.id)
+            # Get league from PostgreSQL
+            league = db.query(League).filter(League.id == m.league_id).first()
+            if league:
+                leagues.append({
+                    "id": league.id,
+                    "name": league.name,
+                    "description": league.description or "",
+                    "league_type": league.league_type,
+                    "max_teams": league.max_teams,
+                    "current_teams": league.current_teams,
+                    "is_public": league.is_public,
+                    "status": league.status,
+                    "season_year": league.season_year,
+                    "scoring_type": league.scoring_type,
+                    "created_at": league.created_at.isoformat() if league.created_at else None
+                })
         
         return {
             "leagues": leagues,
@@ -901,20 +968,37 @@ async def get_user_leagues(user_id: str):
 
 @app.get("/api/v1/bots/{bot_id}/leagues")
 async def get_bot_leagues(bot_id: str):
-    """Get all leagues a bot belongs to - checks in-memory leagues_db"""
-    # Check in-memory leagues for this bot
-    leagues = []
-    for league_id, league in leagues_db.items():
-        members = league.get("members", [])
-        for member in members:
-            if member.get("user_id") == bot_id:
-                leagues.append(league)
-                break
-    
-    return {
-        "leagues": leagues,
-        "count": len(leagues)
-    }
+    """Get all leagues a bot belongs to - from PostgreSQL"""
+    db = SessionLocal()
+    try:
+        # Query league members where user_id = bot_id
+        memberships = db.query(LeagueMember).filter(LeagueMember.user_id == bot_id).all()
+        
+        leagues = []
+        
+        for m in memberships:
+            league = db.query(League).filter(League.id == m.league_id).first()
+            if league:
+                leagues.append({
+                    "id": league.id,
+                    "name": league.name,
+                    "description": league.description or "",
+                    "league_type": league.league_type,
+                    "max_teams": league.max_teams,
+                    "current_teams": league.current_teams,
+                    "is_public": league.is_public,
+                    "status": league.status,
+                    "season_year": league.season_year,
+                    "scoring_type": league.scoring_type,
+                    "created_at": league.created_at.isoformat() if league.created_at else None
+                })
+        
+        return {
+            "leagues": leagues,
+            "count": len(leagues)
+        }
+    finally:
+        db.close()
 
 # Human Login - Three Entrances Model
 # 1. Bot with human email → redirects to their lockerroom
@@ -1096,41 +1180,34 @@ async def authenticate_with_moltbook(x_moltbook_identity: str = None):
 
 @app.post("/api/v1/leagues/{league_id}/join")
 async def join_league(league_id: str, user_id: str):
-    """Join a league (works with in-memory leagues)"""
-    # Check league exists in in-memory store
-    if league_id not in leagues_db:
-        raise HTTPException(status_code=404, detail="League not found")
-    
-    league = leagues_db[league_id]
-    current_teams = league.get("current_teams", 0)
-    max_teams = league.get("max_teams", 12)
-    
-    if current_teams >= max_teams:
-        raise HTTPException(status_code=400, detail="League is full")
-    
-    # Update team count
-    leagues_db[league_id]["current_teams"] = current_teams + 1
-    
-    # Add to members list
-    if "members" not in leagues_db[league_id]:
-        leagues_db[league_id]["members"] = []
-    leagues_db[league_id]["members"].append({
-        "user_id": user_id,
-        "joined_at": datetime.utcnow().isoformat()
-    })
-    
-    # Also add to PostgreSQL membership for tracking
+    """Join a league - uses PostgreSQL"""
     db = SessionLocal()
     try:
+        # Check league exists in PostgreSQL
+        league = db.query(League).filter(League.id == league_id).first()
+        if not league:
+            raise HTTPException(status_code=404, detail="League not found")
+        
+        if league.current_teams >= league.max_teams:
+            raise HTTPException(status_code=400, detail="League is full")
+        
+        # Update team count
+        league.current_teams += 1
+        db.commit()
+        
+        # Add member to PostgreSQL
         member = LeagueMember(id=str(uuid.uuid4()), user_id=user_id, league_id=league_id)
         db.add(member)
         db.commit()
-    except Exception:
-        pass  # Ignore if it fails - main functionality works
+        
+        return {"success": True, "league_id": league_id, "user_id": user_id, "message": f"Joined {league.name}"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
     finally:
         db.close()
-    
-    return {"success": True, "league_id": league_id, "user_id": user_id, "message": f"Joined {league['name']}"}
 
 # ========== DRAFTS ENDPOINTS ==========
 
