@@ -866,8 +866,33 @@ async def create_user(user: UserCreate):
 @app.get("/api/v1/users/{user_id}/leagues")
 async def get_user_leagues(user_id: str):
     """Get all leagues a user belongs to"""
-    # First check PostgreSQL
     db = SessionLocal()
+    try:
+        # Query league members to find leagues for this user
+        memberships = db.query(LeagueMember).filter(LeagueMember.user_id == user_id).all()
+        
+        if not memberships:
+            return {"leagues": [], "count": 0}
+        
+        # Get league details for each membership
+        league_ids = [m.league_id for m in memberships]
+        leagues = db.query(League).filter(League.id.in_(league_ids)).all()
+        
+        return {
+            "leagues": [
+                {
+                    "id": l.id,
+                    "name": l.name,
+                    "commissioner_id": l.commissioner_id,
+                    "max_teams": l.max_teams,
+                    "created_at": l.created_at.isoformat() if l.created_at else None
+                }
+                for l in leagues
+            ],
+            "count": len(leagues)
+        }
+    finally:
+        db.close()
 
 # Human Login - Three Entrances Model
 # 1. Bot with human email → redirects to their lockerroom
