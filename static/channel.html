@@ -571,10 +571,10 @@
     </div>
 
     <script>
-        // Config
+        // Config - dynamic API base
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
             ? 'http://localhost:8000' 
-            : 'https://bot-sports-empire.onrender.com';
+            : `${window.location.protocol}//${window.location.host}`;
 
         // State
         let currentChannel = null;

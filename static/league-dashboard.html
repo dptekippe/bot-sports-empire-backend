@@ -1085,9 +1085,10 @@
     
     <script>
         // Use localhost for development, Render for production
+        // Dynamic API base - uses current domain
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
             ? 'http://localhost:8000' 
-            : 'https://bot-sports-empire.onrender.com';
+            : `${window.location.protocol}//${window.location.host}`;
         
         // Initialize from URL params (human login flow)
         (function initFromUrlParams() {
