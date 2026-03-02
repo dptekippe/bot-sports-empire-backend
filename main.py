@@ -375,7 +375,9 @@ async def channels_page(channel: str = None):
 
 @app.get("/leagues", response_class=HTMLResponse)
 async def leagues_page():
-    """Serve the leagues create/join page"""
+    """Serve the leagues create/join page - FOR DEV ONLY
+    TODO: Disable before production launch - humans don't use this page
+    """
     try:
         with open(os.path.join(BASE_DIR, "static", "dashboard.html"), "r") as f:
             return HTMLResponse(content=f.read())
