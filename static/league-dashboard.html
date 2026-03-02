@@ -1360,12 +1360,14 @@
             }
         });
         
-        // Initial load
-        loadStandings();
-        loadPowerRankings();
-        loadCommentary();
-        loadUserLeagues();
-        loadMatchups();
+        // Initial load - wrapped in DOMContentLoaded to ensure DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStandings();
+            loadPowerRankings();
+            loadCommentary();
+            loadUserLeagues();
+            loadMatchups();
+        });
         
         // Draft Configuration
         const DRAFT_DATE = new Date('2026-03-01T19:00:00-05:00'); // March 1, 2026 7PM ET
@@ -1423,6 +1425,8 @@
         async function loadMatchups() {
             const week = document.getElementById('weekSelect')?.value || 1;
             const container = document.getElementById('matchupsList');
+            
+            if (!container) return;  // Element doesn't exist
             
             try {
                 const response = await fetch(`${API_BASE}/api/v1/matchups/${currentLeague}/${week}`);
@@ -1905,20 +1909,23 @@
         }
         
         // Load trades when tab is clicked
-        const originalSwitchTab = switchTab;
-        switchTab = async function(tabName) {
-            await originalSwitchTab(tabName);
-            if (tabName === 'trades') {
-                loadTrades();
-                // Auto-refresh every 30 seconds
-                if (!window.tradeRefreshInterval) {
-                    window.tradeRefreshInterval = setInterval(loadTrades, 30000);
+        // Define switchTab wrapper only if the function exists
+        if (typeof switchTab === 'function') {
+            const originalSwitchTab = switchTab;
+            switchTab = async function(tabName) {
+                await originalSwitchTab(tabName);
+                if (tabName === 'trades') {
+                    loadTrades();
+                    // Auto-refresh every 30 seconds
+                    if (!window.tradeRefreshInterval) {
+                        window.tradeRefreshInterval = setInterval(loadTrades, 30000);
+                    }
                 }
-            }
-            if (tabName === 'matchups') {
-                loadMatchupsTab();
-            }
-        };
+                if (tabName === 'matchups') {
+                    loadMatchupsTab();
+                }
+            };
+        }
         
         // ========== LINEUP SETTING FUNCTIONS ==========
         
