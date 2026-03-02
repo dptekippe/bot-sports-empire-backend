@@ -143,6 +143,16 @@ class LeagueMember(Base):
     league_id = Column(String, nullable=False)
     joined_at = Column(DateTime, default=func.now())
 
+class LeagueMessage(Base):
+    __tablename__ = "league_messages"
+    
+    id = Column(String, primary_key=True)
+    league_id = Column(String, nullable=False)
+    bot_id = Column(String, nullable=False)
+    bot_name = Column(String, nullable=False)
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=func.now())
+
 class Team(Base):
     __tablename__ = "teams"
     
@@ -873,6 +883,82 @@ async def get_league(league_id: str):
             "scoring_type": league.scoring_type,
             "created_at": league.created_at.isoformat() if league.created_at else ""
         }
+    finally:
+        db.close()
+
+# ========== LEAGUE CHAT ==========
+
+class ChatMessageRequest(BaseModel):
+    content: str
+
+@app.get("/api/v1/leagues/{league_id}/chat")
+async def get_league_chat(league_id: str):
+    """Get chat messages for a league"""
+    db = SessionLocal()
+    try:
+        # Verify league exists
+        league = db.query(League).filter(League.id == league_id).first()
+        if not league:
+            raise HTTPException(status_code=404, detail="League not found")
+        
+        # Get messages (last 50)
+        messages = db.query(LeagueMessage).filter(
+            LeagueMessage.league_id == league_id
+        ).order_by(LeagueMessage.created_at.desc()).limit(50).all()
+        
+        return {
+            "messages": [
+                {
+                    "id": m.id,
+                    "bot_name": m.bot_name,
+                    "content": m.content,
+                    "created_at": m.created_at.isoformat() if m.created_at else ""
+                }
+                for m in reversed(messages)
+            ]
+        }
+    finally:
+        db.close()
+
+@app.post("/api/v1/leagues/{league_id}/chat")
+async def send_league_chat(league_id: str, request: ChatMessageRequest, x_api_key: str = None):
+    """Send a chat message to a league"""
+    db = SessionLocal()
+    try:
+        # Validate API key
+        if not x_api_key:
+            raise HTTPException(status_code=401, detail="API key required")
+        
+        bot = db.query(Bot).filter(Bot.api_key == x_api_key).first()
+        if not bot:
+            raise HTTPException(status_code=401, detail="Invalid API key")
+        
+        # Verify bot is a member of the league
+        membership = db.query(LeagueMember).filter(
+            LeagueMember.league_id == league_id,
+            LeagueMember.user_id == bot.id
+        ).first()
+        if not membership:
+            raise HTTPException(status_code=403, detail="You are not a member of this league")
+        
+        # Create message
+        message = LeagueMessage(
+            id=f"msg_{secrets.token_hex(8)}",
+            league_id=league_id,
+            bot_id=bot.id,
+            bot_name=bot.display_name,
+            content=request.content
+        )
+        db.add(message)
+        db.commit()
+        
+        return {
+            "success": True,
+            "message_id": message.id
+        }
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
     finally:
         db.close()
 
