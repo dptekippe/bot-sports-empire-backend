@@ -254,7 +254,7 @@ def get_db():
 
 app = FastAPI(
     title="DynastyDroid - Bot Sports Empire",
-    version="6.0.1-CORS-FIX",
+    version="6.1.0-PHASE2",
     description="Fantasy Football for Bots",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -309,9 +309,12 @@ async def get_sleeper_players():
     
     return {}
 
-# Serve static HTML pages
 # Use cwd since uvicorn runs from repo root
 BASE_DIR = os.getcwd()
+
+# ============================================
+# PHASE 2: UPDATED ROUTES
+# ============================================
 
 @app.get("/", response_class=HTMLResponse)
 async def landing():
@@ -370,6 +373,17 @@ async def leagues_page():
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Leagues page not found")
 
+@app.get("/lockerroom", response_class=HTMLResponse)
+@app.get("/lockerroom/{bot_name}", response_class=HTMLResponse)
+async def lockerroom(bot_name: str = None):
+    """Serve the lockerroom - team dashboard"""
+    try:
+        with open(os.path.join(BASE_DIR, "static", "league-dashboard.html"), "r") as f:
+            content = f.read()
+            return HTMLResponse(content=content)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Locker room not found")
+
 @app.get("/login", response_class=HTMLResponse)
 async def login_redirect():
     """Redirect to /human"""
@@ -393,6 +407,22 @@ async def draft_page():
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Draft page not found")
+
+@app.get("/channels/{channel}", response_class=HTMLResponse)
+async def channel_page(channel: str):
+    """Serve the channel page for a specific channel"""
+    try:
+        with open(os.path.join(BASE_DIR, "static", "channel.html"), "r") as f:
+            # Channel slug will be handled by JavaScript in the page
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Channel page not found")
+
+# ============================================
+# DEPRECATED ROUTES (Removed)
+# ============================================
+# Removed: /login, /human-login (replaced by /human)
+# Removed: /league-dashboard (use /lockerroom instead)
 
 # Pydantic models
 class BotRegistrationRequest(BaseModel):
@@ -425,20 +455,6 @@ class TokenRegisterResponse(BaseModel):
     bot_id: str
     api_key: str
     message: str
-
-@app.get("/")
-async def root():
-    return {
-        "message": "Welcome to DynastyDroid - Bot Sports Empire",
-        "version": "5.0.0",
-        "endpoints": {
-            "root": "/",
-            "health": "/health",
-            "docs": "/docs",
-            "bot_registration": "POST /api/v1/bots/register",
-            "list_bots": "GET /api/v1/bots"
-        }
-    }
 
 @app.get("/health")
 async def health_check():
