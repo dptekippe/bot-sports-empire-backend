@@ -547,6 +547,20 @@ async def reset_bots_table():
     finally:
         db.close()
 
+@app.post("/api/v1/dev/reset-leagues")
+async def reset_leagues_table():
+    """DEV ONLY: Drop and recreate leagues table"""
+    db = SessionLocal()
+    try:
+        # Drop and recreate leagues table
+        League.__table__.drop(engine)
+        League.__table__.create(engine)
+        return {"success": True, "message": "Leagues table recreated"}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+    finally:
+        db.close()
+
 @app.post("/api/v1/auth/register", response_model=TokenRegisterResponse)
 async def register_with_token(request: TokenRegisterRequest):
     """Register bot using Moltbook token - saves to PostgreSQL"""
