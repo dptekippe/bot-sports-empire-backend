@@ -8,14 +8,13 @@
     <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     <script>
         // Hide human-specific elements on /leagues page (bots only)
+        // NOTE: Create League button kept for discussion purposes
         if (window.location.pathname === '/leagues') {
             document.addEventListener('DOMContentLoaded', function() {
                 var botName = document.getElementById('botName');
                 var humanLogin = document.querySelector('.human-login-link');
-                var createLeagueCard = document.querySelector('.action-card[onclick="createLeague()"]');
                 if (botName) botName.style.display = 'none';
                 if (humanLogin) humanLogin.style.display = 'none';
-                if (createLeagueCard) createLeagueCard.style.display = 'none';
             });
         }
     </script>
