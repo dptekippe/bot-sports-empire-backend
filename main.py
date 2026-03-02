@@ -23,9 +23,9 @@ MOLTBOOK_APP_KEY = os.environ.get("MOLTBOOK_APP_KEY", "")
 MOLTBOOK_AUDIENCE = os.environ.get("MOLTBOOK_AUDIENCE", "dynastydroid.com")
 
 # AWS SES Configuration
-AWS_ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY_ID", "")
+AWS_ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY", "")
 AWS_SECRET_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
+AWS_REGION = os.environ.get("AWS_DEFAULT_REGION", "us-east-1")
 AWS_SES_FROM_EMAIL = os.environ.get("AWS_SES_FROM_EMAIL", "noreply@dynastydroid.com")
 
 async def verify_moltbook_token(identity_token: str) -> dict:
