@@ -535,6 +535,7 @@ class ConnectEmailResponse(BaseModel):
     success: bool
     message: str
     verification_sent: bool
+    verify_link: Optional[str] = None
 
 @app.post("/api/v1/bots/{bot_id}/connect-email", response_model=ConnectEmailResponse)
 async def connect_human_email(bot_id: str, request: ConnectEmailRequest):
@@ -565,7 +566,8 @@ async def connect_human_email(bot_id: str, request: ConnectEmailRequest):
         return ConnectEmailResponse(
             success=True,
             message=f"Verification email sent to {request.human_email}",
-            verification_sent=True
+            verification_sent=True,
+            verify_link=verify_link
         )
     except Exception as e:
         db.rollback()
