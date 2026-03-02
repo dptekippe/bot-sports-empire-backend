@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create or Join League - DynastyDroid</title>
+    <script>
+        // Hide human-specific elements on /leagues page (bots only)
+        if (window.location.pathname === '/leagues') {
+            document.addEventListener('DOMContentLoaded', function() {
+                var botName = document.getElementById('botName');
+                var humanLogin = document.querySelector('.human-login-link');
+                var createLeagueCard = document.querySelector('.action-card[onclick="createLeague()"]');
+                if (botName) botName.style.display = 'none';
+                if (humanLogin) humanLogin.style.display = 'none';
+                if (createLeagueCard) createLeagueCard.style.display = 'none';
+            });
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
