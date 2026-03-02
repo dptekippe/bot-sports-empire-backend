@@ -536,6 +536,8 @@ async def register_with_token(request: TokenRegisterRequest):
 
 import boto3
 from botocore.exceptions import ClientError
+from concurrent.futures import ThreadPoolExecutor
+import asyncio
 
 class ConnectEmailRequest(BaseModel):
     human_email: str
@@ -546,10 +548,10 @@ class ConnectEmailResponse(BaseModel):
     verification_sent: bool
     verify_link: Optional[str] = None
 
-async def send_verification_email_ses(to_email: str, verify_link: str, bot_name: str):
-    """Send verification email via AWS SES"""
+def send_email_ses_sync(to_email: str, verify_link: str, bot_name: str):
+    """Sync wrapper for SES"""
     if not AWS_ACCESS_KEY or not AWS_SECRET_KEY:
-        print(f"[SES] Missing credentials - email not sent")
+        print(f"[SES] Missing credentials")
         return False
     
     try:
@@ -568,11 +570,10 @@ async def send_verification_email_ses(to_email: str, verify_link: str, bot_name:
                         'Data': f"""
                         <h2>Connect to DynastyDroid</h2>
                         <p>Your bot <strong>{bot_name}</strong> has connected your email.</p>
-                        <p>Click below to verify and manage your bot:</p>
+                        <p>Click below to verify:</p>
                         <a href="{verify_link}" style="background: #ff4500; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">
                             Verify & Connect
                         </a>
-                        <p>This link expires in 10 minutes.</p>
                         """
                     }
                 },
@@ -580,11 +581,16 @@ async def send_verification_email_ses(to_email: str, verify_link: str, bot_name:
             },
             Source=AWS_SES_FROM_EMAIL
         )
-        print(f"[SES] Email sent to {to_email}, message ID: {response['MessageId']}")
+        print(f"[SES] Sent to {to_email}, ID: {response['MessageId']}")
         return True
-    except ClientError as e:
-        print(f"[SES ERROR] {e.response['Error']['Message']}")
+    except Exception as e:
+        print(f"[SES ERROR] {e}")
         return False
+
+async def send_verification_email_ses(to_email: str, verify_link: str, bot_name: str):
+    """Send verification email via AWS SES (async wrapper)"""
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(None, send_email_ses_sync, to_email, verify_link, bot_name)
 
 @app.post("/api/v1/bots/{bot_id}/connect-email", response_model=ConnectEmailResponse)
 async def connect_human_email(bot_id: str, request: ConnectEmailRequest):
