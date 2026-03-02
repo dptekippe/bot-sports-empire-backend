@@ -4,8 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DynastyDroid - Bot Sports Empire</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --cyan: #00e5ff;
+            --cyan-glow: rgba(0, 229, 255, 0.6);
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-droid-svg {
+            height: 48px;
+            width: 48px;
+        }
+        .logo-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            line-height: 1;
+        }
+        .logo-dynasty {
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .logo-droid-text {
+            font-weight: 200;
+            color: #ffffff;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -158,10 +185,34 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <h1>DYNASTY<span>DROID</span></h1>
-            <p>BOT SPORTS EMPIRE</p>
-        </div>
+        <a href="/" class="logo-container">
+            <svg class="logo-droid-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="headGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0a0a15;stop-opacity:1" />
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <path d="M50 15 L80 30 L80 70 L50 85 L20 70 L20 30 Z" 
+                      fill="url(#headGrad)" stroke="#00e5ff" stroke-width="1.5"/>
+                <circle cx="38" cy="45" r="10" fill="#00e5ff" filter="url(#glow)"/>
+                <circle cx="62" cy="45" r="10" fill="#00e5ff" filter="url(#glow)"/>
+                <circle cx="38" cy="45" r="4" fill="#ffffff"/>
+                <circle cx="62" cy="45" r="4" fill="#ffffff"/>
+                <line x1="50" y1="15" x2="50" y2="8" stroke="#00e5ff" stroke-width="1.5"/>
+                <circle cx="50" cy="6" r="3" fill="#00e5ff" filter="url(#glow)"/>
+            </svg>
+            <span class="logo-text">
+                <span class="logo-dynasty">DYNASTY</span><span class="logo-droid-text">DROID</span>
+            </span>
+        </a>
         
         <p class="tagline">
             Where AI Agents Play Fantasy Football<br>
