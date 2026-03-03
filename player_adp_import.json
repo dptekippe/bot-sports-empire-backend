@@ -7,7 +7,8 @@
     "value": "9998",
     "sleeper_id": "4984",
     "sleeper_position": "QB",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 29
   },
   {
     "rank": "2",
@@ -17,7 +18,8 @@
     "value": "9995",
     "sleeper_id": "9509",
     "sleeper_position": "RB",
-    "sleeper_team": "ATL"
+    "sleeper_team": "ATL",
+    "age": 24
   },
   {
     "rank": "3",
@@ -27,7 +29,8 @@
     "value": "9886",
     "sleeper_id": "9488",
     "sleeper_position": "WR",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 24
   },
   {
     "rank": "4",
@@ -37,7 +40,8 @@
     "value": "9878",
     "sleeper_id": "7564",
     "sleeper_position": "WR",
-    "sleeper_team": "CIN"
+    "sleeper_team": "CIN",
+    "age": 26
   },
   {
     "rank": "5",
@@ -47,7 +51,8 @@
     "value": "9661",
     "sleeper_id": "11564",
     "sleeper_position": "QB",
-    "sleeper_team": "NE"
+    "sleeper_team": "NE",
+    "age": 23
   },
   {
     "rank": "6",
@@ -57,7 +62,8 @@
     "value": "9538",
     "sleeper_id": "9493",
     "sleeper_position": "WR",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 24
   },
   {
     "rank": "7",
@@ -67,7 +73,8 @@
     "value": "9427",
     "sleeper_id": "9221",
     "sleeper_position": "RB",
-    "sleeper_team": "DET"
+    "sleeper_team": "DET",
+    "age": 23
   },
   {
     "rank": "8",
@@ -77,7 +84,8 @@
     "value": "7766",
     "sleeper_id": "11632",
     "sleeper_position": "WR",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 22
   },
   {
     "rank": "9",
@@ -87,7 +95,8 @@
     "value": "7665",
     "sleeper_id": "8130",
     "sleeper_position": "TE",
-    "sleeper_team": "ARI"
+    "sleeper_team": "ARI",
+    "age": 26
   },
   {
     "rank": "10",
@@ -97,7 +106,8 @@
     "value": "7664",
     "sleeper_id": "7547",
     "sleeper_position": "WR",
-    "sleeper_team": "DET"
+    "sleeper_team": "DET",
+    "age": 26
   },
   {
     "rank": "11",
@@ -107,7 +117,8 @@
     "value": "7650",
     "sleeper_id": "11604",
     "sleeper_position": "TE",
-    "sleeper_team": "LV"
+    "sleeper_team": "LV",
+    "age": 23
   },
   {
     "rank": "12",
@@ -117,7 +128,8 @@
     "value": "7629",
     "sleeper_id": "11560",
     "sleeper_position": "QB",
-    "sleeper_team": "CHI"
+    "sleeper_team": "CHI",
+    "age": 24
   },
   {
     "rank": "13",
@@ -127,7 +139,8 @@
     "value": "7580",
     "sleeper_id": "11566",
     "sleeper_position": "QB",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 25
   },
   {
     "rank": "14",
@@ -137,7 +150,8 @@
     "value": "7532",
     "sleeper_id": "6994",
     "sleeper_position": "CB",
-    "sleeper_team": null
+    "sleeper_team": null,
+    "age": 29
   },
   {
     "rank": "15",
@@ -147,7 +161,8 @@
     "value": "7380",
     "sleeper_id": "6794",
     "sleeper_position": "WR",
-    "sleeper_team": "MIN"
+    "sleeper_team": "MIN",
+    "age": 26
   },
   {
     "rank": "16",
@@ -157,7 +172,8 @@
     "value": "7317",
     "sleeper_id": "6786",
     "sleeper_position": "WR",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 26
   },
   {
     "rank": "17",
@@ -167,7 +183,8 @@
     "value": "7258",
     "sleeper_id": "12527",
     "sleeper_position": "RB",
-    "sleeper_team": "LV"
+    "sleeper_team": "LV",
+    "age": 22
   },
   {
     "rank": "18",
@@ -177,7 +194,8 @@
     "value": "7250",
     "sleeper_id": "6770",
     "sleeper_position": "QB",
-    "sleeper_team": "CIN"
+    "sleeper_team": "CIN",
+    "age": 29
   },
   {
     "rank": "19",
@@ -187,7 +205,8 @@
     "value": "7088",
     "sleeper_id": "9226",
     "sleeper_position": "RB",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 24
   },
   {
     "rank": "20",
@@ -197,7 +216,8 @@
     "value": "6980",
     "sleeper_id": "8112",
     "sleeper_position": "WR",
-    "sleeper_team": "ATL"
+    "sleeper_team": "ATL",
+    "age": 24
   },
   {
     "rank": "21",
@@ -207,7 +227,8 @@
     "value": "6874",
     "sleeper_id": "6797",
     "sleeper_position": "QB",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 27
   },
   {
     "rank": "22",
@@ -227,7 +248,8 @@
     "value": "6656",
     "sleeper_id": "12526",
     "sleeper_position": "WR",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 22
   },
   {
     "rank": "25",
@@ -237,7 +259,8 @@
     "value": "6608",
     "sleeper_id": "4046",
     "sleeper_position": "QB",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 30
   },
   {
     "rank": "26",
@@ -247,7 +270,8 @@
     "value": "6604",
     "sleeper_id": "12508",
     "sleeper_position": "QB",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 22
   },
   {
     "rank": "27",
@@ -257,7 +281,8 @@
     "value": "6602",
     "sleeper_id": "12507",
     "sleeper_position": "RB",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 22
   },
   {
     "rank": "28",
@@ -267,7 +292,8 @@
     "value": "6389",
     "sleeper_id": "6904",
     "sleeper_position": "QB",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 27
   },
   {
     "rank": "29",
@@ -277,7 +303,8 @@
     "value": "6298",
     "sleeper_id": "7523",
     "sleeper_position": "QB",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 26
   },
   {
     "rank": "30",
@@ -287,7 +314,8 @@
     "value": "6189",
     "sleeper_id": "11563",
     "sleeper_position": "QB",
-    "sleeper_team": "DEN"
+    "sleeper_team": "DEN",
+    "age": 26
   },
   {
     "rank": "31",
@@ -297,7 +325,8 @@
     "value": "6180",
     "sleeper_id": "6813",
     "sleeper_position": "RB",
-    "sleeper_team": "IND"
+    "sleeper_team": "IND",
+    "age": 27
   },
   {
     "rank": "32",
@@ -307,7 +336,8 @@
     "value": "6167",
     "sleeper_id": "8137",
     "sleeper_position": "WR",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 24
   },
   {
     "rank": "33",
@@ -317,7 +347,8 @@
     "value": "6162",
     "sleeper_id": "8138",
     "sleeper_position": "RB",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 26
   },
   {
     "rank": "34",
@@ -327,7 +358,8 @@
     "value": "6116",
     "sleeper_id": "8183",
     "sleeper_position": "QB",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 26
   },
   {
     "rank": "36",
@@ -337,7 +369,8 @@
     "value": "5959",
     "sleeper_id": "7569",
     "sleeper_position": "WR",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 26
   },
   {
     "rank": "37",
@@ -347,7 +380,8 @@
     "value": "5937",
     "sleeper_id": "12514",
     "sleeper_position": "WR",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 23
   },
   {
     "rank": "38",
@@ -357,7 +391,8 @@
     "value": "5931",
     "sleeper_id": "12517",
     "sleeper_position": "TE",
-    "sleeper_team": "CHI"
+    "sleeper_team": "CHI",
+    "age": 21
   },
   {
     "rank": "39",
@@ -367,7 +402,8 @@
     "value": "5919",
     "sleeper_id": "12529",
     "sleeper_position": "RB",
-    "sleeper_team": "NE"
+    "sleeper_team": "NE",
+    "age": 23
   },
   {
     "rank": "40",
@@ -377,7 +413,8 @@
     "value": "5819",
     "sleeper_id": "8146",
     "sleeper_position": "WR",
-    "sleeper_team": "NYJ"
+    "sleeper_team": "NYJ",
+    "age": 25
   },
   {
     "rank": "41",
@@ -387,7 +424,8 @@
     "value": "5782",
     "sleeper_id": "8144",
     "sleeper_position": "WR",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 25
   },
   {
     "rank": "42",
@@ -397,7 +435,8 @@
     "value": "5702",
     "sleeper_id": "6804",
     "sleeper_position": "QB",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 27
   },
   {
     "rank": "43",
@@ -417,7 +456,8 @@
     "value": "5631",
     "sleeper_id": "12518",
     "sleeper_position": "TE",
-    "sleeper_team": "IND"
+    "sleeper_team": "IND",
+    "age": 23
   },
   {
     "rank": "45",
@@ -427,7 +467,8 @@
     "value": "5554",
     "sleeper_id": "12512",
     "sleeper_position": "RB",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 22
   },
   {
     "rank": "46",
@@ -437,7 +478,8 @@
     "value": "5511",
     "sleeper_id": "8155",
     "sleeper_position": "RB",
-    "sleeper_team": "NYJ"
+    "sleeper_team": "NYJ",
+    "age": 24
   },
   {
     "rank": "47",
@@ -447,7 +489,8 @@
     "value": "5455",
     "sleeper_id": "11584",
     "sleeper_position": "RB",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 23
   },
   {
     "rank": "48",
@@ -457,7 +500,8 @@
     "value": "5426",
     "sleeper_id": "11635",
     "sleeper_position": "WR",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 24
   },
   {
     "rank": "50",
@@ -477,7 +521,8 @@
     "value": "5261",
     "sleeper_id": "11620",
     "sleeper_position": "WR",
-    "sleeper_team": "CHI"
+    "sleeper_team": "CHI",
+    "age": 23
   },
   {
     "rank": "52",
@@ -487,7 +532,8 @@
     "value": "5229",
     "sleeper_id": "10229",
     "sleeper_position": "WR",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 25
   },
   {
     "rank": "53",
@@ -507,7 +553,8 @@
     "value": "5107",
     "sleeper_id": "4034",
     "sleeper_position": "RB",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 29
   },
   {
     "rank": "55",
@@ -517,7 +564,8 @@
     "value": "5096",
     "sleeper_id": "11628",
     "sleeper_position": "WR",
-    "sleeper_team": "ARI"
+    "sleeper_team": "ARI",
+    "age": 23
   },
   {
     "rank": "56",
@@ -527,7 +575,8 @@
     "value": "5028",
     "sleeper_id": "12522",
     "sleeper_position": "QB",
-    "sleeper_team": "TEN"
+    "sleeper_team": "TEN",
+    "age": 23
   },
   {
     "rank": "57",
@@ -537,7 +586,8 @@
     "value": "5000",
     "sleeper_id": "8151",
     "sleeper_position": "RB",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 25
   },
   {
     "rank": "58",
@@ -547,7 +597,8 @@
     "value": "4996",
     "sleeper_id": "11631",
     "sleeper_position": "WR",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 23
   },
   {
     "rank": "59",
@@ -557,7 +608,8 @@
     "value": "4985",
     "sleeper_id": "3294",
     "sleeper_position": "QB",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 32
   },
   {
     "rank": "60",
@@ -567,7 +619,8 @@
     "value": "4977",
     "sleeper_id": "12519",
     "sleeper_position": "WR",
-    "sleeper_team": "CHI"
+    "sleeper_team": "CHI",
+    "age": 22
   },
   {
     "rank": "61",
@@ -577,7 +630,8 @@
     "value": "4904",
     "sleeper_id": "9484",
     "sleeper_position": "TE",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 25
   },
   {
     "rank": "62",
@@ -587,7 +641,8 @@
     "value": "4893",
     "sleeper_id": "9758",
     "sleeper_position": "QB",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 24
   },
   {
     "rank": "63",
@@ -597,7 +652,8 @@
     "value": "4888",
     "sleeper_id": "12506",
     "sleeper_position": "TE",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 21
   },
   {
     "rank": "64",
@@ -607,7 +663,8 @@
     "value": "4886",
     "sleeper_id": "9224",
     "sleeper_position": "RB",
-    "sleeper_team": "CIN"
+    "sleeper_team": "CIN",
+    "age": 25
   },
   {
     "rank": "65",
@@ -617,7 +674,8 @@
     "value": "4852",
     "sleeper_id": "8150",
     "sleeper_position": "RB",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 25
   },
   {
     "rank": "66",
@@ -627,7 +685,8 @@
     "value": "4851",
     "sleeper_id": "6801",
     "sleeper_position": "WR",
-    "sleeper_team": "CIN"
+    "sleeper_team": "CIN",
+    "age": 27
   },
   {
     "rank": "67",
@@ -637,7 +696,8 @@
     "value": "4851",
     "sleeper_id": "12481",
     "sleeper_position": "RB",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 24
   },
   {
     "rank": "68",
@@ -647,7 +707,8 @@
     "value": "4825",
     "sleeper_id": "4943",
     "sleeper_position": "QB",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 28
   },
   {
     "rank": "69",
@@ -667,7 +728,8 @@
     "value": "4796",
     "sleeper_id": "4866",
     "sleeper_position": "RB",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 29
   },
   {
     "rank": "71",
@@ -677,7 +739,8 @@
     "value": "4794",
     "sleeper_id": "4892",
     "sleeper_position": "QB",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 30
   },
   {
     "rank": "73",
@@ -687,7 +750,8 @@
     "value": "4776",
     "sleeper_id": "8148",
     "sleeper_position": "WR",
-    "sleeper_team": "DET"
+    "sleeper_team": "DET",
+    "age": 24
   },
   {
     "rank": "74",
@@ -697,7 +761,8 @@
     "value": "4773",
     "sleeper_id": "7525",
     "sleeper_position": "WR",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 27
   },
   {
     "rank": "76",
@@ -707,7 +772,8 @@
     "value": "4711",
     "sleeper_id": "5859",
     "sleeper_position": "WR",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 28
   },
   {
     "rank": "77",
@@ -717,7 +783,8 @@
     "value": "4689",
     "sleeper_id": "9997",
     "sleeper_position": "WR",
-    "sleeper_team": "BAL"
+    "sleeper_team": "BAL",
+    "age": 25
   },
   {
     "rank": "79",
@@ -727,7 +794,8 @@
     "value": "4629",
     "sleeper_id": "12545",
     "sleeper_position": "QB",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 26
   },
   {
     "rank": "80",
@@ -737,7 +805,8 @@
     "value": "4614",
     "sleeper_id": "3163",
     "sleeper_position": "QB",
-    "sleeper_team": "DET"
+    "sleeper_team": "DET",
+    "age": 31
   },
   {
     "rank": "81",
@@ -747,7 +816,8 @@
     "value": "4600",
     "sleeper_id": "7526",
     "sleeper_position": "WR",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 27
   },
   {
     "rank": "82",
@@ -757,7 +827,8 @@
     "value": "4576",
     "sleeper_id": "10859",
     "sleeper_position": "TE",
-    "sleeper_team": "DET"
+    "sleeper_team": "DET",
+    "age": 25
   },
   {
     "rank": "83",
@@ -767,7 +838,8 @@
     "value": "4515",
     "sleeper_id": "12489",
     "sleeper_position": "RB",
-    "sleeper_team": "DEN"
+    "sleeper_team": "DEN",
+    "age": 25
   },
   {
     "rank": "84",
@@ -777,7 +849,8 @@
     "value": "4509",
     "sleeper_id": "7553",
     "sleeper_position": "TE",
-    "sleeper_team": "ATL"
+    "sleeper_team": "ATL",
+    "age": 25
   },
   {
     "rank": "85",
@@ -787,7 +860,8 @@
     "value": "4501",
     "sleeper_id": "7588",
     "sleeper_position": "RB",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 25
   },
   {
     "rank": "87",
@@ -797,7 +871,8 @@
     "value": "4482",
     "sleeper_id": "7543",
     "sleeper_position": "RB",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 27
   },
   {
     "rank": "88",
@@ -807,7 +882,8 @@
     "value": "4472",
     "sleeper_id": "5850",
     "sleeper_position": "RB",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 28
   },
   {
     "rank": "89",
@@ -817,7 +893,8 @@
     "value": "4447",
     "sleeper_id": "9228",
     "sleeper_position": "QB",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 24
   },
   {
     "rank": "91",
@@ -827,7 +904,8 @@
     "value": "4138",
     "sleeper_id": "12493",
     "sleeper_position": "TE",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 22
   },
   {
     "rank": "92",
@@ -837,7 +915,8 @@
     "value": "4131",
     "sleeper_id": "12530",
     "sleeper_position": "WR",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 22
   },
   {
     "rank": "93",
@@ -847,7 +926,8 @@
     "value": "4106",
     "sleeper_id": "9756",
     "sleeper_position": "WR",
-    "sleeper_team": "MIN"
+    "sleeper_team": "MIN",
+    "age": 24
   },
   {
     "rank": "94",
@@ -867,7 +947,8 @@
     "value": "4041",
     "sleeper_id": "5870",
     "sleeper_position": "QB",
-    "sleeper_team": "IND"
+    "sleeper_team": "IND",
+    "age": 28
   },
   {
     "rank": "97",
@@ -877,7 +958,8 @@
     "value": "3956",
     "sleeper_id": "11638",
     "sleeper_position": "WR",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 25
   },
   {
     "rank": "98",
@@ -897,7 +979,8 @@
     "value": "3908",
     "sleeper_id": "3198",
     "sleeper_position": "RB",
-    "sleeper_team": "BAL"
+    "sleeper_team": "BAL",
+    "age": 32
   },
   {
     "rank": "100",
@@ -907,7 +990,8 @@
     "value": "3898",
     "sleeper_id": "8142",
     "sleeper_position": "WR",
-    "sleeper_team": "IND"
+    "sleeper_team": "IND",
+    "age": 25
   },
   {
     "rank": "101",
@@ -917,7 +1001,8 @@
     "value": "3863",
     "sleeper_id": "12534",
     "sleeper_position": "RB",
-    "sleeper_team": "CHI"
+    "sleeper_team": "CHI",
+    "age": 23
   },
   {
     "rank": "102",
@@ -927,7 +1012,8 @@
     "value": "3858",
     "sleeper_id": "10232",
     "sleeper_position": "WR",
-    "sleeper_team": "ARI"
+    "sleeper_team": "ARI",
+    "age": 26
   },
   {
     "rank": "103",
@@ -947,7 +1033,8 @@
     "value": "3836",
     "sleeper_id": "12484",
     "sleeper_position": "WR",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 23
   },
   {
     "rank": "105",
@@ -957,7 +1044,8 @@
     "value": "3832",
     "sleeper_id": "5846",
     "sleeper_position": "WR",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 28
   },
   {
     "rank": "107",
@@ -967,7 +1055,8 @@
     "value": "3736",
     "sleeper_id": "8167",
     "sleeper_position": "WR",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 26
   },
   {
     "rank": "108",
@@ -977,7 +1066,8 @@
     "value": "3724",
     "sleeper_id": "421",
     "sleeper_position": "QB",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 38
   },
   {
     "rank": "109",
@@ -987,7 +1077,8 @@
     "value": "3723",
     "sleeper_id": "2133",
     "sleeper_position": "WR",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 33
   },
   {
     "rank": "110",
@@ -997,7 +1088,8 @@
     "value": "3703",
     "sleeper_id": "6790",
     "sleeper_position": "RB",
-    "sleeper_team": "CHI"
+    "sleeper_team": "CHI",
+    "age": 27
   },
   {
     "rank": "111",
@@ -1007,7 +1099,8 @@
     "value": "3631",
     "sleeper_id": "5849",
     "sleeper_position": "QB",
-    "sleeper_team": "ARI"
+    "sleeper_team": "ARI",
+    "age": 28
   },
   {
     "rank": "112",
@@ -1017,7 +1110,8 @@
     "value": "3626",
     "sleeper_id": "9487",
     "sleeper_position": "WR",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 23
   },
   {
     "rank": "113",
@@ -1027,7 +1121,8 @@
     "value": "3612",
     "sleeper_id": "11559",
     "sleeper_position": "QB",
-    "sleeper_team": "ATL"
+    "sleeper_team": "ATL",
+    "age": 25
   },
   {
     "rank": "114",
@@ -1037,7 +1132,8 @@
     "value": "3593",
     "sleeper_id": "12501",
     "sleeper_position": "WR",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 22
   },
   {
     "rank": "115",
@@ -1047,7 +1143,8 @@
     "value": "3588",
     "sleeper_id": "8126",
     "sleeper_position": "WR",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 25
   },
   {
     "rank": "116",
@@ -1057,7 +1154,8 @@
     "value": "3587",
     "sleeper_id": "10236",
     "sleeper_position": "TE",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 26
   },
   {
     "rank": "117",
@@ -1067,7 +1165,8 @@
     "value": "3586",
     "sleeper_id": "6819",
     "sleeper_position": "WR",
-    "sleeper_team": "IND"
+    "sleeper_team": "IND",
+    "age": 28
   },
   {
     "rank": "118",
@@ -1077,7 +1176,8 @@
     "value": "3564",
     "sleeper_id": "9753",
     "sleeper_position": "RB",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 25
   },
   {
     "rank": "119",
@@ -1087,7 +1187,8 @@
     "value": "3555",
     "sleeper_id": "9754",
     "sleeper_position": "WR",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 24
   },
   {
     "rank": "120",
@@ -1097,7 +1198,8 @@
     "value": "3517",
     "sleeper_id": "11586",
     "sleeper_position": "RB",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 25
   },
   {
     "rank": "121",
@@ -1107,7 +1209,8 @@
     "value": "3504",
     "sleeper_id": "11624",
     "sleeper_position": "WR",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 22
   },
   {
     "rank": "122",
@@ -1117,7 +1220,8 @@
     "value": "3498",
     "sleeper_id": "12490",
     "sleeper_position": "RB",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 24
   },
   {
     "rank": "123",
@@ -1127,7 +1231,8 @@
     "value": "3490",
     "sleeper_id": "11565",
     "sleeper_position": "QB",
-    "sleeper_team": "MIN"
+    "sleeper_team": "MIN",
+    "age": 23
   },
   {
     "rank": "124",
@@ -1137,7 +1242,8 @@
     "value": "3482",
     "sleeper_id": "8228",
     "sleeper_position": "RB",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 27
   },
   {
     "rank": "126",
@@ -1147,7 +1253,8 @@
     "value": "3469",
     "sleeper_id": "5947",
     "sleeper_position": "WR",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 29
   },
   {
     "rank": "127",
@@ -1157,7 +1264,8 @@
     "value": "3450",
     "sleeper_id": "4217",
     "sleeper_position": "TE",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 32
   },
   {
     "rank": "128",
@@ -1167,7 +1275,8 @@
     "value": "3432",
     "sleeper_id": "8110",
     "sleeper_position": "TE",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 27
   },
   {
     "rank": "129",
@@ -1187,7 +1296,8 @@
     "value": "3379",
     "sleeper_id": "5927",
     "sleeper_position": "WR",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 30
   },
   {
     "rank": "131",
@@ -1197,7 +1307,8 @@
     "value": "3374",
     "sleeper_id": "8161",
     "sleeper_position": "QB",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 26
   },
   {
     "rank": "133",
@@ -1207,7 +1318,8 @@
     "value": "3347",
     "sleeper_id": "11589",
     "sleeper_position": "RB",
-    "sleeper_team": "ARI"
+    "sleeper_team": "ARI",
+    "age": 23
   },
   {
     "rank": "134",
@@ -1217,7 +1329,8 @@
     "value": "3321",
     "sleeper_id": "5045",
     "sleeper_position": "WR",
-    "sleeper_team": "DEN"
+    "sleeper_team": "DEN",
+    "age": 30
   },
   {
     "rank": "135",
@@ -1227,7 +1340,8 @@
     "value": "3320",
     "sleeper_id": "12474",
     "sleeper_position": "RB",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 25
   },
   {
     "rank": "136",
@@ -1237,7 +1351,8 @@
     "value": "3293",
     "sleeper_id": "10222",
     "sleeper_position": "WR",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 25
   },
   {
     "rank": "138",
@@ -1247,7 +1362,8 @@
     "value": "3280",
     "sleeper_id": "9480",
     "sleeper_position": "TE",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 25
   },
   {
     "rank": "139",
@@ -1257,7 +1373,8 @@
     "value": "3254",
     "sleeper_id": "8132",
     "sleeper_position": "RB",
-    "sleeper_team": "ATL"
+    "sleeper_team": "ATL",
+    "age": 25
   },
   {
     "rank": "140",
@@ -1287,7 +1404,8 @@
     "value": "3234",
     "sleeper_id": "11646",
     "sleeper_position": "WR",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 24
   },
   {
     "rank": "143",
@@ -1297,7 +1415,8 @@
     "value": "3179",
     "sleeper_id": "9500",
     "sleeper_position": "WR",
-    "sleeper_team": "IND"
+    "sleeper_team": "IND",
+    "age": 24
   },
   {
     "rank": "144",
@@ -1307,7 +1426,8 @@
     "value": "3152",
     "sleeper_id": "7021",
     "sleeper_position": "RB",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 27
   },
   {
     "rank": "146",
@@ -1317,7 +1437,8 @@
     "value": "3112",
     "sleeper_id": "8134",
     "sleeper_position": "WR",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 26
   },
   {
     "rank": "147",
@@ -1327,7 +1448,8 @@
     "value": "3064",
     "sleeper_id": "7594",
     "sleeper_position": "RB",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 26
   },
   {
     "rank": "149",
@@ -1337,7 +1459,8 @@
     "value": "3049",
     "sleeper_id": "8131",
     "sleeper_position": "TE",
-    "sleeper_team": "BAL"
+    "sleeper_team": "BAL",
+    "age": 25
   },
   {
     "rank": "151",
@@ -1347,7 +1470,8 @@
     "value": "3029",
     "sleeper_id": "11627",
     "sleeper_position": "WR",
-    "sleeper_team": "DEN"
+    "sleeper_team": "DEN",
+    "age": 23
   },
   {
     "rank": "152",
@@ -1357,7 +1481,8 @@
     "value": "3025",
     "sleeper_id": "7611",
     "sleeper_position": "RB",
-    "sleeper_team": "NE"
+    "sleeper_team": "NE",
+    "age": 28
   },
   {
     "rank": "153",
@@ -1367,7 +1492,8 @@
     "value": "2997",
     "sleeper_id": "8121",
     "sleeper_position": "WR",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 25
   },
   {
     "rank": "154",
@@ -1377,7 +1503,8 @@
     "value": "2996",
     "sleeper_id": "12492",
     "sleeper_position": "WR",
-    "sleeper_team": "DEN"
+    "sleeper_team": "DEN",
+    "age": 23
   },
   {
     "rank": "155",
@@ -1387,7 +1514,8 @@
     "value": "2970",
     "sleeper_id": "9504",
     "sleeper_position": "WR",
-    "sleeper_team": "NE"
+    "sleeper_team": "NE",
+    "age": 23
   },
   {
     "rank": "156",
@@ -1407,7 +1535,8 @@
     "value": "2931",
     "sleeper_id": "12498",
     "sleeper_position": "TE",
-    "sleeper_team": "NYJ"
+    "sleeper_team": "NYJ",
+    "age": 21
   },
   {
     "rank": "158",
@@ -1417,7 +1546,8 @@
     "value": "2913",
     "sleeper_id": "11603",
     "sleeper_position": "TE",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 23
   },
   {
     "rank": "159",
@@ -1427,7 +1557,8 @@
     "value": "2906",
     "sleeper_id": "12533",
     "sleeper_position": "RB",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 24
   },
   {
     "rank": "160",
@@ -1437,7 +1568,8 @@
     "value": "2900",
     "sleeper_id": "12487",
     "sleeper_position": "TE",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 22
   },
   {
     "rank": "161",
@@ -1447,7 +1579,8 @@
     "value": "2896",
     "sleeper_id": "8676",
     "sleeper_position": "WR",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 27
   },
   {
     "rank": "162",
@@ -1467,7 +1600,8 @@
     "value": "2887",
     "sleeper_id": "2216",
     "sleeper_position": "WR",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 32
   },
   {
     "rank": "164",
@@ -1477,7 +1611,8 @@
     "value": "2871",
     "sleeper_id": "7049",
     "sleeper_position": "WR",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 28
   },
   {
     "rank": "165",
@@ -1487,7 +1622,8 @@
     "value": "2869",
     "sleeper_id": "12524",
     "sleeper_position": "QB",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 24
   },
   {
     "rank": "166",
@@ -1497,7 +1633,8 @@
     "value": "2866",
     "sleeper_id": "7527",
     "sleeper_position": "QB",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 27
   },
   {
     "rank": "167",
@@ -1507,7 +1644,8 @@
     "value": "2845",
     "sleeper_id": "11576",
     "sleeper_position": "RB",
-    "sleeper_team": "NYJ"
+    "sleeper_team": "NYJ",
+    "age": 22
   },
   {
     "rank": "168",
@@ -1517,7 +1655,8 @@
     "value": "2844",
     "sleeper_id": "12540",
     "sleeper_position": "WR",
-    "sleeper_team": "TEN"
+    "sleeper_team": "TEN",
+    "age": 24
   },
   {
     "rank": "169",
@@ -1527,7 +1666,8 @@
     "value": "2842",
     "sleeper_id": "12535",
     "sleeper_position": "WR",
-    "sleeper_team": "DET"
+    "sleeper_team": "DET",
+    "age": 24
   },
   {
     "rank": "170",
@@ -1537,7 +1677,8 @@
     "value": "2840",
     "sleeper_id": "9508",
     "sleeper_position": "RB",
-    "sleeper_team": "TEN"
+    "sleeper_team": "TEN",
+    "age": 24
   },
   {
     "rank": "171",
@@ -1547,7 +1688,8 @@
     "value": "2833",
     "sleeper_id": "12499",
     "sleeper_position": "WR",
-    "sleeper_team": "TEN"
+    "sleeper_team": "TEN",
+    "age": 22
   },
   {
     "rank": "173",
@@ -1557,7 +1699,8 @@
     "value": "2826",
     "sleeper_id": "11618",
     "sleeper_position": "WR",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 24
   },
   {
     "rank": "174",
@@ -1567,7 +1710,8 @@
     "value": "2824",
     "sleeper_id": "5892",
     "sleeper_position": "RB",
-    "sleeper_team": "DET"
+    "sleeper_team": "DET",
+    "age": 28
   },
   {
     "rank": "176",
@@ -1577,7 +1721,8 @@
     "value": "2795",
     "sleeper_id": "11597",
     "sleeper_position": "TE",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 25
   },
   {
     "rank": "178",
@@ -1587,7 +1732,8 @@
     "value": "2782",
     "sleeper_id": "638",
     "sleeper_position": "WR",
-    "sleeper_team": null
+    "sleeper_team": null,
+    "age": 30
   },
   {
     "rank": "179",
@@ -1597,7 +1743,8 @@
     "value": "2780",
     "sleeper_id": "12497",
     "sleeper_position": "WR",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 23
   },
   {
     "rank": "180",
@@ -1607,7 +1754,8 @@
     "value": "2778",
     "sleeper_id": "4037",
     "sleeper_position": "WR",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 30
   },
   {
     "rank": "181",
@@ -1617,7 +1765,8 @@
     "value": "2778",
     "sleeper_id": "7567",
     "sleeper_position": "RB",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 26
   },
   {
     "rank": "182",
@@ -1627,7 +1776,8 @@
     "value": "2776",
     "sleeper_id": "12536",
     "sleeper_position": "WR",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 23
   },
   {
     "rank": "183",
@@ -1637,7 +1787,8 @@
     "value": "2765",
     "sleeper_id": "11625",
     "sleeper_position": "WR",
-    "sleeper_team": "NYJ"
+    "sleeper_team": "NYJ",
+    "age": 23
   },
   {
     "rank": "184",
@@ -1647,7 +1798,8 @@
     "value": "2764",
     "sleeper_id": "11655",
     "sleeper_position": "RB",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 26
   },
   {
     "rank": "185",
@@ -1657,7 +1809,8 @@
     "value": "2749",
     "sleeper_id": "6806",
     "sleeper_position": "RB",
-    "sleeper_team": "DEN"
+    "sleeper_team": "DEN",
+    "age": 27
   },
   {
     "rank": "186",
@@ -1667,7 +1820,8 @@
     "value": "2721",
     "sleeper_id": "12504",
     "sleeper_position": "RB",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 22
   },
   {
     "rank": "187",
@@ -1677,7 +1831,8 @@
     "value": "2711",
     "sleeper_id": "12469",
     "sleeper_position": "RB",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 21
   },
   {
     "rank": "188",
@@ -1687,7 +1842,8 @@
     "value": "2710",
     "sleeper_id": "11583",
     "sleeper_position": "RB",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 22
   },
   {
     "rank": "189",
@@ -1697,7 +1853,8 @@
     "value": "2691",
     "sleeper_id": "6803",
     "sleeper_position": "WR",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 27
   },
   {
     "rank": "190",
@@ -1717,7 +1874,8 @@
     "value": "2664",
     "sleeper_id": "2449",
     "sleeper_position": "WR",
-    "sleeper_team": "NE"
+    "sleeper_team": "NE",
+    "age": 32
   },
   {
     "rank": "192",
@@ -1727,7 +1885,8 @@
     "value": "2664",
     "sleeper_id": "5967",
     "sleeper_position": "RB",
-    "sleeper_team": "TEN"
+    "sleeper_team": "TEN",
+    "age": 28
   },
   {
     "rank": "193",
@@ -1737,7 +1896,8 @@
     "value": "2664",
     "sleeper_id": "6768",
     "sleeper_position": "QB",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 28
   },
   {
     "rank": "194",
@@ -1747,7 +1907,8 @@
     "value": "2651",
     "sleeper_id": "6783",
     "sleeper_position": "WR",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 26
   },
   {
     "rank": "195",
@@ -1757,7 +1918,8 @@
     "value": "2643",
     "sleeper_id": "5844",
     "sleeper_position": "TE",
-    "sleeper_team": "MIN"
+    "sleeper_team": "MIN",
+    "age": 28
   },
   {
     "rank": "197",
@@ -1767,7 +1929,8 @@
     "value": "2630",
     "sleeper_id": "4033",
     "sleeper_position": "TE",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 29
   },
   {
     "rank": "198",
@@ -1777,7 +1940,8 @@
     "value": "2628",
     "sleeper_id": "12476",
     "sleeper_position": "RB",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 22
   },
   {
     "rank": "199",
@@ -1787,7 +1951,8 @@
     "value": "2609",
     "sleeper_id": "5022",
     "sleeper_position": "TE",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 31
   },
   {
     "rank": "200",
@@ -1797,7 +1962,8 @@
     "value": "2608",
     "sleeper_id": "12495",
     "sleeper_position": "RB",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 22
   },
   {
     "rank": "201",
@@ -1807,7 +1973,8 @@
     "value": "2607",
     "sleeper_id": "8136",
     "sleeper_position": "RB",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 27
   },
   {
     "rank": "202",
@@ -1817,7 +1984,8 @@
     "value": "2607",
     "sleeper_id": "11647",
     "sleeper_position": "RB",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 24
   },
   {
     "rank": "203",
@@ -1827,7 +1995,8 @@
     "value": "2579",
     "sleeper_id": "12521",
     "sleeper_position": "TE",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 22
   },
   {
     "rank": "204",
@@ -1837,7 +2006,8 @@
     "value": "2578",
     "sleeper_id": "5872",
     "sleeper_position": "WR",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 30
   },
   {
     "rank": "205",
@@ -1847,7 +2017,8 @@
     "value": "2551",
     "sleeper_id": "9506",
     "sleeper_position": "RB",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 24
   },
   {
     "rank": "206",
@@ -1857,7 +2028,8 @@
     "value": "2541",
     "sleeper_id": "5012",
     "sleeper_position": "TE",
-    "sleeper_team": "BAL"
+    "sleeper_team": "BAL",
+    "age": 30
   },
   {
     "rank": "207",
@@ -1867,7 +2039,8 @@
     "value": "2531",
     "sleeper_id": "12483",
     "sleeper_position": "WR",
-    "sleeper_team": "LV"
+    "sleeper_team": "LV",
+    "age": 23
   },
   {
     "rank": "208",
@@ -1887,7 +2060,8 @@
     "value": "2522",
     "sleeper_id": "9225",
     "sleeper_position": "RB",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 23
   },
   {
     "rank": "211",
@@ -1907,7 +2081,8 @@
     "value": "2506",
     "sleeper_id": "10213",
     "sleeper_position": "WR",
-    "sleeper_team": "LV"
+    "sleeper_team": "LV",
+    "age": 24
   },
   {
     "rank": "212",
@@ -1917,7 +2092,8 @@
     "value": "2497",
     "sleeper_id": "11637",
     "sleeper_position": "WR",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 22
   },
   {
     "rank": "213",
@@ -1927,7 +2103,8 @@
     "value": "2491",
     "sleeper_id": "3257",
     "sleeper_position": "QB",
-    "sleeper_team": "ARI"
+    "sleeper_team": "ARI",
+    "age": 33
   },
   {
     "rank": "214",
@@ -1937,7 +2114,8 @@
     "value": "2486",
     "sleeper_id": "9494",
     "sleeper_position": "WR",
-    "sleeper_team": "DEN"
+    "sleeper_team": "DEN",
+    "age": 23
   },
   {
     "rank": "215",
@@ -1957,7 +2135,8 @@
     "value": "2464",
     "sleeper_id": "9229",
     "sleeper_position": "QB",
-    "sleeper_team": "IND"
+    "sleeper_team": "IND",
+    "age": 23
   },
   {
     "rank": "217",
@@ -1967,7 +2146,8 @@
     "value": "2446",
     "sleeper_id": "8408",
     "sleeper_position": "RB",
-    "sleeper_team": "MIN"
+    "sleeper_team": "MIN",
+    "age": 26
   },
   {
     "rank": "218",
@@ -1987,7 +2167,8 @@
     "value": "2415",
     "sleeper_id": "9502",
     "sleeper_position": "WR",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 26
   },
   {
     "rank": "221",
@@ -1997,7 +2178,8 @@
     "value": "2405",
     "sleeper_id": "12510",
     "sleeper_position": "QB",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 23
   },
   {
     "rank": "222",
@@ -2007,7 +2189,8 @@
     "value": "2402",
     "sleeper_id": "3214",
     "sleeper_position": "TE",
-    "sleeper_team": "NE"
+    "sleeper_team": "NE",
+    "age": 31
   },
   {
     "rank": "223",
@@ -2017,7 +2200,8 @@
     "value": "2399",
     "sleeper_id": "7002",
     "sleeper_position": "TE",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 29
   },
   {
     "rank": "224",
@@ -2037,7 +2221,8 @@
     "value": "2377",
     "sleeper_id": "12502",
     "sleeper_position": "TE",
-    "sleeper_team": "TEN"
+    "sleeper_team": "TEN",
+    "age": 23
   },
   {
     "rank": "226",
@@ -2047,7 +2232,8 @@
     "value": "2372",
     "sleeper_id": "11643",
     "sleeper_position": "RB",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 22
   },
   {
     "rank": "227",
@@ -2057,7 +2243,8 @@
     "value": "2359",
     "sleeper_id": "5001",
     "sleeper_position": "TE",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 29
   },
   {
     "rank": "228",
@@ -2067,7 +2254,8 @@
     "value": "2357",
     "sleeper_id": "8154",
     "sleeper_position": "RB",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 26
   },
   {
     "rank": "229",
@@ -2077,7 +2265,8 @@
     "value": "2338",
     "sleeper_id": "4035",
     "sleeper_position": "RB",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 30
   },
   {
     "rank": "231",
@@ -2087,7 +2276,8 @@
     "value": "2337",
     "sleeper_id": "8111",
     "sleeper_position": "TE",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 26
   },
   {
     "rank": "232",
@@ -2097,7 +2287,8 @@
     "value": "2337",
     "sleeper_id": "12485",
     "sleeper_position": "WR",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 23
   },
   {
     "rank": "233",
@@ -2107,7 +2298,8 @@
     "value": "2327",
     "sleeper_id": "9511",
     "sleeper_position": "RB",
-    "sleeper_team": "BAL"
+    "sleeper_team": "BAL",
+    "age": 24
   },
   {
     "rank": "234",
@@ -2117,7 +2309,8 @@
     "value": "2320",
     "sleeper_id": "9482",
     "sleeper_position": "TE",
-    "sleeper_team": "LV"
+    "sleeper_team": "LV",
+    "age": 24
   },
   {
     "rank": "235",
@@ -2127,7 +2320,8 @@
     "value": "2304",
     "sleeper_id": "12455",
     "sleeper_position": "RB",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 22
   },
   {
     "rank": "236",
@@ -2137,7 +2331,8 @@
     "value": "2297",
     "sleeper_id": "3321",
     "sleeper_position": "WR",
-    "sleeper_team": null
+    "sleeper_team": null,
+    "age": 31
   },
   {
     "rank": "238",
@@ -2147,7 +2342,8 @@
     "value": "2289",
     "sleeper_id": "12503",
     "sleeper_position": "WR",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 21
   },
   {
     "rank": "239",
@@ -2157,7 +2353,8 @@
     "value": "2287",
     "sleeper_id": "9757",
     "sleeper_position": "RB",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 23
   },
   {
     "rank": "240",
@@ -2167,7 +2364,8 @@
     "value": "2247",
     "sleeper_id": "8698",
     "sleeper_position": "TE",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 26
   },
   {
     "rank": "241",
@@ -2177,7 +2375,8 @@
     "value": "2246",
     "sleeper_id": "9486",
     "sleeper_position": "WR",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 24
   },
   {
     "rank": "242",
@@ -2187,7 +2386,8 @@
     "value": "2244",
     "sleeper_id": "12500",
     "sleeper_position": "QB",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 22
   },
   {
     "rank": "243",
@@ -2207,7 +2407,8 @@
     "value": "2217",
     "sleeper_id": "9501",
     "sleeper_position": "WR",
-    "sleeper_team": "NE"
+    "sleeper_team": "NE",
+    "age": 25
   },
   {
     "rank": "245",
@@ -2217,7 +2418,8 @@
     "value": "2203",
     "sleeper_id": "4199",
     "sleeper_position": "RB",
-    "sleeper_team": "MIN"
+    "sleeper_team": "MIN",
+    "age": 31
   },
   {
     "rank": "246",
@@ -2237,7 +2439,8 @@
     "value": "2199",
     "sleeper_id": "11626",
     "sleeper_position": "WR",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 25
   },
   {
     "rank": "249",
@@ -2247,7 +2450,8 @@
     "value": "2182",
     "sleeper_id": "11610",
     "sleeper_position": "WR",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 25
   },
   {
     "rank": "252",
@@ -2257,7 +2461,8 @@
     "value": "2168",
     "sleeper_id": "12457",
     "sleeper_position": "RB",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 22
   },
   {
     "rank": "253",
@@ -2267,7 +2472,8 @@
     "value": "2157",
     "sleeper_id": "8205",
     "sleeper_position": "RB",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 27
   },
   {
     "rank": "254",
@@ -2277,7 +2483,8 @@
     "value": "2139",
     "sleeper_id": "11596",
     "sleeper_position": "TE",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 23
   },
   {
     "rank": "256",
@@ -2297,7 +2504,8 @@
     "value": "2138",
     "sleeper_id": "12541",
     "sleeper_position": "WR",
-    "sleeper_team": "LV"
+    "sleeper_team": "LV",
+    "age": 23
   },
   {
     "rank": "257",
@@ -2307,7 +2515,8 @@
     "value": "2134",
     "sleeper_id": "11571",
     "sleeper_position": "RB",
-    "sleeper_team": "NYJ"
+    "sleeper_team": "NYJ",
+    "age": 24
   },
   {
     "rank": "258",
@@ -2317,7 +2526,8 @@
     "value": "2133",
     "sleeper_id": "6865",
     "sleeper_position": "TE",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 27
   },
   {
     "rank": "260",
@@ -2327,7 +2537,8 @@
     "value": "2117",
     "sleeper_id": "10444",
     "sleeper_position": "WR",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 25
   },
   {
     "rank": "261",
@@ -2337,7 +2548,8 @@
     "value": "2111",
     "sleeper_id": "6826",
     "sleeper_position": "TE",
-    "sleeper_team": "CHI"
+    "sleeper_team": "CHI",
+    "age": 26
   },
   {
     "rank": "263",
@@ -2347,7 +2559,8 @@
     "value": "2106",
     "sleeper_id": "11435",
     "sleeper_position": "RB",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 26
   },
   {
     "rank": "264",
@@ -2357,7 +2570,8 @@
     "value": "2087",
     "sleeper_id": "10219",
     "sleeper_position": "RB",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 26
   },
   {
     "rank": "265",
@@ -2367,7 +2581,8 @@
     "value": "2070",
     "sleeper_id": "11600",
     "sleeper_position": "TE",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 22
   },
   {
     "rank": "266",
@@ -2377,7 +2592,8 @@
     "value": "2067",
     "sleeper_id": "7591",
     "sleeper_position": "QB",
-    "sleeper_team": "NYJ"
+    "sleeper_team": "NYJ",
+    "age": 26
   },
   {
     "rank": "267",
@@ -2387,7 +2603,8 @@
     "value": "2058",
     "sleeper_id": "12531",
     "sleeper_position": "RB",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 21
   },
   {
     "rank": "268",
@@ -2397,7 +2614,8 @@
     "value": "2052",
     "sleeper_id": "4137",
     "sleeper_position": "RB",
-    "sleeper_team": "ARI"
+    "sleeper_team": "ARI",
+    "age": 30
   },
   {
     "rank": "269",
@@ -2407,7 +2625,8 @@
     "value": "2048",
     "sleeper_id": "7600",
     "sleeper_position": "TE",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 27
   },
   {
     "rank": "270",
@@ -2417,7 +2636,8 @@
     "value": "2033",
     "sleeper_id": "12471",
     "sleeper_position": "RB",
-    "sleeper_team": "IND"
+    "sleeper_team": "IND",
+    "age": 22
   },
   {
     "rank": "272",
@@ -2427,7 +2647,8 @@
     "value": "2008",
     "sleeper_id": "7090",
     "sleeper_position": "WR",
-    "sleeper_team": "ATL"
+    "sleeper_team": "ATL",
+    "age": 28
   },
   {
     "rank": "273",
@@ -2437,7 +2658,8 @@
     "value": "2005",
     "sleeper_id": "7571",
     "sleeper_position": "WR",
-    "sleeper_team": "BAL"
+    "sleeper_team": "BAL",
+    "age": 26
   },
   {
     "rank": "274",
@@ -2457,7 +2679,8 @@
     "value": "1979",
     "sleeper_id": "4950",
     "sleeper_position": "WR",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 29
   },
   {
     "rank": "276",
@@ -2477,7 +2700,8 @@
     "value": "1976",
     "sleeper_id": "11575",
     "sleeper_position": "RB",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 26
   },
   {
     "rank": "278",
@@ -2487,7 +2711,8 @@
     "value": "1961",
     "sleeper_id": "7203",
     "sleeper_position": "RB",
-    "sleeper_team": null
+    "sleeper_team": null,
+    "age": 24
   },
   {
     "rank": "279",
@@ -2527,7 +2752,8 @@
     "value": "1939",
     "sleeper_id": "1466",
     "sleeper_position": "TE",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 36
   },
   {
     "rank": "283",
@@ -2557,7 +2783,8 @@
     "value": "1923",
     "sleeper_id": "12511",
     "sleeper_position": "QB",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 24
   },
   {
     "rank": "286",
@@ -2567,7 +2794,8 @@
     "value": "1918",
     "sleeper_id": "12641",
     "sleeper_position": "WR",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 23
   },
   {
     "rank": "287",
@@ -2577,7 +2805,8 @@
     "value": "1911",
     "sleeper_id": "11783",
     "sleeper_position": "WR",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 26
   },
   {
     "rank": "288",
@@ -2587,7 +2816,8 @@
     "value": "1895",
     "sleeper_id": "4066",
     "sleeper_position": "TE",
-    "sleeper_team": "DEN"
+    "sleeper_team": "DEN",
+    "age": 31
   },
   {
     "rank": "289",
@@ -2597,7 +2827,8 @@
     "value": "1894",
     "sleeper_id": "9479",
     "sleeper_position": "TE",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 24
   },
   {
     "rank": "291",
@@ -2607,7 +2838,8 @@
     "value": "1874",
     "sleeper_id": "9481",
     "sleeper_position": "TE",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 25
   },
   {
     "rank": "292",
@@ -2617,7 +2849,8 @@
     "value": "1869",
     "sleeper_id": "10218",
     "sleeper_position": "WR",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 25
   },
   {
     "rank": "293",
@@ -2627,7 +2860,8 @@
     "value": "1863",
     "sleeper_id": "11650",
     "sleeper_position": "WR",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 24
   },
   {
     "rank": "294",
@@ -2637,7 +2871,8 @@
     "value": "1857",
     "sleeper_id": "7828",
     "sleeper_position": "TE",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 26
   },
   {
     "rank": "295",
@@ -2647,7 +2882,8 @@
     "value": "1851",
     "sleeper_id": "7528",
     "sleeper_position": "RB",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 27
   },
   {
     "rank": "296",
@@ -2657,7 +2893,8 @@
     "value": "1851",
     "sleeper_id": "8147",
     "sleeper_position": "WR",
-    "sleeper_team": "NYJ"
+    "sleeper_team": "NYJ",
+    "age": 25
   },
   {
     "rank": "297",
@@ -2667,7 +2904,8 @@
     "value": "1851",
     "sleeper_id": "12544",
     "sleeper_position": "RB",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 21
   },
   {
     "rank": "298",
@@ -2677,7 +2915,8 @@
     "value": "1838",
     "sleeper_id": "11579",
     "sleeper_position": "RB",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 22
   },
   {
     "rank": "299",
@@ -2687,7 +2926,8 @@
     "value": "1828",
     "sleeper_id": "12470",
     "sleeper_position": "QB",
-    "sleeper_team": "IND"
+    "sleeper_team": "IND",
+    "age": 23
   },
   {
     "rank": "300",
@@ -2697,7 +2937,8 @@
     "value": "1815",
     "sleeper_id": "8180",
     "sleeper_position": "WR",
-    "sleeper_team": "MIN"
+    "sleeper_team": "MIN",
+    "age": 27
   },
   {
     "rank": "302",
@@ -2707,7 +2948,8 @@
     "value": "1792",
     "sleeper_id": "11834",
     "sleeper_position": "WR",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 28
   },
   {
     "rank": "303",
@@ -2717,7 +2959,8 @@
     "value": "1790",
     "sleeper_id": "11557",
     "sleeper_position": "QB",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 25
   },
   {
     "rank": "305",
@@ -2727,7 +2970,8 @@
     "value": "1774",
     "sleeper_id": "12505",
     "sleeper_position": "WR",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 23
   },
   {
     "rank": "306",
@@ -2737,7 +2981,8 @@
     "value": "1767",
     "sleeper_id": "1479",
     "sleeper_position": "WR",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 33
   },
   {
     "rank": "307",
@@ -2747,7 +2992,8 @@
     "value": "1766",
     "sleeper_id": "12467",
     "sleeper_position": "RB",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 21
   },
   {
     "rank": "308",
@@ -2767,7 +3013,8 @@
     "value": "1747",
     "sleeper_id": "11577",
     "sleeper_position": "RB",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 23
   },
   {
     "rank": "310",
@@ -2777,7 +3024,8 @@
     "value": "1745",
     "sleeper_id": "12543",
     "sleeper_position": "RB",
-    "sleeper_team": "CIN"
+    "sleeper_team": "CIN",
+    "age": 23
   },
   {
     "rank": "311",
@@ -2797,7 +3045,8 @@
     "value": "1740",
     "sleeper_id": "5848",
     "sleeper_position": "WR",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 28
   },
   {
     "rank": "313",
@@ -2807,7 +3056,8 @@
     "value": "1739",
     "sleeper_id": "11630",
     "sleeper_position": "WR",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 24
   },
   {
     "rank": "314",
@@ -2817,7 +3067,8 @@
     "value": "1727",
     "sleeper_id": "10226",
     "sleeper_position": "WR",
-    "sleeper_team": "CIN"
+    "sleeper_team": "CIN",
+    "age": 26
   },
   {
     "rank": "315",
@@ -2827,7 +3078,8 @@
     "value": "1721",
     "sleeper_id": "11562",
     "sleeper_position": "QB",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 25
   },
   {
     "rank": "316",
@@ -2837,7 +3089,8 @@
     "value": "1708",
     "sleeper_id": "96",
     "sleeper_position": "QB",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 42
   },
   {
     "rank": "317",
@@ -2867,7 +3120,8 @@
     "value": "1697",
     "sleeper_id": "1166",
     "sleeper_position": "QB",
-    "sleeper_team": "ATL"
+    "sleeper_team": "ATL",
+    "age": 37
   },
   {
     "rank": "320",
@@ -2877,7 +3131,8 @@
     "value": "1683",
     "sleeper_id": "8125",
     "sleeper_position": "WR",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 26
   },
   {
     "rank": "321",
@@ -2887,7 +3142,8 @@
     "value": "1679",
     "sleeper_id": "8188",
     "sleeper_position": "WR",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 25
   },
   {
     "rank": "322",
@@ -2897,7 +3153,8 @@
     "value": "1677",
     "sleeper_id": "11581",
     "sleeper_position": "RB",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 25
   },
   {
     "rank": "323",
@@ -2907,7 +3164,8 @@
     "value": "1674",
     "sleeper_id": "4981",
     "sleeper_position": "WR",
-    "sleeper_team": "TEN"
+    "sleeper_team": "TEN",
+    "age": 31
   },
   {
     "rank": "324",
@@ -2917,7 +3175,8 @@
     "value": "1658",
     "sleeper_id": "11569",
     "sleeper_position": "RB",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 23
   },
   {
     "rank": "325",
@@ -2927,7 +3186,8 @@
     "value": "1650",
     "sleeper_id": "4039",
     "sleeper_position": "WR",
-    "sleeper_team": "SEA"
+    "sleeper_team": "SEA",
+    "age": 32
   },
   {
     "rank": "328",
@@ -2937,7 +3197,8 @@
     "value": "1643",
     "sleeper_id": "12523",
     "sleeper_position": "WR",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 23
   },
   {
     "rank": "330",
@@ -2947,7 +3208,8 @@
     "value": "1628",
     "sleeper_id": "12670",
     "sleeper_position": "WR",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 24
   },
   {
     "rank": "332",
@@ -2957,7 +3219,8 @@
     "value": "1612",
     "sleeper_id": "5906",
     "sleeper_position": "TE",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 29
   },
   {
     "rank": "333",
@@ -2967,7 +3230,8 @@
     "value": "1610",
     "sleeper_id": "12486",
     "sleeper_position": "QB",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 25
   },
   {
     "rank": "334",
@@ -2977,7 +3241,8 @@
     "value": "1608",
     "sleeper_id": "4018",
     "sleeper_position": "RB",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 29
   },
   {
     "rank": "335",
@@ -2987,7 +3252,8 @@
     "value": "1603",
     "sleeper_id": "11623",
     "sleeper_position": "WR",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 25
   },
   {
     "rank": "336",
@@ -2997,7 +3263,8 @@
     "value": "1599",
     "sleeper_id": "4144",
     "sleeper_position": "TE",
-    "sleeper_team": "PIT"
+    "sleeper_team": "PIT",
+    "age": 30
   },
   {
     "rank": "337",
@@ -3007,7 +3274,8 @@
     "value": "1597",
     "sleeper_id": "6149",
     "sleeper_position": "WR",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 29
   },
   {
     "rank": "338",
@@ -3017,7 +3285,8 @@
     "value": "1583",
     "sleeper_id": "2307",
     "sleeper_position": "QB",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 32
   },
   {
     "rank": "339",
@@ -3027,7 +3296,8 @@
     "value": "1578",
     "sleeper_id": "12482",
     "sleeper_position": "WR",
-    "sleeper_team": "GB"
+    "sleeper_team": "GB",
+    "age": 24
   },
   {
     "rank": "340",
@@ -3037,7 +3307,8 @@
     "value": "1576",
     "sleeper_id": "2306",
     "sleeper_position": "QB",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 32
   },
   {
     "rank": "341",
@@ -3047,7 +3318,8 @@
     "value": "1567",
     "sleeper_id": "11439",
     "sleeper_position": "RB",
-    "sleeper_team": "DEN"
+    "sleeper_team": "DEN",
+    "age": 25
   },
   {
     "rank": "343",
@@ -3057,7 +3329,8 @@
     "value": "1553",
     "sleeper_id": "7585",
     "sleeper_position": "QB",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 27
   },
   {
     "rank": "344",
@@ -3067,7 +3340,8 @@
     "value": "1542",
     "sleeper_id": "11651",
     "sleeper_position": "RB",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 25
   },
   {
     "rank": "347",
@@ -3077,7 +3351,8 @@
     "value": "1533",
     "sleeper_id": "6130",
     "sleeper_position": "RB",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 28
   },
   {
     "rank": "348",
@@ -3087,7 +3362,8 @@
     "value": "1532",
     "sleeper_id": "7835",
     "sleeper_position": "CB",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 26
   },
   {
     "rank": "349",
@@ -3097,7 +3373,8 @@
     "value": "1488",
     "sleeper_id": "12520",
     "sleeper_position": "WR",
-    "sleeper_team": "TEN"
+    "sleeper_team": "TEN",
+    "age": 23
   },
   {
     "rank": "350",
@@ -3107,7 +3384,8 @@
     "value": "1480",
     "sleeper_id": "7670",
     "sleeper_position": "WR",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 26
   },
   {
     "rank": "351",
@@ -3117,7 +3395,8 @@
     "value": "1477",
     "sleeper_id": "4454",
     "sleeper_position": "WR",
-    "sleeper_team": "SF"
+    "sleeper_team": "SF",
+    "age": 30
   },
   {
     "rank": "352",
@@ -3127,7 +3406,8 @@
     "value": "1476",
     "sleeper_id": "1373",
     "sleeper_position": "QB",
-    "sleeper_team": "LV"
+    "sleeper_team": "LV",
+    "age": 35
   },
   {
     "rank": "353",
@@ -3137,7 +3417,8 @@
     "value": "1471",
     "sleeper_id": "8800",
     "sleeper_position": "RB",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 27
   },
   {
     "rank": "354",
@@ -3147,7 +3428,8 @@
     "value": "1470",
     "sleeper_id": "8119",
     "sleeper_position": "WR",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 25
   },
   {
     "rank": "355",
@@ -3157,7 +3439,8 @@
     "value": "1463",
     "sleeper_id": "8143",
     "sleeper_position": "RB",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 26
   },
   {
     "rank": "356",
@@ -3167,7 +3450,8 @@
     "value": "1462",
     "sleeper_id": "6039",
     "sleeper_position": "RB",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 28
   },
   {
     "rank": "357",
@@ -3177,7 +3461,8 @@
     "value": "1462",
     "sleeper_id": "8135",
     "sleeper_position": "WR",
-    "sleeper_team": "WAS"
+    "sleeper_team": "WAS",
+    "age": 25
   },
   {
     "rank": "358",
@@ -3197,7 +3482,8 @@
     "value": "1450",
     "sleeper_id": "12718",
     "sleeper_position": "WR",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 23
   },
   {
     "rank": "360",
@@ -3207,7 +3493,8 @@
     "value": "1431",
     "sleeper_id": "4993",
     "sleeper_position": "TE",
-    "sleeper_team": "CIN"
+    "sleeper_team": "CIN",
+    "age": 30
   },
   {
     "rank": "362",
@@ -3217,7 +3504,8 @@
     "value": "1417",
     "sleeper_id": "12542",
     "sleeper_position": "WR",
-    "sleeper_team": "NE"
+    "sleeper_team": "NE",
+    "age": 24
   },
   {
     "rank": "363",
@@ -3237,7 +3525,8 @@
     "value": "1403",
     "sleeper_id": "12472",
     "sleeper_position": "RB",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 23
   },
   {
     "rank": "366",
@@ -3247,7 +3536,8 @@
     "value": "1400",
     "sleeper_id": "11619",
     "sleeper_position": "WR",
-    "sleeper_team": "NO"
+    "sleeper_team": "NO",
+    "age": 23
   },
   {
     "rank": "367",
@@ -3257,7 +3547,8 @@
     "value": "1399",
     "sleeper_id": "8117",
     "sleeper_position": "WR",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 27
   },
   {
     "rank": "368",
@@ -3267,7 +3558,8 @@
     "value": "1393",
     "sleeper_id": "4098",
     "sleeper_position": "RB",
-    "sleeper_team": "KC"
+    "sleeper_team": "KC",
+    "age": 30
   },
   {
     "rank": "369",
@@ -3277,7 +3569,8 @@
     "value": "1362",
     "sleeper_id": "7694",
     "sleeper_position": "TE",
-    "sleeper_team": "CAR"
+    "sleeper_team": "CAR",
+    "age": 25
   },
   {
     "rank": "370",
@@ -3307,7 +3600,8 @@
     "value": "1345",
     "sleeper_id": "5857",
     "sleeper_position": "TE",
-    "sleeper_team": "CIN"
+    "sleeper_team": "CIN",
+    "age": 28
   },
   {
     "rank": "373",
@@ -3327,7 +3621,8 @@
     "value": "1341",
     "sleeper_id": "7562",
     "sleeper_position": "WR",
-    "sleeper_team": "LAR"
+    "sleeper_team": "LAR",
+    "age": 26
   },
   {
     "rank": "375",
@@ -3337,7 +3632,8 @@
     "value": "1339",
     "sleeper_id": "8172",
     "sleeper_position": "TE",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 25
   },
   {
     "rank": "376",
@@ -3347,7 +3643,8 @@
     "value": "1327",
     "sleeper_id": "11629",
     "sleeper_position": "WR",
-    "sleeper_team": "BAL"
+    "sleeper_team": "BAL",
+    "age": 24
   },
   {
     "rank": "377",
@@ -3367,7 +3664,8 @@
     "value": "1324",
     "sleeper_id": "8225",
     "sleeper_position": "TE",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 25
   },
   {
     "rank": "379",
@@ -3377,7 +3675,8 @@
     "value": "1314",
     "sleeper_id": "11599",
     "sleeper_position": "TE",
-    "sleeper_team": "HOU"
+    "sleeper_team": "HOU",
+    "age": 25
   },
   {
     "rank": "380",
@@ -3387,7 +3686,8 @@
     "value": "1304",
     "sleeper_id": "11199",
     "sleeper_position": "RB",
-    "sleeper_team": "ARI"
+    "sleeper_team": "ARI",
+    "age": 27
   },
   {
     "rank": "382",
@@ -3397,7 +3697,8 @@
     "value": "1287",
     "sleeper_id": "10235",
     "sleeper_position": "RB",
-    "sleeper_team": "CHI"
+    "sleeper_team": "CHI",
+    "age": 25
   },
   {
     "rank": "383",
@@ -3407,7 +3708,8 @@
     "value": "1262",
     "sleeper_id": "6271",
     "sleeper_position": "WR",
-    "sleeper_team": "CHI"
+    "sleeper_team": "CHI",
+    "age": 28
   },
   {
     "rank": "384",
@@ -3417,7 +3719,8 @@
     "value": "1259",
     "sleeper_id": "7587",
     "sleeper_position": "WR",
-    "sleeper_team": "JAX"
+    "sleeper_team": "JAX",
+    "age": 26
   },
   {
     "rank": "385",
@@ -3437,7 +3740,8 @@
     "value": "1250",
     "sleeper_id": "5995",
     "sleeper_position": "RB",
-    "sleeper_team": "BAL"
+    "sleeper_team": "BAL",
+    "age": 28
   },
   {
     "rank": "387",
@@ -3447,7 +3751,8 @@
     "value": "1245",
     "sleeper_id": "8917",
     "sleeper_position": "WR",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 29
   },
   {
     "rank": "388",
@@ -3457,7 +3762,8 @@
     "value": "1240",
     "sleeper_id": "5970",
     "sleeper_position": "WR",
-    "sleeper_team": "ARI"
+    "sleeper_team": "ARI",
+    "age": 27
   },
   {
     "rank": "389",
@@ -3467,7 +3773,8 @@
     "value": "1240",
     "sleeper_id": "11377",
     "sleeper_position": "WR",
-    "sleeper_team": "BUF"
+    "sleeper_team": "BUF",
+    "age": 26
   },
   {
     "rank": "390",
@@ -3477,7 +3784,8 @@
     "value": "1226",
     "sleeper_id": "9999",
     "sleeper_position": "QB",
-    "sleeper_team": "TEN"
+    "sleeper_team": "TEN",
+    "age": 26
   },
   {
     "rank": "391",
@@ -3487,7 +3795,8 @@
     "value": "1224",
     "sleeper_id": "9497",
     "sleeper_position": "WR",
-    "sleeper_team": "NYG"
+    "sleeper_team": "NYG",
+    "age": 24
   },
   {
     "rank": "392",
@@ -3497,7 +3806,8 @@
     "value": "1219",
     "sleeper_id": "7610",
     "sleeper_position": "QB",
-    "sleeper_team": "LAC"
+    "sleeper_team": "LAC",
+    "age": 25
   },
   {
     "rank": "393",
@@ -3507,7 +3817,8 @@
     "value": "1214",
     "sleeper_id": "2505",
     "sleeper_position": "TE",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 33
   },
   {
     "rank": "394",
@@ -3517,7 +3828,8 @@
     "value": "1212",
     "sleeper_id": "11821",
     "sleeper_position": "WR",
-    "sleeper_team": "MIA"
+    "sleeper_team": "MIA",
+    "age": 24
   },
   {
     "rank": "395",
@@ -3527,7 +3839,8 @@
     "value": "1205",
     "sleeper_id": "9230",
     "sleeper_position": "QB",
-    "sleeper_team": "PHI"
+    "sleeper_team": "PHI",
+    "age": 25
   },
   {
     "rank": "396",
@@ -3537,7 +3850,8 @@
     "value": "1189",
     "sleeper_id": "12738",
     "sleeper_position": "RB",
-    "sleeper_team": "DAL"
+    "sleeper_team": "DAL",
+    "age": 23
   },
   {
     "rank": "397",
@@ -3547,7 +3861,8 @@
     "value": "1166",
     "sleeper_id": "11592",
     "sleeper_position": "TE",
-    "sleeper_team": "CIN"
+    "sleeper_team": "CIN",
+    "age": 25
   },
   {
     "rank": "398",
@@ -3557,7 +3872,8 @@
     "value": "1157",
     "sleeper_id": "11994",
     "sleeper_position": "WR",
-    "sleeper_team": "TB"
+    "sleeper_team": "TB",
+    "age": 23
   },
   {
     "rank": "399",
@@ -3567,7 +3883,8 @@
     "value": "1153",
     "sleeper_id": "11570",
     "sleeper_position": "RB",
-    "sleeper_team": "BAL"
+    "sleeper_team": "BAL",
+    "age": 25
   },
   {
     "rank": "400",
@@ -3577,6 +3894,7 @@
     "value": "1152",
     "sleeper_id": "11617",
     "sleeper_position": "WR",
-    "sleeper_team": "CLE"
+    "sleeper_team": "CLE",
+    "age": 23
   }
 ]
