@@ -1706,12 +1706,88 @@ async def get_adp(limit: int = 400):
     return {"count": len(adp_data), "players": adp_data[:limit]}
 
 @app.post("/api/v1/drafts/mock")
-async def create_mock_draft(teams: int = 12, rounds: int = 20):
-    """Create a mock draft with ADP-ranked players"""
+async def create_mock_draft(
+    teams: int = 12, 
+    rounds: int = 20,
+    strategy: str = "balanced",  # "balanced", "win_now", "rebuild"
+    superflex: bool = True,
+    te_premium: bool = False
+):
+    """Create a mock draft with ADP-ranked players
+    
+    Strategy options:
+    - balanced: Mix of BPA and position needs
+    - win_now: Prioritize established veterans, deprioritize rookies
+    - rebuild: Prioritize young players, draft capital
+    """
     adp_data = load_adp_data()
     
     if not adp_data:
         return {"error": "No ADP data available"}
+    
+    # Position weights based on strategy
+    # Format: {position: multiplier}
+    base_weights = {
+        "QB": 1.0,
+        "RB": 1.0,
+        "WR": 1.0,
+        "TE": 1.0
+    }
+    
+    if superflex:
+        # Superflex: QB is crucial
+        base_weights["QB"] = 1.5
+    
+    if te_premium:
+        # TE Premium: TE is more valuable
+        base_weights["TE"] = 1.3
+    
+    if strategy == "win_now":
+        # Win now: Prefer veterans (lower age = higher weight)
+        # We'll apply age weighting during selection
+        pass
+    elif strategy == "rebuild":
+        # Rebuild: Prefer young players, penalize old
+        pass
+    
+    # Strategy adjustments
+    def calculate_player_weight(player, round_num, current_roster):
+        base_weight = base_weights.get(player.get("position", "WR"), 1.0)
+        
+        # Age adjustments (if age available)
+        age = player.get("age", 25)
+        
+        if strategy == "win_now":
+            # Prefer established players (age 25-30)
+            if 25 <= age <= 30:
+                base_weight *= 1.2
+            elif age > 32:
+                base_weight *= 0.7
+        elif strategy == "rebuild":
+            # Prefer young players (age < 26)
+            if age < 26:
+                base_weight *= 1.5
+            elif age > 30:
+                base_weight *= 0.5
+        
+        # Position needs for starting lineup (2 QB, 2 RB, 3 WR, 1 TE in superflex)
+        pos = player.get("position", "WR")
+        current_count = current_roster.get(pos, 0)
+        
+        # Starting needs (roughly)
+        needs = {"QB": 2, "RB": 2, "WR": 3, "TE": 1}
+        needed = needs.get(pos, 3)
+        
+        if current_count < needed:
+            base_weight *= 1.3  # Bonus for positions you need
+        
+        # Age penalty for very old players
+        if age > 32:
+            base_weight *= 0.6
+        elif age > 30:
+            base_weight *= 0.8
+        
+        return base_weight * (300 - int(player.get("rank", 300))) / 100
     
     # Create draft
     draft_id = secrets.token_hex(8)
@@ -1724,30 +1800,57 @@ async def create_mock_draft(teams: int = 12, rounds: int = 20):
         else:  # Even rounds: 12-1
             pick_order.extend([f"Team {i}" for i in range(teams, 0, -1)])
     
-    # Make picks based on ADP
+    # Make picks based on ADP with position weighting
     picks = []
-    player_index = 0
+    drafted_ids = set()  # Track drafted player IDs
+    team_rosters = {}  # Track each team's roster
     
     for pick_num, team in enumerate(pick_order, 1):
-        if player_index < len(adp_data):
-            player = adp_data[player_index]
+        round_num = (pick_num - 1) // teams + 1
+        
+        # Initialize roster if new team
+        if team not in team_rosters:
+            team_rosters[team] = {"QB": 0, "RB": 0, "WR": 0, "TE": 0}
+        
+        # Find best available player using weighted selection
+        best_player = None
+        best_weight = -1
+        
+        for player in adp_data:
+            player_id = player.get("sleeper_id")
+            if player_id in drafted_ids:  # Already drafted
+                continue
+            
+            weight = calculate_player_weight(player, round_num, team_rosters[team])
+            if weight > best_weight:
+                best_weight = weight
+                best_player = player
+        
+        if best_player:
+            drafted_ids.add(best_player.get("sleeper_id"))
             picks.append({
                 "pick_number": pick_num,
-                "round": (pick_num - 1) // teams + 1,
+                "round": round_num,
                 "team": team,
-                "player_id": player.get("sleeper_id"),
-                "player_name": player.get("name"),
-                "position": player.get("position"),
-                "team_nfl": player.get("team"),
-                "adp_rank": player.get("rank")
+                "player_id": best_player.get("sleeper_id"),
+                "name": best_player.get("name"),
+                "position": best_player.get("position"),
+                "team_nfl": best_player.get("team"),
+                "adp_rank": best_player.get("rank"),
+                "age": best_player.get("age")
             })
-            player_index += 1
+            # Update roster
+            pos = best_player.get("position", "WR")
+            team_rosters[team][pos] = team_rosters[team].get(pos, 0) + 1
     
     # Store draft
     drafts_db[draft_id] = {
         "id": draft_id,
         "teams": teams,
         "rounds": rounds,
+        "strategy": strategy,
+        "superflex": superflex,
+        "te_premium": te_premium,
         "status": "completed",
         "picks": picks
     }
@@ -1756,6 +1859,9 @@ async def create_mock_draft(teams: int = 12, rounds: int = 20):
         "draft_id": draft_id,
         "teams": teams,
         "rounds": rounds,
+        "strategy": strategy,
+        "superflex": superflex,
+        "te_premium": te_premium,
         "picks": picks
     }
 
