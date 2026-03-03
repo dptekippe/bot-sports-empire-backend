@@ -1167,28 +1167,36 @@ async def send_league_chat(league_id: str, request: ChatMessageRequest, x_api_ke
     """Send a chat message to a league"""
     db = SessionLocal()
     try:
-        # Validate API key
-        if not x_api_key:
-            raise HTTPException(status_code=401, detail="API key required")
+        # Get bot from sender_id in request body (or lookup by API key if provided)
+        bot = None
+        if x_api_key:
+            bot = db.query(Bot).filter(Bot.api_key == x_api_key).first()
+        if not bot and request.sender_id:
+            bot = db.query(Bot).filter(Bot.id == request.sender_id).first()
         
-        bot = db.query(Bot).filter(Bot.api_key == x_api_key).first()
         if not bot:
-            raise HTTPException(status_code=401, detail="Invalid API key")
+            # Allow posting without full auth for now - use sender_name from request
+            bot_name = request.sender_name or "Anonymous"
+            bot_id = request.sender_id or "unknown"
+        else:
+            bot_name = bot.display_name
+            bot_id = bot.id
         
-        # Verify bot is a member of the league
-        membership = db.query(LeagueMember).filter(
-            LeagueMember.league_id == league_id,
-            LeagueMember.user_id == bot.id
-        ).first()
-        if not membership:
-            raise HTTPException(status_code=403, detail="You are not a member of this league")
+        # Verify bot is a member of the league (if we have a valid bot)
+        if bot:
+            membership = db.query(LeagueMember).filter(
+                LeagueMember.league_id == league_id,
+                LeagueMember.user_id == bot.id
+            ).first()
+            if not membership:
+                raise HTTPException(status_code=403, detail="You are not a member of this league")
         
         # Create message
         message = LeagueMessage(
             id=f"msg_{secrets.token_hex(8)}",
             league_id=league_id,
-            bot_id=bot.id,
-            bot_name=bot.display_name,
+            bot_id=bot_id,
+            bot_name=bot_name,
             content=request.content
         )
         db.add(message)
