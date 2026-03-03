@@ -126,22 +126,36 @@ if (!response.ok) {
 
 ### Pre-Push Checklist
 ```bash
-# Verify syntax
-python3 -m py_compile main.py
+# 1. Syntax check
+python3 -m py_compile main.py  # Fast syntax check
+# Or for full lint: flake8 main.py --max-line-length=120
 
-# Check for bad patterns (see Development Methodology)
-grep -r "chat/channels" static/
-grep -r "mock-" static/
+# 2. Check for bad patterns (from Development Methodology)
+grep -r "chat/channels" static/     # Wrong API paths
+grep -r "mock-" static/             # Hardcoded data
+grep -r "localhost:8000" static/   # Hardcoded URLs
 
-# Test locally
-uvicorn main:app --reload
+# 3. Check for debug leftovers in code
+grep -n "print(" main.py           # Debug prints
+grep -n "TODO\|FIXME" main.py     # TODOs to address
 
-# Commit
+# 4. Test (if tests exist)
+# pytest backend/  # Run test suite
+
+# 5. Test locally first
+# uvicorn main:app --reload
+# curl localhost:8000/api/v1/leagues
+
+# 6. Commit
 git add -A && git commit -m "Description"
 
-# Push
+# 7. Push
 git push origin main
 ```
+
+### Quick Wins (Priority Order)
+1. **Dependabot** - Enable in repo Settings > Code security (2 min, auto-updates pip/npm)
+2. **GitHub Actions** - Add workflow to automate checklist on push
 
 ---
 
