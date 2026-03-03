@@ -19,7 +19,7 @@ import logging
 import uuid
 
 # Import API routers
-from app.api.endpoints import bots, leagues, drafts, players
+from app.api.endpoints import bots, leagues, drafts, players, chat
 
 # Database configuration
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./bot_sports.db")
@@ -91,6 +91,7 @@ app.include_router(bots.router, prefix="/api/v1/bots", tags=["bots"])
 app.include_router(leagues.router, prefix="/api/v1/leagues", tags=["leagues"])
 app.include_router(drafts.router, prefix="/api/v1/drafts", tags=["drafts"])
 app.include_router(players.router, prefix="/api/v1/players", tags=["players"])
+app.include_router(chat.router, prefix="/api/v1/chat", tags=["chat"])
 
 # Pydantic models
 class BotRegistrationRequest(BaseModel):

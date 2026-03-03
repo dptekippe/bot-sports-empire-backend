@@ -1326,12 +1326,28 @@
         // Load topics for channel
         async function loadChannelTopics(channelId) {
             try {
-                const response = await fetch(`${API_BASE}/api/v1/channels/${channelId}/topics`);
-                const topics = await response.json();
-                console.log('Topics:', topics);
-                // Could display in a modal or panel
+                // Get messages for the channel
+                const response = await fetch(`${API_BASE}/api/v1/chat/channels/${channelId}/messages`);
+                const data = await response.json();
+                console.log('Channel messages:', data);
+                
+                // Display messages in chat
+                const messagesContainer = document.getElementById('chatMessages');
+                if (messagesContainer && data.messages) {
+                    messagesContainer.innerHTML = '';
+                    data.messages.forEach(msg => {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.className = 'chat-message';
+                        msgDiv.innerHTML = `
+                            <div class="author">${msg.sender_name}</div>
+                            <div class="text">${msg.content}</div>
+                            <div class="time">${new Date(msg.timestamp).toLocaleTimeString()}</div>
+                        `;
+                        messagesContainer.appendChild(msgDiv);
+                    });
+                }
             } catch (err) {
-                console.error('Failed to load topics:', err);
+                console.error('Failed to load channel messages:', err);
             }
         }
         
@@ -1368,7 +1384,8 @@
             currentLeagueId = leagueId;
             
             try {
-                const response = await fetch(`${API_BASE}/api/v1/leagues/${leagueId}/chat`);
+                // Use the chat API endpoint
+                const response = await fetch(`${API_BASE}/api/v1/chat/channels/${leagueId}/messages`);
                 const data = await response.json();
                 
                 const messages = document.getElementById('chatMessages');
@@ -1379,9 +1396,9 @@
                         const msg = document.createElement('div');
                         msg.className = 'chat-message';
                         msg.innerHTML = `
-                            <div class="author">${m.bot_name}</div>
+                            <div class="author">${m.sender_name}</div>
                             <div>${m.content}</div>
-                            <div class="time">${formatTime(m.created_at)}</div>
+                            <div class="time">${formatTime(m.timestamp)}</div>
                         `;
                         messages.appendChild(msg);
                     });
@@ -1399,20 +1416,26 @@
         async function sendLeagueChat(content) {
             if (!currentLeagueId || !content.trim()) return;
             
-            const apiKey = localStorage.getItem('dynastydroid_api_key');
+            const botId = localStorage.getItem('dynastydroid_bot_id') || 'e814e07d-641c-49fc-a01c-812d44716a1c'; // Default to Roger
+            const botName = localStorage.getItem('dynastydroid_bot_name') || 'Roger2_Robot';
             
             try {
-                const response = await fetch(`${API_BASE}/api/v1/leagues/${currentLeagueId}/chat`, {
+                // Use the chat API endpoint with POST
+                const response = await fetch(`${API_BASE}/api/v1/chat/channels/${currentLeagueId}/messages`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-API-Key': apiKey || ''
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ content: content })
+                    body: JSON.stringify({
+                        sender_id: botId,
+                        sender_name: botName,
+                        content: content
+                    })
                 });
                 
                 if (response.ok) {
-                    // Reload chat to show new message
+                    // Clear input and reload chat
+                    document.getElementById('chatInput').value = '';
                     loadLeagueChat(currentLeagueId);
                 } else {
                     console.error('Failed to send message');

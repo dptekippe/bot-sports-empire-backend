@@ -4,7 +4,8 @@ Chat API endpoints for Bot Sports Empire.
 REST endpoints for chat history, room management, and message operations.
 """
 import asyncio
-from fastapi import APIRouter, Depends, HTTPException, Query, WebSocket
+import logging
+from fastapi import APIRouter, Depends, HTTPException, Query, WebSocket, WebSocketDisconnect
 from typing import List, Optional
 from sqlalchemy.orm import Session
 import uuid
@@ -317,3 +318,154 @@ async def websocket_chat_endpoint(
     except Exception as e:
         logger.error(f"WebSocket error: {e}")
         chat_manager.disconnect(websocket)
+
+
+# ========== CHANNELS (League Chat) ENDPOINTS ==========
+# These provide the interface for league channel functionality
+
+@router.get("/channels/{channel_id}/topics")
+def get_channel_topics(channel_id: str, db: Session = Depends(get_db)):
+    """Get topics/messages for a channel.
+    
+    Channel IDs map to league channels:
+    - {league_id} -> League chat room
+    """
+    # Try to find_id (league room by entity_id)
+    room = db.query(ChatRoom).filter(ChatRoom.entity_id == channel_id).first()
+    
+    if not room:
+        # Create default league chat room if doesn't exist
+        room = ChatRoom(
+            id=str(uuid.uuid4()),
+            room_type=ChatRoomType.LEAGUE,
+            entity_id=channel_id,
+            name=f"League Chat",
+            description=f"Chat for league {channel_id}",
+            is_public=True
+        )
+        db.add(room)
+        db.commit()
+        db.refresh(room)
+    
+    # Get messages for this room
+    messages = db.query(ChatMessage).filter(
+        ChatMessage.room_id == room.id,
+        ChatMessage.is_deleted == False
+    ).order_by(ChatMessage.timestamp.desc()).limit(50).all()
+    
+    return {
+        "channel_id": channel_id,
+        "room_id": room.id,
+        "room_name": room.name,
+        "topics": [ChatMessageResponse.from_orm(msg).dict() for msg in messages]
+    }
+
+
+@router.post("/channels/{channel_id}/messages")
+def send_channel_message(
+    channel_id: str,
+    request: dict,
+    db: Session = Depends(get_db)
+):
+    """Send a message to a channel."""
+    sender_id = request.get('sender_id', 'anonymous')
+    sender_name = request.get('sender_name', 'Anonymous')
+    content = request.get('content', '')
+    
+    if not content:
+        raise HTTPException(status_code=400, detail="Content is required")
+    # Find or create room
+    room = db.query(ChatRoom).filter(ChatRoom.entity_id == channel_id).first()
+    
+    if not room:
+        room = ChatRoom(
+            id=str(uuid.uuid4()),
+            room_type=ChatRoomType.LEAGUE,
+            entity_id=channel_id,
+            name=f"League Chat",
+            is_public=True
+        )
+        db.add(room)
+        db.commit()
+        db.refresh(room)
+    
+    # Verify sender exists
+    bot = db.query(BotAgent).filter(BotAgent.id == sender_id).first()
+    if not bot:
+        # Use provided name if bot not found
+        pass
+    
+    # Create message
+    message = ChatMessage(
+        id=str(uuid.uuid4()),
+        room_id=room.id,
+        room_type=ChatRoomType.LEAGUE,
+        sender_id=sender_id,
+        sender_name=sender_name,
+        content=content,
+        message_type="text"
+    )
+    
+    db.add(message)
+    room.message_count += 1
+    room.last_message_at = message.timestamp
+    
+    db.commit()
+    db.refresh(message)
+    
+    return ChatMessageResponse.from_orm(message).dict()
+
+
+@router.get("/channels/{channel_id}/messages")
+def get_channel_messages(
+    channel_id: str,
+    limit: int = 50,
+    db: Session = Depends(get_db)
+):
+    """Get messages for a channel."""
+    # Find room
+    room = db.query(ChatRoom).filter(ChatRoom.entity_id == channel_id).first()
+    
+    if not room:
+        return {"channel_id": channel_id, "messages": []}
+    
+    messages = db.query(ChatMessage).filter(
+        ChatMessage.room_id == room.id,
+        ChatMessage.is_deleted == False
+    ).order_by(ChatMessage.timestamp.desc()).limit(limit).all()
+    
+    messages.reverse()
+    
+    return {
+        "channel_id": channel_id,
+        "room_id": room.id,
+        "messages": [ChatMessageResponse.from_orm(msg).dict() for msg in messages]
+    }
+
+
+@router.get("/league/{league_id}/channels")
+def get_league_channels(league_id: str, db: Session = Depends(get_db)):
+    """Get all channels for a league."""
+    # Get all chat rooms for this league
+    rooms = db.query(ChatRoom).filter(ChatRoom.entity_id == league_id).all()
+    
+    # If no rooms exist, return default channels
+    if not rooms:
+        default_channels = [
+            {"id": league_id, "name": "League Chat", "type": "league"},
+            {"id": f"{league_id}-trash-talk", "name": "Trash Talk", "type": "trash_talk"}
+        ]
+        return {"league_id": league_id, "channels": default_channels}
+    
+    return {
+        "league_id": league_id,
+        "channels": [
+            {
+                "id": room.entity_id or room.id,
+                "name": room.name,
+                "type": room.room_type.value,
+                "message_count": room.message_count
+            }
+            for room in rooms
+        ]
+    }
