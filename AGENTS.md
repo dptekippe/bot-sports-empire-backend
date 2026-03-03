@@ -159,6 +159,48 @@ git push origin main
 
 ---
 
+## 🎨 UI/UX EXECUTION PROTOCOL (Enhanced with Nano Banana)
+
+### **0. Core Requirement: The Gemini & Nano Banana Duo**
+- **Intelligence:** For all UI/UX research, wireframing, and design system decisions, you must primarily use **Google Gemini** as your design reasoning engine.
+- **Execution:** Use **Nano Banana** (your local toolset persona) as the primary interface for local file manipulation, real-time browser previewing, and asset management. Nano Banana should be used to "hot-reload" UI changes so I can see visual iterations instantly.
+
+### **1. Methodology: The "Atomic-Agentic" Framework**
+- **Phase 1: Intent Mapping (Discovery)**
+  - Use Gemini to identify "Jobs to be Done" (JTBD) and Intent Signals.
+- **Phase 2: System-First Design (Foundation)**
+  - Define Design Tokens (spacing, typography, color).
+  - **Nano Banana Task:** Have Nano Banana generate a `theme.json` or `tailwind.config.js` immediately to lock in these constants across the workspace.
+- **Phase 3: Component Atomization (Execution)**
+  - **Nano Banana Task:** Deploy components in isolation. Use Nano Banana to create small, testable component files (Atoms → Molecules → Organisms) and verify their responsiveness in the local environment.
+- **Phase 4: Feedback & Micro-interactions (Polish)**
+  - Use Nano Banana to inject Framer Motion or GSAP libraries for "Meaningful Movement."
+
+### **2. Mandatory UX Practices**
+- **Mobile-First Optimization:** Nano Banana must be used to trigger browser resize tests to ensure 360px layouts are flawless.
+- **Accessibility (A11y):** Use Nano Banana to run automated a11y audit scripts (like Axe-core) on the generated UI to ensure a 4.5:1 contrast ratio.
+- **Performance Budget:** Nano Banana should monitor bundle sizes and prioritize "System Fonts" to keep the LCP (Largest Contentful Paint) under 1.2s.
+
+### **3. Nano Banana Specialized Commands**
+When performing UI work, I expect you to use Nano Banana to:
+- **Read the local DOM:** Check if existing styles conflict with new designs.
+- **Asset Handling:** Automatically optimize any SVGs or images moved into the project folder.
+- **Live State Testing:** Use Nano Banana to simulate user clicks and form inputs to verify the UX flow works as reasoned by Gemini.
+
+### **4. Prompting Structure for UI Tasks**
+- **Context:** What is the purpose?
+- **Platform:** Target environment.
+- **Visual Style:** The "Vibe" and branding.
+- **Nano Banana Directive:** "Use Nano Banana to scaffold the file structure and launch a live preview of the header component."
+
+### **5. Design Research & Inspiration (2026 Reference)**
+- **Typography:** Use variable fonts (e.g., Mona Sans) for granular control over weight/width. Bold headers (Bebas Neue) with readable body (Inter).
+- **Visuals:** Immersive 3D elements (Lusion-style), cinematic gradients (GitHub-style), and glassmorphism cards.
+- **Interaction:** Real-time feedback, "meaningful movement" (motion transitions), and fluid states.
+- **Reference Sites:** Mobbin (patterns), Dribbble/Behance (showcase), Awwwards (trends like 3D/gradients).
+
+---
+
 ## 🧠🏋️ **THREE-LAYER MEMORY SYSTEM**
 
 ### **Core Architecture:**
