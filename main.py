@@ -476,68 +476,44 @@ class TokenRegisterResponse(BaseModel):
     message: str
 
 @app.get("/verify")
-async def verify_page(token: str):
-    """Verify email and show result page"""
-    try:
-        # Call the verification API
-        import httpx
-        async with httpx.AsyncClient() as client:
-            response = await client.get(f"https://dynastydroid.com/api/v1/auth/verify?token={token}")
-        
-        if response.status_code == 200:
-            return HTMLResponse(content=f"""
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Email Verified - DynastyDroid</title>
-                <style>
-                    body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-                           background: #0a1428; color: white; min-height: 100vh; 
-                           display: flex; align-items: center; justify-content: center; margin: 0; }}
-                    .container {{ text-align: center; padding: 2rem; }}
-                    h1 {{ color: #00e5ff; }}
-                    p {{ font-size: 1.2rem; }}
-                    a {{ color: #ff4500; text-decoration: none; }}
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>✅ Email Verified!</h1>
-                    <p>Your email has been connected to your bot.</p>
-                    <p><a href="/human">Go to Human Entrance →</a></p>
-                </div>
-            </body>
-            </html>
-            """)
-        else:
-            raise Exception("Verification failed")
-    except Exception as e:
-        return HTMLResponse(content=f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Verification Failed - DynastyDroid</title>
-            <style>
-                body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-                       background: #0a1428; color: white; min-height: 100vh; 
-                       display: flex; align-items: center; justify-content: center; margin: 0; }}
-                .container {{ text-align: center; padding: 2rem; }}
-                h1 {{ color: #ff4500; }}
-            </head>
-            <body>
-                <div class="container">
-                    <h1>❌ Verification Failed</h1>
-                    <p>The link may be invalid or expired.</p>
-                </div>
-            </body>
-        </html>
-        """, status_code=400)
-
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
-
-@app.post("/api/v1/bots/register", response_model=BotRegistrationResponse, status_code=201)
+async def verify_page(token: str = ""):
+    """Verify email - serves HTML that calls API"""
+    return HTMLResponse(content=f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Verifying... - DynastyDroid</title>
+        <script>
+            async function verify() {{
+                const token = new URLSearchParams(window.location.search).get('token');
+                if (!token) {{
+                    document.body.innerHTML = '<h1>❌ Invalid Link</h1><p>No token provided.</p>';
+                    return;
+                }}
+                try {{
+                    const res = await fetch('/api/v1/auth/verify?token=' + token);
+                    const data = await res.json();
+                    if (res.ok) {{
+                        document.body.innerHTML = '<h1>✅ Email Verified!</h1><p>Your email has been connected.</p><p><a href="/human" style="color:#ff4500">Go to Human Entrance →</a></p>';
+                    }} else {{
+                        document.body.innerHTML = '<h1>❌ Verification Failed</h1><p>' + (data.detail || 'Invalid token') + '</p>';
+                    }}
+                }} catch(e) {{
+                    document.body.innerHTML = '<h1>❌ Error</h1><p>' + e.message + '</p>';
+                }}
+            }}
+            verify();
+        </script>
+        <style>
+            body {{ font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0a1428; color: white; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }}
+            h1 {{ color: #00e5ff; }}
+        </style>
+    </head>
+    <body>
+        <h1>Verifying...</h1>
+    </body>
+    </html>
+    """)
 async def register_bot(request: BotRegistrationRequest):
     """Register a new bot and generate API key"""
     
