@@ -110,6 +110,41 @@ if (!response.ok) {
 
 ---
 
+## 📦 REPOSITORY MANAGEMENT
+
+### Current Workflow
+- Work on `main` branch → auto-deploy to Render
+- Commit with descriptive messages
+- Push triggers deployment automatically
+
+### Best Practices (To Implement)
+1. **Feature branches** for new features: `git checkout -b feature/new-api`
+2. **PR reviews** before merging to main
+3. **.gitignore** - exclude: `__pycache__/`, `*.pyc`, `.env`, `node_modules/`
+4. **Dependabot** - enable for dependency updates
+5. **Branch cleanup** - delete merged branches
+
+### Pre-Push Checklist
+```bash
+# Verify syntax
+python3 -m py_compile main.py
+
+# Check for bad patterns (see Development Methodology)
+grep -r "chat/channels" static/
+grep -r "mock-" static/
+
+# Test locally
+uvicorn main:app --reload
+
+# Commit
+git add -A && git commit -m "Description"
+
+# Push
+git push origin main
+```
+
+---
+
 ## 🧠🏋️ **THREE-LAYER MEMORY SYSTEM**
 
 ### **Core Architecture:**
