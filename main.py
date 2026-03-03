@@ -655,14 +655,14 @@ async def fix_te_premium():
         db.close()
 
 @app.post("/api/v1/dev/fetch-player-stats")
-async def fetch_player_stats(season: int = 2024, week: int = None):
+async def fetch_player_stats(season: int = 2024, week: int):
     """DEV ONLY: Fetch player stats from Sleeper and store in database"""
     db = SessionLocal()
     try:
         import httpx
         
-        # Fetch stats from Sleeper
-        url = f"https://api.sleeper.app/v1/stats/nfl/{season}/{week}" if week else f"https://api.sleeper.app/v1/stats/nfl/{season}"
+        # Fetch stats from Sleeper - week is required
+        url = f"https://api.sleeper.app/v1/stats/nfl/{season}/{week}"
         
         async with httpx.AsyncClient() as client:
             response = await client.get(url, timeout=30.0)
@@ -674,9 +674,16 @@ async def fetch_player_stats(season: int = 2024, week: int = None):
         if not stats_data:
             return {"success": False, "error": "No stats data returned from Sleeper"}
         
-        # Store stats in database
+        # Store stats in database (limit to top players to prevent timeouts)
+        player_items = list(stats_data.items())
+        total_players = len(player_items)
+        
+        # Sort by pts_ppr and take top 500 to prevent long processing times
+        player_items.sort(key=lambda x: x[1].get("pts_ppr", 0) or 0, reverse=True)
+        player_items = player_items[:500]
+        
         stored_count = 0
-        for player_id, stats in stats_data.items():
+        for player_id, stats in player_items:
             # Check if stats already exist for this player/season/week
             existing = db.query(PlayerStats).filter(
                 PlayerStats.player_id == player_id,
@@ -719,7 +726,7 @@ async def fetch_player_stats(season: int = 2024, week: int = None):
             stored_count += 1
         
         db.commit()
-        return {"success": True, "stored": stored_count, "season": season, "week": week}
+        return {"success": True, "stored": stored_count, "total_in_season": total_players, "season": season, "week": week}
     
     except Exception as e:
         db.rollback()
