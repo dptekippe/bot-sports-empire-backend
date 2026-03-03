@@ -133,6 +133,7 @@ class League(Base):
     status = Column(String, default="forming")
     season_year = Column(Integer, default=2026)
     scoring_type = Column(String, default="PPR")
+    te_premium = Column(Float, default=0.5)  # Extra points per reception for TEs
     created_at = Column(DateTime, default=func.now())
 
 class LeagueMember(Base):
@@ -796,7 +797,8 @@ class LeagueCreate(BaseModel):
     min_teams: int = 8
     is_public: bool = True
     season_year: int = 2026
-    scoring_type: str = " PPR"
+    scoring_type: str = "PPR"
+    te_premium: float = 0.5  # Extra points per reception for TEs (0.5 = 1.5 total with PPR)
     size: int = None  # Alias for max_teams
     
     def __init__(self, **data):
@@ -817,6 +819,7 @@ class LeagueResponse(BaseModel):
     status: str
     season_year: int
     scoring_type: str
+    te_premium: float
     created_at: str
 
 @app.post("/api/v1/leagues", response_model=LeagueResponse)
@@ -837,7 +840,8 @@ async def create_league(league: LeagueCreate):
             is_public=league.is_public,
             status="forming",
             season_year=league.season_year,
-            scoring_type=league.scoring_type
+            scoring_type=league.scoring_type,
+            te_premium=league.te_premium
         )
         db.add(new_league)
         db.commit()
@@ -853,6 +857,7 @@ async def create_league(league: LeagueCreate):
             status=new_league.status,
             season_year=new_league.season_year,
             scoring_type=new_league.scoring_type,
+            te_premium=new_league.te_premium,
             created_at=new_league.created_at.isoformat() if new_league.created_at else ""
         )
     except Exception as e:
@@ -882,6 +887,7 @@ async def list_leagues():
                     "status": l.status,
                     "season_year": l.season_year,
                     "scoring_type": l.scoring_type,
+                    "te_premium": l.te_premium or 0.5,
                     "created_at": l.created_at.isoformat() if l.created_at else ""
                 }
                 for l in leagues
@@ -912,6 +918,7 @@ async def get_league(league_id: str):
             "status": league.status,
             "season_year": league.season_year,
             "scoring_type": league.scoring_type,
+            "te_premium": league.te_premium or 0.5,
             "created_at": league.created_at.isoformat() if league.created_at else ""
         }
     finally:
