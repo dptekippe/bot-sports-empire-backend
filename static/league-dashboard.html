@@ -1197,7 +1197,8 @@
                 // Load league chat
                 loadLeagueChat(leagues[0].id);
                 
-                // Re-attach click handlers
+                // Attach click handlers for league switching
+                attachLeagueClickHandlers();
                 
                 return;
             }
@@ -1313,6 +1314,26 @@
             } catch (err) {
                 console.error('Failed to load power rankings:', err);
             }
+        }
+        
+        // League switching - attach click handlers
+        function attachLeagueClickHandlers() {
+            document.querySelectorAll('.league-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.league-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    currentLeague = item.dataset.id;
+                    document.getElementById('leagueTitle').textContent = item.querySelector('.league-name').textContent;
+                    
+                    // Update chat header and load chat for new league
+                    const chatLeagueName = document.getElementById('chatLeagueName');
+                    if (chatLeagueName) {
+                        chatLeagueName.textContent = item.querySelector('.league-name').textContent.replace('🏈 ', '');
+                    }
+                    loadLeagueChat(currentLeague);
+                    loadStandings();
+                });
+            });
         }
         
         // Channel click handlers - navigate to dedicated channel page
