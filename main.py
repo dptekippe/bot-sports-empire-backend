@@ -655,7 +655,7 @@ async def fix_te_premium():
         db.close()
 
 @app.post("/api/v1/dev/fetch-player-stats")
-async def fetch_player_stats(season: int = 2024, week: int):
+async def fetch_player_stats(week: int, season: int = 2024):
     """DEV ONLY: Fetch player stats from Sleeper and store in database"""
     db = SessionLocal()
     try:
