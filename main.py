@@ -614,21 +614,17 @@ async def fix_te_premium():
     try:
         # First add the column directly using raw SQL
         try:
-            db.execute(text("ALTER TABLE leagues ADD COLUMN te_premium FLOAT DEFAULT 0.5"))
+            db.execute(text("ALTER TABLE leagues ADD COLUMN IF NOT EXISTS te_premium FLOAT DEFAULT 0.5"))
             db.commit()
         except Exception as e:
             if "duplicate" not in str(e).lower() and "already" not in str(e).lower():
-                return {"success": False, "error": str(e)}
+                pass  # Ignore if column exists
         
-        # Now update all leagues that don't have te_premium
-        leagues = db.query(League).all()
-        updated = 0
-        for league in leagues:
-            if league.te_premium is None:
-                league.te_premium = 0.5
-                updated += 1
+        # Now update all leagues that don't have te_premium using raw SQL
+        result = db.execute(text("UPDATE leagues SET te_premium = 0.5 WHERE te_premium IS NULL"))
         db.commit()
-        return {"success": True, "count": len(leagues), "updated": updated, "message": "TE premium set to 0.5"}
+        
+        return {"success": True, "message": "TE premium column added and set to 0.5"}
     except Exception as e:
         db.rollback()
         return {"success": False, "error": str(e)}
