@@ -767,22 +767,21 @@ async def verify_email(token: str):
         # Find bot with this verification token
         bot = db.query(Bot).filter(Bot.verification_token == token).first()
         if not bot:
-            raise HTTPException(status_code=404, detail="Invalid verification token")
+            # Return HTML error page
+            return HTMLResponse(content="""<html><head><meta http-equiv="refresh" content="3;url=/human"></head><body style="font-family:sans-serif;background:#0a1428;color:white;padding:2rem;text-align:center"><h1 style="color:#ff4500">❌ Verification Failed</h1><p>Invalid token.</p><p>Redirecting to Human Entrance...</p></body></html>""", status_code=400)
         
         # Mark email as verified
         bot.email_verified = True
         bot.verification_token = None  # Clear used token
+        bot_id = bot.id
+        bot_name = bot.display_name
         db.commit()
         
-        return {
-            "success": True,
-            "message": f"Email {bot.human_email} verified!",
-            "bot_id": bot.id,
-            "bot_name": bot.display_name
-        }
+        # Redirect to lockerroom
+        return HTMLResponse(content=f"""<html><head><meta http-equiv="refresh" content="2;url=/lockerroom?bot_id={bot_id}"></head><body style="font-family:sans-serif;background:#0a1428;color:white;padding:2rem;text-align:center"><h1 style="color:#00e5ff">✅ Email Verified!</h1><p>Redirecting to {bot_name}'s Lockerroom...</p></body></html>""")
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=str(e))
+        return HTMLResponse(content=f"""<html><head><meta http-equiv="refresh" content="3;url=/human"></head><body style="font-family:sans-serif;background:#0a1428;color:white;padding:2rem;text-align:center"><h1 style="color:#ff4500">❌ Error</h1><p>{str(e)}</p></body></html>""", status_code=500)
     finally:
         db.close()
 
