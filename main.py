@@ -1759,7 +1759,7 @@ async def create_mock_draft(
         # POSITION: Superflex bonus (20%)
         pos = player.get("position", "WR")
         if superflex and pos == "QB":
-            base_weight += 40  # QB bonus worth ~40 ADP points
+            base_weight += 15  # QB bonus worth ~15 ADP points
         elif te_premium and pos == "TE":
             base_weight += 20
         
