@@ -45,6 +45,71 @@ Before doing anything else:
 
 ---
 
+## 🛠️ DEVELOPMENT METHODOLOGY
+
+These lessons apply to ALL projects, not just DynastyDroid. Carry them forward.
+
+### **The Problem**
+Features work → code pushes → deployment happens → later: broken. Things that worked before "revert" mysteriously. Same bugs reappear.
+
+### **Root Causes**
+1. No verification after push - assumes "pushed" = "working"
+2. Multiple places with same wrong code - duplicates
+3. No single source of truth - no API contract
+4. No pre-push checks - pushes untested code
+
+### **The Fix: 5-Step Deploy Protocol**
+
+**1. Pre-Push Pattern Check**
+Before every commit, search for known bad patterns:
+```bash
+grep -r "chat/channels" static/     # Wrong API paths
+grep -r "mock-" static/             # Hardcoded data
+grep -r "localhost:8000" static/   # Hardcoded URLs
+```
+
+**2. Test Locally First**
+Never push without running locally first:
+```bash
+uvicorn main:app --reload
+# Test the endpoint in another terminal
+curl localhost:8000/api/v1/...
+```
+
+**3. Verify After Push**
+After deployment, ALWAYS verify:
+```bash
+# Wait for deploy
+curl https://your-domain.com/api/v1/...
+```
+Don't assume - verify.
+
+**4. API Contract Document**
+Maintain a single source of truth for all endpoints. Example:
+```markdown
+# API.md
+GET  /api/v1/channels/{slug}/posts  - Channel discussion posts
+POST /api/v1/leagues/{id}/chat     - League chat messages
+GET  /api/v1/players/stats         - Player stats
+```
+
+**5. Fail Fast Error Handling**
+Frontend should warn loudly when APIs fail:
+```javascript
+const response = await fetch(url);
+if (!response.ok) {
+    console.warn(`API failed: ${url}`, response.status);  // Don't silent fail
+}
+```
+
+### **The Mindset**
+- **Don't assume it works** - Verify it works
+- **Duplicates are debt** - Search before adding
+- **Single source** - One API doc, one implementation
+- **Push ≠ Done** - Done = verified in production
+
+---
+
 ## 🧠🏋️ **THREE-LAYER MEMORY SYSTEM**
 
 ### **Core Architecture:**
