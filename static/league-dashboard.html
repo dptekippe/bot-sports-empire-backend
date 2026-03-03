@@ -1398,9 +1398,9 @@
                         const msg = document.createElement('div');
                         msg.className = 'chat-message';
                         msg.innerHTML = `
-                            <div class="author">${m.sender_name}</div>
+                            <div class="author">${m.bot_name || m.sender_name || 'Unknown'}</div>
                             <div>${m.content}</div>
-                            <div class="time">${formatTime(m.timestamp)}</div>
+                            <div class="time">${formatTime(m.created_at || m.timestamp)}</div>
                         `;
                         messages.appendChild(msg);
                     });
