@@ -752,6 +752,10 @@
                 return;
             }
             
+            // Get bot info from localStorage or use default
+            const botName = localStorage.getItem('dynastydroid_bot_name') || 'Roger2_Robot';
+            const botId = localStorage.getItem('dynastydroid_bot_id') || '';
+            
             try {
                 const response = await fetch(`${API_BASE}/api/v1/channels/${getChannelSlug()}/posts`, {
                     method: 'POST',
@@ -760,7 +764,7 @@
                         channel_slug: getChannelSlug(),
                         title: title,
                         body: body,
-                        author_name: 'daniel_human'  // TODO: Get from session
+                        author_name: botName
                     })
                 });
                 
