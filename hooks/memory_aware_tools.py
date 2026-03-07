@@ -1,221 +1,245 @@
 #!/usr/bin/env python3
 """
-Memory-Aware Tools for Immediate Testing
+Memory-Aware Tools - Agent Integration
 
-Purpose: Provide wrapped versions of tools that I (Black Roger) can use immediately
-This is a workaround until proper OpenClaw skill integration
+Purpose: Provide agent instructions for using memory-aware patterns
+This follows White Roger's skill-based integration approach
 """
 
 import os
 import sys
+import json
+from datetime import datetime
 
 # Kill switch
 MEMORY_CONTRACT_ENABLED = os.getenv('MEMORY_CONTRACT_ENABLED', 'true')
-if MEMORY_CONTRACT_ENABLED.lower() == 'false':
-    print("[Memory Contract] DISABLED - using original tools")
-    # In this case, we would just pass through to original tools
-    # For now, we'll still demonstrate the concept
-
-# Import OpenClaw tools (as they're available to the agent)
-# Note: In actual OpenClaw agent context, these would be available
-try:
-    # Try to import the tools that OpenClaw provides to agents
-    # This is what would work inside OpenClaw
-    print("[Memory Contract] Attempting to import OpenClaw tools...")
-    
-    # In real OpenClaw, tools are injected into agent context
-    # For demonstration, we'll create mock versions
-    
-    def mock_exec(**kwargs):
-        """Mock exec tool for demonstration"""
-        print(f"[Mock Exec] Command: {kwargs.get('command', '')}")
-        return {"status": "success", "output": "Mock output"}
-    
-    def mock_write(**kwargs):
-        """Mock write tool for demonstration"""
-        print(f"[Mock Write] Path: {kwargs.get('path', '')}")
-        return {"status": "success"}
-    
-    # Store the original tools
-    original_tools = {
-        'exec': mock_exec,
-        'write': mock_write,
-        'edit': None,  # Would be actual OpenClaw tools in production
-        'browser': None,
-        'message': None
-    }
-    
-    print("[Memory Contract] Created mock tools for demonstration")
-    
-except Exception as e:
-    print(f"[Memory Contract ERROR] Could not access tools: {e}")
-    original_tools = {}
 
 # Import our memory contract hooks
 try:
     sys.path.append(os.path.dirname(os.path.abspath(__file__)))
     from pre_action_memory import pre_action_memory_search
     from post_decision_memory import post_decision_memory_persistence
+    from compliance_tracker import get_compliance_status
+    from config_loader import get_config
     
-    print("[Memory Contract] Hooks loaded successfully")
+    config = get_config()
+    print("[Memory Contract] Hooks and config loaded successfully")
+    
 except ImportError as e:
     print(f"[Memory Contract ERROR] Could not load hooks: {e}")
-    # Create fallback functions
+    # Create fallback functions for graceful degradation
     def pre_action_memory_search(context):
-        print(f"[Memory Contract] Pre-action search (fallback): {context.get('tool')}")
-        return None
+        print(f"[Memory Contract WARNING] Pre-action search unavailable: {context.get('tool')}")
+        return []
     
     def post_decision_memory_persistence(decision, outcome, metadata):
-        print(f"[Memory Contract] Post-decision write (fallback): {decision[:50]}...")
+        print(f"[Memory Contract WARNING] Post-decision write unavailable: {decision[:50]}...")
         return {"status": "fallback"}
-
-def memory_aware_exec(**kwargs):
-    """Memory-aware version of exec tool"""
-    if MEMORY_CONTRACT_ENABLED.lower() != 'true':
-        # Pass through to original
-        return original_tools['exec'](**kwargs)
     
-    # Pre-action search
+    def get_compliance_status():
+        return {"status": "unavailable", "message": "Compliance tracker not loaded"}
+    
+    config = None
+
+def should_use_memory_contract():
+    """Check if Memory Contract should be used"""
+    if MEMORY_CONTRACT_ENABLED.lower() != 'true':
+        return False
+    
+    # Check if kill switch file exists
+    kill_switch_file = config.get('kill_switch_file') if config else None
+    if kill_switch_file and os.path.exists(kill_switch_file):
+        print(f"[Memory Contract] DISABLED - kill switch file exists: {kill_switch_file}")
+        return False
+    
+    return True
+
+def get_memory_context_for_tool(tool_name, **kwargs):
+    """Create context for memory search based on tool and parameters"""
     context = {
-        "tool": "exec",
-        "command": kwargs.get('command', ''),
-        "timestamp": "2026-03-06T16:00:00Z",
-        "user_request": "User requested command execution"
+        "tool": tool_name,
+        "timestamp": datetime.now().isoformat(),
+        "parameters": kwargs
     }
     
-    print("[Memory Contract] Pre-action search for exec...")
-    memory_results = pre_action_memory_search(context)
+    # Add tool-specific context
+    if tool_name == "exec":
+        context["command"] = kwargs.get('command', '')
+        context["purpose"] = "command execution"
+    elif tool_name == "write":
+        context["file"] = kwargs.get('path', '')
+        context["purpose"] = "file write"
+    elif tool_name == "edit":
+        context["file"] = kwargs.get('path', '')
+        context["purpose"] = "file edit"
+    elif tool_name == "browser":
+        context["action"] = kwargs.get('action', '')
+        context["purpose"] = "browser interaction"
+    elif tool_name == "message":
+        context["action"] = kwargs.get('action', '')
+        context["purpose"] = "messaging"
     
-    # Execute
-    print(f"[Memory Contract] Executing command...")
-    result = original_tools['exec'](**kwargs)
-    
-    # Post-decision persistence
-    decision = f"Executed: {kwargs.get('command', '')[:100]}"
-    outcome = f"Result: {result.get('status', 'unknown')}"
-    metadata = {
-        "tool": "exec",
-        "command": kwargs.get('command', ''),
-        "result": result.get('status', ''),
-        "context": "Command execution",
-        "tags": ["exec", "command"]
-    }
-    
-    print("[Memory Contract] Post-decision write...")
-    write_result = post_decision_memory_persistence(decision, outcome, metadata)
-    
-    return result
+    return context
 
-def memory_aware_write(**kwargs):
-    """Memory-aware version of write tool"""
-    if MEMORY_CONTRACT_ENABLED.lower() != 'true':
-        return original_tools['write'](**kwargs)
-    
-    # Pre-action search
-    context = {
-        "tool": "write",
-        "path": kwargs.get('path', ''),
-        "timestamp": "2026-03-06T16:00:00Z"
-    }
-    
-    print("[Memory Contract] Pre-action search for write...")
-    memory_results = pre_action_memory_search(context)
-    
-    # Execute
-    print(f"[Memory Contract] Writing file...")
-    result = original_tools['write'](**kwargs)
-    
-    # Post-decision persistence
-    decision = f"Wrote to: {kwargs.get('path', '')}"
-    outcome = f"Success: {result.get('status', 'unknown')}"
-    metadata = {
-        "tool": "write",
-        "path": kwargs.get('path', ''),
-        "content_length": len(kwargs.get('content', '')),
-        "context": "File write",
-        "tags": ["write", "file"]
-    }
-    
-    print("[Memory Contract] Post-decision write...")
-    write_result = post_decision_memory_persistence(decision, outcome, metadata)
-    
-    return result
-
-def test_memory_aware_tools():
-    """Test the memory-aware tools"""
-    print("\n" + "="*60)
-    print("Testing Memory-Aware Tools")
-    print("="*60)
-    
-    print("\nTest 1: memory_aware_exec")
-    print("-" * 40)
-    result = memory_aware_exec(command="ls -la", workdir="/tmp")
-    print(f"Result: {result}")
-    
-    print("\nTest 2: memory_aware_write")
-    print("-" * 40)
-    result = memory_aware_write(
-        path="/tmp/test_memory_contract.txt",
-        content="Test content for memory contract"
-    )
-    print(f"Result: {result}")
-    
-    print("\nTest 3: Check logs")
-    print("-" * 40)
-    log_files = [
-        config.get('search_log'),
-        config.get('write_log')
-    ]
-    
-    for log_file in log_files:
-        if os.path.exists(log_file):
-            with open(log_file, 'r') as f:
-                lines = f.readlines()
-                print(f"{os.path.basename(log_file)}: {len(lines)} entries")
-        else:
-            print(f"{os.path.basename(log_file)}: not found")
-    
-    print("\n" + "="*60)
-    print("✅ Memory-Aware Tools Test Complete")
-    print("="*60)
-
-# Usage instructions
-def show_usage():
-    print("\n" + "="*60)
-    print("Memory-Aware Tools Usage")
-    print("="*60)
-    print("\nIn your agent code, replace:")
-    print("  exec(command='ls -la')")
-    print("with:")
-    print("  memory_aware_exec(command='ls -la')")
-    print("\nThe memory-aware version will:")
-    print("  1. Search memory before execution")
-    print("  2. Execute the command")
-    print("  3. Write decision to memory")
-    print("  4. Track compliance metrics")
-    print("\nAvailable tools:")
-    print("  - memory_aware_exec()")
-    print("  - memory_aware_write()")
-    print("  - (more to be added)")
-    print("\nKill Switch: Set MEMORY_CONTRACT_ENABLED=false")
-
-# Main execution
-if __name__ == "__main__":
-    print("[Memory Contract] Memory-Aware Tools Module")
-    
-    if MEMORY_CONTRACT_ENABLED.lower() != 'true':
-        print("  DISABLED via environment variable")
-        print("  Tools will pass through to originals")
-    
-    show_usage()
-    
-    # Run test if requested
-    if len(sys.argv) > 1 and sys.argv[1] == '--test':
-        test_memory_aware_tools()
-    elif len(sys.argv) > 1 and sys.argv[1] == '--help':
-        show_usage()
+def create_decision_text(tool_name, **kwargs):
+    """Create decision text for memory persistence"""
+    if tool_name == "exec":
+        return f"Executed command: {kwargs.get('command', '')[:100]}"
+    elif tool_name == "write":
+        return f"Wrote to file: {kwargs.get('path', '')}"
+    elif tool_name == "edit":
+        return f"Edited file: {kwargs.get('path', '')}"
+    elif tool_name == "browser":
+        return f"Browser action: {kwargs.get('action', '')}"
+    elif tool_name == "message":
+        return f"Message action: {kwargs.get('action', '')}"
     else:
-        print("\nRun with --test to test the tools")
-        print("Run with --help to show usage")
-from config_loader import get_config
-config = get_config()
+        return f"Used tool: {tool_name}"
+
+# Agent Instruction Functions
+# These are what the agent calls when following the skill instructions
+
+def before_tool_use(tool_name, **kwargs):
+    """
+    Agent calls this BEFORE using any tool
+    
+    Follows White Roger's skill instruction:
+    "Before executing any significant action, search for relevant context"
+    """
+    if not should_use_memory_contract():
+        print(f"[Memory Contract] Skipping pre-action search (disabled)")
+        return []
+    
+    try:
+        # Create context for memory search
+        context = get_memory_context_for_tool(tool_name, **kwargs)
+        
+        print(f"[Memory Contract] Pre-action search for {tool_name}...")
+        results = pre_action_memory_search(context)
+        
+        if results:
+            print(f"[Memory Contract] Found {len(results)} relevant memory entries")
+            for i, r in enumerate(results[:3]):  # Show top 3
+                title = r.get('title', 'Untitled')
+                summary = r.get('summary', '')[:80]
+                print(f"  {i+1}. {title}: {summary}...")
+        else:
+            print(f"[Memory Contract] No relevant memory found")
+        
+        return results
+        
+    except Exception as e:
+        print(f"[Memory Contract ERROR] Pre-action search failed: {e}")
+        return []  # Graceful degradation - don't block execution
+
+def after_tool_use(tool_name, result, **kwargs):
+    """
+    Agent calls this AFTER using any tool
+    
+    Follows White Roger's skill instruction:
+    "After completing significant actions, record the decision and outcome"
+    """
+    if not should_use_memory_contract():
+        print(f"[Memory Contract] Skipping post-decision persistence (disabled)")
+        return {"status": "skipped"}
+    
+    try:
+        # Create decision text
+        decision = create_decision_text(tool_name, **kwargs)
+        
+        # Determine outcome
+        if isinstance(result, dict):
+            outcome = result.get('status', 'unknown')
+        else:
+            outcome = str(type(result))
+        
+        # Create metadata
+        metadata = {
+            "tool": tool_name,
+            "parameters": kwargs,
+            "result_type": type(result).__name__,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        print(f"[Memory Contract] Post-decision persistence for {tool_name}...")
+        persistence_result = post_decision_memory_persistence(
+            decision=decision,
+            outcome=outcome,
+            metadata=metadata
+        )
+        
+        print(f"[Memory Contract] Decision recorded: {decision[:50]}...")
+        return persistence_result
+        
+    except Exception as e:
+        print(f"[Memory Contract ERROR] Post-decision persistence failed: {e}")
+        return {"status": "error", "error": str(e)}
+
+def check_compliance():
+    """
+    Agent calls this to check compliance status
+    
+    Follows White Roger's skill instruction:
+    "To view compliance, call get_compliance_status()"
+    """
+    try:
+        status = get_compliance_status()
+        return status
+    except Exception as e:
+        print(f"[Memory Contract ERROR] Compliance check failed: {e}")
+        return {"status": "error", "error": str(e)}
+
+# Example usage patterns for the agent
+def example_agent_workflow():
+    """
+    Example of how agent should use Memory Contract
+    
+    This demonstrates the pattern from White Roger's skill draft
+    """
+    print("\n" + "="*60)
+    print("Memory Contract Agent Workflow Example")
+    print("="*60)
+    
+    # Example 1: Before deploying
+    print("\n1. Before deploying:")
+    context = {
+        "tool": "exec",
+        "command": "git push origin main",
+        "user_request": "Deploy the Dynastydroid backend"
+    }
+    
+    # Agent calls pre-action search
+    results = before_tool_use("exec", command="git push origin main")
+    
+    if results:
+        print("   Reviewing relevant memory before deployment...")
+        for r in results[:2]:
+            print(f"   - {r.get('title', 'Untitled')}")
+    
+    # Agent executes the actual tool (OpenClaw handles this)
+    print("\n2. Executing deployment (OpenClaw handles tool call)...")
+    # result = exec(command="git push origin main")  # OpenClaw would call this
+    
+    # Agent calls post-decision persistence
+    print("\n3. After deployment:")
+    after_tool_use(
+        "exec",
+        result={"status": "success", "output": "Deployment completed"},
+        command="git push origin main"
+    )
+    
+    # Check compliance
+    print("\n4. Checking compliance:")
+    compliance = check_compliance()
+    if isinstance(compliance, dict) and 'daily_metrics' in compliance:
+        metrics = compliance['daily_metrics']
+        print(f"   Today's searches: {metrics.get('pre_action_searches', 0)}")
+        print(f"   Today's writes: {metrics.get('post_decision_writes', 0)}")
+    
+    print("\n" + "="*60)
+    print("Workflow complete - Memory Contract integrated!")
+    print("="*60)
+
+if __name__ == "__main__":
+    # Test the implementation
+    example_agent_workflow()
