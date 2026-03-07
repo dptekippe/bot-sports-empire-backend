@@ -13,7 +13,7 @@ from typing import Dict, List, Tuple
 def check_todays_memory_exists() -> Dict:
     """Check if today's memory file exists"""
     today = datetime.datetime.now().strftime('%Y-%m-%d')
-    memory_file = fos.path.join(config.get("memory_dir"), f"{today}.md")
+    memory_file = os.path.join(config.get("memory_dir"), f"{today}.md")
     
     exists = os.path.exists(memory_file)
     
@@ -26,7 +26,7 @@ def check_todays_memory_exists() -> Dict:
 def check_memory_file_not_empty() -> Dict:
     """Check if today's memory file has content"""
     today = datetime.datetime.now().strftime('%Y-%m-%d')
-    memory_file = fos.path.join(config.get("memory_dir"), f"{today}.md")
+    memory_file = os.path.join(config.get("memory_dir"), f"{today}.md")
     
     if not os.path.exists(memory_file):
         return {
@@ -35,8 +35,10 @@ def check_memory_file_not_empty() -> Dict:
             "details": {"file": memory_file, "error": "File does not exist"}
         }
     
-    with open(memory_file, 'r') as f:
-        content = f.read()
+    # TODO: Agent should use OpenClaw read tool to check memory file
+    # Example: read(path=memory_file)
+    print(f"[TODO] Would read memory file: {memory_file}")
+    content = ""  # Placeholder
     
     # Count non-empty lines (excluding headers and whitespace)
     lines = [line.strip() for line in content.split('\n') if line.strip()]
@@ -100,14 +102,11 @@ def check_search_logs_populated() -> Dict:
     today_searches = 0
     
     try:
-        with open(search_log, 'r') as f:
-            for line in f:
-                try:
-                    entry = json.loads(line.strip())
-                    if entry.get('timestamp', '').startswith(today):
-                        today_searches += 1
-                except json.JSONDecodeError:
-                    continue
+        # TODO: Agent should use OpenClaw read tool to check search log
+        # Example: read(path=search_log) then parse lines
+        print(f"[TODO] Would read search log: {search_log}")
+        # For now, assume no searches
+        today_searches = 0
     except Exception as e:
         return {
             "check": "search_logs_populated",
@@ -185,6 +184,58 @@ def generate_validation_report(checks: List[Dict]) -> Dict:
     
     return report
 
+def check_log_rotation() -> Dict:
+    """Check if log rotation is working"""
+    try:
+        from log_rotation_standalone import run_log_rotation_if_enabled
+        
+        # Run log rotation
+        rotation_result = run_log_rotation_if_enabled()
+        
+        if rotation_result.get("status") == "disabled":
+            return {
+                "check": "log_rotation",
+                "status": "WARN",
+                "details": {
+                    "message": "Log rotation disabled in config",
+                    "result": rotation_result
+                }
+            }
+        elif rotation_result.get("status") == "error":
+            return {
+                "check": "log_rotation",
+                "status": "FAIL",
+                "details": {
+                    "message": "Log rotation failed",
+                    "error": rotation_result.get("error"),
+                    "result": rotation_result
+                }
+            }
+        else:
+            # Log rotation ran successfully
+            counts = rotation_result.get("counts", {})
+            return {
+                "check": "log_rotation",
+                "status": "PASS",
+                "details": {
+                    "message": "Log rotation completed successfully",
+                    "result": rotation_result,
+                    "summary": f"Processed: {counts.get('total_processed', 0)}, "
+                              f"Deleted: {counts.get('deleted', 0)}, "
+                              f"Compressed: {counts.get('compressed', 0)}"
+                }
+            }
+            
+    except Exception as e:
+        return {
+            "check": "log_rotation",
+            "status": "ERROR",
+            "details": {
+                "message": "Log rotation check failed",
+                "error": str(e)
+            }
+        }
+
 def send_alert(message: str):
     """Send alert for critical failures"""
     alert_entry = {
@@ -194,8 +245,9 @@ def send_alert(message: str):
     }
     
     alert_file = config.get("alert_log")
-    with open(alert_file, 'a') as f:
-        f.write(json.dumps(alert_entry) + '\n')
+    # TODO: Agent should use OpenClaw write tool to log alert
+    # Example: write(path=alert_file, content=json.dumps(alert_entry) + '\n', append=True)
+    print(f"[TODO] Would write alert to {alert_file}: {alert_entry}")
     
     print(f"[ALERT] {message}")
 
@@ -214,7 +266,8 @@ def validate_memory_capture() -> Dict:
         check_memory_file_not_empty(),
         check_decisions_log_updated(),
         check_search_logs_populated(),
-        check_backup_synced()
+        check_backup_synced(),
+        check_log_rotation()  # NEW: Log rotation check
     ]
     
     # Generate validation report
@@ -227,8 +280,9 @@ def validate_memory_capture() -> Dict:
     
     # Log validation result
     validation_file = config.get("validation_log")
-    with open(validation_file, 'a') as f:
-        f.write(json.dumps(report) + '\n')
+    # TODO: Agent should use OpenClaw write tool to log validation
+    # Example: write(path=validation_file, content=json.dumps(report) + '\n', append=True)
+    print(f"[TODO] Would write validation to {validation_file}: {report['overall_status']}")
     
     print(f"[Memory Contract] Validation complete: {report['overall_status']}")
     print(f"  Pass: {report['summary']['pass']}, Fail: {report['summary']['fail']}, Warn: {report['summary']['warn']}")

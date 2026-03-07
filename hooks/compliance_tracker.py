@@ -8,7 +8,13 @@ Purpose: Track and report compliance metrics for the Memory Contract system
 import os
 import json
 import datetime
+import glob
+import gzip
 from typing import Dict, List
+from pathlib import Path
+from config_loader import get_config
+
+config = get_config()
 
 class ComplianceTracker:
     def __init__(self):
@@ -33,22 +39,23 @@ class ComplianceTracker:
     
     def load_compliance_data(self) -> Dict:
         """Load compliance data from file"""
-        try:
-            with open(self.compliance_file, 'r') as f:
-                return json.load(f)
-        except (json.JSONDecodeError, FileNotFoundError):
-            # Return empty structure if file is corrupted or missing
-            return {
-                "daily_metrics": {},
-                "weekly_metrics": {},
-                "alerts": [],
-                "trends": {}
-            }
+        # TODO: Agent should use OpenClaw read tool to load compliance data
+        # Example: read(path=self.compliance_file)
+        print(f"[TODO] Would load compliance data from {self.compliance_file}")
+        
+        # Return empty structure for now
+        return {
+            "daily_metrics": {},
+            "weekly_metrics": {},
+            "alerts": [],
+            "trends": {}
+        }
     
     def save_compliance_data(self, data: Dict):
         """Save compliance data to file"""
-        with open(self.compliance_file, 'w') as f:
-            json.dump(data, f, indent=2)
+        # TODO: Agent should use OpenClaw write tool to save compliance data
+        # Example: write(path=self.compliance_file, content=json.dumps(data, indent=2))
+        print(f"[TODO] Would save compliance data to {self.compliance_file}: {json.dumps(data, indent=2)[:100]}...")
     
     def calculate_daily_metrics(self) -> Dict:
         """Calculate daily compliance metrics"""
@@ -57,44 +64,24 @@ class ComplianceTracker:
         # Count searches from search log
         search_log = config.get("search_log")
         today_searches = 0
-        if os.path.exists(search_log):
-            with open(search_log, 'r') as f:
-                for line in f:
-                    try:
-                        entry = json.loads(line.strip())
-                        if entry.get('timestamp', '').startswith(today):
-                            today_searches += 1
-                    except json.JSONDecodeError:
-                        continue
+        # TODO: Agent should use OpenClaw read tool to count searches
+        # Example: read(path=search_log) then parse lines
+        print(f"[TODO] Would count searches from {search_log}")
         
         # Count writes from write log
         write_log = config.get("write_log")
         today_writes = 0
-        if os.path.exists(write_log):
-            with open(write_log, 'r') as f:
-                for line in f:
-                    try:
-                        entry = json.loads(line.strip())
-                        if entry.get('timestamp', '').startswith(today):
-                            today_writes += 1
-                    except json.JSONDecodeError:
-                        continue
+        # TODO: Agent should use OpenClaw read tool to count writes
+        # Example: read(path=write_log) then parse lines
+        print(f"[TODO] Would count writes from {write_log}")
         
         # Count validations from validation log
         validation_log = config.get("validation_log")
         today_validations = 0
         today_validation_passes = 0
-        if os.path.exists(validation_log):
-            with open(validation_log, 'r') as f:
-                for line in f:
-                    try:
-                        entry = json.loads(line.strip())
-                        if entry.get('timestamp', '').startswith(today):
-                            today_validations += 1
-                            if entry.get('overall_status') == 'PASS':
-                                today_validation_passes += 1
-                    except json.JSONDecodeError:
-                        continue
+        # TODO: Agent should use OpenClaw read tool to count validations
+        # Example: read(path=validation_log) then parse lines
+        print(f"[TODO] Would count validations from {validation_log}")
         
         # Calculate compliance rates
         # For now, use simple thresholds
@@ -218,10 +205,40 @@ class ComplianceTracker:
         }
         
         return report
+    
+    def rotate_logs(self):
+        """Rotate and compress old log files based on config settings"""
+        # TODO: Agent should implement log rotation using OpenClaw exec tool
+        # This would involve shell commands for file operations
+        logs_dir = config.get("logs_dir")
+        keep_days = config.get("log_rotation.keep_days", 30)
+        compress_after_days = config.get("log_rotation.compress_after_days", 7)
+        
+        print(f"[TODO] Would rotate logs in {logs_dir}, keep {keep_days} days, compress after {compress_after_days} days")
+        
+        # Return mock result for now
+        return {
+            "status": "todo",
+            "deleted": [],
+            "compressed": [],
+            "kept": [],
+            "total_processed": 0,
+            "note": "Log rotation not implemented - agent should use OpenClaw exec tool"
+        }
+    
+    def run_log_rotation(self):
+        """Run log rotation if enabled in config"""
+        if not config.get("features.enable_log_rotation", True):
+            return {"status": "disabled", "reason": "log rotation disabled in config"}
+        
+        return self.rotate_logs()
 
 def run_compliance_update():
     """Run compliance update and return report"""
     tracker = ComplianceTracker()
+    
+    # Run log rotation if enabled
+    rotation_result = tracker.run_log_rotation()
     
     # Update metrics
     daily_metrics = tracker.update_daily_metrics()
@@ -237,6 +254,10 @@ def run_compliance_update():
     
     # Get and return report
     report = tracker.get_compliance_report()
+    
+    # Add log rotation result to report
+    report['log_rotation'] = rotation_result
+    
     return report
 
 # Test function
@@ -253,5 +274,3 @@ if __name__ == "__main__":
     # Get report
     report = tracker.get_compliance_report()
     print(f"Compliance report: {json.dumps(report, indent=2)}")
-from config_loader import get_config
-config = get_config()

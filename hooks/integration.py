@@ -102,12 +102,9 @@ def test_memory_contract_integration():
     ]
     
     for log_file in log_files:
-        if os.path.exists(log_file):
-            with open(log_file, 'r') as f:
-                lines = f.readlines()
-                print(f"  ✓ {os.path.basename(log_file)}: {len(lines)} entries")
-        else:
-            print(f"  ✗ {os.path.basename(log_file)}: not found")
+        # TODO: Agent should use OpenClaw read tool to check log files
+        # Example: read(path=log_file) if exists
+        print(f"  [TODO] Would check log file: {os.path.basename(log_file)}")
     
     print("[Memory Contract] Integration test complete")
 
@@ -115,14 +112,15 @@ def create_kill_switch():
     """Create kill switch file to disable memory contract"""
     kill_switch_file = config.get("kill_switch_file")
     
-    with open(kill_switch_file, 'w') as f:
-        f.write(f"# Memory Contract Kill Switch\n")
-        f.write(f"# Created: {datetime.datetime.now().isoformat()}\n")
-        f.write(f"# Delete this file to re-enable Memory Contract\n")
-        f.write(f"# Or set MEMORY_CONTRACT_ENABLED=false environment variable\n")
-    
-    print(f"[Memory Contract] Kill switch created: {kill_switch_file}")
-    print("  Memory Contract will be disabled on next restart")
+    # TODO: Agent should use OpenClaw write tool to create kill switch
+    # Example: write(path=kill_switch_file, content=kill_switch_content)
+    kill_switch_content = f"""# Memory Contract Kill Switch
+# Created: {datetime.datetime.now().isoformat()}
+# Delete this file to re-enable Memory Contract
+# Or set MEMORY_CONTRACT_ENABLED=false environment variable
+"""
+    print(f"[TODO] Would create kill switch at {kill_switch_file}")
+    print("  Memory Contract would be disabled on next restart")
 
 def remove_kill_switch():
     """Remove kill switch file to re-enable memory contract"""

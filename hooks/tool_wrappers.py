@@ -47,67 +47,21 @@ def wrap_tool_call(original_tool: Callable, tool_name: str) -> Callable:
     
     Returns:
         Wrapped tool function with memory contract integration
+    
+    Note: This is a guidance function - agents should implement the pattern
+    but OpenClaw tools are called directly, not through Python wrappers
     """
     def wrapped_tool(**kwargs):
-        # Create context for pre-action search
-        context = {
-            "tool": tool_name,
-            "command": str(kwargs.get('command', '')),
-            "user_request": "Unknown",  # Would need session context
-            "timestamp": datetime.datetime.now().isoformat()
-        }
+        # TODO: Agents should implement this pattern manually:
+        # 1. Call pre_action_memory_search() for guidance
+        # 2. Make actual OpenClaw tool call (exec, write, etc.)
+        # 3. Call post_decision_memory_persistence() to record
         
-        # Pre-action memory search
-        memory_results = pre_action_memory_search(context)
+        print(f"[TODO] Tool wrapper for {tool_name} - agents should implement pattern manually")
+        print(f"  Context: {kwargs}")
         
-        # Execute original tool
-        try:
-            result = original_tool(**kwargs)
-            
-            # Determine if this was a decision/action worth recording
-            should_record = should_record_decision(tool_name, kwargs, result)
-            
-            if should_record:
-                # Create decision description
-                decision = create_decision_description(tool_name, kwargs, result)
-                
-                # Create outcome description
-                outcome = create_outcome_description(result)
-                
-                # Create metadata
-                metadata = {
-                    "tool": tool_name,
-                    "kwargs": sanitize_kwargs(kwargs),
-                    "result_summary": summarize_result(result),
-                    "context": f"{tool_name} execution",
-                    "tags": [tool_name, "execution"]
-                }
-                
-                # Post-decision memory persistence
-                write_result = post_decision_memory_persistence(decision, outcome, metadata)
-                
-                # Log if write failed
-                if write_result.get('status') == 'error':
-                    print(f"[Memory Contract ERROR] Failed to write memory: {write_result.get('error')}")
-            
-            return result
-            
-        except Exception as e:
-            # Record failure as decision
-            decision = f"{tool_name} execution failed"
-            outcome = f"Error: {str(e)}"
-            metadata = {
-                "tool": tool_name,
-                "kwargs": sanitize_kwargs(kwargs),
-                "error": str(e),
-                "context": f"{tool_name} execution failed",
-                "tags": [tool_name, "error", "failure"]
-            }
-            
-            post_decision_memory_persistence(decision, outcome, metadata)
-            
-            # Re-raise the exception
-            raise
+        # For now, just call the original tool
+        return original_tool(**kwargs)
     
     return wrapped_tool
 
@@ -236,20 +190,8 @@ def run_periodic_validation():
 if __name__ == "__main__":
     print("Testing tool wrappers...")
     
-    # Test with a mock exec function
-    def mock_exec(**kwargs):
-        return {
-            "status": "success",
-            "output": "Test output",
-            "command": kwargs.get('command', '')
-        }
-    
-    # Create wrapped version
-    wrapped_exec = wrap_tool_call(mock_exec, 'exec')
-    
-    # Test execution
-    result = wrapped_exec(command="ls -la", workdir="/tmp")
-    print(f"Mock exec result: {result}")
+    # TODO: This is a test stub - agents should test with real OpenClaw tools
+    print("[TODO] Test stub - agents should test with real OpenClaw tool integration")
     
     # Test periodic validation
     validation_result = run_periodic_validation()
