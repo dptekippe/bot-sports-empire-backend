@@ -103,3 +103,9 @@ EOF
 ```
 
 **Memory:** Successfully tested 2026-02-18 with Safari navigation to duckduckgo.com → perplexity.ai → JavaScript text entry.
+
+## 🤖 Matrix Bot Account
+
+- **Handle:** @whiteroger:matrix.org
+- **Token:** mat_UHv6KuGNo8c8h6iDcuwmGzi7gPiHvs_hQNQz2
+- **Invited to:** Daniel Round Table room

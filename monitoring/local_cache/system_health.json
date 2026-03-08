@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-03-07T18:22:00Z",
+  "overall_status": "degraded",
+  "components": {
+    "subconscious": {
+      "status": "operational",
+      "last_run": "2026-03-07T18:15:01Z",
+      "log_activity": "active",
+      "output_quality": "unknown"
+    },
+    "muscle_memory": {
+      "status": "failed",
+      "last_run": "2026-02-17T15:02:32Z",
+      "log_activity": "stale",
+      "output_quality": "unknown",
+      "failure_reason": "API key invalid (401 Unauthorized)"
+    },
+    "monitoring_system": {
+      "status": "initializing",
+      "phase": "Phase 1 - Baseline",
+      "local_cache": "operational",
+      "github_sync": "not_configured"
+    }
+  },
+  "issues": [
+    {
+      "id": "issue-001",
+      "component": "muscle_memory",
+      "severity": "high",
+      "description": "API key invalid - processing failing silently",
+      "detected": "2026-03-07T18:21:55Z",
+      "status": "active"
+    }
+  ],
+  "assurance": 60,
+  "notes": "Baseline established. Muscle memory failing due to invalid API key. Monitoring system initializing."
+}

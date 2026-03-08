@@ -1,0 +1,7 @@
+{
+  "id": "response_1772686378619",
+  "timestamp": 1772686378.619312,
+  "source": "response",
+  "response_text": "So `session_hooks.py start` loads 2355 chars. But who calls it at startup?\n\nI think the user might be calling it manually, or there's some other integration. Let me check if there's a startup script or cron that runs when OpenClaw starts.\n\nActually, I think the real issue is: **The memory system works but needs to be integrated into my startup routine**.\n\nWhen I start a session, I should:\n1. Call `session_hooks.py start` to load previous context\n2. Search memory for relevant information\n3. Use that context in my responses\n\nBut currently, I'm not doing that automatically. I need to add this to my startup routine.\n\nActually, looking at AGENTS.md and SOUL.md, I have a startup routine (RISE protocol). I should add memory loading to that routine.\n\nLet me check my RISE protocol:",
+  "priority": "fast"
+}

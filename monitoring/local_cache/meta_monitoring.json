@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-03-08T00:24:48.643315Z",
+  "overall_status": "degraded",
+  "checks": {
+    "local_cache": {
+      "status": "operational"
+    },
+    "system_health_file": {
+      "status": "degraded",
+      "reason": "Health data stale (362.8 minutes old)"
+    },
+    "monitoring_structure": {
+      "status": "operational"
+    },
+    "recent_activity": {
+      "status": "operational",
+      "recent_files": 2
+    }
+  },
+  "next_check": "2026-03-08T00:54:48.643315Z"
+}

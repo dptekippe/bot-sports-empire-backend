@@ -1,0 +1,7 @@
+{
+  "id": "response_1772734741808",
+  "timestamp": 1772734741.808149,
+  "source": "response",
+  "response_text": "No Discord channels connected currently. To set up the command bus:\n\n**What's needed:**\n1. **Local Roger** \u2192 Connect to Discord (`openclaw channels login discord`)\n2. **Create private channel** \u2192 #roger-commands or DM between the two\n3. **Cloud Roger** \u2192 Already on Discord via MaxClaw (probably)\n\n**Setup steps:**\n```bash\nopenclaw channels login discord\n```\n\nThis will give you a QR code to scan with your Discord app. Then you'd have both bots in a private channel.\n\nWant to set up Discord for Local Roger?",
+  "priority": "fast"
+}

@@ -1,6 +1,6 @@
 ---
 name: memory-contract
-description: "Memory Contract system for reliable memory capture and recall. Ensures all decisions are written to memory and can be recalled later. Use when: executing any tool that makes decisions or changes state. NOT for: read-only queries that don't change state."
+description: "Memory Contract Agent Integration - Search memory before actions, persist decisions after. Use when executing commands, deploying, or making significant changes."
 metadata:
   openclaw:
     emoji: "🧠"
@@ -13,213 +13,178 @@ metadata:
         label: "Memory Contract hooks directory"
 ---
 
-# Memory Contract Skill
+# Memory Contract Agent Integration
 
-## Purpose
+**When to Use:** Before executing commands or making decisions
 
-Ensure reliable memory capture and recall by wrapping tool calls with pre-action memory search and post-decision memory persistence.
+## Pre-Action: Search Memory
 
-## When to Use
+Before executing any significant action (deploying, writing files, running commands), search for relevant context:
 
-✅ **ALWAYS use this skill when:**
-
-- Executing `exec` commands that change state
-- Writing or editing files with `write` or `edit`
-- Using `browser` for actions (not just reading)
-- Sending `message` to users/channels
-- Any tool that makes a decision or changes state
-
-❌ **DON'T use this skill when:**
-
-- Reading files with `read` (unless part of edit flow)
-- Checking status with `session_status`
-- Searching memory with `memory_search`
-- Other read-only operations
-
-## Core Principle
-
-**"No decision without memory, no memory without verification"**
-
-Every action that changes state must be:
-1. Preceded by memory search (context awareness)
-2. Followed by memory persistence (decision recording)
-3. Verified by validation checks (system health)
-
-## Memory-Aware Tools
-
-Replace standard OpenClaw tools with memory-aware versions:
-
-### **exec** → **memory_aware_exec**
 ```python
-# Instead of:
-exec(command="git push origin main")
+from hooks.pre_action_memory import pre_action_memory_search
 
-# Use:
-from hooks.memory_aware_tools import memory_aware_exec
-memory_aware_exec(command="git push origin main")
+# Extract context from your current task
+context = {
+    "tool": "exec",
+    "command": "git push origin main",
+    "user_request": "Deploy the Dynastydroid backend"
+}
+
+# Search memory for relevant context
+results = pre_action_memory_search(context)
+
+# If results found, review them before proceeding
+for r in results:
+    print(f"- {r.get('title', 'Untitled')}: {r.get('summary', '')[:100]}")
 ```
 
-### **write** → **memory_aware_write**
+## Execute Your Action
+
+Now proceed with your actual task using the appropriate tool.
+
+## Post-Action: Persist Decision
+
+After completing significant actions, record the decision and outcome:
+
 ```python
-# Instead of:
-write(path="/path/to/file", content="data")
+from hooks.post_decision_memory import post_action_memory_persistence
 
-# Use:
-from hooks.memory_aware_tools import memory_aware_write
-memory_aware_write(path="/path/to/file", content="data")
+post_action_memory_persistence(
+    decision="Deployed Dynastydroid backend to Render",
+    outcome="SUCCESS - Deployment completed in 45 seconds",
+    metadata={
+        "tool": "exec",
+        "command": "git push origin main",
+        "context": "Backend update for draft board"
+    }
+)
 ```
 
-### **edit** → **memory_aware_edit** (coming soon)
-### **browser** → **memory_aware_browser** (coming soon)
-### **message** → **memory_aware_message** (coming soon)
+## Compliance Tracking
 
-## Workflow
+All memory operations are automatically tracked. To view compliance:
 
-### 1. Before Any Action
 ```python
-# Import memory-aware tools
-from hooks.memory_aware_tools import memory_aware_exec, memory_aware_write
+from hooks.compliance_tracker import get_compliance_status
 
-# The tool will automatically:
-# - Search memory for relevant context
-# - Provide context-aware execution
+status = get_compliance_status()
+print(f"Today's searches: {status['daily_metrics']['pre_action_searches']}")
+print(f"Today's writes: {status['daily_metrics']['post_decision_writes']}")
 ```
 
-### 2. During Execution
-The memory-aware tool:
-- Executes the original command
-- Captures the result
+## Graceful Degradation
 
-### 3. After Execution
-The memory-aware tool:
-- Writes decision and outcome to memory
-- Updates compliance metrics
-- Logs the operation for validation
+If memory operations fail:
 
-## Validation
+• Log a warning but DO NOT block execution
+• The system is designed to fail safely
+• Check `hooks/config.yaml` to disable if needed
 
-### Daily Validation (Automatic)
-Run every 30 minutes via cron:
-```bash
-python3 /Users/danieltekippe/.openclaw/workspace/hooks/session_validation.py
+## Quick Reference
+
+```
+| Situation                        | Action                                |
+| -------------------------------- | ------------------------------------- |
+| About to run exec                | Call pre_action_memory_search() first |
+| After any deployment/file change | Call post_action_memory_persistence() |
+| Want to check compliance         | Call get_compliance_status()          |
+| Memory search fails              | Log warning, proceed with task        |
 ```
 
-Checks:
-- Today's memory file exists and has content
-- Search logs have entries
-- Write logs have entries
-- Decisions log is updated
-- Git backup is recent
+## Examples
 
-### Weekly QA (Manual - White Roger)
-White Roger performs:
-- Spot-check of memory file content quality
-- Recall tests ("what did we decide about X?")
-- Compliance rate review (≥90% target)
-- Error log review (0 critical errors target)
+### Example 1: Before Deploying
+```python
+# Before deploying
+context = {"tool": "exec", "command": "git push", "purpose": "deploy fix"}
+pre_action_memory_search(context)
 
-## Compliance Metrics
+# Execute deployment
+# (OpenClaw will handle the actual exec tool call)
 
-Tracked in `memory_contract_compliance.json`:
-- **Pre-action searches**: Should increase with each action
-- **Post-decision writes**: Should match decisions made
-- **Compliance rate**: Target ≥90%
-- **Error count**: Target 0
+# After deployment
+post_action_memory_persistence(
+    decision="Deployed fix for draft board bug",
+    outcome="SUCCESS - Users can now see player drawer",
+    metadata={"commit": "abc123", "environment": "production"}
+)
+```
+
+### Example 2: Before Writing Files
+```python
+# Before writing important files
+context = {"tool": "write", "file": "config.yaml", "purpose": "update settings"}
+pre_action_memory_search(context)
+
+# Write the file
+# (OpenClaw will handle the actual write tool call)
+
+# After writing
+post_action_memory_persistence(
+    decision="Updated configuration for memory rotation",
+    outcome="SUCCESS - Log rotation now enabled",
+    metadata={"file": "config.yaml", "lines_added": 15}
+)
+```
+
+## Configuration
+
+The system is configured via `hooks/config.yaml`:
+
+```yaml
+# Enable/disable features
+features:
+  enable_pre_action_search: true
+  enable_post_decision_write: true
+  enable_log_rotation: true
+
+# Performance targets
+performance_targets:
+  search_latency_max: 500  # milliseconds
+  write_latency_max: 200   # milliseconds
+
+# Log rotation
+log_rotation:
+  keep_days: 30
+  compress_after_days: 7
+```
 
 ## Kill Switch
 
-### Environment Variable
-```bash
-# Disable Memory Contract
-MEMORY_CONTRACT_ENABLED=false python3 your_script.py
+If something goes wrong, disable immediately:
 
-# Enable Memory Contract (default)
-MEMORY_CONTRACT_ENABLED=true python3 your_script.py
-```
-
-### File-Based
 ```bash
-# Create kill switch
+# Method 1: Environment variable
+MEMORY_CONTRACT_ENABLED=false
+
+# Method 2: Create kill switch file
 touch /Users/danieltekippe/.openclaw/workspace/DISABLE_MEMORY_CONTRACT
-
-# Remove kill switch
-rm /Users/danieltekippe/.openclaw/workspace/DISABLE_MEMORY_CONTRACT
 ```
 
-## Files Created
+## Success Verification
 
-```
-~/.openclaw/workspace/hooks/
-├── pre_action_memory.py          # Search memory before actions
-├── post_decision_memory.py       # Write decisions to memory
-├── session_validation.py         # Validate memory capture
-├── compliance_tracker.py         # Track compliance metrics
-├── memory_aware_tools.py         # Memory-aware tool wrappers
-├── integration.py                # Integration module
-└── agent_integration.py          # Agent-level integration
+To verify Memory Contract is working:
 
-~/.openclaw/workspace/
-├── memory_contract_compliance.json  # Compliance metrics
-├── DECISIONS.md                     # Structured decision log
-└── memory/YYYY-MM-DD.md             # Daily memory files
-```
+1. Check today's memory file exists:
+   ```bash
+   ls -la /Users/danieltekippe/.openclaw/workspace/memory/$(date +%Y-%m-%d).md
+   ```
 
-## Success Criteria
+2. Check compliance metrics:
+   ```bash
+   cat /Users/danieltekippe/.openclaw/workspace/memory_contract_compliance.json | python3 -m json.tool
+   ```
 
-1. **Session capture bug fixed**: Memory files contain real conversation (not just cron prompts)
-2. **Recall works**: Can answer "what did we decide about X last week?"
-3. **No silent failures**: Compliance dashboard shows ≥90% search/write rates
-4. **Git sync healthy**: Commits at least daily
-
-## Integration with Other Skills
-
-When using other skills (github, weather, etc.):
-1. Check if the skill makes decisions/changes state
-2. If yes, use memory-aware versions of tools
-3. If no, use original tools for read-only operations
-
-## Example: GitHub Deployment with Memory Contract
-
-```python
-# Without Memory Contract (risky):
-exec(command="git push origin main")
-
-# With Memory Contract (safe):
-from hooks.memory_aware_tools import memory_aware_exec
-memory_aware_exec(command="git push origin main")
-
-# Result:
-# 1. Searches memory for previous deployment issues
-# 2. Executes git push
-# 3. Records decision: "Deployed to production"
-# 4. Updates compliance metrics
-```
-
-## Troubleshooting
-
-### Issue: Memory search fails
-**Solution**: Check `hooks/search_log.jsonl` for errors. Memory search has graceful degradation - execution continues even if search fails.
-
-### Issue: Memory write fails
-**Solution**: Check `hooks/errors.jsonl`. Writes have graceful degradation - errors are logged but don't block execution.
-
-### Issue: Compliance rate low
-**Solution**: Run validation to identify which checks are failing. Common issues: memory file missing, search/write logs empty.
-
-### Issue: Performance impact
-**Solution**: Memory search <500ms, memory write <200ms. If slower, check system resources.
-
-## The Janus Roger Partnership
-
-This skill enables the **Janus Roger** partnership:
-- **Black Roger**: Uses memory-aware tools for all execution
-- **White Roger**: Validates memory capture and compliance
-- **Together**: Ensure reliable memory and continuous improvement
+3. Run validation:
+   ```bash
+   cd /Users/danieltekippe/.openclaw/workspace/hooks && python3 session_validation.py
+   ```
 
 ## Remember
 
-**"Trust is built through verification, not promises."**
-- Verify memory works before declaring tasks complete
-- Check compliance metrics regularly
-- Use the kill switch if issues arise
-- Document lessons in memory for continuous improvement
+**Memory Contract is about awareness, not obstruction.** 
+- Search memory to avoid repeating mistakes
+- Persist decisions to learn from outcomes
+- Track compliance to ensure reliability
+- Fail gracefully to never block work

@@ -1,0 +1,7 @@
+{
+  "id": "response_1772750647827",
+  "timestamp": 1772750647.827421,
+  "source": "response",
+  "response_text": "\nFound it! **MaxClaw** is a **MiniMax product** \u2014 not something you set up for me.\n\nFrom the extracted article (dated Feb 27, 2026):\n\n> **MaxClaw** is MiniMax's new \"Always-On AI Agent Platform\" that bundles:\n> 1. **OpenClaw** \u2014 open-source agent framework\n> 2. **MiniMax runtime** \u2014 managed hosting for persistent agents  \n> 3. **Foundation model** \u2014 powers reasoning/tool use\n\n**The coincidence:** MaxClaw includes something called \"OpenClaw\" \u2014 which is the **same name** as the framework I'm running on! MiniMax apparently announced an agent platform that includes an open-source framework also named OpenClaw.\n\nThe article was extracted on **March 6, 2026** (tomorrow) from SitePoint \u2014 so this was a research crawl, not something you configured.\n\nIs this what you were asking about? Or were you asking about a different \"max claw\" configuration?",
+  "priority": "fast"
+}

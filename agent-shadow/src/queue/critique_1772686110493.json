@@ -1,0 +1,7 @@
+{
+  "id": "response_1772686110493",
+  "timestamp": 1772686110.493782,
+  "source": "response",
+  "response_text": "Got it. Here's the audit:\n\n---\n\n## Root Cause Found\n\n**1. Session was RESET** around 04:40 AM (March 5)\n- File: `0f1e9d42-33ec-4a78-b923-7ebfc5d47e9a.jsonl.reset.2026-03-05T04-40-09.221Z`\n- The cron ran at 22:33 and saved, but the session was reset ~6 hours later\n\n**2. Extraction truncates at 200 chars**\n```python\nuser_messages.append(text[:200])  # Line 49 in session_hooks.py\n```\n- \"Found this repo: https://github\" \u2192 truncated to \"Found this repo: https://github\"\n- The actual URL/repo name got cut off\n\n**3. What IS working:**\n- \u2705 Startup loads 2355 chars from previous sessions\n- \u2705 Session save cron runs every 30 min\n- \u2705 Files are being created in memory/sessions/\n\n---\n\n## One-Line Fix\n\nIncrease message truncation from 200 to 2000:\n\n```bash\nsed -i '' 's/text\\[:200\\]/text[:2000]/' ~/.openclaw/workspace/agent-shadow/src/session_hooks.py\n```\n\nWant me to apply it?",
+  "priority": "fast"
+}

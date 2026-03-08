@@ -1,0 +1,7 @@
+{
+  "id": "response_1772751316624",
+  "timestamp": 1772751316.624956,
+  "source": "response",
+  "response_text": "This is the problem. Look at the session summaries:\n\n**All they capture is the CRON prompts themselves** \u2014 not the actual conversation!\n\nThe session hooks captured the cron job instructions asking \"extract session summary\" \u2014 but not the actual user messages from you.\n\nThis means:\n- The cron ran 30 times today (every 30 min)\n- Each time, it captured ITSELF asking to extract a summary\n- But the **real conversation** (you and me working on maxclaw) was never captured\n\nLet me check if there's ANY session that has actual user content:\n",
+  "priority": "fast"
+}

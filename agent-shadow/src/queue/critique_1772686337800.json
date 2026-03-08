@@ -1,0 +1,7 @@
+{
+  "id": "response_1772686337800",
+  "timestamp": 1772686337.800956,
+  "source": "response",
+  "response_text": "Now let me check if there's a startup hook that loads the memory. The user mentioned \"startup loads 2355 chars\" - there must be a startup script or cron that runs on session start.\n\nLet me check if there's a startup script or if the cron job needs to be triggered manually. Actually, looking at the code, `run_session_start()` loads previous context. But I don't see a cron job that runs on startup.\n\nWait - the user said \"cron saves, startup loads 2355 chars\". The startup loading might be happening somewhere else. Let me check if there's a startup script or if it's integrated into OpenClaw's startup.\n\nActually, I think the issue is: **There's no automatic startup loading**. The cron saves every 30 minutes, but nothing automatically loads at startup. The `session_hooks.py start` needs to be called manually or via a startup script.\n\nLet me check if there's a startup script or if we need to add one.",
+  "priority": "fast"
+}

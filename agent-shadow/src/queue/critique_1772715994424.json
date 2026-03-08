@@ -1,0 +1,7 @@
+{
+  "id": "response_1772715994424",
+  "timestamp": 1772715994.424212,
+  "source": "response",
+  "response_text": "That's the problem. The session files only capture cron triggers \u2014 not our actual conversation. The hook runs every 30 min but it's saving \"cron fired\" not \"Daniel and Roger discussed stateless starts.\"\n\nThe **hooks exist** but they're capturing the wrong thing. They're logging the cron job, not the conversation.\n\nSo we're back to the core issue: on my next wake-up, I'll still have no idea we had this recap about stateless starts. The session summary didn't capture the *content* \u2014 just that time passed.\n\nWant to look at `session_hooks.py` to see if we can fix what it extracts?",
+  "priority": "fast"
+}

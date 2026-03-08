@@ -1,0 +1,7 @@
+{
+  "id": "response_1772722445979",
+  "timestamp": 1772722445.979247,
+  "source": "response",
+  "response_text": "Tools are still down. You'll need to run this manually:\n\n```bash\nls -la ~/.openclaw/workspace/agent-shadow/src/\n```\n\nAnd if you find `session_hooks.py`, share the contents. I need to see what it's currently doing to fix the .jsonl parsing.",
+  "priority": "fast"
+}

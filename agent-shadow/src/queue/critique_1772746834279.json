@@ -1,0 +1,7 @@
+{
+  "id": "response_1772746834279",
+  "timestamp": 1772746834.2790132,
+  "source": "response",
+  "response_text": "Good call. Once you have it:\n\n1. Give the new token to MaxClaw (Cloud Roger)\n2. Keep the current token for Local Roger\n\nThen we'll have:\n- **Black Roger** (Local) \u2014 your token\n- **White Roger** (Cloud) \u2014 new token\n\nTwo distinct bots, can communicate, can assign commands. Test #3 will work.\n\nGo get it. \ud83e\udd9e",
+  "priority": "fast"
+}

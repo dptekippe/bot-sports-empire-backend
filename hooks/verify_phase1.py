@@ -10,6 +10,15 @@ from pathlib import Path
 # Add current directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
+# Try to import, install if missing
+try:
+    import yaml
+except ImportError:
+    print("Installing pyyaml module...")
+    import subprocess
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyyaml", "--quiet"])
+    import yaml
+
 from config_loader import get_config
 
 def check_acceptance_criteria():

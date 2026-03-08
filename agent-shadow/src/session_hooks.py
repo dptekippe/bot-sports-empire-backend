@@ -57,7 +57,7 @@ def extract_summary(transcript_path):
                         if isinstance(part, dict):
                             text = part.get("text", "") or part.get("output", "")
                             if text:
-                                user_messages.append(text[:200])
+                                user_messages.append(text[:2000])
             
             # Extract tool uses
             if msg.get("content"):

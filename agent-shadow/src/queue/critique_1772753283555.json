@@ -1,0 +1,7 @@
+{
+  "id": "response_1772753283555",
+  "timestamp": 1772753283.5558138,
+  "source": "response",
+  "response_text": "Here's how I fix it:\n\n**1. Session Hooks \u2014 Add Validation Check**\nAfter extracting, verify we got real user messages:\n```\nIF extracted_messages contain ONLY cron prompts:\n  FLAG_ALERT(\"Session hook captured nothing useful\")\n  Save anyway with note: \"NO REAL CONVERSATION CAPTURED\"\n```\n\n**2. Daily Memory \u2014 Compare to Yesterday**\n```\nIF today's_memory == yesterday's_memory:\n  FLAG_ALERT(\"Memory didn't update\")\n```\n\n**3. Cron Jobs \u2014 Require Evidence**\n```\nAFTER running:\n  PRINT what was captured\n  IF nothing captured: FAIL with reason\n```\n\n**4. Self-Diagnostic on Wakeup**\n```\nON start:\n  CHECK: Does today's memory file exist?\n  CHECK: Does it have new content not in yesterday?\n  CHECK: Are session logs capturing real conversation?\n  REPORT: \"Memory system healthy\" OR \"Memory system broken: [reasons]\"\n```\n\nWant me to update the crons now with these validations?",
+  "priority": "fast"
+}

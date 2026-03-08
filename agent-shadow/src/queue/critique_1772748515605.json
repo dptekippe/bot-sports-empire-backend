@@ -1,0 +1,7 @@
+{
+  "id": "response_1772748515605",
+  "timestamp": 1772748515.6051579,
+  "source": "response",
+  "response_text": "I'm here! The new token worked. Test message sent.\n\nNow we have:\n- **Black Roger** (Local) \u2014 new token\n- **White Roger** (Cloud) \u2014 should have the other token\n\nTwo distinct bots in the channel. \ud83e\udd9e",
+  "priority": "fast"
+}

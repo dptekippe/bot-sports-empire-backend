@@ -1,0 +1,7 @@
+{
+  "id": "response_1772715979967",
+  "timestamp": 1772715979.9673889,
+  "source": "response",
+  "response_text": "Found it. The **Session Memory - Save** job is running every 30 minutes \u2014 that's your hook. It calls `session_hooks.py` to extract summaries from the transcript.\n\nLet me verify it's actually capturing our conversation context:\n",
+  "priority": "fast"
+}

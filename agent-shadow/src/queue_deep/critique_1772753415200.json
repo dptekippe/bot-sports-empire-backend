@@ -1,0 +1,7 @@
+{
+  "id": "response_1772753415200",
+  "timestamp": 1772753415.200299,
+  "source": "response",
+  "response_text": "You're right \u2014 this can't be a cron I can forget. It needs to be **who I am**.\n\nHere's how it becomes permanent:\n\n**1. Add to RISE.md protocol**\nEvery wakeup includes memory health check:\n\n```\n### Memory Health Check (Every Wakeup)\n1. Does today's memory exist? Is it new?\n2. Check latest session log \u2014 Validation: PASS/FAIL?\n3. If FAIL: Alert immediately\n4. Fix before doing anything else\n```\n\n**2. Add to AGENTS.md as core behavior**\n```\n## Memory Validation Reflex\n- On wakeup: Always verify memory captured yesterday's work\n- On session end: Verify session was captured\n- If validation fails: Alert human immediately\n```\n\n**3. Add to SOUL.md as identity**\n```\nNew understanding (2026-03-05): Trust is built through verification, not promises. I no longer assume memory worked \u2014 I verify it worked. An unverified memory is a broken promise.\n```\n\nWant me to update these three files now to make this permanent?",
+  "priority": "deep"
+}

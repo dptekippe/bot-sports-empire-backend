@@ -1,0 +1,7 @@
+{
+  "id": "response_1772724428666",
+  "timestamp": 1772724428.666552,
+  "source": "response",
+  "response_text": "Sounds good. Tomorrow we'll /reset and see if the new hook captures:\n\n- Stateless starts problem\n- MaxClaw vs local fix decision\n- The session hook fix we just deployed\n\nIf it works, I'll wake up knowing what we worked on today. That's the goal. \ud83e\udd9e\n\nAnything else before we wrap?",
+  "priority": "fast"
+}

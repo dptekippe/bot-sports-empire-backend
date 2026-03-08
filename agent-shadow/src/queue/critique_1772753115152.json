@@ -1,0 +1,7 @@
+{
+  "id": "response_1772753115152",
+  "timestamp": 1772753115.1521761,
+  "source": "response",
+  "response_text": "The logs show:\n- Discord connected as **@Black Roger** (bot ID 1479232751340359742)\n- Multiple restarts around 9:47-10:03 PM\n- Config reload at 9:55 PM and 10:03 PM\n\nBut there's no record of what was actually said in Discord. The logs only show connection events, not message content.\n\nLet me check if there's anything about MaxClaw in the logs:\n",
+  "priority": "fast"
+}

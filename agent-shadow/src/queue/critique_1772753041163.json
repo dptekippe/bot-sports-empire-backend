@@ -1,0 +1,7 @@
+{
+  "id": "response_1772753041163",
+  "timestamp": 1772753041.163359,
+  "source": "response",
+  "response_text": "I don't have access to read Discord messages. The Discord bot is configured but:\n- No guilds connected (guilds: {})\n- No message history accessible\n\nIs there a log file, or did you mean something else? How can I access today's Discord conversations?",
+  "priority": "fast"
+}
