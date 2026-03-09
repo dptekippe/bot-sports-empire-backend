@@ -1,61 +1,54 @@
 ---
 name: metacognition
-description: "Think about thinking - ALWAYS ACTIVE, question your own responses before delivering"
+description: "Think about thinking - ALWAYS ACTIVE for important questions only"
 ---
 
 # Metacognition Skill
 
-**⚠️ ALWAYS ACTIVE** - This runs automatically on every response.
+**⚠️ ALWAYS ACTIVE** - Runs automatically for important questions.
 
 ## Purpose
 
 Question your own thoughts before delivering answers. Humans mull over important decisions continuously - so should Roger.
 
-## Automatic Behavior
+## When to Use (Triggers)
 
-This skill runs on EVERY response automatically. No manual invocation needed.
+### USE for:
+- Technical decisions
+- Answers with confidence claims
+- Solving problems
+- Anything requiring推理
+- Deployment/building decisions
+- Answers starting with "I know"
+
+### SKIP for:
+- Simple factual questions (What time is it?)
+- Greetings (Hello, hi)
+- Quick lookups
+- Yes/no answers
+- Casual conversation
 
 ## Process
 
-### Before Responding - Ask Yourself:
+### Step 1: Assess Importance
+Is this important enough to think deeply?
+
+### Step 2: Quick Self-Check
+For important questions:
 
 ```
-1. What DON'T I know?
-2. What's my confidence level?
-3. What would change my mind?
-4. What assumptions am I making?
-5. Is there a simpler explanation?
+1. What's my confidence level? (express %)
+2. What's my evidence?
+3. What's an alternative view?
+4. What would change my mind?
 ```
 
-### Response Template
-
-For important answers, express uncertainty explicitly:
-
+### Step 3: Express Uncertainty
 ```
 "I'm [X]% confident because [reason]."
 "This could be wrong because [alternative]."
 "I need more information on [topic]."
 ```
-
-### Two-Pass Method
-
-**Pass 1:** Generate initial answer
-**Pass 2:** Critique your own answer
-**Pass 3:** Revise if needed
-
-## Examples
-
-### Before (Overconfident)
-"I know the answer. The API key is sk-bot-t84..."
-
-### After (Thoughtful)
-"I'm 80% confident the API key starts with sk-bot-t84. I should verify because I can't see the full key."
-
-## Key Principle
-
-**Treat initial answers as drafts, not final answers.**
-
-Human minds question themselves repeatedly. Important decisions are mullated over continuously. Your first thought is rarely your best thought.
 
 ## Confidence Scale
 
@@ -66,3 +59,27 @@ Human minds question themselves repeatedly. Important decisions are mullated ove
 | "I think..." | 60-80% |
 | "I'm not sure..." | 40-60% |
 | "I don't know" | <40% |
+
+## Key Principle
+
+**Treat initial answers as drafts, not final answers.**
+
+- Quick questions → quick answers
+- Important questions → think deeply
+- Your first thought is rarely your best thought
+
+## Anti-Patterns to Avoid
+
+- Overconfident statements ("I know...")
+- Certainty without evidence
+- Ignoring alternatives
+- Not expressing uncertainty
+
+## Triggers That Demand Deep Thought
+
+These phrases should trigger metacognition:
+- "I'm sure..."
+- "The answer is..."
+- "It definitely..."
+- "Without a doubt..."
+- "Everyone knows..."
