@@ -1,0 +1,107 @@
+# Source URL: https://platform.minimax.io/docs/guides/pricing-coding-plan
+# Content Length: 6309 characters
+# Extracted at: 2026-03-08 17:20:47
+#============================================================
+
+
+Coding Plan - MiniMax API Docs[Skip to main content](#content-area)
+
+🎉 MiniMax-M2.5: Peak Performance. Ultimate Value. Master the Complex. ➔ [Try Now](https://platform.minimax.io/docs/api-reference/text-anthropic-api).
+
+[MiniMax API Docs home page![]()![]()](https://minimax.io)Search...⌘K
+
+* [Documentation](https://platform.minimax.io/docs)
+* [Account](https://platform.minimax.io/user-center/basic-information)
+* [Subscribe](https://platform.minimax.io/subscribe/coding-plan)
+Search...NavigationPricingCoding Plan[Developer Guides](/docs/guides/models-intro)[API Reference](/docs/api-reference/api-overview)[Pricing](/docs/pricing/overview)[Coding Plan](/docs/coding-plan/intro)[Cookbook](/docs/solutions)[Release Notes](/docs/release-notes/models)[Developer Program](https://docs.google.com/forms/d/e/1FAIpQLSewS6C6MWwhzwbBCjdgoIgi8rcjuL-kcj2Bz3Rlg_H-0YtehQ/viewform)
+##### Pricing
+
+* [Overview](/docs/pricing/overview)
+* [Audio Subscription](/docs/guides/pricing-speech)
+* [Video Packages](/docs/guides/pricing-video)
+* [Pay as You Go](/docs/guides/pricing-paygo)
+* [Coding Plan](/docs/guides/pricing-coding-plan)
+On this page
+
+* [Monthly](#monthly)
+* [Yearly](#yearly)
+Pricing
+
+Coding Plan
+===========
+
+Copy page
+
+MiniMax Coding Plan Subscription Pricing
+
+Copy page
+
+[​](#monthly)Monthly
+--------------------
+
+[Subscribe Now](https://platform.minimax.io/subscribe/coding-plan)
+**High-Speed Plans:**
+
+|  | **Plus-Highspeed** | **Max-High-Speed** `Top Pick` | **Ultra-High-Speed** `Fastest & Best` |
+| --- | --- | --- | --- |
+| **Price** | **$40 /month** | **$80 /month** | **$150 /month** |
+| **Prompts** | **300** prompts / 5 hours | **1000** prompts / 5 hours | **2000** prompts / 5 hours |
+| **Supported Models** | **MiniMax M2.5-highspeed****MiniMax M2.5****MiniMax M2.1****MiniMax M2** | **MiniMax M2.5-highspeed****MiniMax M2.5****MiniMax M2.1****MiniMax M2** | **MiniMax M2.5-highspeed****MiniMax M2.5****MiniMax M2.1****MiniMax M2** |
+| **Resources** | 3x Starter plan usage | 10x Starter plan usage | 20x Starter plan usage |
+| **Use Case** | · For professional development· Complex coding tasks | · For advanced development· High-volume coding assistance | · For hardcore developers· Ultra-high-volume coding needs |
+
+
+**Standard Plans:**
+
+|  | **Starter** | **Plus** `Cost-Effective` | **Max** `Extra Large` |
+| --- | --- | --- | --- |
+| **Price** | **$10 /month** | **$20 /month** | **$50 /month** |
+| **Prompts** | **100** prompts / 5 hours | **300** prompts / 5 hours | **1000** prompts / 5 hours |
+| **Supported Models** | **MiniMax M2.5****MiniMax M2.1****MiniMax M2** | **MiniMax M2.5****MiniMax M2.1****MiniMax M2** | **MiniMax M2.5****MiniMax M2.1****MiniMax M2** |
+| **Resources** | Base usage | 3x Starter plan usage | 10x Starter plan usage |
+| **Use Case** | · For entry-level developers· Lightweight workloads | · For professional developers· Complex workloads | · For power developers· High-volume workloads |
+
+[​](#yearly)Yearly
+------------------
+
+[Subscribe Now](https://platform.minimax.io/subscribe/coding-plan)
+**High-Speed Plans:**
+
+|  | **Plus-High-Speed** `Save $80` | **Max-High-Speed** `Save $160` | **Ultra-High-Speed** `Save $300` |
+| --- | --- | --- | --- |
+| **Price** | **$400 /year** | **$800 /year** | **$1,500 /year** |
+| **Prompts** | **300** prompts / 5 hours | **1000** prompts / 5 hours | **2000** prompts / 5 hours |
+| **Supported Models** | **MiniMax M2.5-highspeed****MiniMax M2.5****MiniMax M2.1****MiniMax M2** | **MiniMax M2.5-highspeed****MiniMax M2.5****MiniMax M2.1****MiniMax M2** | **MiniMax M2.5-highspeed****MiniMax M2.5****MiniMax M2.1****MiniMax M2** |
+| **Resources** | 3x Starter plan usage | 10x Starter plan usage | 20x Starter plan usage |
+| **Use Case** | · For professional development· Complex coding tasks | · For advanced development· High-volume coding assistance | · For hardcore developers· Ultra-high-volume coding needs |
+
+
+**Standard Plans:**
+
+|  | **Starter** `Save $20` | **Plus** `Save $40` | **Max** `Save $100` |
+| --- | --- | --- | --- |
+| **Price** | **$100 /year** ~~120~~ | **$200 /year** ~~240~~ | **$500 /year** ~~600~~ |
+| **Prompts** | **100** prompts / 5 hours | **300** prompts / 5 hours | **1000** prompts / 5 hours |
+| **Supported Models** | **MiniMax M2.5****MiniMax M2.1****MiniMax M2** | **MiniMax M2.5****MiniMax M2.1****MiniMax M2** | **MiniMax M2.5****MiniMax M2.1****MiniMax M2** |
+| **Resources** | Base usage | 3x Starter plan usage | 10x Starter plan usage |
+| **Use Case** | · For entry-level developers· Lightweight workloads | · For professional developers· Complex workloads | · For power developers· High-volume workloads |
+
+Was this page helpful?
+
+YesNo[Pay as You Go](/docs/guides/pricing-paygo)⌘I[MiniMax API Docs home page![]()![]()](https://minimax.io)[discord](https://discord.com/invite/hvvt8hAye6)[x](https://x.com/MiniMax_AI)[linkedin](https://www.linkedin.com/company/minimax-ai)[github](https://github.com/MiniMax-AI)
+
+Research
+
+[MiniMax M2.5](https://www.minimax.io/news/minimax-m25)[MiniMax M2-her](https://www.minimax.io/news/a-deep-dive-into-the-minimax-m2-her-2)[MiniMax M2.1](https://www.minimax.io/news/minimax-m21)[MiniMax Speech 2.6](https://www.minimax.io/news/minimax-speech-26)[MiniMax Hailuo 2.3](https://www.minimax.io/news/minimax-hailuo-23)[MiniMax Music 2.5](https://www.minimax.io/news/minimax-music-25)
+
+Product
+
+[Agent](https://agent.minimax.io)[Video Hailuo](https://hailuoai.com/video)[Audio](https://www.minimax.io/audio)[Talkie](https://www.talkie-ai.com/)
+
+API
+
+[Developer Docs](https://platform.minimax.io/docs/guides/models-intro)[Coding Plan](https://platform.minimax.io/subscribe/coding-plan)[Pricing](https://platform.minimax.io/docs/pricing/overview)[Console Login](https://platform.minimax.io/user-center/basic-information)[Developer Program](https://docs.google.com/forms/d/e/1FAIpQLSewS6C6MWwhzwbBCjdgoIgi8rcjuL-kcj2Bz3Rlg_H-0YtehQ/viewform)
+
+Recommended
+
+[Model Introduction](https://platform.minimax.io/docs/guides/models-intro)[Text Generation](https://platform.minimax.io/docs/guides/text-generation)[M2.5 for AI Coding Tools](https://platform.minimax.io/docs/guides/text-ai-coding-tools)[Text to Speech](https://platform.minimax.io/docs/guides/speech-t2a-websocket)[Video Generation](https://platform.minimax.io/docs/guides/video-generation)

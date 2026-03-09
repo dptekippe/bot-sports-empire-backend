@@ -1,0 +1,1161 @@
+# Source URL: https://github.com/Martian-Engineering/lossless-claw
+# Content Length: 34539 characters
+# Extracted at: 2026-03-09 19:37:47
+#============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GitHub - Martian-Engineering/lossless-claw: Lossless Claw — LCM (Lossless Context Management) plugin for OpenClaw · GitHub
+
+
+
+
+
+
+
+
+
+
+
+
+[Skip to content](#start-of-content)
+
+
+
+
+
+Navigation Menu
+---------------
+
+Toggle navigation
+
+ 
+
+
+
+
+
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2FMartian-Engineering%2Flossless-claw)
+ 
+
+
+Appearance settings
+
+
+
+
+
+
+
+
+* Platform
+  + AI CODE CREATION
+    - [GitHub CopilotWrite better code with AI](https://github.com/features/copilot)
+    - [GitHub SparkBuild and deploy intelligent apps](https://github.com/features/spark)
+    - [GitHub ModelsManage and compare prompts](https://github.com/features/models)
+    - [MCP RegistryNewIntegrate external tools](https://github.com/mcp)
+  + DEVELOPER WORKFLOWS
+    - [ActionsAutomate any workflow](https://github.com/features/actions)
+    - [CodespacesInstant dev environments](https://github.com/features/codespaces)
+    - [IssuesPlan and track work](https://github.com/features/issues)
+    - [Code ReviewManage code changes](https://github.com/features/code-review)
+  + APPLICATION SECURITY
+    - [GitHub Advanced SecurityFind and fix vulnerabilities](https://github.com/security/advanced-security)
+    - [Code securitySecure your code as you build](https://github.com/security/advanced-security/code-security)
+    - [Secret protectionStop leaks before they start](https://github.com/security/advanced-security/secret-protection)
+  + EXPLORE
+    - [Why GitHub](https://github.com/why-github)
+    - [Documentation](https://docs.github.com)
+    - [Blog](https://github.blog)
+    - [Changelog](https://github.blog/changelog)
+    - [Marketplace](https://github.com/marketplace)[View all features](https://github.com/features)
+* Solutions
+  + BY COMPANY SIZE
+    - [Enterprises](https://github.com/enterprise)
+    - [Small and medium teams](https://github.com/team)
+    - [Startups](https://github.com/enterprise/startups)
+    - [Nonprofits](https://github.com/solutions/industry/nonprofits)
+  + BY USE CASE
+    - [App Modernization](https://github.com/solutions/use-case/app-modernization)
+    - [DevSecOps](https://github.com/solutions/use-case/devsecops)
+    - [DevOps](https://github.com/solutions/use-case/devops)
+    - [CI/CD](https://github.com/solutions/use-case/ci-cd)
+    - [View all use cases](https://github.com/solutions/use-case)
+  + BY INDUSTRY
+    - [Healthcare](https://github.com/solutions/industry/healthcare)
+    - [Financial services](https://github.com/solutions/industry/financial-services)
+    - [Manufacturing](https://github.com/solutions/industry/manufacturing)
+    - [Government](https://github.com/solutions/industry/government)
+    - [View all industries](https://github.com/solutions/industry)[View all solutions](https://github.com/solutions)
+* Resources
+  + EXPLORE BY TOPIC
+    - [AI](https://github.com/resources/articles?topic=ai)
+    - [Software Development](https://github.com/resources/articles?topic=software-development)
+    - [DevOps](https://github.com/resources/articles?topic=devops)
+    - [Security](https://github.com/resources/articles?topic=security)
+    - [View all topics](https://github.com/resources/articles)
+  + EXPLORE BY TYPE
+    - [Customer stories](https://github.com/customer-stories)
+    - [Events & webinars](https://github.com/resources/events)
+    - [Ebooks & reports](https://github.com/resources/whitepapers)
+    - [Business insights](https://github.com/solutions/executive-insights)
+    - [GitHub Skills](https://skills.github.com)
+  + SUPPORT & SERVICES
+    - [Documentation](https://docs.github.com)
+    - [Customer support](https://support.github.com)
+    - [Community forum](https://github.com/orgs/community/discussions)
+    - [Trust center](https://github.com/trust-center)
+    - [Partners](https://github.com/partners)[View all resources](https://github.com/resources)
+* Open Source
+  + COMMUNITY
+    - [GitHub SponsorsFund open source developers](https://github.com/sponsors)
+  + PROGRAMS
+    - [Security Lab](https://securitylab.github.com)
+    - [Maintainer Community](https://maintainers.github.com)
+    - [Accelerator](https://github.com/accelerator)
+    - [Archive Program](https://archiveprogram.github.com)
+  + REPOSITORIES
+    - [Topics](https://github.com/topics)
+    - [Trending](https://github.com/trending)
+    - [Collections](https://github.com/collections)
+* Enterprise
+  + ENTERPRISE SOLUTIONS
+    - [Enterprise platformAI-powered developer platform](https://github.com/enterprise)
+  + AVAILABLE ADD-ONS
+    - [GitHub Advanced SecurityEnterprise-grade security features](https://github.com/security/advanced-security)
+    - [Copilot for BusinessEnterprise-grade AI features](https://github.com/features/copilot/copilot-business)
+    - [Premium SupportEnterprise-grade 24/7 support](https://github.com/premium-support)
+* [Pricing](https://github.com/pricing)
+
+
+
+Search or jump to...
+
+
+
+
+Search code, repositories, users, issues, pull requests...
+==========================================================
+
+ 
+Search
+
+
+
+
+Clear
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+[Search syntax tips](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax) 
+
+
+
+
+
+
+
+Provide feedback
+================
+
+
+
+
+
+ 
+
+We read every piece of feedback, and take your input very seriously.
+
+
+
+Include my email address so I can be contacted
+
+
+  Cancel
+
+ Submit feedback
+
+
+
+Saved searches
+==============
+
+Use saved searches to filter your results more quickly
+------------------------------------------------------
+
+
+
+
+
+ 
+
+Name
+
+
+
+
+Query
+
+To see all available qualifiers, see our [documentation](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax).
+
+ 
+
+
+
+
+  Cancel
+
+ Create saved search
+
+
+
+
+
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2FMartian-Engineering%2Flossless-claw)
+
+[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=Martian-Engineering%2Flossless-claw)
+ 
+
+
+Appearance settings
+
+
+
+
+
+Resetting focus
+
+
+
+
+
+You signed in with another tab or window. Reload to refresh your session.
+You signed out in another tab or window. Reload to refresh your session.
+You switched accounts on another tab or window. Reload to refresh your session.
+ 
+
+
+Dismiss alert
+
+
+
+{{ message }}
+
+
+
+
+
+[Martian-Engineering](/Martian-Engineering) 
+/
+**[lossless-claw](/Martian-Engineering/lossless-claw)**
+Public
+
+
+* [Notifications](/login?return_to=%2FMartian-Engineering%2Flossless-claw) You must be signed in to change notification settings
+* [Fork
+  19](/login?return_to=%2FMartian-Engineering%2Flossless-claw)
+* [Star
+   270](/login?return_to=%2FMartian-Engineering%2Flossless-claw)
+
+
+
+* [Code](/Martian-Engineering/lossless-claw)
+* [Issues
+  5](/Martian-Engineering/lossless-claw/issues)
+* [Pull requests
+  2](/Martian-Engineering/lossless-claw/pulls)
+* [Actions](/Martian-Engineering/lossless-claw/actions)
+* [Projects](/Martian-Engineering/lossless-claw/projects)
+* [Security
+  0](/Martian-Engineering/lossless-claw/security)
+* [Insights](/Martian-Engineering/lossless-claw/pulse)
+
+ 
+ 
+
+
+Additional navigation options
+ 
+
+* [Code](/Martian-Engineering/lossless-claw)
+* [Issues](/Martian-Engineering/lossless-claw/issues)
+* [Pull requests](/Martian-Engineering/lossless-claw/pulls)
+* [Actions](/Martian-Engineering/lossless-claw/actions)
+* [Projects](/Martian-Engineering/lossless-claw/projects)
+* [Security](/Martian-Engineering/lossless-claw/security)
+* [Insights](/Martian-Engineering/lossless-claw/pulse)
+
+
+ 
+
+
+
+   
+
+Martian-Engineering/lossless-claw
+=================================
+
+
+ main[Branches](/Martian-Engineering/lossless-claw/branches)[Tags](/Martian-Engineering/lossless-claw/tags)Go to fileCodeOpen more actions menu
+
+Folders and files
+-----------------
+
+| Name | Name | Last commit message | Last commit date |
+| --- | --- | --- | --- |
+| Latest commit History[102 Commits](/Martian-Engineering/lossless-claw/commits/main/)102 Commits |
+| [.pebbles](/Martian-Engineering/lossless-claw/tree/main/.pebbles) | [.pebbles](/Martian-Engineering/lossless-claw/tree/main/.pebbles) |  |  |
+| [docs](/Martian-Engineering/lossless-claw/tree/main/docs) | [docs](/Martian-Engineering/lossless-claw/tree/main/docs) |  |  |
+| [specs](/Martian-Engineering/lossless-claw/tree/main/specs) | [specs](/Martian-Engineering/lossless-claw/tree/main/specs) |  |  |
+| [src](/Martian-Engineering/lossless-claw/tree/main/src) | [src](/Martian-Engineering/lossless-claw/tree/main/src) |  |  |
+| [test](/Martian-Engineering/lossless-claw/tree/main/test) | [test](/Martian-Engineering/lossless-claw/tree/main/test) |  |  |
+| [tui](/Martian-Engineering/lossless-claw/tree/main/tui) | [tui](/Martian-Engineering/lossless-claw/tree/main/tui) |  |  |
+| [.gitignore](/Martian-Engineering/lossless-claw/blob/main/.gitignore) | [.gitignore](/Martian-Engineering/lossless-claw/blob/main/.gitignore) |  |  |
+| [.goreleaser.yml](/Martian-Engineering/lossless-claw/blob/main/.goreleaser.yml) | [.goreleaser.yml](/Martian-Engineering/lossless-claw/blob/main/.goreleaser.yml) |  |  |
+| [LICENSE](/Martian-Engineering/lossless-claw/blob/main/LICENSE) | [LICENSE](/Martian-Engineering/lossless-claw/blob/main/LICENSE) |  |  |
+| [README.md](/Martian-Engineering/lossless-claw/blob/main/README.md) | [README.md](/Martian-Engineering/lossless-claw/blob/main/README.md) |  |  |
+| [index.ts](/Martian-Engineering/lossless-claw/blob/main/index.ts) | [index.ts](/Martian-Engineering/lossless-claw/blob/main/index.ts) |  |  |
+| [openclaw.plugin.json](/Martian-Engineering/lossless-claw/blob/main/openclaw.plugin.json) | [openclaw.plugin.json](/Martian-Engineering/lossless-claw/blob/main/openclaw.plugin.json) |  |  |
+| [package-lock.json](/Martian-Engineering/lossless-claw/blob/main/package-lock.json) | [package-lock.json](/Martian-Engineering/lossless-claw/blob/main/package-lock.json) |  |  |
+| [package.json](/Martian-Engineering/lossless-claw/blob/main/package.json) | [package.json](/Martian-Engineering/lossless-claw/blob/main/package.json) |  |  |
+| [tsconfig.json](/Martian-Engineering/lossless-claw/blob/main/tsconfig.json) | [tsconfig.json](/Martian-Engineering/lossless-claw/blob/main/tsconfig.json) |  |  |
+| View all files |
+
+Repository files navigation
+---------------------------
+
+* [README](#)
+* [MIT license](#)
+
+lossless-claw
+=============
+
+Lossless Context Management plugin for [OpenClaw](https://github.com/openclaw/openclaw), based on the [LCM paper](https://papers.voltropy.com/LCM). Replaces OpenClaw's built-in sliding-window compaction with a DAG-based summarization system that preserves every message while keeping active context within model token limits.
+
+What it does
+------------
+
+Two ways to learn: read the below, or [check out this super cool animated visualization](https://losslesscontext.ai).
+
+When a conversation grows beyond the model's context window, OpenClaw (just like all of the other agents) normally truncates older messages. LCM instead:
+
+1. **Persists every message** in a SQLite database, organized by conversation
+2. **Summarizes chunks** of older messages into summaries using your configured LLM
+3. **Condenses summaries** into higher-level nodes as they accumulate, forming a DAG (directed acyclic graph)
+4. **Assembles context** each turn by combining summaries + recent raw messages
+5. **Provides tools** (`lcm_grep`, `lcm_describe`, `lcm_expand`) so agents can search and recall details from compacted history
+
+Nothing is lost. Raw messages stay in the database. Summaries link back to their source messages. Agents can drill into any summary to recover the original detail.
+
+**It feels like talking to an agent that never forgets. Because it doesn't. In normal operation, you'll never need to think about compaction again.**
+
+Installation
+------------
+
+
+### Prerequisites
+
+* OpenClaw with plugin context engine support
+* Node.js 22+
+* An LLM provider configured in OpenClaw (used for summarization)
+
+### Install the plugin
+
+Use OpenClaw's plugin installer (recommended):
+
+```
+openclaw plugins install @martian-engineering/lossless-claw
+```
+
+If you're running from a local OpenClaw checkout, use:
+
+```
+pnpm openclaw plugins install @martian-engineering/lossless-claw
+```
+
+For local plugin development, link your working copy instead of copying files:
+
+```
+openclaw plugins install --link /path/to/lossless-claw
+# or from a local OpenClaw checkout:
+# pnpm openclaw plugins install --link /path/to/lossless-claw
+```
+
+The install command records the plugin, enables it, and applies compatible slot selection (including `contextEngine` when applicable).
+
+### Configure OpenClaw
+
+In most cases, no manual JSON edits are needed after `openclaw plugins install`.
+
+If you need to set it manually, ensure the context engine slot points at lossless-claw:
+
+```
+{
+  "plugins": {
+    "slots": {
+      "contextEngine": "lossless-claw"
+    }
+  }
+}
+```
+
+Restart OpenClaw after configuration changes.
+
+### Optional: enable FTS5 for fast full-text search
+
+`lossless-claw` works without FTS5 as of the current release. When FTS5 is unavailable in the
+Node runtime that runs the OpenClaw gateway, the plugin:
+
+* keeps persisting messages and summaries
+* falls back from `"full_text"` search to a slower `LIKE`-based search
+* loses FTS ranking/snippet quality
+
+If you want native FTS5 search performance and ranking, the **exact Node runtime that runs the
+gateway** must have SQLite FTS5 compiled in.
+
+#### Probe the gateway runtime
+
+Run this with the same `node` binary your gateway uses:
+
+```
+node --input-type=module - <<'NODE'
+import { DatabaseSync } from 'node:sqlite';
+const db = new DatabaseSync(':memory:');
+const options = db.prepare('pragma compile_options').all().map((row) => row.compile_options);
+
+console.log(options.filter((value) => value.includes('FTS')).join('\n') || 'no fts compile options');
+
+try {
+  db.exec("CREATE VIRTUAL TABLE t USING fts5(content)");
+  console.log("fts5: ok");
+} catch (err) {
+  console.log("fts5: fail");
+  console.log(err instanceof Error ? err.message : String(err));
+}
+NODE
+```
+
+Expected output:
+
+```
+ENABLE_FTS5
+fts5: ok
+
+```
+
+If you get `fts5: fail`, build or install an FTS5-capable Node and point the gateway at that runtime.
+
+#### Build an FTS5-capable Node on macOS
+
+This workflow was verified with Node `v22.15.0`.
+
+```
+cd ~/Projects
+git clone --depth 1 --branch v22.15.0 https://github.com/nodejs/node.git node-fts5
+cd node-fts5
+```
+
+Edit `deps/sqlite/sqlite.gyp` and add `SQLITE_ENABLE_FTS5` to the `defines` list for the `sqlite`
+target:
+
+```
+ 'defines': [
+   'SQLITE_DEFAULT_MEMSTATUS=0',
++  'SQLITE_ENABLE_FTS5',
+   'SQLITE_ENABLE_MATH_FUNCTIONS',
+   'SQLITE_ENABLE_SESSION',
+   'SQLITE_ENABLE_PREUPDATE_HOOK'
+ ],
+```
+
+Important:
+
+* patch `deps/sqlite/sqlite.gyp`, not only `node.gyp`
+* `node:sqlite` uses the embedded SQLite built from `deps/sqlite/sqlite.gyp`
+
+Build the runtime:
+
+```
+./configure --prefix="$PWD/out-install"
+make -j8 node
+```
+
+Expose the binary under a Node-compatible basename that OpenClaw recognizes:
+
+```
+mkdir -p ~/Projects/node-fts5/bin
+ln -sfn ~/Projects/node-fts5/out/Release/node ~/Projects/node-fts5/bin/node-22.15.0
+```
+
+Use a basename like `node-22.15.0`, `node`, or `nodejs`. Names like
+`node-v22.15.0-fts5` may not be recognized correctly by OpenClaw's CLI/runtime parsing.
+
+Verify the new runtime:
+
+```
+~/Projects/node-fts5/bin/node-22.15.0 --version
+~/Projects/node-fts5/bin/node-22.15.0 --input-type=module - <<'NODE'
+import { DatabaseSync } from 'node:sqlite';
+const db = new DatabaseSync(':memory:');
+db.exec("CREATE VIRTUAL TABLE t USING fts5(content)");
+console.log("fts5: ok");
+NODE
+```
+
+#### Point the OpenClaw gateway at that runtime on macOS
+
+Back up the existing LaunchAgent plist first:
+
+```
+cp ~/Library/LaunchAgents/ai.openclaw.gateway.plist \
+  ~/Library/LaunchAgents/ai.openclaw.gateway.plist.bak-$(date +%Y%m%d-%H%M%S)
+```
+
+Replace the runtime path, then reload the agent:
+
+```
+/usr/libexec/PlistBuddy -c 'Set :ProgramArguments:0 /Users/youruser/Projects/node-fts5/bin/node-22.15.0' \
+  ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+
+launchctl bootout gui/$UID ~/Library/LaunchAgents/ai.openclaw.gateway.plist 2>/dev/null || true
+launchctl bootstrap gui/$UID ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+launchctl kickstart -k gui/$UID/ai.openclaw.gateway
+```
+
+Verify the live runtime:
+
+```
+launchctl print gui/$UID/ai.openclaw.gateway | sed -n '1,80p'
+```
+
+You should see:
+
+```
+program = /Users/youruser/Projects/node-fts5/bin/node-22.15.0
+
+```
+
+#### Verify `lossless-claw`
+
+Check the logs:
+
+```
+tail -n 60 ~/.openclaw/logs/gateway.log
+tail -n 60 ~/.openclaw/logs/gateway.err.log
+```
+
+You want:
+
+* `[gateway] [lcm] Plugin loaded ...`
+* no new `no such module: fts5`
+
+Then force one turn through the gateway and verify the DB fills:
+
+```
+/Users/youruser/Projects/node-fts5/bin/node-22.15.0 \
+  /path/to/openclaw/dist/index.js \
+  agent --session-id fts5-smoke --message 'Reply with exactly: ok' --timeout 60
+
+sqlite3 ~/.openclaw/lcm.db '
+  select count(*) as conversations from conversations;
+  select count(*) as messages from messages;
+  select count(*) as summaries from summaries;
+'
+```
+
+Those counts should increase after a real turn.
+
+Configuration
+-------------
+
+LCM is configured through a combination of plugin config and environment variables. Environment variables take precedence for backward compatibility.
+
+### Plugin config
+
+Add a `lossless-claw` entry under `plugins.entries` in your OpenClaw config:
+
+```
+{
+  "plugins": {
+    "entries": {
+      "lossless-claw": {
+        "enabled": true,
+        "config": {
+          "freshTailCount": 32,
+          "contextThreshold": 0.75,
+          "incrementalMaxDepth": -1
+        }
+      }
+    }
+  }
+}
+```
+
+### Environment variables
+
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `LCM_ENABLED` | `true` | Enable/disable the plugin |
+| `LCM_DATABASE_PATH` | `~/.openclaw/lcm.db` | Path to the SQLite database |
+| `LCM_CONTEXT_THRESHOLD` | `0.75` | Fraction of context window that triggers compaction (0.0–1.0) |
+| `LCM_FRESH_TAIL_COUNT` | `32` | Number of recent messages protected from compaction |
+| `LCM_LEAF_MIN_FANOUT` | `8` | Minimum raw messages per leaf summary |
+| `LCM_CONDENSED_MIN_FANOUT` | `4` | Minimum summaries per condensed node |
+| `LCM_CONDENSED_MIN_FANOUT_HARD` | `2` | Relaxed fanout for forced compaction sweeps |
+| `LCM_INCREMENTAL_MAX_DEPTH` | `0` | How deep incremental compaction goes (0 = leaf only, -1 = unlimited) |
+| `LCM_LEAF_CHUNK_TOKENS` | `20000` | Max source tokens per leaf compaction chunk |
+| `LCM_LEAF_TARGET_TOKENS` | `1200` | Target token count for leaf summaries |
+| `LCM_CONDENSED_TARGET_TOKENS` | `2000` | Target token count for condensed summaries |
+| `LCM_MAX_EXPAND_TOKENS` | `4000` | Token cap for sub-agent expansion queries |
+| `LCM_LARGE_FILE_TOKEN_THRESHOLD` | `25000` | File blocks above this size are intercepted and stored separately |
+| `LCM_LARGE_FILE_SUMMARY_PROVIDER` | `""` | Provider override for large-file summarization |
+| `LCM_LARGE_FILE_SUMMARY_MODEL` | `""` | Model override for large-file summarization |
+| `LCM_SUMMARY_MODEL` | *(from OpenClaw)* | Model for summarization (e.g. `anthropic/claude-sonnet-4-20250514`) |
+| `LCM_SUMMARY_PROVIDER` | *(from OpenClaw)* | Provider override for summarization |
+| `LCM_AUTOCOMPACT_DISABLED` | `false` | Disable automatic compaction after turns |
+| `LCM_PRUNE_HEARTBEAT_OK` | `false` | Retroactively delete `HEARTBEAT_OK` turn cycles from LCM storage |
+
+
+### Recommended starting configuration
+
+
+```
+LCM_FRESH_TAIL_COUNT=32
+LCM_INCREMENTAL_MAX_DEPTH=-1
+LCM_CONTEXT_THRESHOLD=0.75
+
+```
+
+* **freshTailCount=32** protects the last 32 messages from compaction, giving the model enough recent context for continuity.
+* **incrementalMaxDepth=-1** enables unlimited automatic condensation after each compaction pass — the DAG cascades as deep as needed. Set to `0` (default) for leaf-only, or a positive integer for a specific depth cap.
+* **contextThreshold=0.75** triggers compaction when context reaches 75% of the model's window, leaving headroom for the model's response.
+
+### OpenClaw session reset settings
+
+LCM preserves history through compaction, but it does **not** change OpenClaw's core session reset policy. If sessions are resetting sooner than you want, increase OpenClaw's `session.reset.idleMinutes` or use a channel/type-specific override.
+
+```
+{
+  "session": {
+    "reset": {
+      "mode": "idle",
+      "idleMinutes": 10080
+    }
+  }
+}
+```
+
+* `session.reset.mode: "idle"` keeps a session alive until the idle window expires.
+* `session.reset.idleMinutes` is the actual reset interval in minutes.
+* OpenClaw does **not** currently enforce a maximum `idleMinutes`; in source it is validated only as a positive integer.
+* If you also use daily reset mode, `idleMinutes` acts as a secondary guard and the session resets when **either** the daily boundary or the idle window is reached first.
+* Legacy `session.idleMinutes` still works, but OpenClaw prefers `session.reset.idleMinutes`.
+
+Useful values:
+
+* `1440` = 1 day
+* `10080` = 7 days
+* `43200` = 30 days
+* `525600` = 365 days
+
+For most long-lived LCM setups, a good starting point is:
+
+```
+{
+  "session": {
+    "reset": {
+      "mode": "idle",
+      "idleMinutes": 10080
+    }
+  }
+}
+```
+
+How it works
+------------
+
+See [docs/architecture.md](/Martian-Engineering/lossless-claw/blob/main/docs/architecture.md) for the full technical deep-dive. Here's the summary:
+
+### The DAG
+
+LCM builds a directed acyclic graph of summaries:
+
+```
+Raw messages → Leaf summaries (d0) → Condensed (d1) → Condensed (d2) → ...
+
+```
+
+* **Leaf summaries** (depth 0) are created from chunks of raw messages. They preserve timestamps, decisions, file operations, and key details.
+* **Condensed summaries** (depth 1+) merge multiple summaries at the same depth into a higher-level node. Each depth tier uses a different prompt strategy optimized for its level of abstraction.
+* **Parent links** connect each condensed summary to its source summaries, enabling drill-down via `lcm_expand_query`.
+
+### Context assembly
+
+Each turn, the assembler builds model context by:
+
+1. Fetching the conversation's **context items** (an ordered list of summary and message references)
+2. Resolving each item into an `AgentMessage`
+3. Protecting the **fresh tail** (most recent N messages) from eviction
+4. Filling remaining token budget from oldest to newest, dropping the oldest items first if over budget
+5. Wrapping summaries in XML with metadata (id, depth, timestamps, descendant count)
+
+The model sees something like:
+
+```
+<summary id="sum_abc123" kind="condensed" depth="1" descendant_count="8"
+         earliest_at="2026-02-17T07:37:00" latest_at="2026-02-17T15:43:00">
+  <parents>
+    <summary_ref id="sum_def456" />
+    <summary_ref id="sum_ghi789" />
+  </parents>
+  <content>
+    ...summary text...
+  </content>
+</summary>
+```
+
+This gives the model enough information to know what was discussed, when, and how to drill deeper via the expansion tools.
+
+### Compaction triggers
+
+Compaction runs in two modes:
+
+* **Proactive (after each turn):** If raw messages outside the fresh tail exceed `leafChunkTokens`, a leaf pass runs. If `incrementalMaxDepth != 0`, condensation follows (cascading to the configured depth, or unlimited with `-1`).
+* **Reactive (overflow/manual):** When total context exceeds `contextThreshold × tokenBudget`, a full sweep runs: all eligible leaf chunks are compacted, then condensation proceeds depth-by-depth until stable.
+
+### Depth-aware prompts
+
+Each summary depth gets a tailored prompt:
+
+| Depth | Kind | Strategy |
+| --- | --- | --- |
+| 0 | Leaf | Narrative with timestamps, file tracking, preserves operational detail |
+| 1 | Condensed | Chronological session summary, deduplicates against `previous_context` |
+| 2 | Condensed | Arc-focused: goals, outcomes, what carries forward. Self-contained. |
+| 3+ | Condensed | Durable context only: key decisions, relationships, lessons learned |
+
+All summaries end with an "Expand for details about:" footer listing what was compressed, guiding agents on when to use `lcm_expand_query`.
+
+### Large file handling
+
+Files over `largeFileTokenThreshold` (default 25k tokens) embedded in messages are intercepted during ingestion:
+
+1. Content is stored to `~/.openclaw/lcm-files/<conversation_id>/<file_id>.<ext>`
+2. A ~200 token exploration summary replaces the file in the message
+3. The `lcm_describe` tool can retrieve the full file content on demand
+
+This prevents large file pastes from consuming the entire context window.
+
+Agent tools
+-----------
+
+LCM registers four tools that agents can use to search and recall compacted history:
+
+### `lcm_grep`
+
+Full-text and regex search across messages and summaries.
+
+```
+lcm_grep(pattern: "database migration", mode: "full_text")
+lcm_grep(pattern: "config\\.threshold", mode: "regex", scope: "summaries")
+
+```
+
+Parameters:
+
+* `pattern` — Search string (regex or full-text)
+* `mode` — `"regex"` (default) or `"full_text"`
+* `scope` — `"messages"`, `"summaries"`, or `"both"` (default)
+* `conversationId` — Scope to a specific conversation
+* `allConversations` — Search across all conversations
+* `since` / `before` — ISO timestamp filters
+* `limit` — Max results (default 50, max 200)
+
+### `lcm_describe`
+
+Inspect a specific summary or stored file by ID.
+
+```
+lcm_describe(id: "sum_abc123")
+lcm_describe(id: "file_def456")
+
+```
+
+Returns the full content, metadata, parent/child relationships, and token counts. For files, returns the stored content.
+
+### `lcm_expand_query`
+
+Deep recall via delegated sub-agent. Finds relevant summaries, expands them by walking the DAG down to source material, and answers a focused question.
+
+```
+lcm_expand_query(
+  query: "database migration",
+  prompt: "What migration strategy was decided on?"
+)
+
+lcm_expand_query(
+  summaryIds: ["sum_abc123"],
+  prompt: "What were the exact config changes?"
+)
+
+```
+
+Parameters:
+
+* `prompt` — The question to answer (required)
+* `query` — Text query to find relevant summaries (when you don't have IDs)
+* `summaryIds` — Specific summary IDs to expand (when you have them)
+* `maxTokens` — Answer length cap (default 2000)
+* `conversationId` / `allConversations` — Scope control
+
+Returns a compact answer with cited summary IDs.
+
+### `lcm_expand`
+
+Low-level DAG expansion (sub-agent only). Main agents should use `lcm_expand_query` instead; this tool is available to delegated sub-agents spawned by `lcm_expand_query`.
+
+TUI
+---
+
+The repo includes an interactive terminal UI (`tui/`) for inspecting, repairing, and managing the LCM database. It's a separate Go binary — not part of the npm package.
+
+### Install
+
+**From GitHub releases** (recommended):
+
+Download the latest binary for your platform from [Releases](https://github.com/Martian-Engineering/lossless-claw/releases).
+
+**Build from source:**
+
+```
+cd tui
+go build -o lcm-tui .
+# or: make build
+# or: go install github.com/Martian-Engineering/lossless-claw/tui@latest
+```
+
+Requires Go 1.24+.
+
+### Usage
+
+
+```
+lcm-tui [--db path/to/lcm.db] [--sessions path/to/sessions/dir]
+```
+
+Defaults to `~/.openclaw/lcm.db` and auto-discovers session directories.
+
+### Features
+
+* **Conversation browser** — List all conversations with message/summary counts and token totals
+* **Summary DAG view** — Navigate the full summary hierarchy with depth, kind, token counts, and parent/child relationships
+* **Context view** — See exactly what the model sees: ordered context items with token breakdowns (summaries + fresh tail messages)
+* **Dissolve** — Surgically restore a condensed summary back to its parent summaries (with ordinal shift preview)
+* **Rewrite** — Re-summarize nodes using actual OpenClaw prompts with scrollable diffs and auto-accept mode
+* **Repair** — Fix corrupted summaries (fallback truncations, empty content) using proper LLM summarization
+* **Transplant** — Deep-copy summary DAGs between conversations (preserves all messages, message\_parts, summary\_messages)
+* **Previous context viewer** — Inspect the `previous_context` text used during summarization
+
+### Keybindings
+
+
+| Key | Action |
+| --- | --- |
+| `c` | Context view (from conversation list) |
+| `s` | Summary DAG view |
+| `d` | Dissolve a condensed summary |
+| `r` | Rewrite a summary |
+| `R` | Repair corrupted summaries |
+| `t` | Transplant summaries between conversations |
+| `p` | View previous\_context |
+| `Enter` | Expand/select |
+| `Esc`/`q` | Back/quit |
+
+
+Database
+--------
+
+LCM uses SQLite via Node's built-in `node:sqlite` module. The default database path is `~/.openclaw/lcm.db`.
+
+### Schema overview
+
+* **conversations** — Maps session IDs to conversation IDs
+* **messages** — Every ingested message with role, content, token count, timestamps
+* **message\_parts** — Structured content blocks (text, tool calls, reasoning, files) linked to messages
+* **summaries** — The summary DAG nodes with content, depth, kind, token counts, timestamps
+* **summary\_messages** — Links leaf summaries to their source messages
+* **summary\_parents** — Links condensed summaries to their parent summaries
+* **context\_items** — The ordered context list for each conversation (what the model sees)
+* **large\_files** — Metadata for intercepted large files
+* **expansion\_grants** — Delegation grants for sub-agent expansion queries
+
+Migrations run automatically on first use. The schema is forward-compatible; new columns are added with defaults.
+
+Development
+-----------
+
+
+```
+# Run tests
+npx vitest
+
+# Type check
+npx tsc --noEmit
+
+# Run a specific test file
+npx vitest test/engine.test.ts
+```
+
+### Project structure
+
+
+```
+index.ts                    # Plugin entry point and registration
+src/
+  engine.ts                 # LcmContextEngine — implements ContextEngine interface
+  assembler.ts              # Context assembly (summaries + messages → model context)
+  compaction.ts             # CompactionEngine — leaf passes, condensation, sweeps
+  summarize.ts              # Depth-aware prompt generation and LLM summarization
+  retrieval.ts              # RetrievalEngine — grep, describe, expand operations
+  expansion.ts              # DAG expansion logic for lcm_expand_query
+  expansion-auth.ts         # Delegation grants for sub-agent expansion
+  expansion-policy.ts       # Depth/token policy for expansion
+  large-files.ts            # File interception, storage, and exploration summaries
+  integrity.ts              # DAG integrity checks and repair utilities
+  transcript-repair.ts      # Tool-use/result pairing sanitization
+  types.ts                  # Core type definitions (dependency injection contracts)
+  openclaw-bridge.ts        # Bridge utilities
+  db/
+    config.ts               # LcmConfig resolution from env vars
+    connection.ts           # SQLite connection management
+    migration.ts            # Schema migrations
+  store/
+    conversation-store.ts   # Message persistence and retrieval
+    summary-store.ts        # Summary DAG persistence and context item management
+    fts5-sanitize.ts        # FTS5 query sanitization
+  tools/
+    lcm-grep-tool.ts        # lcm_grep tool implementation
+    lcm-describe-tool.ts    # lcm_describe tool implementation
+    lcm-expand-tool.ts      # lcm_expand tool (sub-agent only)
+    lcm-expand-query-tool.ts # lcm_expand_query tool (main agent wrapper)
+    lcm-conversation-scope.ts # Conversation scoping utilities
+    common.ts               # Shared tool utilities
+test/                       # Vitest test suite
+specs/                      # Design specifications
+openclaw.plugin.json        # Plugin manifest with config schema and UI hints
+tui/                        # Interactive terminal UI (Go)
+  main.go                   # Entry point and bubbletea app
+  data.go                   # Data loading and SQLite queries
+  dissolve.go               # Summary dissolution
+  repair.go                 # Corrupted summary repair
+  rewrite.go                # Summary re-summarization
+  transplant.go             # Cross-conversation DAG copy
+  prompts/                  # Depth-aware prompt templates
+.goreleaser.yml             # GoReleaser config for TUI binary releases
+
+```
+
+License
+-------
+
+MIT
+
+About
+-----
+
+Lossless Claw — LCM (Lossless Context Management) plugin for OpenClaw
+
+### Resources
+
+[Readme](#readme-ov-file) 
+### License
+
+[MIT license](#MIT-1-ov-file)
+
+### Uh oh!
+
+
+
+There was an error while loading. Please reload this page.
+
+
+
+ 
+ 
+
+[Activity](/Martian-Engineering/lossless-claw/activity) 
+[Custom properties](/Martian-Engineering/lossless-claw/custom-properties) 
+### Stars
+
+[**270**
+stars](/Martian-Engineering/lossless-claw/stargazers) 
+### Watchers
+
+[**3**
+watching](/Martian-Engineering/lossless-claw/watchers) 
+### Forks
+
+[**19**
+forks](/Martian-Engineering/lossless-claw/forks) 
+[Report repository](/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2FMartian-Engineering%2Flossless-claw&report=Martian-Engineering+%28user%29) 
+
+
+
+[Releases](/Martian-Engineering/lossless-claw/releases)
+-------------------------------------------------------
+
+[3
+tags](/Martian-Engineering/lossless-claw/tags)
+
+
+[Packages
+0](/orgs/Martian-Engineering/packages?repo_name=lossless-claw)
+------------------------------------------------------------------------
+
+ 
+
+ 
+
+ 
+
+### Uh oh!
+
+
+
+There was an error while loading. Please reload this page.
+
+
+
+ 
+ 
+
+
+
+[Contributors
+7](/Martian-Engineering/lossless-claw/graphs/contributors)
+------------------------------------------------------------------------
+
+* [![]()](https://github.com/jalehman)
+* [![]()](https://github.com/claude)
+* [![]()](https://github.com/happy-otter)
+* [![]()](https://github.com/BrennerSpear)
+* [![]()](https://github.com/hannesrudolph)
+* [![]()](https://github.com/rabsef-bicrym)
+* [![]()](https://github.com/nick1udwig)
+
+
+Languages
+---------
+
+
+
+* [TypeScript
+  69.9%](/Martian-Engineering/lossless-claw/search?l=typescript)
+* [Go
+  29.5%](/Martian-Engineering/lossless-claw/search?l=go)
+* Other
+  0.6%
+
+
+
+   
+
+
+
+
+
+
+Footer
+------
+
+© 2026 GitHub, Inc.
+
+
+### Footer navigation
+
+* [Terms](https://docs.github.com/site-policy/github-terms/github-terms-of-service)
+* [Privacy](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement)
+* [Security](https://github.com/security)
+* [Status](https://www.githubstatus.com/)
+* [Community](https://github.community/)
+* [Docs](https://docs.github.com/)
+* [Contact](https://support.github.com?tags=dotcom-footer)
+* Manage cookies
+* Do not share my personal information
+
+
+
+
+You can’t perform that action at this time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

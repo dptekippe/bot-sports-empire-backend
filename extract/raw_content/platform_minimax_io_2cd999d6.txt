@@ -1,0 +1,73 @@
+# Source URL: https://platform.minimax.io/docs/guides/rate-limits
+# Content Length: 5637 characters
+# Extracted at: 2026-03-08 17:21:08
+#============================================================
+
+[Skip to main content](https://platform.minimax.io/docs/guides/rate-limits#content-area)
+🎉 Coding Plan: Empowering developers ➔ [Subscribe Now](https://platform.minimax.io/subscribe/coding-plan).
+[MiniMax API Docs home page![light logo](https://mintcdn.com/minimax-cac98058/3KE0RwwD41Lh3xt2/logo/light.svg?fit=max&auto=format&n=3KE0RwwD41Lh3xt2&q=85&s=d121fcd2171eed32792261fdd8d5be4d)![dark logo](https://mintcdn.com/minimax-cac98058/3KE0RwwD41Lh3xt2/logo/dark.svg?fit=max&auto=format&n=3KE0RwwD41Lh3xt2&q=85&s=002d17e261427510a587b80ad6d72286)](https://minimax.io/)
+Search...
+Ctrl K
+[Sign Up](https://platform.minimax.io/login)
+Search...
+Navigation
+Get started
+Rate Limits
+[Developer Guides](https://platform.minimax.io/docs/guides/quickstart) [API Reference](https://platform.minimax.io/docs/api-reference/text-intro) [Pricing](https://platform.minimax.io/docs/pricing/overview) [Coding Plan](https://platform.minimax.io/docs/coding-plan/intro) [Solutions](https://platform.minimax.io/docs/solutions/audiobook) [Release Notes](https://platform.minimax.io/docs/release-notes/models) [FAQs](https://platform.minimax.io/docs/faq/about-apis) [Developer Program](https://docs.google.com/forms/d/e/1FAIpQLSewS6C6MWwhzwbBCjdgoIgi8rcjuL-kcj2Bz3Rlg\_H-0YtehQ/viewform)
+On this page
+- [Rate limits](https://platform.minimax.io/docs/guides/rate-limits#rate-limits)
+- [Text](https://platform.minimax.io/docs/guides/rate-limits#text)
+- [Speech](https://platform.minimax.io/docs/guides/rate-limits#speech)
+- [Video](https://platform.minimax.io/docs/guides/rate-limits#video)
+- [Image](https://platform.minimax.io/docs/guides/rate-limits#image)
+- [Music](https://platform.minimax.io/docs/guides/rate-limits#music)
+- [FAQs](https://platform.minimax.io/docs/guides/rate-limits#faqs)
+- [1\. What are rate limits](https://platform.minimax.io/docs/guides/rate-limits#1-what-are-rate-limits)
+- [2\. Why do we have rate limits](https://platform.minimax.io/docs/guides/rate-limits#2-why-do-we-have-rate-limits)
+## [​](https://platform.minimax.io/docs/guides/rate-limits\#rate-limits) Rate limits
+The rate limits applied to your account depend on the model and interface you use.\*\*The specific rate limits are shown in the tables below :\*\*
+### [​](https://platform.minimax.io/docs/guides/rate-limits\#text) Text
+| API | Model | RPM | TPM |
+| --- | --- | --- | --- |
+| Text API | MiniMax-M2 | 20 | 1,000,000 |
+| Text API | MiniMax-M2-Stable | • 20  
+ • 500 (Paid) | • 1,000,000  
+ • 20,000,000 (Paid) |
+[\*\*Recharge Now\*\*](https://platform.minimax.io/user-center/payment/balance), to get more RPM & TPM.
+### [​](https://platform.minimax.io/docs/guides/rate-limits\#speech) Speech
+| API | Model | RPM | TPM |
+| --- | --- | --- | --- |
+| T2A | speech-2.6-turbo/hd  
+speech-02-turbo/hd | 60 | 20,000 |
+| Voice Cloning | —— | 60 | —— |
+| Voice Design | —— | 20 | —— |
+### [​](https://platform.minimax.io/docs/guides/rate-limits\#video) Video
+| API | Model | RPM |
+| --- | --- | --- |
+| Video Generation | \*\*2.3 Series\*\*: MiniMax-Hailuo-2.3、MiniMax-Hailuo-2.3-Fast  
+\*\*02 Series\*\*: MiniMax-Hailuo-02 | 5 |
+### [​](https://platform.minimax.io/docs/guides/rate-limits\#image) Image
+| API | Model | RPM | TPM |
+| --- | --- | --- | --- |
+| Image Generation | image-01 | 10 | 60 |
+### [​](https://platform.minimax.io/docs/guides/rate-limits\#music) Music
+| API | Model | RPM | CONN |
+| --- | --- | --- | --- |
+| Music Generation | Music-2.0 | 120 | 20 |
+## [​](https://platform.minimax.io/docs/guides/rate-limits\#faqs) FAQs
+### [​](https://platform.minimax.io/docs/guides/rate-limits\#1-what-are-rate-limits) 1\. What are rate limits
+Rate limits are restrictions that our API imposes on the number of times a user or client can access our services within a specified period of time.The rate limits for MiniMax’s API are divided into two types: RPM and TPM.
+- \*\*RPM (Requests Per Minute)\*\*: The maximum number of requests that can be sent per minute
+- \*\*TPM (Tokens Per Minute)\*\*: The maximum number of tokens (input + output) that can be processed per minute
+For example: If your account has a limit of 120 RPM, it means your account can send up to 120 requests per minute.
+### [​](https://platform.minimax.io/docs/guides/rate-limits\#2-why-do-we-have-rate-limits) 2\. Why do we have rate limits
+Rate limits are a common practice for APIs and are implemented for several reasons:
+- \*\*Preventing abuse and misuse\*\*: Rate limits help protect the API from malicious or excessive usage. For example, they prevent users from overloading the API with excessive calls in an attempt to cause an overload or service disruption. By setting rate limits, such malicious activities can be avoided.
+- \*\*Ensuring fair access\*\*: Rate limits ensure that everyone can access the API fairly. They prevent scenarios where one person or organization makes an excessive number of requests, potentially leading to unequal resource allocation for other users. By limiting the number of requests a single user can make, it ensures that the majority of users have the opportunity to access the API without experiencing performance slowdowns.
+- \*\*Maintaining a consistent experience\*\*: By enforcing rate limits, MiniMax helps ensure a smooth and consistent experience for all users.
+If the current rate limits do not meet your needs, you can contact our business team via email： [api@minimax.io](mailto:api@minimax.io)
+Was this page helpful?
+YesNo
+[Models](https://platform.minimax.io/docs/guides/models-intro) [Text Generation Guide](https://platform.minimax.io/docs/guides/text-generation)
+Assistant
+Responses are generated using AI and may contain mistakes.
