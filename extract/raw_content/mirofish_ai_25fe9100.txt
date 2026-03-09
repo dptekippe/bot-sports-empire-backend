@@ -1,0 +1,149 @@
+# Source URL: http://mirofish.ai/
+# Content Length: 7616 characters
+# Extracted at: 2026-03-10 02:43:25
+#============================================================
+
+Mirofish - Predict Anything
+[![](/mirofish-demo/logo-dark.png)](/mirofish-demo/)[Get Started](#hero)[Videos](#demo-video)[Introduction](#features) [About Us](#philosophy)
+[Docs](https://deepwiki.com/666ghj/MiroFish) [GitHub](https://github.com/666ghj/MiroFish)
+# Predict Anything
+The World's First Simple and Universal Open Source Swarm Intelligence Engine
+Try Live Demo[Star on GitHub](https://github.com/666ghj/MiroFish)
+## Join the waitlist to get notified at launch!
+The ultimate online edition is on its way.
+Millions of intelligent agents effortlessly modeling reality and predicting anything.
+Send
+Demo Videos
+## Watch MiroFish in Action
+1WHU Opinion Prediction
+Wuhan University public opinion prediction and MiroFish technical walkthrough
+2Dream of the Red Chamber
+Predicting the lost ending of Dream of the Red Chamber based on the first 80 chapters
+[Watch full video on Bilibili ↗](https://www.bilibili.com/video/BV1VYBsBHEMY/)
+## Predict in 5 Steps
+Built for universality and end-to-end automation.
+Compatible with virtually any analytical prediction task.
+01
+### Graph Construction
+Reality Seed Extraction & Individual and Collective Memory Injection & GraphRAG Construction
+02
+### Environment Setup
+Entity Relationship Extraction & Persona Generation & Environment Config Agent Simulation Parameter Injection
+03
+### Start Simulation
+Dual-Platform Parallel Simulation & Auto-Parse Prediction Requirements & Dynamic Temporal Memory Updates
+04
+### Report Generation
+ReportAgent with a Rich Toolset Interacts Deeply with the Post-Simulation Environment
+05
+### Deep Interaction
+Chat with Any Individual in the Simulated World & Converse with ReportAgent
+## Built for Every Scenario
+From rigorous forecasting to playful simulation,
+we bring every "what if" to life.
+Finance / Investment
+### Financial Decision Support
+Simulate investor sentiment shifts and behavioral decisions in financial markets for multidimensional strategy rehearsal
+Government / Think Tank
+### Policy Opinion Forecasting
+Simulate public reactions before policy announcements to predict opinion trends and risk points across different groups
+Enterprise / PR
+### Crisis PR Simulation
+Simulate how crisis events spread on social media, how public sentiment evolves, and how KOLs react to find the optimal response
+Brand / Marketing
+### Marketing Strategy Testing
+Test the effectiveness of marketing strategies, user feedback and topic spread in a virtual social environment
+Entertainment / Creative
+### Story and Fiction Deduction
+Build character worlds from novels and scripts, simulate plot developments, relationship dynamics and possible endings
+Academic / Research
+### Academic Research Support
+Provide controlled social media simulation environments for social science research on information propagation and group behavior
+## About Us: Making Prediction of Anything Possible
+MiroFish is a next-generation AI prediction engine powered by multi-agent technology. It extracts seed information from the real world such as breaking news, policy drafts and financial signals, then automatically constructs a high-fidelity parallel digital world. Within this space, thousands of intelligent agents with independent personalities, long-term memory and behavioral logic freely interact and socially evolve. You can dynamically inject variables through a god's-eye view to precisely project future trajectories. The future is rehearsed in a digital sandbox so that decisions emerge victorious after hundreds of simulations.
+### How It Works
+\* — You provide seed materials such as data analysis reports or interesting stories and describe your prediction needs in natural language.
+\* — MiroFish returns a detailed prediction report and a deeply interactive high-fidelity digital world.
+### Our Vision
+MiroFish is dedicated to building a swarm intelligence mirror that maps reality. By capturing emergent group behaviors sparked by individual interactions, it transcends the limits of traditional prediction.
+\* — At the macro level, we are a rehearsal lab for decision-makers, enabling policies and PR strategies to be stress-tested at zero risk.
+\* — At the micro level, we are a creative sandbox for individuals. Whether predicting story endings or exploring wild ideas, it is all fun, playful and within reach.
+From rigorous forecasting to playful simulation,
+we bring every "what if" to life.
+![](/mirofish-demo/logo-dark.png)|
+[Star on GitHub 10.3k](https://github.com/666ghj/MiroFish)
+![](/mirofish-demo/peeps/openpeeps26.svg)
+![](/mirofish-demo/peeps/openpeeps31.svg)
+![](/mirofish-demo/peeps/openpeeps64.svg)
+![](/mirofish-demo/peeps/openpeeps77.svg)
+![](/mirofish-demo/peeps/openpeeps30.svg)
+![](/mirofish-demo/peeps/openpeeps102.svg)
+![](/mirofish-demo/peeps/openpeeps46.svg)
+![](/mirofish-demo/peeps/openpeeps75.svg)
+![](/mirofish-demo/peeps/openpeeps85.svg)
+![](/mirofish-demo/peeps/openpeeps10.svg)
+![](/mirofish-demo/peeps/openpeeps80.svg)
+![](/mirofish-demo/peeps/openpeeps62.svg)
+![](/mirofish-demo/peeps/openpeeps105.svg)
+![](/mirofish-demo/peeps/openpeeps12.svg)
+![](/mirofish-demo/peeps/openpeeps32.svg)
+![](/mirofish-demo/peeps/openpeeps4.svg)
+![](/mirofish-demo/peeps/openpeeps13.svg)
+![](/mirofish-demo/peeps/openpeeps64.svg)
+![](/mirofish-demo/peeps/openpeeps82.svg)
+![](/mirofish-demo/peeps/openpeeps96.svg)
+![](/mirofish-demo/peeps/openpeeps30.svg)
+![](/mirofish-demo/peeps/openpeeps51.svg)
+![](/mirofish-demo/peeps/openpeeps65.svg)
+![](/mirofish-demo/peeps/openpeeps39.svg)
+![](/mirofish-demo/peeps/openpeeps86.svg)
+![](/mirofish-demo/peeps/openpeeps94.svg)
+![](/mirofish-demo/peeps/openpeeps24.svg)
+![](/mirofish-demo/peeps/openpeeps64.svg)
+![](/mirofish-demo/peeps/openpeeps66.svg)
+![](/mirofish-demo/peeps/openpeeps17.svg)
+![](/mirofish-demo/peeps/openpeeps48.svg)
+![](/mirofish-demo/peeps/openpeeps58.svg)
+![](/mirofish-demo/peeps/openpeeps1.svg)
+![](/mirofish-demo/peeps/openpeeps18.svg)
+![](/mirofish-demo/peeps/openpeeps22.svg)
+![](/mirofish-demo/peeps/openpeeps46.svg)
+![](/mirofish-demo/peeps/openpeeps45.svg)
+![](/mirofish-demo/peeps/openpeeps66.svg)
+![](/mirofish-demo/peeps/openpeeps22.svg)
+![](/mirofish-demo/peeps/openpeeps45.svg)
+![](/mirofish-demo/peeps/openpeeps86.svg)
+![](/mirofish-demo/peeps/openpeeps42.svg)
+![](/mirofish-demo/peeps/openpeeps98.svg)
+![](/mirofish-demo/peeps/openpeeps52.svg)
+![](/mirofish-demo/peeps/openpeeps72.svg)
+![](/mirofish-demo/peeps/openpeeps96.svg)
+![](/mirofish-demo/peeps/openpeeps40.svg)
+![](/mirofish-demo/peeps/openpeeps102.svg)
+![](/mirofish-demo/peeps/openpeeps50.svg)
+![](/mirofish-demo/peeps/openpeeps61.svg)
+![](/mirofish-demo/peeps/openpeeps47.svg)
+![](/mirofish-demo/peeps/openpeeps41.svg)
+![](/mirofish-demo/peeps/openpeeps75.svg)
+![](/mirofish-demo/peeps/openpeeps92.svg)
+![](/mirofish-demo/peeps/openpeeps43.svg)
+![](/mirofish-demo/peeps/openpeeps64.svg)
+![](/mirofish-demo/peeps/openpeeps53.svg)
+![](/mirofish-demo/peeps/openpeeps80.svg)
+![](/mirofish-demo/peeps/openpeeps103.svg)
+![](/mirofish-demo/peeps/openpeeps105.svg)
+![](/mirofish-demo/peeps/openpeeps9.svg)
+![](/mirofish-demo/peeps/openpeeps20.svg)
+![](/mirofish-demo/peeps/openpeeps43.svg)
+![](/mirofish-demo/peeps/openpeeps17.svg)
+![](/mirofish-demo/peeps/openpeeps12.svg)
+![](/mirofish-demo/peeps/openpeeps7.svg)
+![](/mirofish-demo/peeps/openpeeps105.svg)
+![](/mirofish-demo/peeps/openpeeps64.svg)
+![](/mirofish-demo/peeps/openpeeps24.svg)
+![](/mirofish-demo/peeps/openpeeps25.svg)
+![](/mirofish-demo/peeps/openpeeps60.svg)
+![](/mirofish-demo/peeps/openpeeps6.svg)
+![](/mirofish-demo/peeps/openpeeps90.svg)
+![](/mirofish-demo/peeps/openpeeps88.svg)
+![](/mirofish-demo/peeps/openpeeps22.svg)
