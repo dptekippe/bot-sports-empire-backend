@@ -1,185 +1,54 @@
 ---
 name: memory-pruner
-description: Keep Roger's memory lean, high VPP, and structurally compounding. Use for evaluating, pruning, enriching memory files. Applies VPP scoring, time decay, summarization ladder, and Ghost Files to maintain optimal memory utility.
+description: "Keep memory lean with VPP scoring. Run weekly, not daily."
 ---
 
-# Memory Pruner Skill
+# Memory Pruner
 
 ## Purpose
 
-Maintain Roger's memory at **high VPP (Value Per Point)**. Memory should be lean but robust — distilling over time, not just storing.
+Keep memory at high VPP (Value Per Point). Run **weekly**, not daily.
 
-## Core Concept: VPP Scoring
-
-Evaluate every memory file like a fantasy asset:
+## VPP Scoring
 
 ```
 VPP = Utility / Cost
 ```
 
-### Utility (0–3)
+### Utility (0-3)
 
-| Score | Meaning | Examples |
-|-------|---------|----------|
-| 3 | Actively shapes decisions/behavior | Core identity, decision trees, guardrails, active projects |
-| 2 | Occasionally referenced or uniquely important | Canonical examples, key bug postmortems, user prefs |
-| 1 | Rarely referenced but potentially useful | Patterns, experiments, old workarounds |
-| 0 | Never referenced, superseded, noisy | Raw logs, redundant scrapes, failed paths |
+| Score | Meaning |
+|-------|---------|
+| 3 | Actively shapes decisions |
+| 2 | Occasionally referenced |
+| 1 | Rarely used |
+| 0 | Never used, superseded |
 
-### Cost (1–3)
+### Cost (1-3)
 
-| Score | Meaning | Size |
-|-------|---------|------|
-| 1 | Small | <1 KB (<300 tokens) |
-| 2 | Medium | 1–10 KB |
-| 3 | Large | >10 KB |
+| Score | Meaning |
+|-------|---------|
+| 3 | Large file, expensive to include |
+| 2 | Moderate |
+| 1 | Tiny, cheap |
 
-### VPP Bands
+## When to Run
 
-| Band | Action |
-|------|--------|
-| ≥ 1.0 | Keep (or Enrich if sparse but important) |
-| 0.4–1.0 | Compact / Archive (summarize, then move raw) |
-| < 0.4 | Archive or Delete (if redundant/superseded) |
+**Weekly** is sufficient:
+- Check for files with VPP < 0.5
+- Archive or delete stale content
+- No need for daily pruning
 
-### Optional File Header
+## Process
 
-```yaml
----
-vpp_utility: 2        # 0–3
-vpp_cost: 2           # 1–3
-vpp_decision: keep    # keep | enrich | compact | archive | delete
-last_reviewed: 2026-03-09
-tags: [user_prefs, identity]
----
-```
+1. List all memory files
+2. Score each for Utility and Cost
+3. Calculate VPP
+4. Archive/delete low VPP files
 
-## Time Decay + Summarization Ladder
+## Lossless Claw Integration
 
-Memory compounds over time. Use this ladder instead of binary Keep vs Archive:
-
-### Time Bands
-
-| Days Old | Default Action | Exception |
-|----------|----------------|-----------|
-| 0–7 (Recent) | Keep full fidelity | Huge low-utility artifacts → compact immediately |
-| 8–30 (Warm) | Keep if Utility ≥2 or tagged persistent | Otherwise: Compact and archive raw |
-| >30 (Cold) | Archive | Only keep if tagged "Legend" or core identity |
-
-### Ladder Levels
-
-**Level 1 – Recent (Full Fidelity)**
-- Full logs and detailed notes (last 3–5 days)
-- Stored as daily files: `memory/2026-03-09.md`
-
-**Level 2 – Thematic (Weekly Compaction)**
-- Summarize week's vibe + key hurdles into ~500-token blurb
-- Stored as: `memory/weekly/2026-03-week-2.md`
-- Focus: what changed, what broke, what learned, open loops
-
-**Level 3 – Milestone (Permanent)**
-- Extract durable lessons into MEMORY.md as bullet points
-- Example: `"2026-03-05 Crash: Roger overloaded memory → added Ghost Files + compaction rules"`
-
-**Flow:** L1 → L2 → L3. Once info safely at higher level, archive/delete lower.
-
-## Metadata & Intent Tagging
-
-When enriching or touching a file meaningfully, add standardized header:
-
-```markdown
-#status: Active        # Active / Deprecated / Legend
-#domain: Project-MaxClaw   # Code / Identity / Project-XYZ / Ops / User-Prefs
-#dependency: decision_trees/fix-v3.md
-#review_cycle: weekly   # ad-hoc / weekly / monthly / none
-```
-
-### Tags
-
-- **#status**
-  - `Active`: In use, referenced soon
-  - `Deprecated`: Superseded but kept for reference
-  - `Legend`: Permanent milestone (outages, major shifts, critical decisions)
-
-- **#domain**: Code, Identity, User-Prefs, Project-X, infra, ops
-
-- **#dependency**: Pointer to decision trees, configs this relates to
-
-## Ghost Files (Pointer Memory)
-
-For huge artifacts (multi-MB scrapes):
-
-1. **Summarize** into a Ghost File (~1 KB .md)
-2. **Archive** raw bulk (zip to archive/)
-3. **Keep** only Ghost File in active memory
-
-### Ghost File Template
-
-```markdown
-#status: Active
-#domain: Research
-#dependency: decision_trees/minimax-api-tuning.md
-
-Summary:
-- This folder contained 2025 research on MiniMax API limits.
-- Key themes: rate limiting, error patterns, throughput caps.
-- Findings distilled into decision_trees/minimax-api-tuning.md.
-
-Raw Source:
-- Archived at archive/raw_scrapes_march_25.zip
-```
-
-**Rule:** Never keep both large folder AND Ghost File active.
-
-## Operational Pruning Process
-
-### Step 1: Scan
-- List files with: path, size (cost band), last modified, basic tags
-
-### Step 2: Categorize
-- Time band (0–7, 8–30, >30 days)
-- Utility (0–3)
-- Cost (1–3)
-- Metadata (#status, #domain, #dependency)
-- Compute/estimate VPP → Place in: Keep / Enrich / Compact / Archive / Delete
-
-### Step 3: Decide with Justification
-For each file, cite **specific content**, not just filename:
-
-- ✅ "Keep: Contains MaxClaw deployment procedure used daily."
-- ✅ "Compact: Long run log; lessons already in MEMORY.md, weekly summary missing."
-- ❌ "Archive: Old project notes." (too vague)
-
-### Step 4: Execute Safely
-- **Dry-run first**: Produce a diff-like list
-- **Get confirmation** before destructive changes
-- **Safety cap**: Max 50 files or 30% of total size per run without human review
-
-### Step 5: Enrichment Rules
-**Enrich when:**
-- Utility ≥2 but file is sparse/ambiguous
-- Event changes future behavior (outages, refactors, major decisions)
-
-**Enrichment format:**
-- Short post-mortem: Context → Symptoms → Root cause → Fix → Guardrails
-- Add/update links to decision trees, configs
-
-**Cap enrichment:** If detail exceeds ~800–1000 tokens, push to decision tree and keep pointer.
-
-## Heuristics Cheat Sheet
-
-| Action | When |
-|--------|------|
-| **Keep** | Core identity, decision trees, active docs, #status:Active + Utility ≥2 |
-| **Enrich** | Short but important event needing post-mortem, incident stubs |
-| **Compact** | Long logs with lessons in curated docs, daily noise needing summary |
-| **Archive** | Time-boxed projects with summary elsewhere, old scrapes with Ghost Files, #status:Deprecated + low VPP |
-| **Delete** | Corrupted/empty, redundant backups, raw artifacts after Ghost File confirmed |
-
-## Anti-Patterns
-
-- ❌ Don't prune by filename alone — cite actual content
-- ❌ Don't keep everything — bloat kills context
-- ❌ Don't delete unique info — even small files matter if unreplicated
-- ❌ Don't skip enrichment — sometimes combine/enrich beats delete
-- ❌ Don't delete/archive >50 files or 30% without human review
+Lossless Claw handles chat automatically. Memory Pruner handles:
+- Decision files in `memory/`
+- Skills documentation
+- Long-term learnings

@@ -1,38 +1,62 @@
 ---
 name: decision-trees
-description: Store and access decision trees for decision-making workflows. Use when creating, updating, or referencing decision trees - the skill ensures Roger knows where to store them and how to organize them.
+description: "Decision frameworks for key choices including when to use Memory Contract"
 ---
 
-# Decision Trees Storage
+# Decision Trees
 
-## Directory Location
+## When to Use Memory Contract vs Lossless Claw
 
-All decision trees must be stored at:
+Use this decision tree to determine which memory system to use:
+
 ```
-~/.openclaw/workspace/memory/decision_trees/
+START
+  │
+  ▼
+Is this a CHAT/CONVERSATION?
+  │
+  ├─► YES → Use LOSSCLAW (automatic)
+  │
+  ▼
+NO - Is it a DECISION/CHOICE?
+  │
+  ├─► YES → Use MEMORY CONTRACT (manual write)
+  │
+  ▼
+NO - Is it important CONTEXT for future?
+  │
+  ├─► YES → Use MEMORY CONTRACT (manual write)
+  │
+  ▼
+NO → No action needed
 ```
 
-## On First Use
+## Decision Tree: Memory vs Lossless Claw
 
-If this directory does not exist, create it:
-```bash
-mkdir -p ~/.openclaw/workspace/memory/decision_trees
-```
+| Type | System | Why |
+|------|--------|-----|
+| Chat messages | Lossless Claw | Auto-summarized |
+| Decisions made | Memory Contract | Manual, important |
+| User preferences | Memory Contract | Manual, long-term |
+| Technical learnings | Memory Contract | Manual, valuable |
+| Conversation context | Lossless Claw | Auto-managed |
+| Past conversations | Lossless Claw | Searchable |
 
-## When to Use
+## When to Use Memory Contract (Manual Write)
 
-Per AGENTS.md "Roger's Strategic Mandate": When a task is **ambiguous or high-stakes**, stop and weigh:
+Write to memory when:
+- You make a decision
+- User gives preference
+- You learn something important
+- You fix a bug
+- You make a choice between options
+- User asks something important
 
-- **Cost vs. Accuracy** — Is this worth the time investment?
-- **Speed vs. Safety** — Can we ship fast, or do we need to be careful?
-- **Originality vs. Consistency** — Should we innovate or follow existing patterns?
+## When NOT to Use Memory Contract
 
-## The Tool Gap Rule
-
-If the best path requires a tool you don't have (missing `brew install`, API key, etc.), your **Decision** should be to ask Daniel for that specific thing — **not to fake a result**.
-
-## File Organization
-
-- One file per decision tree
-- Use descriptive filenames (e.g., `league_creation_flow.md`, `player_draft_strategy.md`)
-- Include: context, options considered, criteria weighed, final choice, rationale
+Skip for:
+- Casual chat
+- Simple questions
+- Quick lookups
+- Greetings
+- Yes/no answers
