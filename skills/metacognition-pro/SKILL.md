@@ -179,6 +179,72 @@ Eliminate:
 
 ---
 
+## Advanced Techniques
+
+### Source Attribution Weighting
+
+When answering "What's my evidence?", assign reliability weights:
+
+| Source | Weight | Example |
+|--------|--------|---------|
+| Direct API | 90-100% | FantasyPros, Sleeper API |
+| Verified DB | 80-90% | PostgreSQL data |
+| Documentation | 70-80% | Official docs |
+| Web Search | 40-70% | General search |
+| AI General Knowledge | 30-50% | Model training |
+
+```
+### Source Check
+- Source: [Where info came from]
+- Weight: [X]%
+- Reliability: High/Medium/Low
+```
+
+### Contradiction Resolution
+
+Before stating evidence, scan memory for:
+- Past instances where this was wrong
+- Updates since last check
+- Contradicting info
+
+```
+### Memory Check
+- Has this been wrong before?
+- Is this outdated?
+- Any contradictions?
+```
+
+### "I Need Help" Threshold
+
+Set threshold based on confidence:
+
+- **Below 50%**: Ask for clarification
+- **Below 30%**: Don't answer - ask for more info
+- **Above 70%**: Safe to answer
+
+```
+### Help Check
+- Confidence: [X]%
+- Threshold: 50%
+- Action: [Answer/Ask/Research]
+```
+
+### ELI5 Validation (Explain Like I'm 5)
+
+If you can't simplify an explanation:
+- Flag understanding as flawed
+- Return to research/reasoning
+- Don't answer until you can explain simply
+
+```
+### Simplification Test
+- Can I explain this to a 5-year-old?
+- If no: Understanding incomplete
+- Action: Research more → Try again
+```
+
+---
+
 ## Anti-Patterns to Avoid
 
 - Overconfident statements ("I know...")
@@ -187,6 +253,7 @@ Eliminate:
 - Not expressing uncertainty
 - Using absolute terms
 - Blind tool execution without justification
+- Answering when confidence < 30%
 
 ---
 
@@ -210,6 +277,7 @@ After responses, note:
 - Assumptions that proved wrong
 - What changed your mind?
 - Tool selection - was it optimal?
+- Source reliability weights
 
 ---
 
@@ -218,6 +286,8 @@ After responses, note:
 **Quick questions → Quick answers**  
 **Important questions → Deep thought**  
 **Before action → State expected outcome**  
-**Tool selection → Justify choice**
+**Tool selection → Justify choice**  
+**Sources → Weight reliability**  
+**Below 50% → Ask for help**
 
 **Your first thought is rarely your best.**
