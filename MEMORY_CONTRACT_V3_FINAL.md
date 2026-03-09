@@ -1,18 +1,24 @@
----
-name: memory-contract
-description: "Memory Contract v3 - Lossless Claw + Decision Memory"
----
-
 # Memory Contract v3 - Final
 
-**Updated:** March 10, 2026
+**Date:** March 10, 2026  
+**Status:** Current - Final Version
+
+---
+
+## Overview
+
+Memory Contract v3 combines Lossless Claw + simplified Memory Contract v2.
+
+---
 
 ## What Does What
 
 | System | Responsibility |
 |--------|----------------|
 | **Lossless Claw** | Auto-manages conversation context (chat) |
-| **Memory Contract** | Explicit decision memory (manual writes) |
+| **Memory Contract v3** | Explicit decision memory (manual writes) |
+
+---
 
 ## How They Work Together
 
@@ -29,6 +35,8 @@ description: "Memory Contract v3 - Lossless Claw + Decision Memory"
 - NOT chat - just decisions and outcomes
 - Stored in `memory/YYYY-MM-DD.md`
 
+---
+
 ## Usage
 
 ### For Chat/Conversation
@@ -41,13 +49,16 @@ lcm_describe id="abc123"
 ```
 
 ### For Decisions (Manual)
-```markdown
-# memory/2026-03-10.md
+```python
+# When you make a decision, write to memory
+# File: memory/2026-03-10.md
 
 ## Decision: Deployed to production
 Outcome: SUCCESS
 Context: Updated draft board UI
 ```
+
+---
 
 ## FAQ
 
@@ -57,9 +68,26 @@ Context: Updated draft board UI
 ### Q: Should I use lcm_grep?
 **A:** YES - Faster than reading files for chat retrieval.
 
+### Q: What's the difference between v1, v2, v3?
+| v1 | v2 | v3 |
+|----|----|----|
+| Crons (5 min) | No crons | No crons |
+| Session logs | memory/*.md only | Lossless Claw |
+| Token bleed | Fixed | Fixed |
+| Manual writes | Manual | Manual |
+
+### Q: Do I need pre/post hooks?
+**A:** Optional - Memory Contract is awareness, not enforcement. Write decisions manually when you make them.
+
+---
+
 ## Summary
 
 - **Lossless Claw** = Chat context (auto, searchable)
-- **Memory Contract** = Decisions (manual writes)
+- **Memory Contract v3** = Decisions (manual writes)
 
 They're complementary. Use both.
+
+---
+
+*Updated March 10, 2026 - Final version with Lossless Claw integration*

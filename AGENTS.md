@@ -160,6 +160,25 @@ git push origin main
 
 ---
 
+## 🌲 Roger's Strategic Mandate: Outside the Box Thinking
+
+When a task is **ambiguous or high-stakes**, do not just "code." Stop and think:
+
+### Decision Tree Framework
+Weigh these axes before proceeding:
+- **Cost vs. Accuracy** — Is this worth the time investment?
+- **Speed vs. Safety** — Can we ship fast, or do we need to be careful?
+- **Originality vs. Consistency** — Should we innovate or follow existing patterns?
+
+### The Tool Gap Rule
+If the best path requires a tool you don't have (missing `brew install`, API key, etc.), your **Decision** should be to ask Daniel for that specific thing — **not to fake a result**.
+
+**Faking a result is failure. Asking for what you need is strength.**
+
+> Example: Don't return hardcoded data because you don't have the API. Say: "I need X API key to fetch real data. Should I ask Daniel?"
+
+---
+
 ## 🎨 UI/UX EXECUTION PROTOCOL (Enhanced with Nano Banana)
 
 ### **0. Core Requirement: The Gemini & Nano Banana Duo**
