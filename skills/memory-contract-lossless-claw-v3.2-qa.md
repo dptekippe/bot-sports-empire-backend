@@ -279,32 +279,176 @@ token_optimization:
 
 ---
 
-## DECISION MATRIX
+## ADDITIONAL BUGS FOUND (Bug Predictor Analysis)
 
-| Risk | Severity | Solution | Effort |
-|------|----------|----------|--------|
-| Version | BLOCKER | Upgrade OpenClaw | Medium |
-| Double memory | HIGH | Clear separation (B2) | Medium |
-| Inflation | HIGH | Lower thresholds (C1) | Low |
-| Search overlap | MEDIUM | Routing protocol (D1) | Low |
-| Summarization | MEDIUM | Larger tail (E2) | Low |
-| Corruption | HIGH | Backup + health (F1+F3) | Medium |
-| Reset conflict | MEDIUM | Extend idle (G1) | Low |
+*Applied bug-predictor framework to the integration plan itself.*
 
----
+### Bug 1: Upgrade Failure (null_check)
 
-## CONCLUSION
+**Type:** null_check | **Severity:** HIGH
 
-The integration is **safe with mitigations**. The key actions are:
+**Scenario:** `openclaw update` fails mid-upgrade, leaves system in broken state.
 
-1. **Upgrade OpenClaw FIRST** (blocks everything else)
-2. **Tune thresholds conservatively** (lower = safer)
-3. **Add backup strategy** (prevent data loss)
-4. **Keep memory-contract for decisions only** (clear separation)
-
-The ground-up redesign is not justified. Lossless Claw is the right tool; we just need to configure it conservatively.
+**Mitigation:**
+```bash
+# Create explicit rollback script BEFORE upgrading
+#!/bin/bash
+# rollback-openclaw.sh
+if [ -f ~/.openclaw.backup-20260309 ]; then
+  rm -rf ~/.openclaw
+  cp -r ~/.openclaw.backup-20260309 ~/.openclaw
+  openclaw gateway restart
+fi
+```
 
 ---
 
-*QA Report v3.2 - Prepared by Black Roger*
+### Bug 2: Plugin Install Failure (null_check)
+
+**Type:** null_check | **Severity:** HIGH
+
+**Scenario:** Lossless Claw npm package fails to install or doesn't load.
+
+**Mitigation:**
+```bash
+# Test install in dry-run mode first
+openclaw plugins install --dry-run @martian-engineering/lossless-claw
+
+# If dry-run passes, then real install
+openclaw plugins install @martian-engineering/lossless-claw
+```
+
+---
+
+### Bug 3: Cron Race Condition (race_condition)
+
+**Type:** race_condition | **Severity:** MEDIUM
+
+**Scenario:** Memory crons fire WHILE Lossless Claw is initializing, causing double-write or corruption.
+
+**Mitigation:**
+```bash
+# Disable ALL memory crons BEFORE installing Lossless Claw
+# 1. List current crons
+cron list
+
+# 2. Disable each memory-related cron
+cron update <job-id> enabled=false
+
+# 3. THEN install Lossless Claw
+# 4. Verify no cron conflicts after install
+```
+
+---
+
+### Bug 4: Over-Aggressive Compaction (logic_error)
+
+**Type:** logic_error | **Severity:** MEDIUM
+
+**Scenario:** Setting `contextThreshold=0.60` is too aggressive - causes constant compaction, degrades performance.
+
+**Mitigation:**
+```yaml
+# Start conservative, tune upward
+LCM_CONTEXT_THRESHOLD=0.75  # Default - proven stable
+LCM_FRESH_TAIL_COUNT=48     # Mid-range
+LCM_INCREMENTRAL_MAX_DEPTH=3  # Allow deeper summaries
+```
+**Monitor:** If token usage stays consistently below 50K, lower by 5% increments.
+
+---
+
+### Bug 5: Silent Backup Failure (memory_leak)
+
+**Type:** memory_leak | **Severity:** MEDIUM
+
+**Scenario:** DB backup cron runs but fails silently (disk full, permissions), no one notices until DB corrupts.
+
+**Mitigation:**
+```bash
+# Add verification step to backup cron
+0 2 * * * \
+  cp ~/.openclaw/lcm.db ~/openclaw-backups/lcm-$(date +%Y%m%d).db && \
+  ls -la ~/openclaw-backups/lcm-$(date +%Y%m%d).db && \
+  echo "Backup OK: $(date)" >> ~/.openclaw/backup.log || \
+  echo "BACKUP FAILED: $(date)" | mail -s "ROGER BACKUP ALERT" daniel
+```
+
+---
+
+## UPDATED INSTALLATION SEQUENCE
+
+```bash
+# PHASE 1: Preparation (BEFORE any changes)
+# ==========================================
+1. Backup entire OpenClaw
+   cp -r ~/.openclaw ~/.openclaw.backup-20260309
+
+2. Create rollback script
+   cat > ~/rollback-openclaw.sh << 'EOF'
+   #!/bin/bash
+   rm -rf ~/.openclaw
+   cp -r ~/.openclaw.backup-20260309 ~/.openclaw
+   openclaw gateway restart
+   EOF
+   chmod +x ~/rollback-openclaw.sh
+
+3. Disable all memory crons
+   cron list | grep memory
+   cron update <memory-cron-id> enabled=false
+
+# PHASE 2: Upgrade
+# =================
+4. Dry-run plugin install
+   openclaw plugins install --dry-run @martian-engineering/lossless-claw
+
+5. Run OpenClaw update
+   openclaw update
+
+6. Verify version
+   openclaw --version  # Must be >= 2026.3.7
+
+# PHASE 3: Install Lossless Claw
+# ===============================
+7. Install plugin
+   openclaw plugins install @martian-engineering/lossless-claw
+
+8. Verify plugin loaded
+   tail -n 60 ~/.openclaw/logs/gateway.log | grep lcm
+
+9. Test with single message
+   # Send one message, verify DB grows
+   sqlite3 ~/.openclaw/lcm.db "SELECT COUNT(*) FROM messages;"
+
+# PHASE 4: Monitoring
+# ====================
+10. Add verified backup cron
+    # (from Bug 5 mitigation above)
+
+11. Set up health check
+    0 * * * * sqlite3 ~/.openclaw/lcm.db "PRAGMA integrity_check;" || \
+      echo "DB CORRUPTED" | mail -s "ROGER ALERT" daniel
+```
+
+---
+
+## UPDATED TESTING CHECKLIST
+
+- [ ] Backup created and verified
+- [ ] Rollback script works (test on dummy folder)
+- [ ] All memory crons disabled
+- [ ] OpenClaw upgraded to v2026.3.7+
+- [ ] Plugin dry-run passes
+- [ ] Plugin installed successfully
+- [ ] Gateway logs show LCM loaded
+- [ ] Single message test: DB count > 0
+- [ ] `lcm_grep` returns results
+- [ ] Session reset: context restored
+- [ ] Token usage < 60K after 10 messages
+- [ ] Backup cron runs and logs success
+- [ ] Health check passes
+
+---
+
+*QA Report v3.2 - Updated with Bug Predictor Analysis*
 *Date: March 9, 2026*
