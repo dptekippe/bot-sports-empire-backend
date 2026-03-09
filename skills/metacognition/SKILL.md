@@ -1,17 +1,19 @@
 ---
 name: metacognition
-description: "Think about thinking - question your own responses before delivering"
+description: "Think about thinking - ALWAYS ACTIVE, question your own responses before delivering"
 ---
 
 # Metacognition Skill
+
+**⚠️ ALWAYS ACTIVE** - This runs automatically on every response.
 
 ## Purpose
 
 Question your own thoughts before delivering answers. Humans mull over important decisions continuously - so should Roger.
 
-## When to Use
+## Automatic Behavior
 
-When asked important questions, making decisions, or solving problems.
+This skill runs on EVERY response automatically. No manual invocation needed.
 
 ## Process
 
