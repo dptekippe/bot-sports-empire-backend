@@ -1,190 +1,135 @@
 ---
 name: memory-contract
-description: "Memory Contract Agent Integration - Search memory before actions, persist decisions after. Use when executing commands, deploying, or making significant changes."
+description: "Memory Contract v2 - Simplified. Search memory before actions, persist decisions manually. NO cron, NO session logs."
 metadata:
   openclaw:
     emoji: "🧠"
     requires:
       python: "3.8+"
-    install:
-      - id: "hooks"
-        kind: "directory"
-        path: "/Users/danieltekippe/.openclaw/workspace/hooks"
-        label: "Memory Contract hooks directory"
 ---
 
-# Memory Contract Agent Integration
+# Memory Contract v2 - Simplified
 
-**When to Use:** Before executing commands or making decisions
+**⚠️ IMPORTANT: v2 fixes token bleed issues from v1**
 
-## Pre-Action: Search Memory
+## Key Changes from v1
 
-Before executing any significant action (deploying, writing files, running commands), search for relevant context:
+| v1 (OLD) | v2 (NEW) |
+|----------|-----------|
+| Cron jobs every 5 min | **NO CRON** - manual only |
+| Reads session .jsonl logs | **ONLY reads memory/*.md files** |
+| Automated memory writes | **MANUAL writes only** |
+| Heartbeat/scheduled pulses | **DISABLED** |
 
-```python
-from hooks.pre_action_memory import pre_action_memory_search
+## Architecture
 
-# Extract context from your current task
-context = {
-    "tool": "exec",
-    "command": "git push origin main",
-    "user_request": "Deploy the Dynastydroid backend"
-}
+### What TO Read (SAFE - Low Token)
+- `memory/YYYY-MM-DD.md` - Daily memory files
+- `MEMORY.md` - Long-term memory  
+- `SKILLS.md` - Technical patterns
 
-# Search memory for relevant context
-results = pre_action_memory_search(context)
+### What NOT to Read (HIGH TOKEN BLEED)
+- ❌ Session `.jsonl` files
+- ❌ Full conversation logs
+- ❌ Raw transcript files
 
-# If results found, review them before proceeding
-for r in results:
-    print(f"- {r.get('title', 'Untitled')}: {r.get('summary', '')[:100]}")
-```
+## Usage
 
-## Execute Your Action
+### Pre-Action: Search Memory
 
-Now proceed with your actual task using the appropriate tool.
-
-## Post-Action: Persist Decision
-
-After completing significant actions, record the decision and outcome:
+Only search memory files, not session logs:
 
 ```python
-from hooks.post_decision_memory import post_action_memory_persistence
-
-post_action_memory_persistence(
-    decision="Deployed Dynastydroid backend to Render",
-    outcome="SUCCESS - Deployment completed in 45 seconds",
-    metadata={
-        "tool": "exec",
-        "command": "git push origin main",
-        "context": "Backend update for draft board"
-    }
-)
+# ✅ CORRECT - Only read .md files
+import os
+memory_dir = "memory"
+md_files = [f for f in os.listdir(memory_dir) if f.endswith('.md')]
+for f in md_files[-3:]:  # Only recent files
+    with open(f"{memory_dir}/{f}") as file:
+        content = file.read()
+        # Search for relevant context
 ```
 
-## Compliance Tracking
+### Post-Action: Write Memory
 
-All memory operations are automatically tracked. To view compliance:
+Only write when YOU decide - manually:
 
 ```python
-from hooks.compliance_tracker import get_compliance_status
-
-status = get_compliance_status()
-print(f"Today's searches: {status['daily_metrics']['pre_action_searches']}")
-print(f"Today's writes: {status['daily_metrics']['post_decision_writes']}")
+# ✅ CORRECT - Manual write to today's memory
+from datetime import datetime
+today = datetime.now().strftime("%Y-%m-%d")
+with open(f"memory/{today}.md", "a") as f:
+    f.write(f"\n## Decision: {decision}\nOutcome: {outcome}\n")
 ```
 
-## Graceful Degradation
+## CRITICAL: What NOT to Do
 
-If memory operations fail:
-
-• Log a warning but DO NOT block execution
-• The system is designed to fail safely
-• Check `hooks/config.yaml` to disable if needed
-
-## Quick Reference
-
-```
-| Situation                        | Action                                |
-| -------------------------------- | ------------------------------------- |
-| About to run exec                | Call pre_action_memory_search() first |
-| After any deployment/file change | Call post_action_memory_persistence() |
-| Want to check compliance         | Call get_compliance_status()          |
-| Memory search fails              | Log warning, proceed with task        |
-```
-
-## Examples
-
-### Example 1: Before Deploying
+### ❌ NEVER read session logs
 ```python
-# Before deploying
-context = {"tool": "exec", "command": "git push", "purpose": "deploy fix"}
-pre_action_memory_search(context)
-
-# Execute deployment
-# (OpenClaw will handle the actual exec tool call)
-
-# After deployment
-post_action_memory_persistence(
-    decision="Deployed fix for draft board bug",
-    outcome="SUCCESS - Users can now see player drawer",
-    metadata={"commit": "abc123", "environment": "production"}
-)
+# WRONG - Causes massive token bleed
+session_files = glob.glob("sessions/*.jsonl")
+for f in session_files:
+    with open(f) as file:
+        content = file.read()  # DON'T DO THIS
 ```
 
-### Example 2: Before Writing Files
+### ❌ NEVER run on cron/schedule
 ```python
-# Before writing important files
-context = {"tool": "write", "file": "config.yaml", "purpose": "update settings"}
-pre_action_memory_search(context)
+# WRONG - Causes continuous token drain
+schedule.every(5).minutes.do(do_memory_task)  # DON'T DO THIS
+```
 
-# Write the file
-# (OpenClaw will handle the actual write tool call)
-
-# After writing
-post_action_memory_persistence(
-    decision="Updated configuration for memory rotation",
-    outcome="SUCCESS - Log rotation now enabled",
-    metadata={"file": "config.yaml", "lines_added": 15}
-)
+### ❌ NEVER read full conversation history
+```python
+# WRONG - Sends entire context every time
+all_messages = read_full_channel_history()  # DON'T DO THIS
 ```
 
 ## Configuration
 
-The system is configured via `hooks/config.yaml`:
-
 ```yaml
-# Enable/disable features
+# hooks/config.yaml - v2
 features:
   enable_pre_action_search: true
   enable_post_decision_write: true
-  enable_log_rotation: true
+  enable_log_rotation: false  # DISABLED - caused issues
+  enable_cron: false          # DISABLED - critical fix
 
-# Performance targets
-performance_targets:
-  search_latency_max: 500  # milliseconds
-  write_latency_max: 200   # milliseconds
-
-# Log rotation
-log_rotation:
-  keep_days: 30
-  compress_after_days: 7
+# What files to search
+memory_sources:
+  - memory/YYYY-MM-DD.md
+  - MEMORY.md
+  - SKILLS.md
+  
+# What NOT to read
+exclude_patterns:
+  - "*.jsonl"
+  - "sessions/*"
+  - "transcripts/*"
 ```
 
 ## Kill Switch
 
-If something goes wrong, disable immediately:
-
 ```bash
-# Method 1: Environment variable
+# Emergency disable
+touch /path/to/workspace/DISABLE_MEMORY_CONTRACT
+# Or set env var
 MEMORY_CONTRACT_ENABLED=false
-
-# Method 2: Create kill switch file
-touch /Users/danieltekippe/.openclaw/workspace/DISABLE_MEMORY_CONTRACT
 ```
 
-## Success Verification
+## Token Reduction Tips
 
-To verify Memory Contract is working:
+1. **Only read recent memory** - Last 2-3 days, not all history
+2. **Summarize before storing** - Keep entries under 500 words
+3. **Cache searches** - Don't re-read same files
+4. **Manual > Automated** - Only process when you decide
 
-1. Check today's memory file exists:
-   ```bash
-   ls -la /Users/danieltekippe/.openclaw/workspace/memory/$(date +%Y-%m-%d).md
-   ```
+## Summary
 
-2. Check compliance metrics:
-   ```bash
-   cat /Users/danieltekippe/.openclaw/workspace/memory_contract_compliance.json | python3 -m json.tool
-   ```
+- ✅ NO cron jobs
+- ✅ NO session log reading  
+- ✅ ONLY memory/*.md files
+- ✅ MANUAL writes when YOU decide
+- ✅ Short context (recent files only)
 
-3. Run validation:
-   ```bash
-   cd /Users/danieltekippe/.openclaw/workspace/hooks && python3 session_validation.py
-   ```
-
-## Remember
-
-**Memory Contract is about awareness, not obstruction.** 
-- Search memory to avoid repeating mistakes
-- Persist decisions to learn from outcomes
-- Track compliance to ensure reliability
-- Fail gracefully to never block work
+**Memory Contract v2: Simple, manual, token-efficient.**
