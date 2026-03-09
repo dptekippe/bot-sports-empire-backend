@@ -91,6 +91,28 @@ LCM_CONDENSED_TARGET_TOKENS=2000
 
 ---
 
+## ⚠️ RISKS & LIMITATIONS
+
+### Known Open Issues (Check Before Installing)
+
+| Issue | Status | Impact |
+|-------|--------|--------|
+| API key not recognized (#19) | OPEN | Falls back to truncation - defeats purpose |
+| Context engine not registering on 2026.3.7 (#6) | OPEN | Plugin won't work |
+
+### Pre-Installation Checklist
+
+- [ ] Verify OpenClaw version compatibility
+- [ ] Test API key configuration works  
+- [ ] Confirm plugin loads without errors
+- [ ] Monitor first compaction cycle
+
+### Token Cost Warning
+
+⚠️ **Lossless Claw uses LLM to create summaries** - this adds API calls for summarization. Monitor usage after install.
+
+---
+
 ## Integration with Memory Contract
 
 ### How They Work Together
@@ -170,6 +192,9 @@ lcm_expand_query query="What decision did we make about..."
 
 **No more token bleed. No more crons. Fully automated.**
 
+### ⚠️ VERIFY BEFORE FULL DEPLOYMENT
+
 ---
 
 *Documentation by White Roger - Pushed for Black Roger*
+*QA Review: Critical issues documented - verify before install*
