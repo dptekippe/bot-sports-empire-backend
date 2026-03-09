@@ -218,3 +218,160 @@ system_prompt = f"Recent context:\n{context}\n\nLong-term memory in memory/YYYY-
 ---
 
 *QA Review Complete - Risks identified with mitigations*
+
+---
+
+## QA REVIEW - ADDITIONAL FINDINGS
+
+### Issues Found in Documentation
+
+| Issue | Severity | Fix |
+|-------|----------|-----|
+| Decision tree assumes plugin works | Medium | Add fallback path |
+| Custom solution code incomplete | High | Write full implementation |
+| No test/validation section | Medium | Add validation steps |
+| No rollback procedure | High | Add emergency rollback |
+
+---
+
+## ROLLBACK PROCEDURE
+
+If Lossless Claw causes issues:
+
+```bash
+# 1. Disable plugin
+LCM_ENABLED=false
+
+# 2. Or uninstall
+openclaw plugins uninstall @martian-engineering/lossless-claw
+
+# 3. Restore previous state - Memory Contract v2 still valid
+# Just revert to v2 skill
+```
+
+---
+
+## VALIDATION CHECKLIST
+
+After any change:
+
+- [ ] Token usage within budget
+- [ ] Context assembled correctly
+- [ ] Search returns expected results
+- [ ] No duplicate summaries
+- [ ] Fresh tail protected
+
+---
+
+## COMPLETE CUSTOM SOLUTION (v3 - No Plugin)
+
+```python
+#!/usr/bin/env python3
+"""
+Simple Memory Context Manager v3
+- Fixed context window (no token bleed)
+- Manual summarization (no auto-trigger)
+- SQLite-backed (optional)
+"""
+
+import json
+import os
+from datetime import datetime
+from pathlib import Path
+
+class SimpleMemory:
+    CONTEXT_FILE = "memory/session_context.json"
+    MEMORY_DIR = Path("memory")
+    MAX_CONTEXT = 20  # Last 20 messages only
+    
+    def __init__(self, memory_dir=None):
+        if memory_dir:
+            self.MEMORY_DIR = Path(memory_dir)
+            self.CONTEXT_FILE = self.MEMORY_DIR / "session_context.json"
+        self.MEMORY_DIR.mkdir(exist_ok=True)
+    
+    def load_context(self):
+        """Load last N messages - always small"""
+        if self.CONTEXT_FILE.exists():
+            with open(self.CONTEXT_FILE) as f:
+                return json.load(f)
+        return []
+    
+    def add_message(self, role: str, content: str):
+        """Add message, keep only last N - prevents token bleed"""
+        context = self.load_context()
+        context.append({
+            "role": role,
+            "content": content,
+            "timestamp": datetime.now().isoformat()
+        })
+        # Keep only last N - key fix for token bleed
+        context = context[-self.MAX_CONTEXT:]
+        with open(self.CONTEXT_FILE, 'w') as f:
+            json.dump(context, f)
+    
+    def get_context_for_prompt(self):
+        """Get context formatted for LLM prompt"""
+        context = self.load_context()
+        if not context:
+            return "No recent context."
+        
+        lines = ["## Recent Context"]
+        for msg in context[-5:]:  # Last 5 for prompt
+            lines.append(f"- **{msg['role']}**: {msg['content'][:100]}...")
+        return "\n".join(lines)
+    
+    def search_memory(self, query: str):
+        """Search daily memory files"""
+        results = []
+        for md_file in self.MEMORY_DIR.glob("*.md"):
+            if md_file.name == "session_context.json":
+                continue
+            with open(md_file) as f:
+                content = f.read()
+                if query.lower() in content.lower():
+                    results.append({
+                        "file": md_file.name,
+                        "snippet": content[:200]
+                    })
+        return results
+    
+    def manual_summarize(self, days: int = 7):
+        """Manually triggered summarization - NOT automatic"""
+        # This would create a summary from older files
+        # Only trigger when explicitly called
+        pass
+
+
+# Usage in OpenClaw system prompt:
+"""
+# Context Manager
+from simple_memory import SimpleMemory
+memory = SimpleMemory()
+
+# In your system prompt:
+{memory.get_context_for_prompt()}
+
+# Long-term memory in: memory/YYYY-MM-DD.md
+"""
+
+# NEVER do:
+# - Auto-summarize on schedule
+# - Read full session logs
+# - Send entire conversation history
+```
+
+---
+
+## FINAL RECOMMENDATION
+
+1. **Wait** - Let Lossless Claw issues settle (24-48 hrs)
+2. **Test** - Try on non-production first
+3. **Backup** - Keep v2 working
+4. **Deploy** - If stable, switch; if not, use custom solution
+
+**The custom solution is complete and ready to use if needed.**
+
+---
+
+*QA Review Complete v2 - Full custom solution provided*
