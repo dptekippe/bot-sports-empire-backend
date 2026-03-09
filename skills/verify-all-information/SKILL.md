@@ -117,6 +117,35 @@ ACTION: Proceed with Bijan data; flag Jefferson uncertainty
 - Social media unverified claims
 - Outdated documentation
 
+## Source Selection by Information Type
+
+**KEY PRINCIPLE: Match source to the volatility/timeliness of the topic.**
+
+| Information Type | Best Sources | Why |
+|----------------|---------------|-----|
+| **Fast-moving/Prices** | X, TradingView, KTC, Bloomberg Terminal, Yahoo Finance | Real-time ticks; Bloomberg/Yahoo for alerts/charts |
+| **Breaking News** | X, Reuters, AP, BBC, Ground News | Speed + aggregation; BBC for global balance |
+| **Stable Facts** | Wikipedia, Official docs/sites (.gov/.edu), FactCheck.org | Curated/peer-reviewed; FactCheck.org debunks claims |
+| **Historical** | Wikipedia + primary (archives.gov, JSTOR), Google Ngram Viewer | Context/depth; Ngram for trends |
+| **Player Values** | KTC, FantasyPros, Dynasty League Football (DLF), Establish The Run | Dynasty consensus; FP/DLF for rankings/models |
+| **Technical Docs** | Official docs, GitHub, ReadTheDocs, MDN Web Docs | Authoritative; MDN for web/JS |
+| **Code/Libraries** | GitHub, Stack Overflow, PyPI/NPM trends, Official changelogs | Source + community; trends for popularity |
+| **Expert Analysis** | Reddit (r/fantasyfootball, r/devops), Substack newsletters, McKinsey/BCG reports | Community wisdom; Substack for niche pros |
+| **People/Context** | Memory + user, LinkedIn, Crunchbase | Personal; Crunchbase for company bios |
+
+### Source Selection Decision Tree
+
+```
+Is the topic fast-moving or time-sensitive?
+├── YES → Use X (Twitter) first for live data
+│   └── Then: Add news for context
+└── NO → Is it historical or stable?
+    ├── YES → Wikipedia + primary sources
+    └── NO → Is it technical?
+        ├── YES → Official docs + GitHub
+        └── NO → Domain-specific source (KTC, etc.)
+```
+
 ## Verification Methods
 
 ### Web Search
@@ -149,6 +178,9 @@ ACTION: Proceed with Bijan data; flag Jefferson uncertainty
 - ❌ "I'll verify later" - verify NOW, not after analysis
 - ❌ Presenting opinions as facts
 - ❌ Using single-source information as absolute truth
+- ❌ Using stale news for fast-moving topics (check X first)
+- ❌ Using slow sources (Wikipedia) for live prices/movement
+- ❌ Ignoring the source-type match principle
 
 ## Domain Examples
 
