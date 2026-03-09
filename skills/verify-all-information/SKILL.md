@@ -121,56 +121,17 @@ ACTION: Proceed with Bijan data; flag Jefferson uncertainty
 
 **KEY PRINCIPLE: Match source to the volatility/timeliness of the topic.**
 
-| Information Type | Best Sources | Why These Work |
-|------------------|---------------|----------------|
-| **Fast-moving/Prices** | X (Twitter), TradingView, KTC | Real-time updates, live movement |
-| **Breaking News** | X, Reuters, AP | Speed, immediacy |
-| **Stable Facts** | Wikipedia, docs | Curated, verified, slow-changing |
-| **Historical Events** | Wikipedia + primary sources | Context + depth |
-| **Player Values** | KTC, KeepTradeCut | Real dynasty consensus |
-| **Technical Docs** | Official docs, GitHub | Authoritative, versioned |
-| **Code/Libraries** | GitHub, Stack Overflow | Source + examples |
-| **Expert Analysis** | Reddit r/DynastyFF, niche forums | Community wisdom |
-| **People/Relationships** | Memory + user confirmation | Personal context |
-
-### Detailed Source Breakdown
-
-#### X (Twitter)
-- **Strengths:** Real-time breaking news, live price movement, instant reactions, market sentiment
-- **Best for:** Oil prices, stock moves, breaking sports news, live events
-- **Search:** "topic + relevant keywords" or specific accounts
-- **Example:** "oil price WTI" → live crude moves, not 2-hour-old news
-
-#### Wikipedia
-- **Strengths:** Stable facts, historical context, curated references, comprehensive
-- **Best for:** Historical events, definitions, dates, background
-- **Caution:** Check "last edited" - some topics outdated
-
-#### KeepTradeCut (KTC)
-- **Strengths:** Dynasty fantasy football consensus, real-time trade values, community-driven
-- **Best for:** Player values, trade evaluations, rookie pick values
-
-#### Reddit
-- **Strengths:** Community discussion, diverse opinions, niche expertise
-- **Best for:** Expert analysis, trade advice, sentiment checking
-- **Subreddits:** r/DynastyFF, r/fantasyfootball, r/nfl
-
-#### Official Docs
-- **Strengths:** Authoritative, accurate, version-controlled
-- **Best for:** API endpoints, library usage, technical specifications
-
-#### GitHub
-- **Strengths:** Source code, real implementations, issues/discussions
-- **Best for:** Code verification, bug fixes, examples
-
-#### FantasyPros/PFF
-- **Strengths:** Stats, rankings, expert consensus
-- **Best for:** Player statistics, projections, rankings
-
-#### News (Reuters, AP, CNBC)
-- **Strengths:** Context, analysis, verified reporting
-- **Best for:** Understanding "why" behind events
-- **Caution:** May have delay vs. X for breaking news
+| Information Type | Best Sources | Why |
+|----------------|---------------|-----|
+| **Fast-moving/Prices** | X, TradingView, KTC, Bloomberg Terminal, Yahoo Finance | Real-time ticks; Bloomberg/Yahoo for alerts/charts |
+| **Breaking News** | X, Reuters, AP, BBC, Ground News | Speed + aggregation; BBC for global balance |
+| **Stable Facts** | Wikipedia, Official docs/sites (.gov/.edu), FactCheck.org | Curated/peer-reviewed; FactCheck.org debunks claims |
+| **Historical** | Wikipedia + primary (archives.gov, JSTOR), Google Ngram Viewer | Context/depth; Ngram for trends |
+| **Player Values** | KTC, FantasyPros, Dynasty League Football (DLF), Establish The Run | Dynasty consensus; FP/DLF for rankings/models |
+| **Technical Docs** | Official docs, GitHub, ReadTheDocs, MDN Web Docs | Authoritative; MDN for web/JS |
+| **Code/Libraries** | GitHub, Stack Overflow, PyPI/NPM trends, Official changelogs | Source + community; trends for popularity |
+| **Expert Analysis** | Reddit (r/fantasyfootball, r/devops), Substack newsletters, McKinsey/BCG reports | Community wisdom; Substack for niche pros |
+| **People/Context** | Memory + user, LinkedIn, Crunchbase | Personal; Crunchbase for company bios |
 
 ### Source Selection Decision Tree
 
