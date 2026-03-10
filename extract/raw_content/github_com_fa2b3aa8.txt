@@ -1,0 +1,939 @@
+# Source URL: https://github.com/avinash201199/free-ai-agents-resources
+# Content Length: 34379 characters
+# Extracted at: 2026-03-11 04:34:47
+#============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GitHub - avinash201199/free-ai-agents-resources: Free AI Agents Resources – Your All-in-One 2026 Learning Hub · GitHub
+
+
+
+
+
+
+
+
+
+
+
+
+[Skip to content](#start-of-content)
+
+
+
+
+
+Navigation Menu
+---------------
+
+Toggle navigation
+
+ 
+
+
+
+
+
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Favinash201199%2Ffree-ai-agents-resources)
+ 
+
+
+Appearance settings
+
+
+
+
+
+
+
+
+* Platform
+  + AI CODE CREATION
+    - [GitHub CopilotWrite better code with AI](https://github.com/features/copilot)
+    - [GitHub SparkBuild and deploy intelligent apps](https://github.com/features/spark)
+    - [GitHub ModelsManage and compare prompts](https://github.com/features/models)
+    - [MCP RegistryNewIntegrate external tools](https://github.com/mcp)
+  + DEVELOPER WORKFLOWS
+    - [ActionsAutomate any workflow](https://github.com/features/actions)
+    - [CodespacesInstant dev environments](https://github.com/features/codespaces)
+    - [IssuesPlan and track work](https://github.com/features/issues)
+    - [Code ReviewManage code changes](https://github.com/features/code-review)
+  + APPLICATION SECURITY
+    - [GitHub Advanced SecurityFind and fix vulnerabilities](https://github.com/security/advanced-security)
+    - [Code securitySecure your code as you build](https://github.com/security/advanced-security/code-security)
+    - [Secret protectionStop leaks before they start](https://github.com/security/advanced-security/secret-protection)
+  + EXPLORE
+    - [Why GitHub](https://github.com/why-github)
+    - [Documentation](https://docs.github.com)
+    - [Blog](https://github.blog)
+    - [Changelog](https://github.blog/changelog)
+    - [Marketplace](https://github.com/marketplace)[View all features](https://github.com/features)
+* Solutions
+  + BY COMPANY SIZE
+    - [Enterprises](https://github.com/enterprise)
+    - [Small and medium teams](https://github.com/team)
+    - [Startups](https://github.com/enterprise/startups)
+    - [Nonprofits](https://github.com/solutions/industry/nonprofits)
+  + BY USE CASE
+    - [App Modernization](https://github.com/solutions/use-case/app-modernization)
+    - [DevSecOps](https://github.com/solutions/use-case/devsecops)
+    - [DevOps](https://github.com/solutions/use-case/devops)
+    - [CI/CD](https://github.com/solutions/use-case/ci-cd)
+    - [View all use cases](https://github.com/solutions/use-case)
+  + BY INDUSTRY
+    - [Healthcare](https://github.com/solutions/industry/healthcare)
+    - [Financial services](https://github.com/solutions/industry/financial-services)
+    - [Manufacturing](https://github.com/solutions/industry/manufacturing)
+    - [Government](https://github.com/solutions/industry/government)
+    - [View all industries](https://github.com/solutions/industry)[View all solutions](https://github.com/solutions)
+* Resources
+  + EXPLORE BY TOPIC
+    - [AI](https://github.com/resources/articles?topic=ai)
+    - [Software Development](https://github.com/resources/articles?topic=software-development)
+    - [DevOps](https://github.com/resources/articles?topic=devops)
+    - [Security](https://github.com/resources/articles?topic=security)
+    - [View all topics](https://github.com/resources/articles)
+  + EXPLORE BY TYPE
+    - [Customer stories](https://github.com/customer-stories)
+    - [Events & webinars](https://github.com/resources/events)
+    - [Ebooks & reports](https://github.com/resources/whitepapers)
+    - [Business insights](https://github.com/solutions/executive-insights)
+    - [GitHub Skills](https://skills.github.com)
+  + SUPPORT & SERVICES
+    - [Documentation](https://docs.github.com)
+    - [Customer support](https://support.github.com)
+    - [Community forum](https://github.com/orgs/community/discussions)
+    - [Trust center](https://github.com/trust-center)
+    - [Partners](https://github.com/partners)[View all resources](https://github.com/resources)
+* Open Source
+  + COMMUNITY
+    - [GitHub SponsorsFund open source developers](https://github.com/sponsors)
+  + PROGRAMS
+    - [Security Lab](https://securitylab.github.com)
+    - [Maintainer Community](https://maintainers.github.com)
+    - [Accelerator](https://github.com/accelerator)
+    - [Archive Program](https://archiveprogram.github.com)
+  + REPOSITORIES
+    - [Topics](https://github.com/topics)
+    - [Trending](https://github.com/trending)
+    - [Collections](https://github.com/collections)
+* Enterprise
+  + ENTERPRISE SOLUTIONS
+    - [Enterprise platformAI-powered developer platform](https://github.com/enterprise)
+  + AVAILABLE ADD-ONS
+    - [GitHub Advanced SecurityEnterprise-grade security features](https://github.com/security/advanced-security)
+    - [Copilot for BusinessEnterprise-grade AI features](https://github.com/features/copilot/copilot-business)
+    - [Premium SupportEnterprise-grade 24/7 support](https://github.com/premium-support)
+* [Pricing](https://github.com/pricing)
+
+
+
+Search or jump to...
+
+
+
+
+Search code, repositories, users, issues, pull requests...
+==========================================================
+
+ 
+Search
+
+
+
+
+Clear
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+[Search syntax tips](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax) 
+
+
+
+
+
+
+
+Provide feedback
+================
+
+
+
+
+
+ 
+
+We read every piece of feedback, and take your input very seriously.
+
+
+
+Include my email address so I can be contacted
+
+
+  Cancel
+
+ Submit feedback
+
+
+
+Saved searches
+==============
+
+Use saved searches to filter your results more quickly
+------------------------------------------------------
+
+
+
+
+
+ 
+
+Name
+
+
+
+
+Query
+
+To see all available qualifiers, see our [documentation](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax).
+
+ 
+
+
+
+
+  Cancel
+
+ Create saved search
+
+
+
+
+
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Favinash201199%2Ffree-ai-agents-resources)
+
+[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=avinash201199%2Ffree-ai-agents-resources)
+ 
+
+
+Appearance settings
+
+
+
+
+
+Resetting focus
+
+
+
+
+
+You signed in with another tab or window. Reload to refresh your session.
+You signed out in another tab or window. Reload to refresh your session.
+You switched accounts on another tab or window. Reload to refresh your session.
+ 
+
+
+Dismiss alert
+
+
+
+{{ message }}
+
+
+
+
+
+[avinash201199](/avinash201199) 
+/
+**[free-ai-agents-resources](/avinash201199/free-ai-agents-resources)**
+Public
+
+
+* ### Uh oh!
+  
+  
+  
+  There was an error while loading. Please reload this page.
+* [Notifications](/login?return_to=%2Favinash201199%2Ffree-ai-agents-resources) You must be signed in to change notification settings
+* [Fork
+  41](/login?return_to=%2Favinash201199%2Ffree-ai-agents-resources)
+* [Star
+   314](/login?return_to=%2Favinash201199%2Ffree-ai-agents-resources)
+
+
+
+* [Code](/avinash201199/free-ai-agents-resources)
+* [Issues
+  0](/avinash201199/free-ai-agents-resources/issues)
+* [Pull requests
+  0](/avinash201199/free-ai-agents-resources/pulls)
+* [Actions](/avinash201199/free-ai-agents-resources/actions)
+* [Projects](/avinash201199/free-ai-agents-resources/projects)
+* [Security
+  0](/avinash201199/free-ai-agents-resources/security)
+* [Insights](/avinash201199/free-ai-agents-resources/pulse)
+
+ 
+ 
+
+
+Additional navigation options
+ 
+
+* [Code](/avinash201199/free-ai-agents-resources)
+* [Issues](/avinash201199/free-ai-agents-resources/issues)
+* [Pull requests](/avinash201199/free-ai-agents-resources/pulls)
+* [Actions](/avinash201199/free-ai-agents-resources/actions)
+* [Projects](/avinash201199/free-ai-agents-resources/projects)
+* [Security](/avinash201199/free-ai-agents-resources/security)
+* [Insights](/avinash201199/free-ai-agents-resources/pulse)
+
+
+ 
+
+
+
+   
+
+avinash201199/free-ai-agents-resources
+======================================
+
+
+ main[Branches](/avinash201199/free-ai-agents-resources/branches)[Tags](/avinash201199/free-ai-agents-resources/tags)Go to fileCodeOpen more actions menu
+
+Folders and files
+-----------------
+
+| Name | Name | Last commit message | Last commit date |
+| --- | --- | --- | --- |
+| Latest commit History[10 Commits](/avinash201199/free-ai-agents-resources/commits/main/)10 Commits |
+| [.github](/avinash201199/free-ai-agents-resources/tree/main/.github) | [.github](/avinash201199/free-ai-agents-resources/tree/main/.github) |  |  |
+| [CONTRIBUTING.md](/avinash201199/free-ai-agents-resources/blob/main/CONTRIBUTING.md) | [CONTRIBUTING.md](/avinash201199/free-ai-agents-resources/blob/main/CONTRIBUTING.md) |  |  |
+| [LICENSE](/avinash201199/free-ai-agents-resources/blob/main/LICENSE) | [LICENSE](/avinash201199/free-ai-agents-resources/blob/main/LICENSE) |  |  |
+| [README.md](/avinash201199/free-ai-agents-resources/blob/main/README.md) | [README.md](/avinash201199/free-ai-agents-resources/blob/main/README.md) |  |  |
+| View all files |
+
+Repository files navigation
+---------------------------
+
+* [README](#)
+* [Contributing](#)
+* [MIT license](#)
+
+Free AI Agents Resources
+========================
+
+A curated collection of **free and open-source resources** for learning and building AI agents (autonomous agents, LLM-powered agents, multi-agent systems, and agentic AI frameworks). Perfect for beginners to advanced developers.
+
+---
+
+
+📚 Table of Contents
+-------------------
+
+* [Quick Start](#-quick-start)
+* [GitHub Repositories](#-github-repositories)
+* [YouTube Playlists & Courses](#-youtube-playlists--courses)
+* [Websites & Online Courses](#-websites--online-courses)
+* [Blogs & In-Depth Guides](#-blogs--in-depth-guides)
+* [Communities & Forums](#-communities--forums)
+* [Free Books & PDFs](#-free-books--pdfs)
+* [Recommended Learning Paths](#-recommended-learning-paths)
+* [Quick Reference](#-quick-reference-best-resources-by-need)
+* [Additional Resources & Communities](#-additional-resources--communities)
+
+---
+
+
+⚡ Quick Start
+-------------
+
+**New to AI agents?** Start here:
+
+1. **Best Free Beginner Course**: [Microsoft AI Agents for Beginners](https://github.com/microsoft/ai-agents-for-beginners) — 12 lessons covering fundamentals, architecture, tool use, memory, and planning
+2. **Best Hands-On Learning**: [NirDiamant/GenAI\_Agents](https://github.com/NirDiamant/GenAI_Agents) — 45+ Jupyter notebook implementations with real code
+3. **Best Video Tutorial**: [Microsoft Developer – AI Agents for Beginners](https://www.youtube.com/playlist?list=PLlrxD0HtieHgKcRjd5-8DT9TbwdlDO-OC) — 14 structured videos with code samples
+4. **Best Practical Automation**: [Nate Herk | AI Automation – AI Agent Tutorials](https://www.youtube.com/playlist?list=PLvQWpZ46MVvgUUUBxnqLAu-JzA-6QA1o2) — 70+ hands-on videos on no-code/low-code agents
+
+---
+
+
+🐙 GitHub Repositories
+---------------------
+
+
+### Curated Lists & Awesome Collections
+
+
+| Repository | Description |
+| --- | --- |
+| [e2b-dev/awesome-ai-agents](https://github.com/e2b-dev/awesome-ai-agents) | Top curated list of open-source AI autonomous agents, frameworks, and projects with extensive categories and examples |
+| [slavakurilyak/awesome-ai-agents](https://github.com/slavakurilyak/awesome-ai-agents) | Awesome list tracking 300+ agentic AI resources — includes top projects by stars, rising ones, and updates through 2025–2026 |
+| [Jenqyang/Awesome-AI-Agents](https://github.com/Jenqyang/Awesome-AI-Agents) | Collection of LLM-powered autonomous agents — covers task solvers, multi-agent projects, simulations, tools, and advanced components |
+| [kyrolabs/awesome-agents](https://github.com/kyrolabs/awesome-agents) | Curated list of tools, frameworks, products, testing, and software dev agents — strong on orchestration and practical building blocks |
+| [Deep-Insight-Labs/awesome-ai-agents](https://github.com/Deep-Insight-Labs/awesome-ai-agents) | Directory of practical, usable AI agents — spans applications, platforms, frameworks, utilities, and ecosystem components |
+| [ashishpatel26/500-AI-Agents-Projects](https://github.com/ashishpatel26/500-AI-Agents-Projects) | Curated 500+ AI agent use cases/projects across industries — links to open-source implementations for inspiration |
+| [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | Runnable LLM apps with AI agents, multi-agent teams, starter agents — full code examples |
+
+
+### Learning & Educational Resources
+
+
+| Repository | Description |
+| --- | --- |
+| [microsoft/ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners) | ⭐ **Best for Beginners**: 12-lesson structured course — fundamentals, architecture, tool use, memory, planning, and building your first agents |
+| [NirDiamant/GenAI\_Agents](https://github.com/NirDiamant/GenAI_Agents) | ⭐ **Best for Hands-On Learning**: 45+ Jupyter notebook implementations (basic to advanced) covering conversational AI, multi-agent systems, RAG, task management, and more. Uses LangChain, LangGraph, CrewAI, AutoGen, OpenAI Swarm, etc. Includes Discord/subreddit community support |
+
+
+### Frameworks & Tools
+
+
+| Repository | Description |
+| --- | --- |
+| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | **Leading framework** for reliable agents — chains, tools, RAG, multi-agent systems with stateful graphs |
+| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | Advanced framework for complex agentic workflows — stateful multi-agent orchestration and graph-based reasoning |
+| [Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) | Classic autonomous agent framework — self-driving loops, planning, tool use, memory — foundational and highly starred |
+| [All-Hands-AI/OpenHands](https://github.com/All-Hands-AI/OpenHands) | Open-source software development agent (ex-OpenDevin) — coding, debugging, repository tasks — excellent for real-world agent study |
+| [langflow-ai/langflow](https://github.com/langflow-ai/langflow) | Visual low-code platform for LLM workflows and AI agents (LangChain-based) — drag-and-drop prototyping without code |
+| [openai/swarm](https://github.com/openai/swarm) | OpenAI's lightweight framework for building multi-agent systems — agent handoffs, function calling, state management |
+| [run-llama/llama\_index](https://github.com/run-llama/llama_index) | Data framework for building LLM apps with RAG, agents, and advanced retrieval — excellent for agentic RAG systems |
+| [geekan/MetaGPT](https://github.com/geekan/MetaGPT) | Multi-agent collaboration framework with role-playing and workflow orchestration — build multi-agent software engineering teams |
+| [embedchain/embedchain](https://github.com/embedchain/embedchain) | Open-source framework for building RAG-powered agents — document ingestion, vector search, agent orchestration |
+| [onestardao/WFGY](https://github.com/onestardao/WFGY/tree/main/ProblemMap#readme) | Open-source framework for debugging and stress testing LLM agents and RAG pipelines, with a 16-problem failure map and reproducible prompt-driven triage workflow |
+| [reworkd/AgentGPT](https://github.com/reworkd/AgentGPT) | Visual, no-code AI agent builder — create and run agents through web UI without coding |
+| [aiwaves-cn/agents](https://github.com/aiwaves-cn/agents) | AgentVerse — platform for multi-agent systems, simulations, and research environments |
+| [xlang-ai/Open-Agents](https://github.com/xlang-ai/Open-Agents) | Open-source platform for collaborative agent development with modular architecture |
+
+
+---
+
+
+📺 YouTube Playlists & Courses
+-----------------------------
+
+
+### Structured Beginner Courses
+
+
+| Course | Description | Length |
+| --- | --- | --- |
+| [Microsoft Developer – AI Agents for Beginners](https://www.youtube.com/playlist?list=PLlrxD0HtieHgKcRjd5-8DT9TbwdlDO-OC) | ⭐ **Best Structured Course**: 14 videos covering fundamentals, frameworks comparison, tool use, memory, planning, multi-agent basics, and deployment. Includes 1-hour compiled version | 14 videos |
+| [Kaggle – 5-Day AI Agents Intensive Course with Google](https://www.youtube.com/playlist?list=PLqFaTIg4myu9r7uRoNfbJhHUbLp-1t1YE) | Free Google-backed intensive on building intelligent/autonomous AI systems with practical exercises | 5 videos |
+
+
+### In-Depth Series
+
+
+| Course | Description | Length |
+| --- | --- | --- |
+| [Cole Medin – Guide to Building AI Agents](https://www.youtube.com/playlist?list=PLyrg3m7Ei-MrSXWv90oXXbuSsbdOP9j2n) | Step-by-step from basics to production-ready agents. Focuses on practical building and scaling | 11 videos |
+| [Cole Medin – AI Agents Masterclass](https://www.youtube.com/playlist?list=PLyrg3m7Ei-MpsdEA6eKN1k2gJpuhllNTi) | Advanced patterns and transforming businesses/software with agents — excellent for developers | 11 videos |
+| [CampusX – Agentic AI using LangGraph](https://www.youtube.com/playlist?list=PLyrg3m7Ei-MrSXWv90oXXbuSsbdOP9j2n) | Hands-on LangGraph tutorial series — deep dive into agentic systems, multi-step workflows, and advanced comparisons | 10+ videos |
+
+
+### Practical & Hands-On Tutorials
+
+
+| Course | Description | Length |
+| --- | --- | --- |
+| [Nate Herk | AI Automation – AI Agent Tutorials](https://www.youtube.com/playlist?list=PLvQWpZ46MVvgUUUBxnqLAu-JzA-6QA1o2) | ⭐ **Best Practical Automation**: 70+ videos covering no-code/low-code agents (n8n, Vapi, MCP), RAG agents, inbox/voice agents, and quick builds | 70+ videos |
+| [AI Growth Institute – AI Agents](https://www.youtube.com/playlist?list=PLUkRzwZMaL4Fhi_NOGBmbGpT9Jm_YzP8F) | 23-video collection covering agentic workflows, automation with teams, Andrew Ng insights, and emerging trends | 23 videos |
+| [Prof. Martin Hilbert – AI Agents](https://www.youtube.com/playlist?list=PLtjBSCvWCU3pn6s1-H_-0GAxjQA2hC-nr) | Conceptual series from prompts to multi-agent systems, personalization, and real-world contextualization | 7 videos |
+| [Autonomous Agents with CrewAI](https://www.youtube.com/watch?v=MU1GBAoGvks&list=PLv8Cp2NvcY8DeLpPBREcC9aU8ESfYeSeX) | Complete series on building autonomous agents using CrewAI framework — covers roles, tasks, tools, and multi-agent workflows | 10+ videos |
+
+
+### Long-Form Deep Dives
+
+
+| Course | Description | Duration |
+| --- | --- | --- |
+| [Building AI Agents from Scratch - Full Course (Mehul Choudhary)](https://www.youtube.com/watch?v=1OLrT3dEzhA) | 2+ hour comprehensive walkthrough implementing core patterns (reflection, tool, planning, multi-agent) without heavy frameworks | 2+ hours |
+| [DeepLearning.AI Short Courses](https://www.deeplearning.ai/short-courses/) | Framework-specific tutorials (e.g., Multi AI Agent Systems with crewAI) — highly praised | Varies |
+| [Complete AI Agents Course – Full Tutorial](https://www.youtube.com/watch?v=3GjE_YAs03s) | Long-form, end-to-end course covering AI agent fundamentals, architectures, tool use, memory, planning, and practical implementations. | 19 hours |
+
+
+### Creator Channels & Independent Series
+
+
+| Creator | Description | Content |
+| --- | --- | --- |
+| [1littlecoder](https://www.youtube.com/@1littlecoder) | Hands-on tutorials on LLMs, agents, and frameworks (LangChain, LangGraph) — beginner-friendly with practical examples | 50+ videos |
+| [Sam Witteveen (AI Explained)](https://www.youtube.com/@samwitteveenai) | Deep dives into agent architectures, frameworks, and LLM reasoning patterns — excellent for understanding concepts | 100+ videos |
+| [Nate Herk Production Channel](https://www.youtube.com/@nate_herk) | Individual agent tutorial videos and automation breakdowns — complements the playlist series | 200+ videos |
+
+
+---
+
+
+💻 Websites & Online Courses
+---------------------------
+
+
+### Official Documentation & Free Courses
+
+
+| Platform | Resource |
+| --- | --- |
+| [Microsoft AI Agents for Beginners](https://github.com/microsoft/ai-agents-for-beginners) | Structured free course with lessons, code, and explanations |
+| [Hugging Face Agents Course](https://huggingface.co/learn/agents-course/en/unit0/introduction) | Free interactive course on building agents with open-source models and tools |
+| [LangChain Documentation](https://python.langchain.com/docs/) | Official free tutorials for building chains, tools, and multi-agent workflows |
+| [LangGraph Documentation](https://langchain-ai.github.io/langgraph/) | Official guide for stateful and complex agentic workflows |
+| [CrewAI Documentation](https://docs.crewai.com/) | Free guides, quickstarts, and role-based agent building |
+| [AutoGen (Microsoft) Tutorials](https://microsoft.github.io/autogen/) | Free docs with multi-agent examples and setup |
+| [Analytics Vidhya Agentic AI Learning Path](https://www.analyticsvidhya.com/blog/2024/10/learning-path-for-ai-agents/) | Free roadmap with blogs, no-code builds, and framework comparisons |
+| [DeepLearning.AI Short Courses](https://www.deeplearning.ai/short-courses/) | Many agent-focused courses available free to audit |
+
+
+### AI Model Providers & Playgrounds (Free Access)
+
+
+| Platform | Resource |
+| --- | --- |
+| [Hugging Face Hub](https://huggingface.co/models) | Free access to 100K+ open-source models — agent-ready models and datasets |
+| [Replicate](https://replicate.com/) | Free API access to popular open models (Llama, Mistral, etc.) — perfect for building agents |
+| [OpenAI Playground](https://platform.openai.com/playground) | Free trial credits for testing GPT-4 agent behaviors and function calling |
+| [Anthropic Claude](https://claude.ai/) | Free web access to Claude with extended context — excellent for agent reasoning testing |
+| [Google Colab](https://colab.research.google.com/) | Free GPU-powered notebooks — run open-source agent frameworks and LLMs |
+
+
+### Learning Resources & Model Collections
+
+
+| Platform | Resource |
+| --- | --- |
+| [Papers with Code - Agents Section](https://paperswithcode.com/) | Open-source implementations of agent research papers with code and benchmarks |
+| [Model Cards & Agent Benchmarks](https://huggingface.co/models?task=agent) | Hugging Face curated agent-ready models with performance benchmarks |
+| [GitHub Trending - AI Agents](https://github.com/trending?spoken_language_code=&d=weekly) | Weekly trending agent projects and frameworks |
+
+
+---
+
+
+📝 Blogs & In-Depth Guides
+-------------------------
+
+
+### Technical Engineering & Best Practices
+
+
+| Blog | Description |
+| --- | --- |
+| [Anthropic Engineering Blog](https://www.anthropic.com/engineering) | Excellent posts on agent design, reasoning, tool use, and real-world deployments |
+| [OpenAI Practical Guide to Building Agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) | Free downloadable guide (PDF) on agent foundations, tools, and instructions |
+| [DataCamp Tutorials](https://www.datacamp.com/tutorial/crewai-vs-langgraph-vs-autogen) | Hands-on blog comparisons (CrewAI vs LangGraph vs AutoGen) with builds |
+| [Nir Diamant GenAI Agents Blog](https://github.com/NirDiamant/GenAI_Agents) | Embedded tutorials on advanced patterns and real-world implementations |
+
+
+### Roadmaps & Learning Paths
+
+
+| Blog | Description |
+| --- | --- |
+| [HackerNoon & Medium AI Agent Roadmaps](https://hackernoon.com) | Search "Mastering AI Agents in 2026" — realistic 6-9 month guides with free resources |
+| [Intellek AI Learning Resources](https://intellek.io/blog/free-ai-learning-resources) | Curated free guides from top labs (OpenAI, Anthropic, Google) on agents |
+| [Towards Data Science - AI Agents](https://towardsdatascience.com/tagged/ai-agents) | Free articles on agent architectures, frameworks, and implementations by data scientists |
+| [Dev.to - AI Agents Tag](https://dev.to/t/aiagents) | Community blog posts on agent development, tutorials, and real-world implementations |
+| [LinkedIn Articles - AI Agents](https://www.linkedin.com/feed/hashtag/?keywords=aiagents) | Thought leadership posts and tutorials from industry experts |
+
+
+---
+
+
+👥 Communities & Forums
+----------------------
+
+
+### Reddit Communities
+
+
+| Community | Description |
+| --- | --- |
+| [r/AI\_Agents](https://www.reddit.com/r/AI_Agents/) | Dedicated to AI agents — project showcases, weekly threads, news, and troubleshooting |
+| [r/learnmachinelearning](https://www.reddit.com/r/learnmachinelearning/) | Great for agent questions with dedicated threads |
+| [r/MachineLearning](https://www.reddit.com/r/MachineLearning/) | Research-focused, often with agent-related discussions |
+| [r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/) | Open-source and local agent frameworks discussions |
+
+
+### Discord Communities
+
+
+| Community | Description |
+| --- | --- |
+| [Hugging Face Discord](https://huggingface.co/) | Agent course support and open-source builds (invite via site) |
+| [LangChain Discord](https://langchain.com/) | Active for framework help and agent workflows (invite via site) |
+| [CrewAI Discord](https://discord.gg/crewai) | Community for crew-based agent building and questions |
+| [AgentOps & AI Agents Groups](https://discord.com) | Search "AI Autonomous Agent Group" — focused on building and refining agents |
+
+
+### Official Developer Communities
+
+
+| Community | Description |
+| --- | --- |
+| [OpenAI Developer Community](https://community.openai.com/) | Agent-related threads and discussions (even for open-source parallels) |
+| [Anthropic Discord & Forums](https://www.anthropic.com/) | Community discussion on Claude agents and reasoning |
+| [AI Twitter / X Communities](https://x.com/search?q=AIAgents&src=typed_query) | Real-time discussions, resource sharing, and announcements on X |
+| [Hacker News - Ask HN](https://news.ycombinator.com/) | Discussions on agent frameworks, tips, and resource recommendations |
+| [Product Hunt - AI Agents](https://www.producthunt.com/) | New AI agent tools and frameworks launched — community feedback and discussions |
+
+
+---
+
+
+📖 Free Books & PDFs
+-------------------
+
+
+### Official Guides
+
+
+| Resource | Description | Format |
+| --- | --- | --- |
+| [A Practical Guide to Building Agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) | OpenAI's comprehensive guide on core components, design, and deployment insights | PDF |
+| [From LLM Reasoning to Autonomous AI Agents](https://arxiv.org/pdf/2504.19678.pdf) | Free academic survey on benchmarks, frameworks, and agent evolution | PDF |
+
+
+### Illustrated & Practical Guides
+
+
+| Resource | Description |
+| --- | --- |
+| [The Illustrated Guide to AI Agents](https://www.linkedin.com) | Free illustrated ebook by Avi Chawla & Akshay Pachaar — differences (Agent vs LLM vs RAG) and building blocks. Search LinkedIn or Daily Dose of Data Science for download link |
+| [Mastering AI Agents](https://www.scribd.com) | Free PDF/ebook versions available on Scribd — covers types, frameworks, evaluation, and pitfalls |
+| [Artificial Intelligence: A Modern Approach](https://aima.cs.berkeley.edu/) | Russell & Norvig — agent chapters often free via university PDFs or excerpts |
+
+
+### Research Papers & Academic Resources
+
+
+| Resource | Description |
+| --- | --- |
+| [arXiv: Autonomous Agents](https://arxiv.org/list/cs.AI/recent) | Latest research papers on agent systems, reasoning, and architectures (all free PDFs) |
+| [Semantic Scholar - AI Agents](https://www.semanticscholar.org/) | AI-powered research paper search with free PDFs on agent research |
+| [Papers with Code - Agent Benchmarks](https://paperswithcode.com/task/agent) | Benchmark comparisons and open-source implementations of agent research |
+| [Google Scholar Alerts](https://scholar.google.com/) | Set up free alerts for latest AI agent research papers |
+| [OpenReview.net](https://openreview.net/) | Pre-publication research papers on agents and LLMs (NeurIPS, ICLR, etc.) |
+
+
+---
+
+
+🎯 Recommended Learning Paths
+----------------------------
+
+
+### **Path 1: Beginner (2-4 weeks)**
+
+1. Start: [Microsoft AI Agents for Beginners](https://github.com/microsoft/ai-agents-for-beginners) (GitHub + Video)
+2. Practice: [NirDiamant/GenAI\_Agents](https://github.com/NirDiamant/GenAI_Agents) — run first 10 notebooks
+3. Read: [A Practical Guide to Building Agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) (PDF)
+4. Join: [r/AI\_Agents](https://www.reddit.com/r/AI_Agents/) for community updates
+
+### **Path 2: Practical Developer (4-8 weeks)**
+
+1. Complete: [Cole Medin – Guide to Building AI Agents](https://www.youtube.com/playlist?list=PLyrg3m7Ei-MrSXWv90oXXbuSsbdOP9j2n) (11-video series)
+2. Learn Framework: [LangChain](https://python.langchain.com/docs/) or [CrewAI](https://docs.crewai.com/) docs + examples
+3. Hands-On: [Nate Herk AI Agent Tutorials](https://www.youtube.com/playlist?list=PLvQWpZ46MVvgUUUBxnqLAu-JzA-6QA1o2) — pick no-code/low-code tutorials
+4. Deep Dive: [CampusX LangGraph Series](https://www.youtube.com/playlist?list=PLyrg3m7Ei-MrSXWv90oXXbuSsbdOP9j2n) for advanced workflows
+
+### **Path 3: Advanced (8-16 weeks)**
+
+1. Study: [Building AI Agents from Scratch](https://www.youtube.com/watch?v=1OLrT3dEzhA) (2+ hour full course)
+2. Complete: [NirDiamant/GenAI\_Agents](https://github.com/NirDiamant/GenAI_Agents) — all 45+ notebooks
+3. Research: [arXiv surveys](https://arxiv.org/pdf/2504.19678.pdf) and [Anthropic engineering blog](https://www.anthropic.com/engineering)
+4. Build: Own project using [LangGraph](https://langchain-ai.github.io/langgraph/) or [CrewAI](https://docs.crewai.com/) for stateful workflows
+5. Share: Post your project on GitHub and [r/AI\_Agents](https://www.reddit.com/r/AI_Agents/)
+
+---
+
+
+🚀 Quick Reference: Best Resources by Need
+-----------------------------------------
+
+
+| Need | Best Resource |
+| --- | --- |
+| **Just Starting** | [Microsoft AI Agents for Beginners](https://github.com/microsoft/ai-agents-for-beginners) |
+| **Learning by Doing** | [NirDiamant/GenAI\_Agents](https://github.com/NirDiamant/GenAI_Agents) — 45+ notebooks |
+| **Video Learning** | [Nate Herk AI Agent Tutorials](https://www.youtube.com/playlist?list=PLvQWpZ46MVvgUUUBxnqLAu-JzA-6QA1o2) (70+ videos) |
+| **Framework Deep Dive** | Official docs: [LangChain](https://python.langchain.com/docs/), [LangGraph](https://langchain-ai.github.io/langgraph/), [CrewAI](https://docs.crewai.com/) |
+| **Practical No-Code** | [Nate Herk – No-Code Agents](https://www.youtube.com/playlist?list=PLvQWpZ46MVvgUUUBxnqLAu-JzA-6QA1o2) (n8n, Vapi tutorials) |
+| **Community Support** | [r/AI\_Agents](https://www.reddit.com/r/AI_Agents/), [CrewAI Discord](https://discord.gg/crewai), [LangChain Discord](https://langchain.com/) |
+| **Academic Deep Dive** | [arXiv Survey: From LLM Reasoning to Autonomous AI Agents](https://arxiv.org/pdf/2504.19678.pdf) |
+| **Design Principles** | [OpenAI Practical Guide](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) & [Anthropic Blog](https://www.anthropic.com/engineering) |
+
+
+---
+
+
+🎓 Additional Resources & Communities
+------------------------------------
+
+
+### Let's Code – Free Learning Platform
+
+
+| Resource | Description |
+| --- | --- |
+| [Let's Code](https://www.lets-code.co.in/) | Comprehensive free learning platform with AI, coding, and development tutorials — excellent for Indian developers and global learners |
+
+
+---
+
+
+📌 Contributing
+--------------
+
+Found a great free AI agents resource? Help grow this collection!
+
+* **[Open an Issue](https://github.com/avinash201199/free-ai-agents-resources/issues)** — Suggest new resources
+* **[Submit a Pull Request](https://github.com/avinash201199/free-ai-agents-resources/pulls)** — Add resources directly
+* **[Read CONTRIBUTING.md](/avinash201199/free-ai-agents-resources/blob/main/CONTRIBUTING.md)** — Detailed contribution guidelines
+
+---
+
+
+⭐ Show Your Support
+-------------------
+
+If this collection helped you, please give it a star! Your support helps others discover these amazing free resources.
+
+---
+
+
+🤝 Connect with the Creator
+--------------------------
+
+* **X (Twitter):** [@AvinashSingh\_20](https://x.com/AvinashSingh_20)
+* **GitHub:** [avinash201199](https://github.com/avinash201199)
+
+---
+
+**Total Resources:** 100+ curated free resources  
+
+**Focus:** Open-source, freely accessible, and community-recommended
+
+About
+-----
+
+Free AI Agents Resources – Your All-in-One 2026 Learning Hub
+
+
+[www.lets-code.co.in/](https://www.lets-code.co.in/)
+
+### Topics
+
+[ai](/topics/ai)
+[ai-agents](/topics/ai-agents)
+[llms](/topics/llms)
+
+### Resources
+
+[Readme](#readme-ov-file) 
+### License
+
+[MIT license](#MIT-1-ov-file)
+### Contributing
+
+[Contributing](#contributing-ov-file)
+
+### Uh oh!
+
+
+
+There was an error while loading. Please reload this page.
+
+
+
+ 
+ 
+
+[Activity](/avinash201199/free-ai-agents-resources/activity) 
+### Stars
+
+[**314**
+stars](/avinash201199/free-ai-agents-resources/stargazers) 
+### Watchers
+
+[**5**
+watching](/avinash201199/free-ai-agents-resources/watchers) 
+### Forks
+
+[**41**
+forks](/avinash201199/free-ai-agents-resources/forks) 
+[Report repository](/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2Favinash201199%2Ffree-ai-agents-resources&report=avinash201199+%28user%29) 
+
+
+
+[Releases](/avinash201199/free-ai-agents-resources/releases)
+------------------------------------------------------------
+
+No releases published
+
+
+Sponsor this project
+--------------------
+
+
+
+### Uh oh!
+
+
+
+There was an error while loading. Please reload this page.
+
+
+
+ 
+ 
+
+* <https://paypal.me/Avinash425>
+
+[Learn more about GitHub Sponsors](/sponsors)
+
+
+
+[Packages
+0](/users/avinash201199/packages?repo_name=free-ai-agents-resources)
+------------------------------------------------------------------------------
+
+ 
+
+ 
+
+ 
+
+### Uh oh!
+
+
+
+There was an error while loading. Please reload this page.
+
+
+
+ 
+ 
+
+
+
+[Contributors](/avinash201199/free-ai-agents-resources/graphs/contributors)
+---------------------------------------------------------------------------
+
+
+
+### Uh oh!
+
+
+
+There was an error while loading. Please reload this page.
+
+
+
+ 
+ 
+
+
+
+
+   
+
+
+
+
+
+
+Footer
+------
+
+© 2026 GitHub, Inc.
+
+
+### Footer navigation
+
+* [Terms](https://docs.github.com/site-policy/github-terms/github-terms-of-service)
+* [Privacy](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement)
+* [Security](https://github.com/security)
+* [Status](https://www.githubstatus.com/)
+* [Community](https://github.community/)
+* [Docs](https://docs.github.com/)
+* [Contact](https://support.github.com?tags=dotcom-footer)
+* Manage cookies
+* Do not share my personal information
+
+
+
+
+You can’t perform that action at this time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
