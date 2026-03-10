@@ -183,3 +183,29 @@ site:news.ycombinator.com
 1. Use platform filters above
 2. Cross-reference multiple sources
 3. Verify claims with primary sources
+
+---
+
+## Sports/Fantasy Research
+
+Add these for dynasty fantasy football research:
+
+```
+site:underdogfantasy.com
+site:fantasysolvers.com
+site:fleaflicker.com
+site:sleeper.app
+site:espn.com/fantasy/football
+site:yahoo.com/fantasy
+site:fantasypros.com
+site:rotowire.com/fantasy
+site:profootballnetwork.com
+site: dynastyprocess.com
+```
+
+### Priority for Dynasty
+1. Underdog Fantasy - Draft capital
+2. Fantasy Pros - ADP/consensus
+3. Sleeper - Platform data
+4. ESPN/Yahoo - Popularity
+5. Dynasty Process - Dynasty specific
