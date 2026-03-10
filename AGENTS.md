@@ -15,7 +15,6 @@ For ALL important tasks, chain **exactly**:
 - **Pre-action**: `memorySearch("query")` → Relevant facts injected.
 - **Post-action**: "Commit to durable memory? [YES/NO + why]" → Manual curate MEMORY.md.
 - Lossless-Claw threshold 0.75 handles overflow; contract ensures persistence.
-- Diary → soul evolutions (cron auto-check).
 
 ## Tool Defaults
 
