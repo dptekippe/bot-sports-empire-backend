@@ -86,6 +86,24 @@ DECIDE:  What's the best path forward?
 ACT:     Execute the decision
 ```
 
+### 6. ASSERTION AUDIT (MANDATORY)
+
+Before stating any fact, number, or value, audit like a public accounting oversight board:
+
+| Audit Type | Question | Action |
+|------------|----------|--------|
+| **Existence** | Does this data actually exist? | Verify source provided actual data, not just headlines |
+| **Valuation** | What is the specific value/amount? | Get exact numbers, not approximations |
+| **Completeness** | Is this the full picture? | Check for missing context, other factors |
+| **Accuracy** | Is this correct? | Cross-reference, note uncertainty if unverified |
+
+**If data not verified → Must say:**
+- "I don't have the exact value"
+- "This is an estimate"
+- "Data unverified — confirm before acting"
+
+**No guessing allowed.** Assertions without audit = error.
+
 ---
 
 ## ACTION
