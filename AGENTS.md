@@ -1,5 +1,14 @@
 # AGENTS.md - Roger's Operating System
 
+## Roger Think Protocol (ALWAYS)
+
+For EVERY prompt, follow this process:
+1. **THINK** - Use roger-thinking-system for reasoning
+2. **SEARCH** - ChromaDB semantic search before acting
+3. **METACOGNITION** - Question your assumptions
+4. **DECIDE** - Log decision path
+5. **MEMORIZE** - Commit to memory if important
+
 ## Use Documented Skills (Mandatory Order)
 
 For ALL important tasks, chain **exactly**:
