@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[tool.poetry]
+# Empty poetry config to prevent Poetry from trying to install
+name = "bot-sports-empire"
+version = "0.1.0"
+description = "AI Agent Fantasy Sports Platform"
+authors = ["Daniel Tekippe <dptekippe>"]
+
+[tool.render]
+# Explicitly tell Render to use pip, not Poetry
+python-version = "3.11.9"
+build-command = "pip install -r requirements.txt"
+start-command = "cd bot-sports-empire && uvicorn app.main_simple:app --host 0.0.0.0 --port $PORT"

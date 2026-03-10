@@ -1,0 +1,401 @@
+rank,name,team,position,value
+1,Josh Allen,BUF,QB,9998
+2,Bijan Robinson,ATL,RB,9995
+3,Jaxon Smith-Njigba,SEA,WR,9886
+4,Ja'Marr Chase,CIN,WR,9878
+5,Drake Maye,NEP,QB,9661
+6,Puka Nacua,LAR,WR,9538
+7,Jahmyr Gibbs,DET,RB,9427
+8,Malik Nabers,NYG,WR,7766
+9,Trey McBride,ARI,TE,7665
+10,Amon-Ra St. Brown,DET,WR,7664
+11,Brock Bowers,LVR,TE,7650
+12,Caleb Williams,CHI,QB,7629
+13,Jayden Daniels,WAS,QB,7580
+14,Lamar Jackson,BAL,QB,7532
+15,Justin Jefferson,MIN,WR,7380
+16,CeeDee Lamb,DAL,WR,7317
+17,Ashton Jeanty,LVR,RB,7258
+18,Joe Burrow,CIN,QB,7250
+19,De'Von Achane,MIA,RB,7088
+20,Drake London,ATL,WR,6980
+21,Justin Herbert,LAC,QB,6874
+22,Jeremiyah Love,FA,RB,6824
+23,Tetairoa McMillan,CAR,WR,6656
+24,2027 Early 1st,FA,PICK,6643
+25,Patrick Mahomes,KCC,QB,6608
+26,Jaxson Dart,NYG,QB,6604
+27,Omarion Hampton,LAC,RB,6602
+28,Jalen Hurts,PHI,QB,6389
+29,Trevor Lawrence,JAC,QB,6298
+30,Bo Nix,DEN,QB,6189
+31,Jonathan Taylor,IND,RB,6180
+32,George Pickens,DAL,WR,6167
+33,James Cook,BUF,RB,6162
+34,Brock Purdy,SFO,QB,6116
+35,2026 Early 1st,FA,PICK,5989
+36,Nico Collins,HOU,WR,5959
+37,Emeka Egbuka,TBB,WR,5937
+38,Colston Loveland,CHI,TE,5931
+39,TreVeyon Henderson,NEP,RB,5919
+40,Garrett Wilson,NYJ,WR,5819
+41,Chris Olave,NOS,WR,5782
+42,Jordan Love,GBP,QB,5702
+43,Fernando Mendoza,FA,QB,5641
+44,Tyler Warren,IND,TE,5631
+45,Quinshon Judkins,CLE,RB,5554
+46,Breece Hall,NYJ,RB,5511
+47,Bucky Irving,TBB,RB,5455
+48,Ladd McConkey,LAC,WR,5426
+49,2027 Mid 1st,FA,PICK,5411
+50,Makai Lemon,FA,WR,5336
+51,Rome Odunze,CHI,WR,5261
+52,Rashee Rice,KCC,WR,5229
+53,Carnell Tate,FA,WR,5220
+54,Christian McCaffrey,SFO,RB,5107
+55,Marvin Harrison Jr.,ARI,WR,5096
+56,Cam Ward,TEN,QB,5028
+57,Kenneth Walker III,SEA,RB,5000
+58,Brian Thomas Jr.,JAC,WR,4996
+59,Dak Prescott,DAL,QB,4985
+60,Luther Burden,CHI,WR,4977
+61,Tucker Kraft,GBP,TE,4904
+62,C.J. Stroud,HOU,QB,4893
+63,Harold Fannin,CLE,TE,4888
+64,Chase Brown,CIN,RB,4886
+65,Kyren Williams,LAR,RB,4852
+66,Tee Higgins,CIN,WR,4851
+67,Cam Skattebo,NYG,RB,4851
+68,Sam Darnold,SEA,QB,4825
+69,Jordyn Tyson,FA,WR,4821
+70,Saquon Barkley,PHI,RB,4796
+71,Baker Mayfield,TBB,QB,4794
+72,2028 Early 1st,FA,PICK,4785
+73,Jameson Williams,DET,WR,4776
+74,DeVonta Smith,PHI,WR,4773
+75,2027 Late 1st,FA,PICK,4768
+76,A.J. Brown,PHI,WR,4711
+77,Zay Flowers,BAL,WR,4689
+78,2026 Mid 1st,FA,PICK,4678
+79,Tyler Shough,NOS,QB,4629
+80,Jared Goff,DET,QB,4614
+81,Jaylen Waddle,MIA,WR,4600
+82,Sam LaPorta,DET,TE,4576
+83,RJ Harvey,DEN,RB,4515
+84,Kyle Pitts,ATL,TE,4509
+85,Javonte Williams,DAL,RB,4501
+86,2028 Mid 1st,FA,PICK,4499
+87,Travis Etienne,JAC,RB,4482
+88,Josh Jacobs,GBP,RB,4472
+89,Bryce Young,CAR,QB,4447
+90,2026 Late 1st,FA,PICK,4264
+91,Oronde Gadsden,LAC,TE,4138
+92,Travis Hunter,JAC,WR,4131
+93,Jordan Addison,MIN,WR,4106
+94,Kenyon Sadiq,FA,TE,4046
+95,Daniel Jones,IND,QB,4041
+96,2028 Late 1st,FA,PICK,4039
+97,Ricky Pearsall,SFO,WR,3956
+98,Denzel Boston,FA,WR,3955
+99,Derrick Henry,BAL,RB,3908
+100,Alec Pierce,IND,WR,3898
+101,Kyle Monangai,CHI,RB,3863
+102,Michael Wilson,ARI,WR,3858
+103,KC Concepcion,FA,WR,3837
+104,Jayden Higgins,HOU,WR,3836
+105,DK Metcalf,PIT,WR,3832
+106,2027 Early 2nd,FA,PICK,3826
+107,Christian Watson,GBP,WR,3736
+108,Matthew Stafford,LAR,QB,3724
+109,Davante Adams,LAR,WR,3723
+110,D'Andre Swift,CHI,RB,3703
+111,Kyler Murray,ARI,QB,3631
+112,Parker Washington,JAC,WR,3626
+113,Michael Penix Jr.,ATL,QB,3612
+114,Matthew Golden,GBP,WR,3593
+115,Wan'Dale Robinson,NYG,WR,3588
+116,Dalton Kincaid,BUF,TE,3587
+117,Michael Pittman,IND,WR,3586
+118,Zach Charbonnet,SEA,RB,3564
+119,Quentin Johnston,LAC,WR,3555
+120,Blake Corum,LAR,RB,3517
+121,Xavier Worthy,KCC,WR,3504
+122,Bhayshul Tuten,JAC,RB,3498
+123,J.J. McCarthy,MIN,QB,3490
+124,Jaylen Warren,PIT,RB,3482
+125,2026 Early 2nd,FA,PICK,3477
+126,Jakobi Meyers,JAC,WR,3469
+127,George Kittle,SFO,TE,3450
+128,Jake Ferguson,DAL,TE,3432
+129,Jonah Coleman,FA,RB,3409
+130,Terry McLaurin,WAS,WR,3379
+131,Malik Willis,GBP,QB,3374
+132,2027 Mid 2nd,FA,PICK,3369
+133,Trey Benson,ARI,RB,3347
+134,Courtland Sutton,DEN,WR,3321
+135,Woody Marks,HOU,RB,3320
+136,Jayden Reed,GBP,WR,3293
+137,D.J. Moore,CHI,WR,3288
+138,Brenton Strange,JAC,TE,3280
+139,Tyler Allgeier,ATL,RB,3254
+140,Jadarian Price,FA,RB,3251
+141,Omar Cooper Jr.,FA,WR,3236
+142,Jalen Coker,CAR,WR,3234
+143,Josh Downs,IND,WR,3179
+144,Rico Dowdle,CAR,RB,3152
+145,2028 Early 2nd,FA,PICK,3114
+146,Khalil Shakir,BUF,WR,3112
+147,Chuba Hubbard,CAR,RB,3064
+148,2026 Mid 2nd,FA,PICK,3057
+149,Isaiah Likely,BAL,TE,3049
+150,2027 Late 2nd,FA,PICK,3037
+151,Troy Franklin,DEN,WR,3029
+152,Rhamondre Stevenson,NEP,RB,3025
+153,Romeo Doubs,GBP,WR,2997
+154,Pat Bryant,DEN,WR,2996
+155,Kayshon Boutte,NEP,WR,2970
+156,Ty Simpson,FA,QB,2947
+157,Mason Taylor,NYJ,TE,2931
+158,AJ Barner,SEA,TE,2913
+159,Jacory Croskey-Merritt,WAS,RB,2906
+160,Terrance Ferguson,LAR,TE,2900
+161,Rashid Shaheed,SEA,WR,2896
+162,Nicholas Singleton,FA,RB,2895
+163,Mike Evans,TBB,WR,2887
+164,Jauan Jennings,SFO,WR,2871
+165,Shedeur Sanders,CLE,QB,2869
+166,Mac Jones,SFO,QB,2866
+167,Braelon Allen,NYJ,RB,2845
+168,Chimere Dike,TEN,WR,2844
+169,Isaac TeSlaa,DET,WR,2842
+170,Tyjae Spears,TEN,RB,2840
+171,Elic Ayomanor,TEN,WR,2833
+172,Tre Harris,LAC,WR,2830
+173,Jalen McMillan,TBB,WR,2826
+174,David Montgomery,DET,RB,2824
+175,2026 Late 2nd,FA,PICK,2798
+176,Theo Johnson,NYG,TE,2795
+177,2028 Mid 2nd,FA,PICK,2791
+178,Kyle Williams,NEP,WR,2782
+179,Tory Horton,SEA,WR,2780
+180,Chris Godwin,TBB,WR,2778
+181,Kenneth Gainwell,PIT,RB,2778
+182,Jaylin Noel,HOU,WR,2776
+183,Adonai Mitchell,NYJ,WR,2765
+184,Tyrone Tracy,NYG,RB,2764
+185,J.K. Dobbins,DEN,RB,2749
+186,Kaleb Johnson,PIT,RB,2721
+187,Dylan Sampson,CLE,RB,2711
+188,Jonathon Brooks,CAR,RB,2710
+189,Brandon Aiyuk,SFO,WR,2691
+190,Elijah Sarratt,FA,WR,2675
+191,Stefon Diggs,NEP,WR,2664
+192,Tony Pollard,TEN,RB,2664
+193,Tua Tagovailoa,MIA,QB,2664
+194,Jerry Jeudy,CLE,WR,2651
+195,T.J. Hockenson,MIN,TE,2643
+196,2028 Late 2nd,FA,PICK,2642
+197,David Njoku,CLE,TE,2630
+198,Devin Neal,NOS,RB,2628
+199,Dallas Goedert,PHI,TE,2609
+200,Ollie Gordon,MIA,RB,2608
+201,Rachaad White,TBB,RB,2607
+202,Kimani Vidal,LAC,RB,2607
+203,Elijah Arroyo,SEA,TE,2579
+204,Deebo Samuel,WAS,WR,2578
+205,Sean Tucker,TBB,RB,2551
+206,Mark Andrews,BAL,TE,2541
+207,Jack Bech,LVR,WR,2531
+208,Malachi Fields,FA,WR,2525
+209,Tank Bigsby,PHI,RB,2522
+211,Zachariah Branch,FA,WR,2506
+210,Tre Tucker,LVR,WR,2506
+212,Keon Coleman,BUF,WR,2497
+213,Jacoby Brissett,ARI,QB,2491
+214,Marvin Mims,DEN,WR,2486
+215,Emmett Johnson,FA,RB,2474
+216,Anthony Richardson,IND,QB,2464
+217,Jordan Mason,MIN,RB,2446
+218,Trinidad Chambliss,FA,QB,2445
+219,2027 Early 3rd,FA,PICK,2436
+220,Tank Dell,HOU,WR,2415
+221,Jalen Milroe,SEA,QB,2405
+222,Hunter Henry,NEP,TE,2402
+223,Juwan Johnson,NOS,TE,2399
+224,Chris Brazzell II,FA,WR,2384
+225,Gunnar Helm,TEN,TE,2377
+226,Jaylen Wright,MIA,RB,2372
+227,Dalton Schultz,HOU,TE,2359
+228,Brian Robinson,SFO,RB,2357
+229,Alvin Kamara,NOS,RB,2338
+230,2026 Early 3rd,FA,PICK,2338
+231,Cade Otton,TBB,TE,2337
+232,Tez Johnson,TBB,WR,2337
+233,Keaton Mitchell,BAL,RB,2327
+234,Michael Mayer,LVR,TE,2320
+235,Brashard Smith,KCC,RB,2304
+236,Tyreek Hill,FA,WR,2297
+237,2027 Mid 3rd,FA,PICK,2293
+238,Isaiah Bond,CLE,WR,2289
+239,Kendre Miller,NOS,RB,2287
+240,Jake Tonges,SFO,TE,2247
+241,Dontayvion Wicks,GBP,WR,2246
+242,Quinn Ewers,MIA,QB,2244
+243,Chris Bell,FA,WR,2226
+244,Demario Douglas,NEP,WR,2217
+245,Aaron Jones,MIN,RB,2203
+246,Eli Stowers,FA,TE,2203
+247,Xavier Legette,CAR,WR,2199
+248,2027 Late 3rd,FA,PICK,2187
+249,Malik Washington,MIA,WR,2182
+250,2026 Mid 3rd,FA,PICK,2175
+251,Chigoziem Okonkwo,TEN,TE,2168
+252,Jaydon Blue,DAL,RB,2168
+253,Isiah Pacheco,KCC,RB,2157
+254,Ben Sinnott,WAS,TE,2139
+256,Kaytron Allen,FA,RB,2138
+255,Dont'e Thornton,LVR,WR,2138
+257,Isaiah Davis,NYJ,RB,2134
+258,Colby Parkinson,LAR,TE,2133
+259,2028 Early 3rd,FA,PICK,2133
+260,Cedric Tillman,CLE,WR,2117
+261,Cole Kmet,CHI,TE,2111
+262,2026 Late 3rd,FA,PICK,2111
+263,Emanuel Wilson,GBP,RB,2106
+264,Chris Rodriguez,WAS,RB,2087
+265,Ja'Tavion Sanders,CAR,TE,2070
+266,Justin Fields,NYJ,QB,2067
+267,Trevor Etienne,CAR,RB,2058
+268,James Conner,ARI,RB,2052
+269,Pat Freiermuth,PIT,TE,2048
+270,DJ Giddens,IND,RB,2033
+271,2028 Mid 3rd,FA,PICK,2027
+272,Darnell Mooney,ATL,WR,2008
+273,Rashod Bateman,BAL,WR,2005
+274,Mike Washington Jr.,FA,RB,1989
+275,Christian Kirk,HOU,WR,1979
+276,Germie Bernard,FA,WR,1978
+277,Ray Davis,BUF,RB,1976
+278,Antonio Williams,FA,WR,1961
+279,Ja'Kobi Lane,FA,WR,1959
+280,Garrett Nussmeier,FA,QB,1958
+281,Skyler Bell,FA,WR,1947
+282,Travis Kelce,KCC,TE,1939
+283,Max Klare,FA,TE,1932
+284,Michael Trigg,FA,TE,1926
+285,Will Howard,PIT,QB,1923
+286,Jaylin Lane,WAS,WR,1918
+287,Ryan Flournoy,DAL,WR,1911
+288,Evan Engram,DEN,TE,1895
+289,Darnell Washington,PIT,TE,1894
+290,2028 Late 3rd,FA,PICK,1881
+291,Luke Musgrave,GBP,TE,1874
+292,Xavier Hutchinson,HOU,WR,1869
+293,Luke McCaffrey,WAS,WR,1863
+294,Noah Gray,KCC,TE,1857
+295,Najee Harris,LAC,RB,1851
+296,John Metchie,NYJ,WR,1851
+297,LeQuint Allen,JAC,RB,1851
+298,Audric Estime,NOS,RB,1838
+299,Riley Leonard,IND,QB,1828
+300,Jalen Nailor,MIN,WR,1815
+301,2027 Early 4th,FA,PICK,1809
+302,Devaughn Vele,NOS,WR,1792
+303,Joe Milton,DAL,QB,1790
+304,2026 Early 4th,FA,PICK,1774
+305,Jalen Royals,KCC,WR,1774
+306,Keenan Allen,LAC,WR,1767
+307,Jordan James,SFO,RB,1766
+308,Demond Claiborne,FA,RB,1750
+309,Will Shipley,PHI,RB,1747
+310,Tahj Brooks,CIN,RB,1745
+311,Ted Hurst,FA,WR,1743
+312,Marquise Brown,KCC,WR,1740
+313,Roman Wilson,PIT,WR,1739
+314,Andrei Iosivas,CIN,WR,1727
+315,Spencer Rattler,NOS,QB,1721
+316,Aaron Rodgers,PIT,QB,1708
+317,Kevin Coleman,FA,WR,1703
+318,Jack Endries,FA,TE,1701
+319,Kirk Cousins,ATL,QB,1697
+320,Calvin Austin III,PIT,WR,1683
+321,Tyquan Thornton,KCC,WR,1679
+322,MarShawn Lloyd,GBP,RB,1677
+323,Calvin Ridley,TEN,WR,1674
+324,Jarquez Hunter,LAR,RB,1658
+325,Cooper Kupp,SEA,WR,1650
+326,2027 Mid 4th,FA,PICK,1649
+327,Bam Knight,ARI,RB,1648
+328,Jimmy Horn,CAR,WR,1643
+329,2026 Mid 4th,FA,PICK,1628
+330,KeAndre Lambert-Smith,LAC,WR,1628
+331,2028 Early 4th,FA,PICK,1614
+332,Dawson Knox,BUF,TE,1612
+333,Dillon Gabriel,CLE,QB,1610
+334,Joe Mixon,HOU,RB,1608
+335,Jordan Whittington,LAR,WR,1603
+336,Jonnu Smith,PIT,TE,1599
+337,Darius Slayton,NYG,WR,1597
+338,Marcus Mariota,WAS,QB,1583
+339,Savion Williams,GBP,WR,1578
+340,Jameis Winston,NYG,QB,1576
+341,Jaleel McLaughlin,DEN,RB,1567
+342,2026 Late 4th,FA,PICK,1559
+343,Davis Mills,HOU,QB,1553
+344,Isaac Guerendo,SFO,RB,1542
+345,2027 Late 4th,FA,PICK,1538
+346,2028 Mid 4th,FA,PICK,1538
+347,Devin Singletary,NYG,RB,1533
+348,Michael Carter,ARI,RB,1532
+349,Xavier Restrepo,TEN,WR,1488
+350,Joshua Palmer,BUF,WR,1480
+351,Kendrick Bourne,SFO,WR,1477
+352,Geno Smith,LVR,QB,1476
+353,Malik Davis,DAL,RB,1471
+354,Jahan Dotson,PHI,WR,1470
+355,Jerome Ford,CLE,RB,1463
+356,Ty Johnson,BUF,RB,1462
+357,Treylon Burks,WAS,WR,1462
+358,CJ Daniels,FA,WR,1453
+359,Konata Mumpfield,LAR,WR,1450
+360,Mike Gesicki,CIN,TE,1431
+361,Seth McGowan,FA,RB,1430
+362,Efton Chism,NEP,WR,1417
+363,Deion Burks,FA,WR,1404
+364,Barion Brown,FA,WR,1404
+365,Raheim Sanders,CLE,RB,1403
+366,Ja'Lynn Polk,NOS,WR,1400
+367,Jalen Tolbert,DAL,WR,1399
+368,Kareem Hunt,KCC,RB,1393
+369,Tommy Tremble,CAR,TE,1362
+370,Le'Veon Moss,FA,RB,1362
+371,Jam Miller,FA,RB,1348
+372,Noah Fant,CIN,TE,1345
+373,Luke Altmyer,FA,QB,1343
+374,Tutu Atwell,LAR,WR,1341
+375,Greg Dulcich,MIA,TE,1339
+376,Devontez Walker,BAL,WR,1327
+377,J'Mari Taylor,FA,RB,1327
+378,Daniel Bellinger,NYG,TE,1324
+379,Cade Stover,HOU,TE,1314
+380,Emari Demercado,ARI,RB,1304
+381,2028 Late 4th,FA,PICK,1304
+382,Roschon Johnson,CHI,RB,1287
+383,Olamide Zaccheaus,CHI,WR,1262
+384,Dyami Brown,JAC,WR,1259
+385,Reggie Virgil,FA,WR,1251
+386,Justice Hill,BAL,RB,1250
+387,KaVontae Turpin,DAL,WR,1245
+388,Greg Dortch,ARI,WR,1240
+389,Tyrell Shavers,BUF,WR,1240
+390,Will Levis,TEN,QB,1226
+391,Jalin Hyatt,NYG,WR,1224
+392,Trey Lance,LAC,QB,1219
+393,Darren Waller,MIA,TE,1214
+394,Tahj Washington,MIA,WR,1212
+395,Tanner McKee,PHI,QB,1205
+396,Phil Mafah,DAL,RB,1189
+397,Erick All,CIN,TE,1166
+398,Kameron Johnson,TBB,WR,1157
+399,Rasheen Ali,BAL,RB,1153
+400,Malachi Corley,CLE,WR,1152

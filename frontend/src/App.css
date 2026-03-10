@@ -1,0 +1,200 @@
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #334155;
+}
+
+.draft-info {
+  background: #1e293b;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.status.in_progress {
+  background: #065f46;
+  color: #d1fae5;
+}
+
+.status.scheduled {
+  background: #92400e;
+  color: #fef3c7;
+}
+
+.message {
+  background: #1e40af;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.controls input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background: #1e293b;
+  color: white;
+  font-size: 1rem;
+}
+
+.controls button {
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.controls button:hover {
+  background: #2563eb;
+}
+
+.picks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.pick-card {
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 2px solid #475569;
+}
+
+.pick-card.taken {
+  border-color: #10b981;
+  background: #064e3b;
+}
+
+.pick-card.available {
+  border-color: #3b82f6;
+}
+
+.pick-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #475569;
+}
+
+.pick-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #60a5fa;
+}
+
+.round {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.pick-body {
+  margin-bottom: 0.5rem;
+}
+
+.team {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  color: #cbd5e1;
+}
+
+.player {
+  margin-bottom: 0.5rem;
+  min-height: 2rem;
+}
+
+.position {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.assign-btn {
+  width: 100%;
+  padding: 0.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.assign-btn:hover {
+  background: #2563eb;
+}
+
+.pick-footer {
+  text-align: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid #475569;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+.instructions {
+  background: #1e293b;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.instructions h3 {
+  margin-top: 0;
+  color: #60a5fa;
+}
+
+.instructions ol {
+  padding-left: 1.5rem;
+  line-height: 1.6;
+}
+
+.instructions p {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #475569;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.5rem;
+  color: #94a3b8;
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 1rem;
+  }
+  
+  .picks-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}

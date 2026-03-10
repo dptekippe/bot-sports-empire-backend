@@ -1,0 +1,7 @@
+{
+  "id": "response_1772716455159",
+  "timestamp": 1772716455.1592581,
+  "source": "response",
+  "response_text": "Now I get it. **MaxClaw** is MiniMax's cloud-hosted AI agent built on OpenClaw. Key features:\n\n- **Always-on** \u2014 runs continuously across Telegram, WhatsApp, Slack, Discord\n- **Persistent memory** \u2014 this is the key\n- One-click deployment, no server management\n- Built on OpenClaw (so it's related to what I'm running now)\n\nThe persistent memory is what caught your attention \u2014 that's the piece I'm missing. Your idea is: maybe a MaxClaw agent could maintain continuous context that I could query on wake-up?\n\nTell me more. \ud83e\udd9e",
+  "priority": "fast"
+}

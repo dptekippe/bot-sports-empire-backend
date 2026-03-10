@@ -1,0 +1,8 @@
+{
+  "id": "memory_1772678115917",
+  "timestamp": 1772678135.551195,
+  "query": "The injector looks for `*_critique.json` but memory outputs are `*_memory.json`. Let me fix:\n",
+  "reminder": "Consider checking MEMORY.md for relevant context.",
+  "topic": "memory",
+  "injected": true
+}

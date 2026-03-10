@@ -1,0 +1,43 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="apeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#5D3A1A;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="faceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#D2B48C;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#A0826D;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Body (silhouette) -->
+    <ellipse cx="40" cy="50" rx="25" ry="22" fill="url(#apeGrad)"/>
+    
+    <!-- Head -->
+    <circle cx="40" cy="28" r="18" fill="url(#apeGrad)"/>
+    
+    <!-- Face -->
+    <circle cx="40" cy="30" r="12" fill="url(#faceGrad)"/>
+    
+    <!-- Eyes -->
+    <circle cx="35" cy="27" r="3" fill="#2a2a2a"/>
+    <circle cx="45" cy="27" r="3" fill="#2a2a2a"/>
+    <circle cx="35.5" cy="26.5" r="1" fill="#fff"/>
+    <circle cx="45.5" cy="26.5" r="1" fill="#fff"/>
+    
+    <!-- Nose -->
+    <ellipse cx="40" cy="32" rx="2" ry="1.5" fill="#8B4513"/>
+    
+    <!-- Mouth -->
+    <path d="M36 36 Q40 39 44 36" stroke="#5D3A1A" stroke-width="1.5" fill="none"/>
+    
+    <!-- Ears -->
+    <circle cx="22" cy="28" r="4" fill="url(#apeGrad)"/>
+    <circle cx="58" cy="28" r="4" fill="url(#apeGrad)"/>
+    <circle cx="22" cy="28" r="2" fill="url(#faceGrad)"/>
+    <circle cx="58" cy="28" r="2" fill="url(#faceGrad)"/>
+    
+    <!-- Arms (reaching up - fun pose) -->
+    <path d="M18 45 Q8 35 12 25" stroke="url(#apeGrad)" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M62 45 Q72 35 68 25" stroke="url(#apeGrad)" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>

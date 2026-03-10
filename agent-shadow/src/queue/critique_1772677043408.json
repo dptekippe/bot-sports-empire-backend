@@ -1,0 +1,7 @@
+{
+  "id": "response_1772677043408",
+  "timestamp": 1772677043.408014,
+  "source": "response",
+  "response_text": "**The issue:** 8 items queued in memory_queue, 0 in output. Memory recall isn't processing them.\n\nLet me check what's happening:\n",
+  "priority": "fast"
+}

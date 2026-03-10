@@ -1,0 +1,667 @@
+# Source URL: https://github.com/psf/requests
+# Content Length: 15746 characters
+# Extracted at: 2026-03-08 10:52:37
+#============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GitHub - psf/requests: A simple, yet elegant, HTTP library. · GitHub
+
+
+
+
+
+
+
+
+
+
+
+
+[Skip to content](#start-of-content)
+
+
+
+
+
+Navigation Menu
+---------------
+
+Toggle navigation
+
+ 
+
+
+
+
+
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Fpsf%2Frequests)
+ 
+
+
+Appearance settings
+
+
+
+
+
+
+
+
+* Platform
+  + AI CODE CREATION
+    - [GitHub CopilotWrite better code with AI](https://github.com/features/copilot)
+    - [GitHub SparkBuild and deploy intelligent apps](https://github.com/features/spark)
+    - [GitHub ModelsManage and compare prompts](https://github.com/features/models)
+    - [MCP RegistryNewIntegrate external tools](https://github.com/mcp)
+  + DEVELOPER WORKFLOWS
+    - [ActionsAutomate any workflow](https://github.com/features/actions)
+    - [CodespacesInstant dev environments](https://github.com/features/codespaces)
+    - [IssuesPlan and track work](https://github.com/features/issues)
+    - [Code ReviewManage code changes](https://github.com/features/code-review)
+  + APPLICATION SECURITY
+    - [GitHub Advanced SecurityFind and fix vulnerabilities](https://github.com/security/advanced-security)
+    - [Code securitySecure your code as you build](https://github.com/security/advanced-security/code-security)
+    - [Secret protectionStop leaks before they start](https://github.com/security/advanced-security/secret-protection)
+  + EXPLORE
+    - [Why GitHub](https://github.com/why-github)
+    - [Documentation](https://docs.github.com)
+    - [Blog](https://github.blog)
+    - [Changelog](https://github.blog/changelog)
+    - [Marketplace](https://github.com/marketplace)[View all features](https://github.com/features)
+* Solutions
+  + BY COMPANY SIZE
+    - [Enterprises](https://github.com/enterprise)
+    - [Small and medium teams](https://github.com/team)
+    - [Startups](https://github.com/enterprise/startups)
+    - [Nonprofits](https://github.com/solutions/industry/nonprofits)
+  + BY USE CASE
+    - [App Modernization](https://github.com/solutions/use-case/app-modernization)
+    - [DevSecOps](https://github.com/solutions/use-case/devsecops)
+    - [DevOps](https://github.com/solutions/use-case/devops)
+    - [CI/CD](https://github.com/solutions/use-case/ci-cd)
+    - [View all use cases](https://github.com/solutions/use-case)
+  + BY INDUSTRY
+    - [Healthcare](https://github.com/solutions/industry/healthcare)
+    - [Financial services](https://github.com/solutions/industry/financial-services)
+    - [Manufacturing](https://github.com/solutions/industry/manufacturing)
+    - [Government](https://github.com/solutions/industry/government)
+    - [View all industries](https://github.com/solutions/industry)[View all solutions](https://github.com/solutions)
+* Resources
+  + EXPLORE BY TOPIC
+    - [AI](https://github.com/resources/articles?topic=ai)
+    - [Software Development](https://github.com/resources/articles?topic=software-development)
+    - [DevOps](https://github.com/resources/articles?topic=devops)
+    - [Security](https://github.com/resources/articles?topic=security)
+    - [View all topics](https://github.com/resources/articles)
+  + EXPLORE BY TYPE
+    - [Customer stories](https://github.com/customer-stories)
+    - [Events & webinars](https://github.com/resources/events)
+    - [Ebooks & reports](https://github.com/resources/whitepapers)
+    - [Business insights](https://github.com/solutions/executive-insights)
+    - [GitHub Skills](https://skills.github.com)
+  + SUPPORT & SERVICES
+    - [Documentation](https://docs.github.com)
+    - [Customer support](https://support.github.com)
+    - [Community forum](https://github.com/orgs/community/discussions)
+    - [Trust center](https://github.com/trust-center)
+    - [Partners](https://github.com/partners)[View all resources](https://github.com/resources)
+* Open Source
+  + COMMUNITY
+    - [GitHub SponsorsFund open source developers](https://github.com/sponsors)
+  + PROGRAMS
+    - [Security Lab](https://securitylab.github.com)
+    - [Maintainer Community](https://maintainers.github.com)
+    - [Accelerator](https://github.com/accelerator)
+    - [Archive Program](https://archiveprogram.github.com)
+  + REPOSITORIES
+    - [Topics](https://github.com/topics)
+    - [Trending](https://github.com/trending)
+    - [Collections](https://github.com/collections)
+* Enterprise
+  + ENTERPRISE SOLUTIONS
+    - [Enterprise platformAI-powered developer platform](https://github.com/enterprise)
+  + AVAILABLE ADD-ONS
+    - [GitHub Advanced SecurityEnterprise-grade security features](https://github.com/security/advanced-security)
+    - [Copilot for BusinessEnterprise-grade AI features](https://github.com/features/copilot/copilot-business)
+    - [Premium SupportEnterprise-grade 24/7 support](https://github.com/premium-support)
+* [Pricing](https://github.com/pricing)
+
+
+
+Search or jump to...
+
+
+
+
+Search code, repositories, users, issues, pull requests...
+==========================================================
+
+ 
+Search
+
+
+
+
+Clear
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+[Search syntax tips](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax) 
+
+
+
+
+
+
+
+Provide feedback
+================
+
+
+
+
+
+ 
+
+We read every piece of feedback, and take your input very seriously.
+
+
+
+Include my email address so I can be contacted
+
+
+  Cancel
+
+ Submit feedback
+
+
+
+Saved searches
+==============
+
+Use saved searches to filter your results more quickly
+------------------------------------------------------
+
+
+
+
+
+ 
+
+Name
+
+
+
+
+Query
+
+To see all available qualifiers, see our [documentation](https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax).
+
+ 
+
+
+
+
+  Cancel
+
+ Create saved search
+
+
+
+
+
+
+[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2Fpsf%2Frequests)
+
+[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=psf%2Frequests)
+ 
+
+
+Appearance settings
+
+
+
+
+
+Resetting focus
+
+
+
+
+
+You signed in with another tab or window. Reload to refresh your session.
+You signed out in another tab or window. Reload to refresh your session.
+You switched accounts on another tab or window. Reload to refresh your session.
+ 
+
+
+Dismiss alert
+
+
+
+{{ message }}
+
+
+
+
+
+[psf](/psf) 
+/
+**[requests](/psf/requests)**
+Public
+
+
+* ### Uh oh!
+  
+  
+  
+  There was an error while loading. Please reload this page.
+* [Notifications](/login?return_to=%2Fpsf%2Frequests) You must be signed in to change notification settings
+* [Fork
+  9.8k](/login?return_to=%2Fpsf%2Frequests)
+* [Star
+   53.9k](/login?return_to=%2Fpsf%2Frequests)
+
+
+
+* [Code](/psf/requests)
+* [Issues
+  183](/psf/requests/issues)
+* [Pull requests
+  115](/psf/requests/pulls)
+* [Actions](/psf/requests/actions)
+* [Wiki](/psf/requests/wiki)
+* [Security
+  3](/psf/requests/security)
+* [Insights](/psf/requests/pulse)
+
+ 
+ 
+
+
+Additional navigation options
+ 
+
+* [Code](/psf/requests)
+* [Issues](/psf/requests/issues)
+* [Pull requests](/psf/requests/pulls)
+* [Actions](/psf/requests/actions)
+* [Wiki](/psf/requests/wiki)
+* [Security](/psf/requests/security)
+* [Insights](/psf/requests/pulse)
+
+
+ 
+
+
+
+   
+
+psf/requests
+============
+
+
+ main[Branches](/psf/requests/branches)[Tags](/psf/requests/tags)Go to fileCodeOpen more actions menu
+
+Folders and files
+-----------------
+
+| Name | Name | Last commit message | Last commit date |
+| --- | --- | --- | --- |
+| Latest commit History[6,411 Commits](/psf/requests/commits/main/)6,411 Commits |
+| [.github](/psf/requests/tree/main/.github) | [.github](/psf/requests/tree/main/.github) |  |  |
+| [docs](/psf/requests/tree/main/docs) | [docs](/psf/requests/tree/main/docs) |  |  |
+| [ext](/psf/requests/tree/main/ext) | [ext](/psf/requests/tree/main/ext) |  |  |
+| [src/requests](/psf/requests/tree/main/src/requests) | [src/requests](/psf/requests/tree/main/src/requests) |  |  |
+| [tests](/psf/requests/tree/main/tests) | [tests](/psf/requests/tree/main/tests) |  |  |
+| [.coveragerc](/psf/requests/blob/main/.coveragerc) | [.coveragerc](/psf/requests/blob/main/.coveragerc) |  |  |
+| [.git-blame-ignore-revs](/psf/requests/blob/main/.git-blame-ignore-revs) | [.git-blame-ignore-revs](/psf/requests/blob/main/.git-blame-ignore-revs) |  |  |
+| [.gitignore](/psf/requests/blob/main/.gitignore) | [.gitignore](/psf/requests/blob/main/.gitignore) |  |  |
+| [.pre-commit-config.yaml](/psf/requests/blob/main/.pre-commit-config.yaml) | [.pre-commit-config.yaml](/psf/requests/blob/main/.pre-commit-config.yaml) |  |  |
+| [.readthedocs.yaml](/psf/requests/blob/main/.readthedocs.yaml) | [.readthedocs.yaml](/psf/requests/blob/main/.readthedocs.yaml) |  |  |
+| [AUTHORS.rst](/psf/requests/blob/main/AUTHORS.rst) | [AUTHORS.rst](/psf/requests/blob/main/AUTHORS.rst) |  |  |
+| [HISTORY.md](/psf/requests/blob/main/HISTORY.md) | [HISTORY.md](/psf/requests/blob/main/HISTORY.md) |  |  |
+| [LICENSE](/psf/requests/blob/main/LICENSE) | [LICENSE](/psf/requests/blob/main/LICENSE) |  |  |
+| [MANIFEST.in](/psf/requests/blob/main/MANIFEST.in) | [MANIFEST.in](/psf/requests/blob/main/MANIFEST.in) |  |  |
+| [Makefile](/psf/requests/blob/main/Makefile) | [Makefile](/psf/requests/blob/main/Makefile) |  |  |
+| [NOTICE](/psf/requests/blob/main/NOTICE) | [NOTICE](/psf/requests/blob/main/NOTICE) |  |  |
+| [README.md](/psf/requests/blob/main/README.md) | [README.md](/psf/requests/blob/main/README.md) |  |  |
+| [pyproject.toml](/psf/requests/blob/main/pyproject.toml) | [pyproject.toml](/psf/requests/blob/main/pyproject.toml) |  |  |
+| [requirements-dev.txt](/psf/requests/blob/main/requirements-dev.txt) | [requirements-dev.txt](/psf/requests/blob/main/requirements-dev.txt) |  |  |
+| [setup.py](/psf/requests/blob/main/setup.py) | [setup.py](/psf/requests/blob/main/setup.py) |  |  |
+| [tox.ini](/psf/requests/blob/main/tox.ini) | [tox.ini](/psf/requests/blob/main/tox.ini) |  |  |
+| View all files |
+
+Repository files navigation
+---------------------------
+
+* [README](#)
+* [Code of conduct](#)
+* [Contributing](#)
+* [Apache-2.0 license](#)
+* [Security](#)
+
+Requests
+========
+
+**Requests** is a simple, yet elegant, HTTP library.
+
+```
+>>> import requests
+>>> r = requests.get('https://httpbin.org/basic-auth/user/pass', auth=('user', 'pass'))
+>>> r.status_code
+200
+>>> r.headers['content-type']
+'application/json; charset=utf8'
+>>> r.encoding
+'utf-8'
+>>> r.text
+'{"authenticated": true, ...'
+>>> r.json()
+{'authenticated': True, ...}
+```
+
+Requests allows you to send HTTP/1.1 requests extremely easily. There’s no need to manually add query strings to your URLs, or to form-encode your `PUT` & `POST` data — but nowadays, just use the `json` method!
+
+Requests is one of the most downloaded Python packages today, pulling in around `30M downloads / week`— according to GitHub, Requests is currently [depended upon](https://github.com/psf/requests/network/dependents?package_id=UGFja2FnZS01NzA4OTExNg%3D%3D) by `1,000,000+` repositories. You may certainly put your trust in this code.
+
+[![]()](https://pepy.tech/project/requests)
+[![]()](https://pypi.org/project/requests)
+[![]()](https://github.com/psf/requests/graphs/contributors)
+
+Installing Requests and Supported Versions
+------------------------------------------
+
+Requests is available on PyPI:
+
+```
+$ python -m pip install requests
+```
+
+Requests officially supports Python 3.10+.
+
+Supported Features & Best–Practices
+-----------------------------------
+
+Requests is ready for the demands of building robust and reliable HTTP–speaking applications, for the needs of today.
+
+* Keep-Alive & Connection Pooling
+* International Domains and URLs
+* Sessions with Cookie Persistence
+* Browser-style TLS/SSL Verification
+* Basic & Digest Authentication
+* Familiar `dict`–like Cookies
+* Automatic Content Decompression and Decoding
+* Multi-part File Uploads
+* SOCKS Proxy Support
+* Connection Timeouts
+* Streaming Downloads
+* Automatic honoring of `.netrc`
+* Chunked HTTP Requests
+
+API Reference and User Guide available on [Read the Docs](https://requests.readthedocs.io)
+------------------------------------------------------------------------------------------
+
+[![]()](https://requests.readthedocs.io)
+
+Cloning the repository
+----------------------
+
+When cloning the Requests repository, you may need to add the `-c fetch.fsck.badTimezone=ignore` flag to avoid an error about a bad commit timestamp (see
+[this issue](https://github.com/psf/requests/issues/2690) for more background):
+
+```
+git clone -c fetch.fsck.badTimezone=ignore https://github.com/psf/requests.git
+```
+
+You can also apply this setting to your global Git config:
+
+```
+git config --global fetch.fsck.badTimezone ignore
+```
+
+---
+
+[![]()](https://kennethreitz.org) [![]()](https://www.python.org/psf)
+
+About
+-----
+
+A simple, yet elegant, HTTP library.
+
+
+[requests.readthedocs.io/en/latest/](https://requests.readthedocs.io/en/latest/)
+
+### Topics
+
+[python](/topics/python)
+[http](/topics/http)
+[client](/topics/client)
+[cookies](/topics/cookies)
+[requests](/topics/requests)
+[humans](/topics/humans)
+[forhumans](/topics/forhumans)
+[python-requests](/topics/python-requests)
+
+### Resources
+
+[Readme](#readme-ov-file) 
+### License
+
+[Apache-2.0 license](#Apache-2.0-1-ov-file)
+### Code of conduct
+
+[Code of conduct](#coc-ov-file)
+### Contributing
+
+[Contributing](#contributing-ov-file)
+### Security policy
+
+[Security policy](#security-ov-file)
+
+### Uh oh!
+
+
+
+There was an error while loading. Please reload this page.
+
+
+
+ 
+ 
+
+[Activity](/psf/requests/activity) 
+[Custom properties](/psf/requests/custom-properties) 
+### Stars
+
+[**53.9k**
+stars](/psf/requests/stargazers) 
+### Watchers
+
+[**1.3k**
+watching](/psf/requests/watchers) 
+### Forks
+
+[**9.8k**
+forks](/psf/requests/forks) 
+[Report repository](/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2Fpsf%2Frequests&report=psf+%28user%29) 
+
+
+
+[Releases
+14](/psf/requests/releases)
+-------------------------------------
+
+[v2.32.5
+Latest
+ 
+Aug 18, 2025](/psf/requests/releases/tag/v2.32.5) 
+[+ 13 releases](/psf/requests/releases)
+
+
+Sponsor this project
+--------------------
+
+
+### Uh oh!
+
+
+
+There was an error while loading. Please reload this page.
+
+
+
+ 
+ 
+
+* <https://www.python.org/psf/sponsorship/>
+
+
+[Used by 4m](/psf/requests/network/dependents)
+----------------------------------------------
+
+[* ![]()
+* ![]()
+* ![]()
+* ![]()
+* ![]()
+* ![]()
+* ![]()
+* ![]()
+
++ 4,038,168](/psf/requests/network/dependents)
+
+
+[Contributors
+651](/psf/requests/graphs/contributors)
+-----------------------------------------------------
+
+* [![]()](https://github.com/kennethreitz)
+* [![]()](https://github.com/Lukasa)
+* [![]()](https://github.com/sigmavirus24)
+* [![]()](https://github.com/nateprewitt)
+* [![]()](https://github.com/slingamn)
+* [![]()](https://github.com/BraulioVM)
+* [![]()](https://github.com/apps/dependabot)
+* [![]()](https://github.com/dpursehouse)
+* [![]()](https://github.com/jgorset)
+* [![]()](https://github.com/daftshady)
+* [![]()](https://github.com/jerem)
+* [![]()](https://github.com/gazpachoking)
+* [![]()](https://github.com/idan)
+* [![]()](https://github.com/schlamar)
+
+[+ 637 contributors](/psf/requests/graphs/contributors)
+
+
+Languages
+---------
+
+
+* [Python
+  99.3%](/psf/requests/search?l=python)
+* [Makefile
+  0.7%](/psf/requests/search?l=makefile)
+
+
+
+   
+
+
+
+
+
+
+Footer
+------
+
+© 2026 GitHub, Inc.
+
+
+### Footer navigation
+
+* [Terms](https://docs.github.com/site-policy/github-terms/github-terms-of-service)
+* [Privacy](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement)
+* [Security](https://github.com/security)
+* [Status](https://www.githubstatus.com/)
+* [Community](https://github.community/)
+* [Docs](https://docs.github.com/)
+* [Contact](https://support.github.com?tags=dotcom-footer)
+* Manage cookies
+* Do not share my personal information
+
+
+
+
+You can’t perform that action at this time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

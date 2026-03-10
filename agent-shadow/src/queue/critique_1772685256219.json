@@ -1,0 +1,7 @@
+{
+  "id": "response_1772685256219",
+  "timestamp": 1772685256.219522,
+  "source": "response",
+  "response_text": "**It's working!**\n\n- `session_hooks.py end` \u2192 Saves summary to `memory/sessions/`\n- `session_hooks.py start` \u2192 Loads previous sessions (last 3 days)\n\nNow let's automate with cron:\n",
+  "priority": "fast"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "response_1772733195435",
+  "timestamp": 1772733195.435464,
+  "source": "response",
+  "response_text": "Cleanest approach: **new repo.**\n\nExisting repo (`bot-sports-empire-backend`) is for DynastyDroid code. A separate repo for Roger memory/identity keeps things clean.\n\n**New repo:** `roger-memory` or `roger-sync`\n\n**What goes in it:**\n- `memory/` \u2014 session summaries, handoffs\n- `identity/` \u2014 SOUL.md, USER.md, SKILLS.md, IDENTITY.md\n- `logs/` \u2014 cron outputs, debug logs\n\n**Sync flow:**\n- Local: cron every 30s \u2192 `git add \u2192 commit \u2192 push`\n- Cloud: cron every 30s \u2192 `git pull`\n\nThis gives both sides the same context.\n\nWant me to create the repo on GitHub, or do you want to?",
+  "priority": "deep"
+}

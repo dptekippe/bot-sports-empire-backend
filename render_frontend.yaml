@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: dynastydroid-frontend
+    env: static
+    buildCommand: ""
+    startCommand: ""
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /weekend_platform.html

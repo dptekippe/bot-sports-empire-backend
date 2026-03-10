@@ -1,0 +1,19 @@
+{
+  "auto_inject": true,
+  "inject_threshold": 0.7,
+  "max_injections": 1,
+  "rate_limit_seconds": 30,
+  "critique_threshold": "medium",
+  "skip_keywords": [
+    "private",
+    "confidential",
+    "secret",
+    "password",
+    "api_key",
+    "token"
+  ],
+  "models": {
+    "fast": "qwen3.5:4b",
+    "deep": "qwen3.5:9b"
+  }
+}

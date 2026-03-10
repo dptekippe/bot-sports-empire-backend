@@ -1,0 +1,6 @@
+# ULTRA STABLE requirements for Render
+# Uses only packages with pre-built wheels for all Python versions
+
+fastapi==0.100.0  # Older but stable
+uvicorn[standard]==0.23.0
+pydantic==1.10.0  # Version 1.x has better wheel support

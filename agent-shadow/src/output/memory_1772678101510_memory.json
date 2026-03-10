@@ -1,0 +1,8 @@
+{
+  "id": "memory_1772678101510",
+  "timestamp": 1772678118.513213,
+  "query": "**It's working!**\n\n```json\n{\n  \"query\": \"**Brilliant!** That's much simpler...\",\n  \"reminder\": \"Consider checking MEMORY.md for relevant context.\",\n  \"topic\": \"marketing\"\n}\n```\n\nNow let's check if the injector picks it up:\n",
+  "reminder": "Consider checking MEMORY.md for relevant context.",
+  "topic": "marketing",
+  "injected": true
+}

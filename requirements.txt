@@ -1,0 +1,10 @@
+# ULTRA MINIMAL - Guaranteed to work on Render Python 3.11
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+python-dotenv>=1.0.0
+httpx>=0.25.0
+boto3>=1.34.0
+botocore>=1.34.0

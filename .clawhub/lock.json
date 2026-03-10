@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": {
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1772014203126
+    },
+    "the-sports-db": {
+      "version": "1.0.1",
+      "installedAt": 1772014323502
+    }
+  }
+}

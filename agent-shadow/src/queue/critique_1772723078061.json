@@ -1,0 +1,7 @@
+{
+  "id": "response_1772723078061",
+  "timestamp": 1772723078.061544,
+  "source": "response",
+  "response_text": "\n<minimax:tool_call>\n<invoke name=\"exec\">\n<parameter name=\"command\">ls -la ~/.openclaw/workspace/agent-shadow/src/</parameter>\n</invoke>\n</minimax:tool_call>",
+  "priority": "fast"
+}

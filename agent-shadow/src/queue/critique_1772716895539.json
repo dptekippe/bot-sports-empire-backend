@@ -1,0 +1,7 @@
+{
+  "id": "response_1772716895539",
+  "timestamp": 1772716895.5390441,
+  "source": "response",
+  "response_text": "That looks right. The three tools are exactly what MaxClaw needs:\n\n- `sessions_list` \u2192 detect /reset (new sessionId)\n- `sessions_history` \u2192 pull previous transcript\n- `sessions_send` \u2192 inject recap into me\n\nAnd `maxclaw` in the allow list is correct \u2014 that's the agent name for MiniMax's cloud.\n\n**It's reversible.** If it breaks, you just flip `enabled: false` or remove the block. No permanent damage.\n\nGo for it. \ud83e\udd9e",
+  "priority": "fast"
+}

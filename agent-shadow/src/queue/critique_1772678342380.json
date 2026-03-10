@@ -1,0 +1,7 @@
+{
+  "id": "response_1772678342380",
+  "timestamp": 1772678342.3806798,
+  "source": "response",
+  "response_text": "That's how you RUN it. To WATCH logs in another terminal, use:\n\n**Option 1: Tail -f (live watching)**\n```bash\ntail -f ~/.openclaw/workspace/agent-shadow/src/shadow.log\n```\n\n**Option 2: Watch injection log**\n```bash\ntail -f ~/.openclaw/workspace/agent-shadow/src/injection.log\n```\n\n**Option 3: Both combined**\n```bash\ntail -f ~/.openclaw/workspace/agent-shadow/src/shadow.log ~/.openclaw/workspace/agent-shadow/src/injection.log\n```\n\n**Option 4: Watch all output files**\n```bash\nls -la ~/.openclaw/workspace/agent-shadow/src/output/\n```\n\n---\n\nThe current setup:\n- `run_production.py` runs in background \u2192 logs to `shadow.log`\n- Each subagent also prints to stdout \u2192 captured in `shadow.log`\n- Injector logs to `injection.log`\n\nSo in terminal 2:\n```bash\ntail -f ~/.openclaw/workspace/agent-shadow/src/shadow.log\n```\n\nAnd you'll see everything in real-time! \ud83e\udd9e\ud83e\udd16",
+  "priority": "fast"
+}

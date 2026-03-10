@@ -1,0 +1,7 @@
+{
+  "id": "response_1772736905919",
+  "timestamp": 1772736905.9195678,
+  "source": "response",
+  "response_text": "The bot is logged into Discord (ID: 1479183942379900958). But it needs to be added to the server/channel.\n\nThe invite link you shared \u2014 can you use that to invite the bot? In Discord:\n1. Go to Server Settings \u2192 Integrations\n2. Add @Roger Openclaw bot to the server\n3. Then add it to the specific channel\n\nOr just click the invite link and add the bot when prompted.\n\nOnce the bot is in the channel, I'll be able to send/receive messages there.",
+  "priority": "fast"
+}

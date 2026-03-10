@@ -1,0 +1,7 @@
+{
+  "id": "response_1772752460692",
+  "timestamp": 1772752460.6929731,
+  "source": "response",
+  "response_text": "You're right. Let me check what's actually happening:\n\n- **shared_memory/** \u2014 doesn't exist\n- **config.json maxclaw** \u2014 not there\n- **Git sync** \u2014 IS running (30 sec cron works)\n\nThe Git sync pushes to Roger-mirror, but it was syncing *broken memory* \u2014 that's why today is lost.\n\nLet me check what the Git sync is actually capturing:\n",
+  "priority": "fast"
+}

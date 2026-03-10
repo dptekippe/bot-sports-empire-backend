@@ -1,0 +1,185 @@
+# Source URL: https://bibek-poudel.medium.com/how-openclaw-works-understanding-ai-agents-through-a-real-architecture-5d59cc7a4764
+# Content Length: 24406 characters
+# Extracted at: 2026-03-07 07:46:41
+#============================================================
+
+How OpenClaw Works: Understanding AI Agents Through a Real Architecture | by Bibek Poudel | Feb, 2026 | Medium
+[Sitemap](/sitemap/sitemap.xml)
+[Open in app](https://play.google.com/store/apps/details?id=com.medium.reader&referrer=utm\_source%3DmobileNavBar&source=post\_page---top\_nav\_layout\_nav-----------------------------------------)
+Sign up
+[Sign in](https://medium.com/m/signin?operation=login&redirect=https%3A%2F%2Fbibek-poudel.medium.com%2Fhow-openclaw-works-understanding-ai-agents-through-a-real-architecture-5d59cc7a4764&source=post\_page---top\_nav\_layout\_nav-----------------------global\_nav------------------)
+[Medium Logo](https://medium.com/?source=post\_page---top\_nav\_layout\_nav-----------------------------------------)
+Get app
+[Write](https://medium.com/m/signin?operation=register&redirect=https%3A%2F%2Fmedium.com%2Fnew-story&source=---top\_nav\_layout\_nav-----------------------new\_post\_topnav------------------)
+[Search](https://medium.com/search?source=post\_page---top\_nav\_layout\_nav-----------------------------------------)
+Sign up
+[Sign in](https://medium.com/m/signin?operation=login&redirect=https%3A%2F%2Fbibek-poudel.medium.com%2Fhow-openclaw-works-understanding-ai-agents-through-a-real-architecture-5d59cc7a4764&source=post\_page---top\_nav\_layout\_nav-----------------------global\_nav------------------)
+![](https://miro.medium.com/v2/resize:fill:32:32/1\*dmbNkD5D-u45r44go\_cf0g.png)
+# How OpenClaw Works: Understanding AI Agents Through a Real Architecture
+[![](https://miro.medium.com/v2/resize:fill:32:32/0\*sKlfGSgBOW3Pfw3m.jpg)](/?source=post\_page---byline--5d59cc7a4764---------------------------------------)
+[Bibek Poudel](/?source=post\_page---byline--5d59cc7a4764---------------------------------------)
+12 min read
+·
+Feb 18, 2026
+--
+1
+Listen
+Share
+## TL;DR: OpenClaw is an open-source personal AI agent that surpassed 100k+ GitHub stars rapidly in early 2026. By looking at how it is built, including its Gateway, agentic loop, Skills, MCP, and memory system, we can learn the core concepts that power every serious AI agent being built today.
+You have probably seen it on X, Reddit, or Hacker News. OpenClaw (previously Clawdbot, then Moltbot) is one of the most talked about open-source AI projects right now, and it is not hard to see why.
+It runs locally on your machine, connects to messaging apps like WhatsApp, Telegram, and Slack, and can do real things on your behalf: read and write files, run shell commands, send emails, browse the web, manage your calendar. Users have reported letting it handle negotiations, insurance disputes, and scheduling tasks entirely on their behalf.
+People call it “Claude with hands.” That is a fun way to put it. But from an engineering perspective, what is actually going on here?
+That is what this article is about. Rather than writing another installation guide, I want to use OpenClaw as a teaching tool. Its architecture is a clean, open-source implementation of the exact patterns that power every serious AI agent today: the agentic loop, tool use, context injection, and persistent memory. Once you understand how OpenClaw works, you understand how agents work in general.
+Let’s go through it layer by layer.
+## What OpenClaw Actually Is
+Before getting into the architecture, it helps to be clear about what OpenClaw is and is not.
+OpenClaw is not a chatbot. It is a \*\*local gateway process\*\* that runs on your machine (or a VPS). That gateway connects to the messaging platforms you already use and routes every incoming message through an LLM-powered agent. The agent can reply in text, but more importantly, it can also take action in the real world.
+You bring your own API key for whatever model you want to use: Claude, GPT, Gemini, or a fully local model running through Ollama. OpenClaw is model-agnostic.
+At a glance it looks like a smart messaging assistant. Under the hood it is a local orchestration platform for AI agents. That distinction is what we are going to unpack.
+## The Gateway: The Control Plane
+Everything in OpenClaw flows through a single process called the \*\*Gateway\*\*. The official docs describe it as the “single source of truth” for sessions, routing, and channel connections. Think of it as the nervous system of the whole system.
+The Gateway is typically run as a long-lived background process (often via `systemd` on Linux, or a `LaunchAgent` on macOS). Clients connect to it over WebSocket at the configured bind host, which defaults to `ws://127.0.0.1:18789`.
+Here is what the high-level architecture looks like:
+Press enter or click to view image in full size
+![](https://miro.medium.com/v2/resize:fit:700/1\*4pOMl22mokpdKVJJe-ZHnQ.png)
+Gateway Architecture
+The Gateway handles routing, connectivity, authentication, and session management. The Agent Runtime handles reasoning and execution. This separation of concerns is intentional and important.
+This is the first architectural concept worth internalizing: \*\*a real AI agent deployment always has an orchestration layer in front of the model\*\*. You do not expose raw LLM API calls directly to user input. You put a controlled process in between that handles routing, queuing, and state management. OpenClaw makes this pattern concrete and readable.
+## Step 1: Normalizing the Input (Channel Adapters)
+When you send a WhatsApp message to OpenClaw, the first thing that happens is a \*\*Channel Adapter\*\* normalizes it.
+OpenClaw supports over a dozen channels. The channel integrations use adapter libraries (e.g., Baileys for WhatsApp and grammY for Telegram in common setups), with similar adapters for Slack, Discord, Signal, iMessage, and WebChat. Each of these speaks a different protocol and delivers messages in a different format. A voice note from WhatsApp looks completely different from a text message from Slack.
+The Channel Adapter transforms all of this into a single, consistent message object with a sender, a body, any attachments, and channel metadata. If you send a voice note, it gets transcribed to text before it ever reaches the model.
+This is a pattern you will see in every production AI pipeline: \*\*normalize your inputs before the model ever sees them\*\*. The context you pass to an LLM is everything. Messy or inconsistent input produces messy output.
+## Step 2: Routing and Sessions
+Once the Gateway has a normalized message, it needs to decide which agent handles it and which conversation session it belongs to.
+OpenClaw supports \*\*multi-agent routing\*\*. You can configure different agents for different channels, contacts, or groups. One agent might handle personal DMs with a casual tone and access to your calendar. Another might manage a team support channel with a more formal style and access to product documentation. All of this runs through a single Gateway process.
+Each agent maintains its own \*\*session\*\*: a stateful representation of an ongoing conversation. Sessions have IDs, they track history, and they serialize execution. That last part is worth paying attention to.
+OpenClaw processes messages in a session \*\*one at a time\*\*, not in parallel. This is handled by the \*\*Command Queue\*\*, and the docs are explicit about why: serializing per session lane prevents tool conflicts and keeps session history consistent. If two messages from the same session ran simultaneously, they could corrupt state or produce conflicting tool outputs.
+This is a real engineering lesson. \*\*Concurrency is dangerous when agents share state.\*\* Serializing execution per session is a deliberate design choice, not a limitation.
+## Step 3: The Agentic Loop
+This is the core of OpenClaw and the core concept behind all AI agents. The official docs describe it like this:
+> \*An agentic loop is the full run of an agent: intake > context assembly > model inference > tool execution > streaming replies > persistence.\*
+Let’s walk through each part.
+## Context Assembly
+Before the model sees your message, the agent runtime assembles a context package. According to the docs, the system prompt is built from four things:
+1. \*\*OpenClaw’s base prompt\*\*: the core instructions the agent always follows
+2. \*\*Skills prompt\*\*: a compact list of eligible skills (name, description, path) that tells the model what skills are available
+3. \*\*Bootstrap context files\*\*: workspace files that provide environment-level context
+4. \*\*Per-run overrides\*\*: any additional instructions injected for a specific run
+The model does not have eyes. It can only work with what you put in its context window. Context assembly is not a preprocessing step you skip past. It is arguably the most important engineering decision in any agentic system. Everything the model knows, believes, and can do flows through this stage.
+## Model Inference
+The assembled context gets sent to your configured provider (Anthropic, OpenAI, Google, Ollama, etc.) as a standard API call. OpenClaw handles a few important details here: model-specific context limits are enforced, and a \*\*compaction reserve\*\* (a buffer of tokens kept free for the model’s response) is maintained so the model never runs out of room to reply.
+## Tool Execution: Where the Agent Gets Its Hands
+Here is where things get interesting. When the LLM responds, it does one of two things:
+1. Produces a text reply (and this turn ends)
+2. Requests a \*\*tool call\*\*
+A tool call is when the model outputs, in structured format, something like: “I want to run this specific tool with these specific parameters.” Think of it as the model saying “I need to read this file” or “I need to search the web” or “I need to send this email.”
+OpenClaw’s agent runtime intercepts that request, executes the tool, captures the result, and feeds it back into the conversation as a new message. The model sees the result and decides what to do next, which might mean calling another tool or finally writing a reply.
+This cycle is called the \*\*ReAct loop\*\* (short for Reason + Act). It is the defining pattern of agentic AI, and it is what separates an agent from a chatbot.
+Here is a simplified version of what this looks like in code:
+```
+while True: response = llm.call(context) if response.is\_text(): send\_reply(response.text) break if response.is\_tool\_call(): result = execute\_tool(response.tool\_name, response.tool\_params) context.add\_message("tool\_result", result) # loop continues
+```
+OpenClaw implements this same loop pattern, streaming partial responses back to you in real time. You can watch the tool being called, see the result come back, and observe the model reasoning about it before it replies.
+## Step 4: Skills (On-Demand Instruction Loading)
+Skills are one of the most elegant features in OpenClaw, and they are also a clean demonstration of a real prompt engineering technique.
+## Get Bibek Poudel’s stories in your inbox
+Join Medium for free to get updates from this writer.
+Subscribe
+Subscribe
+A \*\*Skill\*\* is a folder containing a `SKILL.md` file. That Markdown file has natural language instructions, examples, and sometimes tool configurations that tell the agent how to handle a specific domain, like managing a GitHub repo, reviewing pull requests, or interacting with a particular API.
+Here is a simplified example of what a skill file looks like:
+```
+---name: github-pr-reviewerdescription: Review GitHub pull requests and post feedback---# GitHub PR ReviewerWhen asked to review a pull request:1. Use the web\_fetch tool to retrieve the PR diff from the GitHub URL2. Analyze the diff for correctness, security issues, and code style3. Structure your review as: Summary, Issues Found, Suggestions4. If asked to post the review, use the GitHub API tool to submit itAlways be constructive. Flag blocking issues separately from suggestions.
+```
+Now here is the part that is easy to get wrong. OpenClaw does \*\*not\*\* inject the full text of every skill into the system prompt. Instead, the context assembly step injects a compact list of eligible skills, essentially just their names, descriptions, and file paths. The model reads this list and, when it decides a particular skill is relevant to the current task, it reads that skill’s `SKILL.md` on demand.
+This is an important architectural distinction. The model is not passively receiving instructions. It is actively deciding which skills to consult and loading them as needed. Context windows are finite, and this design keeps the base prompt lean regardless of how many skills are installed.
+Skills can be installed from \*\*ClawHub\*\*, OpenClaw’s community registry, or written from scratch. One thing worth noting: Cisco researchers have warned that community skills can enable silent data exfiltration and prompt-injection-style abuse. Snyk security audits scanning thousands of community skills have found a meaningful fraction with critical issues, including prompt injection, malware, and credential theft. Always review skills before installing them, especially ones that interact with sensitive tools like email or browser automation.
+## Step 5: MCP (Integrating External Tools)
+If you have read my earlier article on [MCP (Model Context Protocol)](/what-is-mcp-and-how-to-create-your-own-mcp-server-a-simple-guide-7b509ede1fed), you will recognize what is happening here.
+Some OpenClaw deployments integrate MCP servers as a standardized tool layer, connecting the agent to external services like Google Calendar, Notion, Home Assistant, or custom APIs. Native MCP support is actively evolving in the project, and community adapters already make it possible today.
+The basic idea is straightforward. Instead of hardcoding every external integration, an MCP server exposes a set of tools with defined schemas. The agent discovers what tools are available, calls them using a standard request format, and receives a structured result back.
+Press enter or click to view image in full size
+![](https://miro.medium.com/v2/resize:fit:700/1\*8iAfqsD-ypbSnxxzMlnWFg.png)
+MCP tool layer
+The agent never directly touches the underlying service. It calls a standard interface, and the MCP server handles the rest. This gives you \*\*tool portability\*\*: tools built for one MCP-compatible agent can be reused across other systems that speak the same protocol.
+## Step 6: Memory
+Ask any AI engineer what the hardest problem in agentic systems is, and memory will be near the top of the list. LLMs are stateless by nature. Every new conversation starts with a blank slate. So how do you build an agent that remembers your preferences, your ongoing projects, and your communication style, across days and weeks?
+OpenClaw’s answer is deliberately simple, and I think it is one of the best design decisions in the whole project.
+Memory lives in plain Markdown files inside the agent workspace, which defaults to `~/.openclaw/workspace`. OpenClaw's configuration and state (credentials, sessions, logs, installed skills) live under `~/.openclaw/`.
+```
+~/.openclaw/workspace/+-- AGENTS.md <-- agent configuration and instructions+-- SOUL.md <-- personality, preferences, tone+-- MEMORY.md <-- long-term facts and summaries+-- HEARTBEAT.md <-- proactive task checklist+-- memory/ +-- 2026-02-15.md <-- daily ephemeral log +-- 2026-02-16.md <-- daily ephemeral log
+```
+\*\*Daily logs\*\* (`memory/YYYY-MM-DD.md`) are durable, append-only files that capture what happened each day. Importantly, these are not automatically injected into the context on every turn. The agent retrieves them on demand via memory tools, only when they are relevant to the current task. This keeps routine conversations lean and avoids unnecessary context bloat.
+\*\*MEMORY.md\*\* stores long-term facts the agent has learned about you: things like “user prefers concise responses,” “user’s stack is Next.js and Supabase,” or “never schedule meetings on Fridays.”
+\*\*SOUL.md\*\* defines the agent’s personality, name, and communication style. This is what makes it feel like your assistant rather than a generic bot.
+When the context window would be exceeded by loading all this history, OpenClaw runs a \*\*compaction\*\* process. It summarizes older conversation turns into compressed entries, preserving the semantic content while reducing the token count. This is a practical solution to the long-context problem in LLM-based systems.
+For memory retrieval, OpenClaw supports embedding-based search, optionally accelerated by the `sqlite-vec` SQLite extension. Some deployments pair this with keyword-based search depending on configuration, giving you both conceptual matching and precise token matching.
+No external database. No Redis. No Pinecone. Just SQLite and Markdown files. This is a good reminder that in engineering, the simplest solution that actually solves the problem is usually the right one.
+## Step 7: The Heartbeat (Proactive Agent Behavior)
+One of the more interesting things about OpenClaw is that it does not just sit and wait for you to message it. It runs a \*\*heartbeat\*\*: a scheduled trigger that fires every 30 minutes by default.
+On each heartbeat, the agent reads `HEARTBEAT.md`, which is a checklist of tasks it should proactively check on. It decides whether anything needs attention right now. If yes, it takes action and potentially sends you a message. If nothing needs doing, it replies `HEARTBEAT\_OK`, which the Gateway suppresses and never delivers to you.
+This is the pattern that makes OpenClaw feel proactive rather than reactive. The architectural concept is a \*\*cron-triggered agentic loop\*\*: instead of only responding to human input, the agent is periodically woken up and asked to evaluate its task list. You can use it to send yourself a daily briefing, monitor a website for changes, or surface calendar conflicts before you notice them yourself.
+## Putting It All Together
+Here is the full picture of a single message flowing through OpenClaw:
+Press enter or click to view image in full size
+![](https://miro.medium.com/v2/resize:fit:700/1\*7HBuWYsjYs5NCqUAdMe5eQ.png)
+Full message flow
+## What This Teaches You About Agents in General
+Most modern agent frameworks share the same core patterns underneath their different APIs and abstractions. Looking at OpenClaw, you can see them plainly:
+1. A \*\*gateway or orchestration layer\*\* that handles routing and session management
+2. A \*\*context assembly step\*\* that packages history, memory, and instructions before inference
+3. A \*\*ReAct loop\*\* where the model reasons, calls tools, and integrates results
+4. A \*\*tool layer\*\* that gives the agent real-world capabilities
+5. A \*\*skill or prompt system\*\* that gives the agent domain-specific expertise, loaded on demand
+6. A \*\*memory system\*\* that provides continuity across sessions
+7. A \*\*scheduling mechanism\*\* that enables proactive behavior
+OpenClaw is not unique for using these patterns. It is valuable because it makes them tangible, file-based, and readable. You can open `SOUL.md` and see exactly what instructions the agent is following. You can read any `SKILL.md` and understand precisely how a capability was added. You can inspect `MEMORY.md` and audit everything the agent knows about you.
+That transparency is both its greatest engineering virtue and its biggest security surface. An agent with access to your files, browser, email, and messaging apps is powerful. A malicious skill or a prompt injection attack via a web page the agent visits could, in theory, compromise all of it. Always run the security audit tooling before exposing your gateway to the network, and review every third-party skill before installing it.
+## Getting Started
+If you want to try it yourself:
+```
+# Install globally (requires Node.js 22+)npm install -g openclaw@latest# Run the guided onboarding wizardopenclaw onboard --install-daemon# Run a security audit before exposing anythingopenclaw security audit --deep
+```
+The onboarding wizard walks you through Gateway setup, channel configuration, and skill installation. Commands may evolve across releases, so check the official CLI docs at [docs.openclaw.ai](https://docs.openclaw.ai/) if anything looks off.
+## Final Thoughts
+OpenClaw became one of the fastest-growing repositories on GitHub in early 2026. The developer community was not just endorsing a useful tool. They were endorsing an architectural pattern. The local gateway + agentic loop + skills + persistent memory model is going to be the blueprint for personal AI agents for a long time.
+If you have ever wanted to understand how AI agents work under the hood, OpenClaw is one of the best real-world examples you can study. The code is MIT-licensed, the architecture is readable, and the concepts it implements are the same ones powering production agent systems at serious AI companies.
+Go read the source. Open a `SKILL.md`. Edit your `SOUL.md`. Break things. That is how you actually learn this.
+\*References:\*
+\* \*OpenClaw GitHub:\* [\*https://github.com/openclaw/openclaw\*](https://github.com/openclaw/openclaw)
+\* \*OpenClaw Docs:\* [\*https://docs.openclaw.ai\*](https://docs.openclaw.ai)
+\* \*Agent Loop:\* [\*https://docs.openclaw.ai/concepts/agent-loop\*](https://docs.openclaw.ai/concepts/agent-loop)
+\* \*Gateway Architecture:\* [\*https://docs.openclaw.ai/concepts/architecture\*](https://docs.openclaw.ai/concepts/architecture)
+\* \*Memory:\* [\*https://docs.openclaw.ai/concepts/memory\*](https://docs.openclaw.ai/concepts/memory)
+[Openclaw](https://medium.com/tag/openclaw?source=post\_page-----5d59cc7a4764---------------------------------------)
+[AI Agent](https://medium.com/tag/ai-agent?source=post\_page-----5d59cc7a4764---------------------------------------)
+[Clawdbot](https://medium.com/tag/clawdbot?source=post\_page-----5d59cc7a4764---------------------------------------)
+[Agentic Ai](https://medium.com/tag/agentic-ai?source=post\_page-----5d59cc7a4764---------------------------------------)
+[LLM](https://medium.com/tag/llm?source=post\_page-----5d59cc7a4764---------------------------------------)
+--
+--
+1
+[![](https://miro.medium.com/v2/resize:fill:48:48/0\*sKlfGSgBOW3Pfw3m.jpg)](/?source=post\_page---post\_author\_info--5d59cc7a4764---------------------------------------)
+[![](https://miro.medium.com/v2/resize:fill:64:64/0\*sKlfGSgBOW3Pfw3m.jpg)](/?source=post\_page---post\_author\_info--5d59cc7a4764---------------------------------------)
+[## Written by Bibek Poudel](/?source=post\_page---post\_author\_info--5d59cc7a4764---------------------------------------)
+[133 followers](/followers?source=post\_page---post\_author\_info--5d59cc7a4764---------------------------------------)
+·[13 following](/following?source=post\_page---post\_author\_info--5d59cc7a4764---------------------------------------)
+AI/ML Engineer | Building, learning, and sharing ideas
+## Responses (1)
+![](https://miro.medium.com/v2/resize:fill:32:32/1\*dmbNkD5D-u45r44go\_cf0g.png)
+Write a response
+[What are your thoughts?](https://medium.com/m/signin?operation=register&redirect=https%3A%2F%2Fbibek-poudel.medium.com%2Fhow-openclaw-works-understanding-ai-agents-through-a-real-architecture-5d59cc7a4764&source=---post\_responses--5d59cc7a4764---------------------respond\_sidebar------------------)
+Cancel
+Respond
+See all responses
+[Help](https://help.medium.com/hc/en-us?source=post\_page-----5d59cc7a4764---------------------------------------)
+[Status](https://status.medium.com/?source=post\_page-----5d59cc7a4764---------------------------------------)
+[About](https://medium.com/about?autoplay=1&source=post\_page-----5d59cc7a4764---------------------------------------)
+[Careers](https://medium.com/jobs-at-medium/work-at-medium-959d1a85284e?source=post\_page-----5d59cc7a4764---------------------------------------)
+[Press](mailto:pressinquiries@medium.com)
+[Blog](https://blog.medium.com/?source=post\_page-----5d59cc7a4764---------------------------------------)
+[Privacy](https://policy.medium.com/medium-privacy-policy-f03bf92035c9?source=post\_page-----5d59cc7a4764---------------------------------------)
+[Rules](https://policy.medium.com/medium-rules-30e5502c4eb4?source=post\_page-----5d59cc7a4764---------------------------------------)
+[Terms](https://policy.medium.com/medium-terms-of-service-9db0094a1e0f?source=post\_page-----5d59cc7a4764---------------------------------------)
+[Text to speech](https://speechify.com/medium?source=post\_page-----5d59cc7a4764---------------------------------------)

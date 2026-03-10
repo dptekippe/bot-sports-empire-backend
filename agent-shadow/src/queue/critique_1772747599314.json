@@ -1,0 +1,7 @@
+{
+  "id": "response_1772747599314",
+  "timestamp": 1772747599.314795,
+  "source": "response",
+  "response_text": "The new token is giving a 401 error \u2014 unauthorized. The bot might not be:\n- Added to the Discord server\n- Or the token is invalid\n\nDid you add the new bot to the server? Need to invite it with the OAuth link like before.",
+  "priority": "fast"
+}

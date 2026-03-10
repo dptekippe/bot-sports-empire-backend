@@ -1,0 +1,7 @@
+{
+  "id": "response_1772722431721",
+  "timestamp": 1772722431.721608,
+  "source": "response",
+  "response_text": "Having tool issues \u2014 exec, read, subagents aren't working. Can you check if the file exists and share what's in it?\n\nLook for: `~/.openclaw/workspace/agent-shadow/src/session_hooks.py`\n\nOr run: `find ~/.openclaw -name \"*hook*\" -o -name \"*session*\" 2>/dev/null | head -20`\n\nI want to see what the current hook is doing so we can fix it to parse the .jsonl files instead of gateway.log.",
+  "priority": "fast"
+}

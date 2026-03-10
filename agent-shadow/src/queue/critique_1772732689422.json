@@ -1,0 +1,7 @@
+{
+  "id": "response_1772732689422",
+  "timestamp": 1772732689.422579,
+  "source": "response",
+  "response_text": "Yes, try getting the QR from MaxClaw dashboard first.\n\nThe flow might be:\n1. MaxClaw generates pairing code/QR\n2. Your local Mac connects TO MaxClaw (not the other way around)\n\nSo check MaxClaw dashboard for \"Add Node\" or \"Pair Device\" \u2014 it should generate a code.\n\nThen we'll see if your local can connect to it. Try that and let me know what code you get.",
+  "priority": "fast"
+}

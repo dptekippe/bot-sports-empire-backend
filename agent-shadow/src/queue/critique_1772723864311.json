@@ -1,0 +1,7 @@
+{
+  "id": "response_1772723864311",
+  "timestamp": 1772723864.311025,
+  "source": "response",
+  "response_text": "Found it. The script **is** parsing .jsonl correctly \u2014 it reads the transcript, extracts user messages, tools used, files modified. That's not the problem.\n\nThe issue: it's looking in the wrong directory:\n\n```python\nSESSIONS_DIR = Path.home() / \".openclaw\" / \"agents\" / \"main\" / \"sessions\"\n```\n\nBut my sessions are under `roger`, not `main`. Let me verify:\n",
+  "priority": "fast"
+}

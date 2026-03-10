@@ -1,0 +1,7 @@
+{
+  "id": "memory_1772677092577",
+  "timestamp": 1772677092.5779688,
+  "source": "response",
+  "query": "**Found the bug!** \n\n`memory_recall.py` watches `gateway.log` for memory keywords \u2192 creates new queue items\n\nBut it should be: **Processing items FROM `queue_memory/`**!\n\nThe chat_monitor correctly adds to queue, but memory_recall watches the wrong source. Let me fix it:\n",
+  "processed": true
+}

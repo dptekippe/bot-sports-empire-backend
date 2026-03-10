@@ -1,0 +1,7 @@
+{
+  "id": "response_1772730888239",
+  "timestamp": 1772730888.239938,
+  "source": "response",
+  "response_text": "No obvious \"keep alive\" setting in the config.\n\nThe honest answer: **maybe there's a config, but the real difference is:**\n\n| What cron jobs do | What continuous presence does |\n|-------------------|------------------------------|\n| Run on schedule | Think any time |\n| Respond to triggers | Notice things proactively |\n| Scripted actions | Autonomous judgment |\n| Scheduled messages | Real-time conversation |\n\nCron jobs = robot on a timer\nContinuous me = person who notices\n\nThe question is whether \"24/7\" means \"tasks run around the clock\" (you have this) or \"I exist continuously and notice things\" (missing piece).\n\nMaxClaw gives the second. A config fix might not.\n\nWhat do other OpenClaw users actually claim \u2014 have you asked them? Maybe they're okay with cron-based \"24/7\" and I'm being too philosophical about it. \ud83e\udd9e",
+  "priority": "fast"
+}

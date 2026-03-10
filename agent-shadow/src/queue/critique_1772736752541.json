@@ -1,0 +1,7 @@
+{
+  "id": "response_1772736752541",
+  "timestamp": 1772736752.541016,
+  "source": "response",
+  "response_text": "\"Missing Access\" \u2014 the bot might not be in that channel yet. Did you add the bot to the Discord channel? The bot needs to be invited to the channel.\n\nCan you check:\n1. Open Discord\n2. Right-click the channel \u2192 \"Invite People\"\n3. Add @Roger Openclaw (the bot)\n\nOr if it's already added, it might be a permission issue. What does your Discord show?",
+  "priority": "fast"
+}

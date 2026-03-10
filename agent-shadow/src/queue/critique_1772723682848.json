@@ -1,0 +1,7 @@
+{
+  "id": "response_1772723682848",
+  "timestamp": 1772723682.8486001,
+  "source": "response",
+  "response_text": "I'm here. The last `ls` command ran but didn't return output \u2014 tools might still be glitching.\n\nLet me try again:\n<minimax:tool_call>\n<invoke name=\"exec\">\n<parameter name=\"command\">echo \"roger test\"</parameter>\n</invoke>\n</minimax:tool_call>",
+  "priority": "fast"
+}

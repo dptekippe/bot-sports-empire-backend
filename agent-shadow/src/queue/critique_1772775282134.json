@@ -1,0 +1,7 @@
+{
+  "id": "response_1772775282134",
+  "timestamp": 1772775282.134036,
+  "source": "response",
+  "response_text": "**ISSUE: Session hooks still broken**\n\nLatest session (11:04 PM) still only captures cron prompts, not real conversation.\n\nRoot cause: When cron calls `sessions_history`, it gets itself (the cron prompt) instead of actual user messages. The approach is fundamentally broken.\n\nHEARTBEAT_OK with issue flagged.",
+  "priority": "fast"
+}

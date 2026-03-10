@@ -1,0 +1,49 @@
+SLEEPER PLAYER DATA ANALYSIS
+Generated: 2026-02-04 15:52 CST
+Data Source: Sleeper API (https://api.sleeper.app/v1/players/nfl)
+
+=== OVERVIEW ===
+Total Players in Sleeper Database: 11,546
+Active NFL Players (QB/RB/WR/TE): 679
+Players with PPR ADP Data: 0
+
+=== POSITION BREAKDOWN (All Players) ===
+ATH:    1 total,    0 active
+C :  202 total,    0 active
+CB:  980 total,    0 active
+DB:  780 total,    0 active
+DE:  654 total,    0 active
+DEF:   32 total,    0 active
+DL:  259 total,    0 active
+DT:  601 total,    0 active
+FB:  109 total,    0 active
+FS:  145 total,    0 active
+G :  405 total,    0 active
+ILB:  129 total,    0 active
+K :  180 total,    0 active
+K/P:    1 total,    0 active
+LB: 1,092 total,    0 active
+LS:  120 total,    0 active
+NT:   87 total,    0 active
+OG:   48 total,    0 active
+OL:  557 total,    0 active
+OLB:  217 total,    0 active
+OT:  262 total,    0 active
+P :  142 total,    0 active
+QB:  458 total,  105 active
+RB:  889 total,  152 active
+S :   45 total,    0 active
+SAF:    4 total,    0 active
+SS:  162 total,    0 active
+T :  238 total,    0 active
+TE:  804 total,  157 active
+WR: 1,704 total,  265 active
+
+=== ACTIVE SKILL POSITION PLAYERS ===
+QB: 105
+RB: 152
+WR: 265
+TE: 157
+Total: 679
+
+=== TOP 20 PLAYERS BY ADP (PPR) ===

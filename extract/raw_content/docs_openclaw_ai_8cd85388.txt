@@ -1,0 +1,191 @@
+# Source URL: https://docs.openclaw.ai/plugins/agent-tools
+# Content Length: 5672 characters
+# Extracted at: 2026-03-07 07:46:37
+#============================================================
+
+
+Plugin Agent Tools - OpenClaw[Skip to main content](#content-area)[OpenClaw home page![]()![]()](/)![]()EnglishSearch...⌘K
+
+* [GitHub](https://github.com/openclaw/openclaw)
+* [Releases](https://github.com/openclaw/openclaw/releases)
+Search...NavigationExtensionsPlugin Agent Tools[Get started](/)[Install](/install)[Channels](/channels)[Agents](/pi)[Tools](/tools)[Models](/providers)[Platforms](/platforms)[Gateway & Ops](/gateway)[Reference](/cli)[Help](/help)
+##### Overview
+
+* [Tools](/tools)
+##### Built-in tools
+
+* [apply\_patch Tool](/tools/apply-patch)
+* [Brave Search](/brave-search)
+* [Perplexity Sonar](/perplexity)
+* [Diffs](/tools/diffs)
+* [PDF Tool](/tools/pdf)
+* [Elevated Mode](/tools/elevated)
+* [Exec Tool](/tools/exec)
+* [Exec Approvals](/tools/exec-approvals)
+* [Firecrawl](/tools/firecrawl)
+* [LLM Task](/tools/llm-task)
+* [Lobster](/tools/lobster)
+* [Tool-loop detection](/tools/loop-detection)
+* [Reactions](/tools/reactions)
+* [Thinking Levels](/tools/thinking)
+* [Web Tools](/tools/web)
+##### Browser
+
+* [Browser (OpenClaw-managed)](/tools/browser)
+* [Browser Login](/tools/browser-login)
+* [Chrome Extension](/tools/chrome-extension)
+* [Browser Troubleshooting](/tools/browser-linux-troubleshooting)
+##### Agent coordination
+
+* [Agent Send](/tools/agent-send)
+* [Sub-Agents](/tools/subagents)
+* [ACP Agents](/tools/acp-agents)
+* [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools)
+##### Skills
+
+* [Creating Skills](/tools/creating-skills)
+* [Slash Commands](/tools/slash-commands)
+* [Skills](/tools/skills)
+* [Skills Config](/tools/skills-config)
+* [ClawHub](/tools/clawhub)
+* [Plugins](/tools/plugin)
+##### Extensions
+
+* [Community plugins](/plugins/community)
+* [Voice Call Plugin](/plugins/voice-call)
+* [Zalo Personal Plugin](/plugins/zalouser)
+* [Plugin Manifest](/plugins/manifest)
+* [Plugin Agent Tools](/plugins/agent-tools)
+* [OpenProse](/prose)
+##### Automation
+
+* [Hooks](/automation/hooks)
+* [Cron Jobs](/automation/cron-jobs)
+* [Cron vs Heartbeat](/automation/cron-vs-heartbeat)
+* [Automation Troubleshooting](/automation/troubleshooting)
+* [Webhooks](/automation/webhook)
+* [Gmail PubSub](/automation/gmail-pubsub)
+* [Polls](/automation/poll)
+* [Auth Monitoring](/automation/auth-monitoring)
+##### Media and devices
+
+* [Nodes](/nodes)
+* [Node Troubleshooting](/nodes/troubleshooting)
+* [Media Understanding](/nodes/media-understanding)
+* [Image and Media Support](/nodes/images)
+* [Audio and Voice Notes](/nodes/audio)
+* [Camera Capture](/nodes/camera)
+* [Talk Mode](/nodes/talk)
+* [Voice Wake](/nodes/voicewake)
+* [Location Command](/nodes/location-command)
+* [Text-to-Speech](/tts)
+On this page
+
+* [Plugin agent tools](#plugin-agent-tools)
+* [Basic tool](#basic-tool)
+* [Optional tool (opt‑in)](#optional-tool-opt%E2%80%91in)
+* [Rules + tips](#rules-%2B-tips)
+Extensions
+
+Plugin Agent Tools
+==================
+
+[​](#plugin-agent-tools)Plugin agent tools
+==========================================
+
+OpenClaw plugins can register **agent tools** (JSON‑schema functions) that are exposed
+to the LLM during agent runs. Tools can be **required** (always available) or
+**optional** (opt‑in).
+Agent tools are configured under `tools` in the main config, or per‑agent under
+`agents.list[].tools`. The allowlist/denylist policy controls which tools the agent
+can call.
+
+[​](#basic-tool)Basic tool
+--------------------------
+
+Copy
+```
+import { Type } from "@sinclair/typebox";
+
+export default function (api) {
+  api.registerTool({
+    name: "my_tool",
+    description: "Do a thing",
+    parameters: Type.Object({
+      input: Type.String(),
+    }),
+    async execute(_id, params) {
+      return { content: [{ type: "text", text: params.input }] };
+    },
+  });
+}
+
+```
+
+[​](#optional-tool-opt‑in)Optional tool (opt‑in)
+------------------------------------------------
+
+Optional tools are **never** auto‑enabled. Users must add them to an agent
+allowlist.
+Copy
+```
+export default function (api) {
+  api.registerTool(
+    {
+      name: "workflow_tool",
+      description: "Run a local workflow",
+      parameters: {
+        type: "object",
+        properties: {
+          pipeline: { type: "string" },
+        },
+        required: ["pipeline"],
+      },
+      async execute(_id, params) {
+        return { content: [{ type: "text", text: params.pipeline }] };
+      },
+    },
+    { optional: true },
+  );
+}
+
+```
+
+Enable optional tools in `agents.list[].tools.allow` (or global `tools.allow`):
+Copy
+```
+{
+  agents: {
+    list: [
+      {
+        id: "main",
+        tools: {
+          allow: [
+            "workflow_tool", // specific tool name
+            "workflow", // plugin id (enables all tools from that plugin)
+            "group:plugins", // all plugin tools
+          ],
+        },
+      },
+    ],
+  },
+}
+
+```
+
+Other config knobs that affect tool availability:
+
+* Allowlists that only name plugin tools are treated as plugin opt-ins; core tools remain
+  enabled unless you also include core tools or groups in the allowlist.
+* `tools.profile` / `agents.list[].tools.profile` (base allowlist)
+* `tools.byProvider` / `agents.list[].tools.byProvider` (provider‑specific allow/deny)
+* `tools.sandbox.tools.*` (sandbox tool policy when sandboxed)
+
+[​](#rules-+-tips)Rules + tips
+------------------------------
+
+* Tool names must **not** clash with core tool names; conflicting tools are skipped.
+* Plugin ids used in allowlists must not clash with core tool names.
+* Prefer `optional: true` for tools that trigger side effects or require extra
+  binaries/credentials.
+[Plugin Manifest](/plugins/manifest)[OpenProse](/prose)⌘I[Powered by](https://www.mintlify.com?utm_campaign=poweredBy&utm_medium=referral&utm_source=clawdhub)

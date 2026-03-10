@@ -1,0 +1,59 @@
+# Memory Contract Configuration
+# Environment variables override these values
+# Format: MEMORY_CONTRACT_<UPPERCASE_KEY> (e.g., MEMORY_CONTRACT_WORKSPACE)
+
+# Base workspace directory
+# Default: ~/.openclaw/workspace
+# Override with: MEMORY_CONTRACT_WORKSPACE
+workspace: ${HOME}/.openclaw/workspace
+
+# Subdirectories (relative to workspace)
+memory_dir: ${workspace}/memory
+hooks_dir: ${workspace}/hooks
+logs_dir: ${workspace}/hooks/logs
+
+# File paths
+compliance_file: ${workspace}/memory_contract_compliance.json
+decisions_file: ${workspace}/DECISIONS.md
+kill_switch_file: ${workspace}/DISABLE_MEMORY_CONTRACT
+
+# Log files (relative to logs_dir)
+search_log: ${logs_dir}/search_log.jsonl
+write_log: ${logs_dir}/write_log.jsonl
+validation_log: ${logs_dir}/validation_log.jsonl
+error_log: ${logs_dir}/errors.jsonl
+alert_log: ${logs_dir}/alerts.jsonl
+
+# Performance targets (milliseconds)
+performance_targets:
+  search_latency_max: 500
+  write_latency_max: 200
+  validation_latency_max: 1000
+
+# Validation settings
+validation:
+  memory_file_min_lines: 10
+  recent_commit_hours: 6
+  min_daily_searches: 1
+  min_daily_writes: 1
+
+# Log rotation settings
+log_rotation:
+  keep_days: 30
+  compress_after_days: 7
+  max_log_size_mb: 10
+
+# Feature flags
+features:
+  enable_pre_action_search: true
+  enable_post_decision_write: true
+  enable_validation: true
+  enable_compliance_tracking: true
+  enable_log_rotation: true
+
+# Kill switch settings
+kill_switch:
+  enabled: true
+  check_environment: true
+  check_file: true
+  environment_var: MEMORY_CONTRACT_ENABLED

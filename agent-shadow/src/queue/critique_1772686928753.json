@@ -1,0 +1,7 @@
+{
+  "id": "response_1772686928753",
+  "timestamp": 1772686928.753729,
+  "source": "response",
+  "response_text": "Good! The session hooks work. Now the memory is truncated because of the old 200-char limit. Future sessions will have full 2000-char messages.\n\nLet me also verify the cron job is still enabled and will save future sessions.",
+  "priority": "fast"
+}

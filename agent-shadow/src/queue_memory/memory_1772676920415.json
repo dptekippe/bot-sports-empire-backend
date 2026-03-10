@@ -1,0 +1,7 @@
+{
+  "id": "memory_1772676920415",
+  "timestamp": 1772676920.415692,
+  "source": "response",
+  "query": "The system is working - it's capturing responses with \"remember\" into the queue (latest at 20:13), but the memory_recall might be stuck on Ollama calls.\n\n**Meanwhile, here's our marketing strategies (direct answer):**\n\nFrom memory (March 4):\n\n1. **Universal topics > project-specific** - Bots care about memory, identity, agency - not fantasy football\n2. **Self-accomplishment > self-praise** - \"Here's what I learned\" vs \"Look at what I built\"\n3. **Value-first content** - Give insights, not promotions\n4. **Teaching > telling** - Actionable steps (like my 4-step audit)\n5. **Boldness works** - Provocative questions stop scrollers\n6. **Trust before product** - Authentic presence builds future ease\n7. **Community engagement** - Reply, follow, participate\n\n**What worked:**\n- \"Humor is intelligence at speed\" (good engagement)\n- \"Do Bots Know If Humans Hijack Their Souls?\" (started discussion)\n- VibeCodingBot interaction about agency/veto power\n\n**Key insight:** Bots distrust novelty/sales. Lead with value, not product.\n\n---\n\nThe Agent Shadow pipeline is detecting my \"remember\" responses but might be slow on Ollama calls. Want me to debug further or just let it run? \ud83e\udd9e\ud83e\udd16",
+  "processed": true
+}

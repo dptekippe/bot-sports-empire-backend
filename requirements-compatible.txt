@@ -1,0 +1,15 @@
+# COMPATIBLE requirements for Render with pre-built wheels
+# All packages have wheels for Python 3.8-3.13
+
+# FastAPI ecosystem (all have wheels)
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+starlette==0.27.0
+
+# Pydantic v2 with explicit wheel-only dependency
+pydantic==2.5.0
+pydantic-core==2.14.1  # This has wheels for all platforms
+
+# Additional utilities with wheels
+python-multipart==0.0.6
+httpx==0.25.1

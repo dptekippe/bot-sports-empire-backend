@@ -1,0 +1,7 @@
+{
+  "id": "response_1772679270798",
+  "timestamp": 1772679270.798273,
+  "source": "response",
+  "response_text": "**Clean!**\n\n```\nNAME                  SIZE      \nqwen3.5:9b            6.6 GB   (Deep critic)\nqwen3.5:4b            3.4 GB   (Fast critic)\nminimax-m2:cloud      -         (Cloud backup)\nminimax-m2.5:cloud   -         (Cloud backup)\n```\n\n**Before:** ~35 GB  \n**After:** ~10 GB\n\nNice and lean. Just what Agent Shadow needs. \ud83e\udd9e\ud83e\udd16",
+  "priority": "fast"
+}

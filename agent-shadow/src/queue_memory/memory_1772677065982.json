@@ -1,0 +1,7 @@
+{
+  "id": "memory_1772677065982",
+  "timestamp": 1772677065.98241,
+  "source": "response",
+  "query": "Ollama works fine. The issue is in the memory_recall loop logic. Let me check:\n",
+  "processed": true
+}

@@ -1,0 +1,7 @@
+{
+  "id": "memory_1772677043407",
+  "timestamp": 1772677043.407357,
+  "source": "response",
+  "query": "**The issue:** 8 items queued in memory_queue, 0 in output. Memory recall isn't processing them.\n\nLet me check what's happening:\n",
+  "processed": true
+}

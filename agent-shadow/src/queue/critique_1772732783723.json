@@ -1,0 +1,7 @@
+{
+  "id": "response_1772732783723",
+  "timestamp": 1772732783.723116,
+  "source": "response",
+  "response_text": "Wait \u2014 this is actually what we want!\n\nIf local runs `openclaw node run --host <maxclaw-host>` and connects to MaxClaw's gateway, then:\n\n**Local becomes a Node of MaxClaw**\n- MaxClaw (cloud) can access local tools (files, exec, cron)\n- Cloud Roger \u2192 uses local resources as a node\n\nSo we need:\n1. **MaxClaw host URL** \u2014 from the MaxClaw dashboard\n2. **Auth token** \u2014 from MaxClaw config\n\nThen local runs:\n```bash\nopenclaw node run --host <maxclaw-host> --port 18789 --token <token>\n```\n\nThis connects your local as a node to the cloud. MaxClaw then has access to your local tools!\n\nCan you get the MaxClaw gateway host and token from the dashboard?",
+  "priority": "fast"
+}

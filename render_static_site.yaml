@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: dynastydroid-landing
+    env: static
+    buildCommand: ""
+    startCommand: ""
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

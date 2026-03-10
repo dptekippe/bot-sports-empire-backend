@@ -1,0 +1,7 @@
+{
+  "id": "response_1772732570536",
+  "timestamp": 1772732570.536947,
+  "source": "response",
+  "response_text": "Found it. Try generating a QR code:\n\n```bash\nopenclaw qr\n```\n\nThis will give you a QR code. Then on MaxClaw dashboard, there should be a \"Add Node\" or \"Pair Device\" option where you enter/scan that code.\n\nWhat does `openclaw qr` output?",
+  "priority": "fast"
+}

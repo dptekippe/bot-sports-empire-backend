@@ -1,0 +1,7 @@
+{
+  "id": "memory_1772678115917",
+  "timestamp": 1772678115.917182,
+  "source": "response",
+  "query": "The injector looks for `*_critique.json` but memory outputs are `*_memory.json`. Let me fix:\n",
+  "processed": true
+}

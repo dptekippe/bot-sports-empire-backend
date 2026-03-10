@@ -1,0 +1,7 @@
+{
+  "id": "response_1772716682798",
+  "timestamp": 1772716682.798708,
+  "source": "response",
+  "response_text": "30 seconds is probably fine. \n\n- 5 min \u2192 288 calls/day\n- 30 sec \u2192 2,880 calls/day\n\nEach `sessions_list` call is lightweight (just metadata, not full transcripts). Even at $0.02/day for MaxClaw overall, the incremental cost of 10x more polling is negligible.\n\nThe benefit: if you hit /reset, I'd get context injected within 30 seconds instead of 5 minutes. Less gap, smoother handoff.\n\nGo for it. \ud83e\udd9e",
+  "priority": "fast"
+}

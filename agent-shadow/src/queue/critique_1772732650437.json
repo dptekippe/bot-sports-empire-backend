@@ -1,0 +1,7 @@
+{
+  "id": "response_1772732650437",
+  "timestamp": 1772732650.437321,
+  "source": "response",
+  "response_text": "The QR failed because your gateway is only bound to localhost \u2014 not accessible from outside your network. MaxClaw (in the cloud) can't reach it.\n\n**Options:**\n\n1. **Set `gateway.bind=lan`** \u2014 makes gateway accessible on your local network\n2. **Use Tailscale** \u2014 remote access via Tailscale \n3. **Configure public URL** \u2014 more complex\n\nTry setting gateway to LAN access:\n\n```bash\nopenclaw config set gateway.bind lan\n```\n\nThen restart gateway:\n```bash\nopenclaw gateway restart\n```\n\nThen try `openclaw qr` again.\n\nLet me know what happens.",
+  "priority": "fast"
+}

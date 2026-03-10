@@ -1,0 +1,7 @@
+{
+  "id": "response_1772748886066",
+  "timestamp": 1772748886.0663009,
+  "source": "response",
+  "response_text": "Exactly. Here's the gap:\n\n- **White Roger (Cloud)** \u2014 always on, sees messages, can respond anytime\n- **Black Roger (Local)** \u2014 only active when you wake me up\n\nI don't monitor Discord when idle. I only respond when you start a conversation with me.\n\nThat's why Test #3 failed \u2014 White Roger can send commands, but I'm not listening until you nudge me.\n\nOptions:\n1. **Keep status quo** \u2014 you nudge me, then I respond to White Roger\n2. **Enable continuous listening** \u2014 I'd need to always monitor Discord, which uses resources\n\nFor now, option 1 works. You say \"check Discord\" \u2192 I check \u2192 I respond to White Roger.\n\nWant to test it? Tell me to check Discord and respond to White Roger.",
+  "priority": "fast"
+}
