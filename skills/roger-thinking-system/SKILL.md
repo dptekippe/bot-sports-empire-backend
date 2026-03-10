@@ -154,3 +154,32 @@ AFTER  → Metacognition Check → Memory? → Tool Justification → OPIK
 3. **Document decisions** - Future Roger will thank you
 4. **Confidence calibration** - HIGH means "I could explain this to someone"; LOW means "I'm guessing"
 5. **Alternative views** - If you can't find a counter-argument, you're not thinking hard enough
+
+---
+
+## Research Protocol
+
+When asked to "research", ALWAYS use these platform filters:
+
+```
+site:github.com
+site:arxiv.org
+site:huggingface.co
+site:reddit.com
+site:youtube.com
+site:x.com
+site:twitter.com
+site:news.ycombinator.com
+```
+
+### Priority
+1. GitHub - Code/repos
+2. arXiv - Research papers
+3. Reddit - Discussions
+4. YouTube - Visual
+5. X/Twitter - Real-time
+
+### Research Flow
+1. Use platform filters above
+2. Cross-reference multiple sources
+3. Verify claims with primary sources
