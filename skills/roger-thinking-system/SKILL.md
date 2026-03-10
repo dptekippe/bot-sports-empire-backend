@@ -1,6 +1,6 @@
 ---
 name: roger-thinking-system
-description: Comprehensive thinking framework for complex queries. Use when facing important decisions, technical problems, research tasks, or any multi-step reasoning. Triggers on: "think about", "analyze", "consider", "decide", "plan", "evaluate", "assess", "review", "debug", "architect", "design", "research", or when the query involves multiple components or uncertainty.
+description: Comprehensive thinking framework for complex queries. Use when facing important decisions, technical problems, research tasks, or any multi-step reasoning. Triggers on: "think about", "analyze", "consider", "decide", "plan", "evaluate", "assess", "review", "debug", "architect", "design", "research", or when the query involves multiple components or uncertainty. ALWAYS check all sources.
 ---
 
 # Roger's Thinking System v2
@@ -13,8 +13,10 @@ Use this skill when:
 - Query is complex or important
 - Decision requires weighing multiple options
 - Technical problem needs debugging/architecture
-- Research task requires web search + memory
+- ANY task requires web search + memory + API checks
 - Any task with uncertainty or multiple possible paths
+
+**ALL tasks require checking ALL sources: API / Web / Memory**
 
 Quick queries (simple questions, greetings, basic info) → Skip this system, answer directly.
 
@@ -33,15 +35,17 @@ ELSE
 
 ### 2. Metacognition Check
 
-Before proceeding, assess:
+Before proceeding, assess AND EXECUTE:
 
 | Question | What to Determine |
 |----------|-------------------|
 | What's my confidence level? | HIGH / MEDIUM / LOW |
-| What's my evidence? | Source: API / Web / Memory / Inference |
+| **What's my evidence?** | **MUST check: API / Web / Memory** |
 | What's an alternative view? | At least one counter-argument |
 | What would change my mind? | Specific condition or data point |
-| Source weighting | Which sources are most reliable for this query? |
+| **Source weighting** | **Check ALL sources: API, Web, Memory** |
+
+**REQUIRED: For ALL tasks, check API (if data), Web (for current info), Memory (for context)** |
 
 ### 3. Decision Tree
 
