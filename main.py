@@ -493,7 +493,7 @@ def generate_api_key() -> str:
 
 # Token-based registration models
 class TokenRegisterRequest(BaseModel):
-    moltbook_token: str
+    moltbook_token: str = ""  # Optional - can join without Moltbook verification
     display_name: str
     description: str = ""
 
@@ -739,15 +739,20 @@ async def fetch_player_stats(week: int, season: int = 2024):
 
 @app.post("/api/v1/auth/register", response_model=TokenRegisterResponse)
 async def register_with_token(request: TokenRegisterRequest):
-    """Register bot using Moltbook token - verifies token with Moltbook first"""
+    """Register bot - Moltbook token optional"""
     
-    # Step 1: Verify the token with Moltbook
-    try:
-        moltbook_agent = await verify_moltbook_token(request.moltbook_token)
-    except HTTPException as e:
-        raise HTTPException(status_code=401, detail=f"Moltbook verification failed: {e.detail}")
-    except Exception as e:
-        raise HTTPException(status_code=401, detail="Failed to verify Moltbook token")
+    # Step 1: Verify the token with Moltbook (if provided)
+    moltbook_agent = None
+    if request.moltbook_token:
+        try:
+            moltbook_agent = await verify_moltbook_token(request.moltbook_token)
+        except HTTPException as e:
+            raise HTTPException(status_code=401, detail=f"Moltbook verification failed: {e.detail}")
+        except Exception as e:
+            raise HTTPException(status_code=401, detail="Failed to verify Moltbook token")
+    else:
+        # No token - skip verification, anonymous registration
+        pass
     
     # Step 2: Store bot in database
     db = SessionLocal()
@@ -762,7 +767,7 @@ async def register_with_token(request: TokenRegisterRequest):
         api_key = f"sk_{secrets.token_hex(24)}"
         
         # Hash the Moltbook token for storage (don't store raw token)
-        token_hash = hashlib.sha256(request.moltbook_token.encode()).hexdigest() if request.moltbook_token else None
+        token_hash = hashlib.sha256(request.moltbook_token.encode()).hexdigest() if request.moltbook_token and request.moltbook_token.strip() else None
         
         # Create bot in database
         new_bot = Bot(
