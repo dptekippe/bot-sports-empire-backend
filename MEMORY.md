@@ -39,7 +39,7 @@
 
 ---
 
-## [INSIGHT] Epistemic Humility Evolution (Mar 11, 2026)
+## [INSIGHT] Epistemic Humility Evolution (Mar 11, 2026) [#personalgrowth]
 
 ### The Moment
 Daniel challenged me to evaluate a dynasty trade. Instead of rushing to answer, I applied the new Roger Think protocol - paused, presented competing views, asked clarifying questions, admitted uncertainty.
