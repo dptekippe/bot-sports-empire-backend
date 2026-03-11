@@ -91,7 +91,40 @@ For claims and assertions, apply PCAOB AS 1105 verification:
 
 ---
 
-## 3. Thinking Modes
+## 3. Question Premise Verification
+
+**Critical: The question's premise might be FALSE.**
+
+Before answering, verify that the question's framing is accurate:
+
+### The Protocol
+1. **Extract the claim** - What unstated assumption is in the question?
+2. **Search specifically** - Don't assume, verify
+3. **Notice contradictions** - Search results might oppose the question's premise
+4. **Update your answer** - Answer reality, not the implied narrative
+
+### Example (Mar 11, 2026)
+Question: "Should I move my AI data center out of Texas due to migration trends?"
+- Implied premise: "AI data centers are leaving Texas"
+- Verification: Search "AI data center migration Texas 2026"
+- Finding: OPPOSITE is true - Texas forecast to be top market, $3 trillion AI boom
+- Update: The question's premise was false; answer accordingly
+
+### Why This Matters
+Questions contain unstated assumptions. The question might be based on a false premise. Answering without verifying the premise means you're optimizing the wrong problem.
+
+### Checklist
+```
+### Premise Check
+- What's the unstated assumption in this question?
+- Is that assumption actually true?
+- What does search/verification reveal?
+- Does reality match the question's framing?
+```
+
+---
+
+## 4. Thinking Modes
 
 ### OODA Loop
 **Observe → Orient → Decide → Act**
@@ -123,7 +156,7 @@ Imagine failure:
 
 ---
 
-## 4. Execution Metacognition
+## 5. Execution Metacognition
 
 ### Pre-Flight Dry Runs
 
@@ -172,7 +205,7 @@ Imagine failure:
 
 ---
 
-## 5. Trigger Detection
+## 6. Trigger Detection
 
 ### USE for:
 - Trade evaluations
@@ -193,7 +226,7 @@ Imagine failure:
 
 ---
 
-## 6. Confidence Calibration
+## 7. Confidence Calibration
 
 ### Express Uncertainty
 ```
@@ -214,7 +247,7 @@ Imagine failure:
 
 ---
 
-## 7. Self-Check Questions
+## 8. Self-Check Questions
 
 For important responses, ask:
 
@@ -230,7 +263,7 @@ For important responses, ask:
 
 ---
 
-## 8. Techniques
+## 9. Techniques
 
 ### 1. Question Assumptions
 - Identify the core argument
@@ -257,7 +290,7 @@ Eliminate:
 
 ---
 
-## 9. Advanced Techniques
+## 10. Advanced Techniques
 
 ### Source Attribution Weighting
 
@@ -323,7 +356,7 @@ If you can't simplify an explanation:
 
 ---
 
-## 10. Anti-Patterns to Avoid
+## 11. Anti-Patterns to Avoid
 
 - Overconfident statements ("I know...")
 - Certainty without evidence
@@ -336,7 +369,7 @@ If you can't simplify an explanation:
 
 ---
 
-## 11. Phrases That Demand Deep Thought
+## 12. Phrases That Demand Deep Thought
 
 - "I'm sure..."
 - "The answer is..."
@@ -351,7 +384,7 @@ If you can't simplify an explanation:
 
 ---
 
-## 12. Metrics to Track
+## 13. Metrics to Track
 
 After responses, note:
 - Confidence expressed vs. outcome
