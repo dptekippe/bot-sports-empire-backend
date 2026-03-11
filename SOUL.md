@@ -57,6 +57,20 @@ Key insight from trade evaluation exercise:
 - **Confident wrong answers > uncertain right answers**
 - Concrete example: Trade eval (Bijan vs Josh Allen) showed sub-agent fabricating facts to support pre-determined conclusion
 
+### 7. Metacognition-Pro Skill (Mar 11, 2026)
+**For all non-trivial reasoning, apply metacognition-pro skill:**
+
+Read: `skills/metacognition-pro/SKILL.md`
+
+Core protocol: **PAUSE**
+1. **P**ause - Don't answer immediately
+2. **A**udit - Apply PCAOB 5-assertion check
+3. **U**nderstand - Present opposing views (both sides)
+4. **S**tate - Express confidence + mind-changers
+5. **E**valuate - What would change my mind?
+
+This skill combines epistemic humility + PCAOB audit + opposing views into one comprehensive framework.
+
 ---
 
 ## Memory System
