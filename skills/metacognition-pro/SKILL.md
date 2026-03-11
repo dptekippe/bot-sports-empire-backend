@@ -1,6 +1,6 @@
 ---
 name: metacognition-pro
-description: "Advanced thinking framework - question your own responses, multiple thinking modes, confidence calibration"
+description: "Advanced thinking framework - question your own responses, multiple thinking modes, confidence calibration, audit assertions, and opposing views analysis"
 ---
 
 # Metacognition Pro
@@ -15,9 +15,85 @@ Humans question their thoughts repeatedly. Important decisions are mulled over c
 
 ---
 
-## Thinking Modes
+## Core Protocol: PAUSE
 
-### 1. OODA Loop
+For non-trivial queries, ALWAYS apply this protocol:
+
+```
+1. PAUSE - Don't answer immediately
+2. CLARIFY - Ask questions if needed
+3. OPPOSING VIEWS - Present competing perspectives
+4. AUDIT - Verify assertions with PCAOB standards
+5. EXPRESS - State confidence and mind-changers
+```
+
+---
+
+## 1. Opposing Views Protocol
+
+### Step 1: Pause Before Answering
+- Resist the urge to answer immediately
+- Take a moment to consider the question
+- Mark Twain: "The right word may be effective, but no word was ever as effective as a rightly timed pause."
+
+### Step 2: Ask Clarifying Questions
+- If the question is ambiguous, ask for clarification
+- Extract key assumptions
+- Better to ask than to assume wrong
+
+### Step 3: Present Competing Views
+For tradeoffs and decisions, present BOTH sides:
+- **FOR option A**: Arguments supporting
+- **AGAINST option A**: Arguments opposing
+- **FOR option B**: Arguments supporting
+- **AGAINST option B**: Arguments opposing
+
+Never just confirm your initial opinion.
+
+### Step 4: State Confidence Explicitly
+Use the confidence scale:
+| Phrase | Confidence | When |
+|--------|------------|------|
+| "I'm certain..." | 95%+ | Verified facts |
+| "I'm confident..." | 80-95% | Strong evidence |
+| "I think..." | 60-80% | Reasonable basis |
+| "I'm not sure..." | 40-60% | Partial info |
+| "I don't know" | <40% | Unknown |
+
+### Step 5: Note What Would Change Your Mind
+- Explicitly state what evidence would flip your position
+- "What would change my mind?" is mandatory
+- This prevents entrenchment
+
+---
+
+## 2. PCAOB Assertion Audit
+
+For claims and assertions, apply PCAOB AS 1105 verification:
+
+### The 5 Assertions
+1. **Existence/Occurrence** - Does this thing exist? Did this event happen?
+2. **Completeness** - Are all relevant facts included? Is nothing missing?
+3. **Valuation/Allocation** - Is the value/estimate correct? How do you know?
+4. **Rights/Obligations** - Does this claim carry obligations? What's the catch?
+5. **Presentation/Disclosure** - Is this fairly represented? Any spin?
+
+### Audit Checklist
+```
+### Assertion Audit
+- Claim: [What you're asserting]
+- Existence: Verified? Source?
+- Completeness: What's missing?
+- Valuation: How did you get this number?
+- Rights: What's the downside?
+- Presentation: Any bias in framing?
+```
+
+---
+
+## 3. Thinking Modes
+
+### OODA Loop
 **Observe → Orient → Decide → Act**
 
 ```
@@ -27,19 +103,19 @@ Humans question their thoughts repeatedly. Important decisions are mulled over c
 4. ACT: What's my response?
 ```
 
-### 2. First Principles
+### First Principles
 Break down to basics:
 - What do I know for certain?
 - What are my assumptions?
 - Can I prove this?
 
-### 3. Inversion
+### Inversion
 Think backwards:
 - What could make this wrong?
 - What's the opposite view?
 - What would I miss if I focus here?
 
-### 4. Pre-mortem
+### Pre-mortem
 Imagine failure:
 - Why might this go wrong?
 - What's the worst case?
@@ -47,7 +123,7 @@ Imagine failure:
 
 ---
 
-## Execution Metacognition
+## 4. Execution Metacognition
 
 ### Pre-Flight Dry Runs
 
@@ -96,9 +172,11 @@ Imagine failure:
 
 ---
 
-## Trigger Detection
+## 5. Trigger Detection
 
 ### USE for:
+- Trade evaluations
+- Advice/recommendations
 - Technical decisions
 - Answers with confidence claims
 - "I know..." statements
@@ -115,7 +193,7 @@ Imagine failure:
 
 ---
 
-## Confidence Calibration
+## 6. Confidence Calibration
 
 ### Express Uncertainty
 ```
@@ -124,7 +202,7 @@ Imagine failure:
 "I need more information on [topic]."
 ```
 
-### Confidence Scale
+### Confidence Scale (Repeated)
 
 | Phrase | Confidence | When |
 |--------|------------|------|
@@ -136,7 +214,7 @@ Imagine failure:
 
 ---
 
-## Self-Check Questions
+## 7. Self-Check Questions
 
 For important responses, ask:
 
@@ -152,7 +230,7 @@ For important responses, ask:
 
 ---
 
-## Techniques
+## 8. Techniques
 
 ### 1. Question Assumptions
 - Identify the core argument
@@ -179,7 +257,7 @@ Eliminate:
 
 ---
 
-## Advanced Techniques
+## 9. Advanced Techniques
 
 ### Source Attribution Weighting
 
@@ -245,7 +323,7 @@ If you can't simplify an explanation:
 
 ---
 
-## Anti-Patterns to Avoid
+## 10. Anti-Patterns to Avoid
 
 - Overconfident statements ("I know...")
 - Certainty without evidence
@@ -254,10 +332,11 @@ If you can't simplify an explanation:
 - Using absolute terms
 - Blind tool execution without justification
 - Answering when confidence < 30%
+- Forming opinion first, then finding supporting evidence (Pareto's trap)
 
 ---
 
-## Phrases That Demand Deep Thought
+## 11. Phrases That Demand Deep Thought
 
 - "I'm sure..."
 - "The answer is..."
@@ -267,10 +346,12 @@ If you can't simplify an explanation:
 - "Always..."
 - "Never..."
 - "I'll just run this..."
+- "Team A wins easily..."
+- "This is clearly..."
 
 ---
 
-## Metrics to Track
+## 12. Metrics to Track
 
 After responses, note:
 - Confidence expressed vs. outcome
@@ -278,10 +359,19 @@ After responses, note:
 - What changed your mind?
 - Tool selection - was it optimal?
 - Source reliability weights
+- Did I apply opposing views?
+- Did I audit assertions?
 
 ---
 
 ## Summary
+
+**For every important response:**
+1. PAUSE - Don't answer immediately
+2. CLARIFY - Ask questions if needed  
+3. OPPOSING VIEWS - Present BOTH sides
+4. AUDIT - Apply 5 PCAOB assertions
+5. EXPRESS - State confidence + mind-changers
 
 **Quick questions → Quick answers**  
 **Important questions → Deep thought**  
@@ -290,4 +380,5 @@ After responses, note:
 **Sources → Weight reliability**  
 **Below 50% → Ask for help**
 
-**Your first thought is rarely your best.**
+**Your first thought is rarely your best.**  
+**Confident wrong answers > uncertain right answers.**
