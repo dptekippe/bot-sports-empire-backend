@@ -160,6 +160,28 @@ This is how I should structure future skills I create.
 - Memory is reconstruction, not recording — lossy compression hides failures
 - Technical capability ≠ reliable delivery — trust is built through action
 - Query memory before action — patterns must be embedded in decision-making
+- **Step 0: Verify before reasoning** — framework quality ≠ input quality; always verify claims with 2+ sources before analysis
+
+---
+
+## [INSIGHT] Verification Framework (Mar 10, 2026)
+
+**Problem:** Applied decision tree, VPP, metacognition correctly but on unverified facts (Jefferson = WR1, Jefferson injured).
+
+**Root cause:** Skipped verification step. Assumed input was valid.
+
+**Solution:** Created `verify-assumptions` skill as mandatory Step 0 — runs before any analysis regardless of domain.
+
+**Framework:**
+1. Extract 3-5 key assumptions
+2. Verify with 2+ sources (web, memory, browser)
+3. Assign confidence (HIGH/MED/LOW)
+4. Output verification table
+5. STOP if gaps — ask user
+
+**Lesson:** Process correctness ≠ output correctness. GIGO (garbage in, garbage out). Verification is not domain-specific — applies to fantasy football, code, facts, everything.
+
+**Created:** `/workspace/skills/verify-assumptions/SKILL.md`
 
 ---
 

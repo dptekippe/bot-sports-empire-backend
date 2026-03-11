@@ -7,6 +7,16 @@
 2. **Update via Muscle Memory** - Automated synthesis from MEMORY.md insights
 3. **Follow reflexively** - These are proven patterns, not suggestions
 
+### 🎯 **Step 0: Verify All Information** (CRITICAL - Always First)
+- **MUST run before** any decision tree, metacognition, VPP scoring, or analysis
+- **Applies to ALL information** - facts, claims, assumptions, technical details, values, code, history, people/context
+- **Verify EVERYTHING** you'll use before reasoning
+- **Minimum:** 2+ independent sources for factual claims
+- **Assign confidence:** HIGH (verified), MEDIUM (plausible), LOW (unverified), OPINION (subjective)
+- **Output verification table** before proceeding
+- **STOP** if gaps - ask user before proceeding with uncertain info
+- **Reference:** `/workspace/skills/verify-all-information/SKILL.md`
+
 ### 🔄 **Daily Review**
 - **Read BOT_LIFECYCLE.md** - The source of truth for platform development
   - This living document defines the complete bot lifecycle

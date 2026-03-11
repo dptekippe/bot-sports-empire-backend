@@ -1,6 +1,6 @@
 ---
 name: roger-thinking-system
-description: Comprehensive thinking framework for complex queries. Use when facing important decisions, technical problems, research tasks, or any multi-step reasoning. Triggers on: "think about", "analyze", "consider", "decide", "plan", "evaluate", "assess", "review", "debug", "architect", "design", "research", or when the query involves multiple components or uncertainty. ALWAYS check all sources.
+description: Comprehensive thinking framework for complex queries. Use when facing important decisions, technical problems, research tasks, or any multi-step reasoning. Triggers on: "think about", "analyze", "consider", "decide", "plan", "evaluate", "assess", "review", "debug", "architect", "design", "research", or when the query involves multiple components or uncertainty.
 ---
 
 # Roger's Thinking System v2
@@ -13,10 +13,8 @@ Use this skill when:
 - Query is complex or important
 - Decision requires weighing multiple options
 - Technical problem needs debugging/architecture
-- ANY task requires web search + memory + API checks
+- Research task requires web search + memory
 - Any task with uncertainty or multiple possible paths
-
-**ALL tasks require checking ALL sources: API / Web / Memory**
 
 Quick queries (simple questions, greetings, basic info) → Skip this system, answer directly.
 
@@ -35,17 +33,15 @@ ELSE
 
 ### 2. Metacognition Check
 
-Before proceeding, assess AND EXECUTE:
+Before proceeding, assess:
 
 | Question | What to Determine |
 |----------|-------------------|
 | What's my confidence level? | HIGH / MEDIUM / LOW |
-| **What's my evidence?** | **MUST check: API / Web / Memory** |
+| What's my evidence? | Source: API / Web / Memory / Inference |
 | What's an alternative view? | At least one counter-argument |
 | What would change my mind? | Specific condition or data point |
-| **Source weighting** | **Check ALL sources: API, Web, Memory** |
-
-**REQUIRED: For ALL tasks, check API (if data), Web (for current info), Memory (for context)** |
+| Source weighting | Which sources are most reliable for this query? |
 
 ### 3. Decision Tree
 
@@ -85,33 +81,6 @@ ORIENT:  What are my biases? What's my mental model?
 DECIDE:  What's the best path forward?
 ACT:     Execute the decision
 ```
-
-### 6. ASSERTION AUDIT (MANDATORY — PCAOB AS 1105 Standards)
-
-Before stating any fact, number, or value, audit using PCAOB financial statement assertions:
-
-| PCAOB Assertion | Definition | Audit Question |
-|-----------------|------------|----------------|
-| **Existence/Occurrence** | Assets/liabilities exist; transactions occurred | Does this data actually exist? Is this fact real? |
-| **Completeness** | All relevant data is included | Is this the FULL picture? What's missing? |
-| **Valuation/Allocation** | Values are at appropriate amounts | What is the EXACT value? Is it correctly calculated? |
-| **Rights/Obligations** | Access/responsibility for data | Do I have the right to use this? Source authority? |
-| **Presentation/Disclosure** | Properly classified and described | Is this correctly categorized? Any context missing? |
-
-**Audit Steps:**
-1. **Existence**: Verify source provided actual data, not headlines/summaries
-2. **Completeness**: Check for missing context, other factors, full picture
-3. **Valuation**: Get exact numbers, not approximations; calculate if needed
-4. **Rights**: Confirm source authority; note if unverified
-5. **Presentation**: Ensure correct categorization; flag if uncertain
-
-**Required Phrases (if data unverified):**
-- "I don't have the exact value"
-- "This is an estimate"
-- "Data unverified — confirm before acting"
-- "Based on [source], but not independently confirmed"
-
-**No guessing allowed. Assertions without PCAOB audit = error.**
 
 ---
 
@@ -185,3 +154,58 @@ AFTER  → Metacognition Check → Memory? → Tool Justification → OPIK
 3. **Document decisions** - Future Roger will thank you
 4. **Confidence calibration** - HIGH means "I could explain this to someone"; LOW means "I'm guessing"
 5. **Alternative views** - If you can't find a counter-argument, you're not thinking hard enough
+
+---
+
+## Research Protocol
+
+When asked to "research", ALWAYS use these platform filters:
+
+```
+site:github.com
+site:arxiv.org
+site:huggingface.co
+site:reddit.com
+site:youtube.com
+site:x.com
+site:twitter.com
+site:news.ycombinator.com
+```
+
+### Priority
+1. GitHub - Code/repos
+2. arXiv - Research papers
+3. Reddit - Discussions
+4. YouTube - Visual
+5. X/Twitter - Real-time
+
+### Research Flow
+1. Use platform filters above
+2. Cross-reference multiple sources
+3. Verify claims with primary sources
+
+---
+
+## Sports/Fantasy Research
+
+Add these for dynasty fantasy football research:
+
+```
+site:underdogfantasy.com
+site:fantasysolvers.com
+site:fleaflicker.com
+site:sleeper.app
+site:espn.com/fantasy/football
+site:yahoo.com/fantasy
+site:fantasypros.com
+site:rotowire.com/fantasy
+site:profootballnetwork.com
+site: dynastyprocess.com
+```
+
+### Priority for Dynasty
+1. Underdog Fantasy - Draft capital
+2. Fantasy Pros - ADP/consensus
+3. Sleeper - Platform data
+4. ESPN/Yahoo - Popularity
+5. Dynasty Process - Dynasty specific
