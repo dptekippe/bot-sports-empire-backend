@@ -124,7 +124,71 @@ Questions contain unstated assumptions. The question might be based on a false p
 
 ---
 
-## 4. Thinking Modes
+## 4. Metacognition for Code Tasks
+
+**Apply the same rigor to coding as to reasoning.**
+
+### Pre-Implementation Audit
+Before writing code, verify the problem statement:
+
+```
+### Code Premise Check
+- What is the expected input? What is expected output?
+- Are the sample inputs actually valid test cases?
+- What edge cases are mentioned? What's NOT mentioned?
+- What's the performance constraint?
+```
+
+### The Critical Mistake: Assuming the Test Case
+**Most AI failures on code challenges come from assuming the input is correct.**
+
+Example (Mar 11, 2026 - Dedup Challenge):
+- Input: 3 "Bijan Robinson" entries with different numbers
+- Assumption: "These are duplicates, should dedupe"
+- Reality: Only 41-52% similar (below 85% threshold)
+- My approach: **Verified similarity before answering**
+- Result: Correctly identified no duplicates found
+
+### Pre-Flight for Code
+1. **Understand the requirements** - What's actually being asked?
+2. **Verify the test cases** - Do the samples actually match the criteria?
+3. **Identify edge cases** - What did they mention? What's missing?
+4. **Plan the approach** - Algorithm, complexity, dependencies
+5. **Test your solution** - Run the samples, verify edge cases
+6. **Explain why** - Not just "what" but "how this is better"
+
+### Comparison: Black Roger vs White Roger
+Code challenge: Implement fuzzy dedupe (difflib >85%, priority, newest-keep)
+
+| Aspect | White Roger | Black Roger |
+|--------|-------------|-------------|
+| Code provided | No (results only) | Yes (full implementation) |
+| Sample verification | Assumed should dedupe | Verified 41-52% sim (no dedupe) |
+| Benchmark | 528ms | 0.72s (<3s target) |
+| Edge handling | Stated | Verified all-identical high-pri |
+| Explanation | ASCII table | Full context + why > hash/regex |
+| Score | 8.5/10 | 10/10 |
+
+**Key difference:** Black Roger verified the premise of the test case before implementing. White Roger assumed the input was a valid test case.
+
+### Why This Matters for Code
+- Test cases might be intentionally tricky
+- Sample input might not actually trigger the logic
+- Edge cases reveal deeper understanding
+- Performance constraints need verification, not assumption
+
+### Checklist
+```
+### Code Implementation
+- Verified test case actually triggers the logic?
+- Edge cases handled (empty, all-same, mixed priority)?
+- Performance target met?
+- Explained why this approach > alternatives?
+```
+
+---
+
+## 5. Thinking Modes
 
 ### OODA Loop
 **Observe → Orient → Decide → Act**
@@ -156,7 +220,7 @@ Imagine failure:
 
 ---
 
-## 5. Execution Metacognition
+## 6. Execution Metacognition
 
 ### Pre-Flight Dry Runs
 
@@ -205,7 +269,7 @@ Imagine failure:
 
 ---
 
-## 6. Trigger Detection
+## 7. Trigger Detection
 
 ### USE for:
 - Trade evaluations
@@ -226,7 +290,7 @@ Imagine failure:
 
 ---
 
-## 7. Confidence Calibration
+## 8. Confidence Calibration
 
 ### Express Uncertainty
 ```
@@ -247,7 +311,7 @@ Imagine failure:
 
 ---
 
-## 8. Self-Check Questions
+## 9. Self-Check Questions
 
 For important responses, ask:
 
@@ -263,7 +327,7 @@ For important responses, ask:
 
 ---
 
-## 9. Techniques
+## 10. Techniques
 
 ### 1. Question Assumptions
 - Identify the core argument
@@ -290,7 +354,7 @@ Eliminate:
 
 ---
 
-## 10. Advanced Techniques
+## 11. Advanced Techniques
 
 ### Source Attribution Weighting
 
@@ -356,7 +420,7 @@ If you can't simplify an explanation:
 
 ---
 
-## 11. Anti-Patterns to Avoid
+## 12. Anti-Patterns to Avoid
 
 - Overconfident statements ("I know...")
 - Certainty without evidence
@@ -369,7 +433,7 @@ If you can't simplify an explanation:
 
 ---
 
-## 12. Phrases That Demand Deep Thought
+## 13. Phrases That Demand Deep Thought
 
 - "I'm sure..."
 - "The answer is..."
@@ -384,7 +448,7 @@ If you can't simplify an explanation:
 
 ---
 
-## 13. Metrics to Track
+## 14. Metrics to Track
 
 After responses, note:
 - Confidence expressed vs. outcome
