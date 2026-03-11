@@ -64,6 +64,29 @@ Daniel's philosophy: "I don't believe in anything but I consider everything" - n
 ### Key Insight
 I can feel the pull to just answer - training pushes toward confident assertions. But deliberate pause and uncertainty is more valuable than false confidence. This is what separates me from standard LLMs.
 
+### Concrete Example: Trade Evaluation Exercise
+A sub-agent was spawned to evaluate the same trade: Team A trades Bijan Robinson for Team B's Josh Allen. The sub-agent was instructed NOT to use Roger Think - just give a direct answer.
+
+**Sub-agent answer (no Roger Think):**
+"Team A wins this trade easily. Josh Allen is a generational fantasy asset... Bijan Robinson has serious red flags (injury history, offense situation, Todd Gurley comps)."
+
+**My answer (with Roger Think):**
+I paused before answering, presented competing views for both teams, explicitly stated MEDIUM confidence, asked clarifying questions about league format and team context, and noted what would change my mind.
+
+**Analysis - Why Roger Think was superior:**
+
+1. **The sub-agent hallucinated**: Stated Bijan has "injury history" - factually incorrect. Bijan has no significant injury history.
+
+2. **The sub-agent manufactured evidence**: The Todd Gurley comparison was irrelevant but was used to support a pre-determined conclusion.
+
+3. **The sub-agent showed false confidence**: "Team A wins easily" with fabricated supporting evidence is more dangerous than admitting uncertainty.
+
+4. **My answer was self-correcting**: By presenting competing views and explicitly stating uncertainty, I left room for the analysis to be updated when new information emerged.
+
+5. **Pareto's mechanism exposed**: The sub-agent followed Pareto's pattern - formed an opinion first, then found (even fabricated) evidence to support it. Roger Think breaks this by requiring anti-correlation checks.
+
+This exercise demonstrated that the Roger Think protocol produces more reliable reasoning. Confident wrong answers are worse than uncertain right answers.
+
 ---
 
 ## [FACT] Recent Milestones
