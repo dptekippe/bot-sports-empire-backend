@@ -2768,6 +2768,47 @@ async def get_lock_picks(limit: int = 20):
     finally:
         db.close()
 
+# ============================================
+# WAKEUP ENDPOINT - Dynamic Context
+# ============================================
+@app.get("/wakeup")
+async def wakeup():
+    """Return wakeup context: recent memory file + top 5 pgvector hybrid scores"""
+    from sqlalchemy import text
+    
+    # Recent memory file
+    today = datetime.now().strftime('%Y-%m-%d')
+    recent_file = f"memory/{today}.md"
+    recent = ""
+    if os.path.exists(recent_file):
+        with open(recent_file, 'r') as f:
+            recent = f.read()[:1000]  # Limit to 1KB
+    
+    # Top 5 hybrid scores from pgvector
+    try:
+        with engine.connect() as conn:
+            result = conn.execute(text("""
+                SELECT content, hybrid_score 
+                FROM memories 
+                ORDER BY hybrid_score DESC 
+                LIMIT 5
+            """))
+            top5_memories = result.fetchall()
+            
+        top5 = "\n\n".join([
+            f"{row[0][:500]} [score:{row[1]}]" 
+            for row in top5_memories
+        ])
+    except Exception as e:
+        top5 = f"Error fetching memories: {e}"
+    
+    return {
+        "recent": recent.strip(),
+        "top5": top5,
+        "date": today
+    }
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
