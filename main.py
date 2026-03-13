@@ -2779,11 +2779,11 @@ async def wakeup():
     # Recent memory from pgvector (today only)
     try:
         with engine.connect() as conn:
-            # Get today's memory
+            # Get today's memory (last 24 hours based on created_at_ts)
             result = conn.execute(text("""
                 SELECT content 
                 FROM memories 
-                WHERE created_at >= CURRENT_DATE
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
                 ORDER BY created_at DESC 
                 LIMIT 1
             """))
