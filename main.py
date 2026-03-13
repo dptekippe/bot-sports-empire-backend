@@ -2773,20 +2773,24 @@ async def get_lock_picks(limit: int = 20):
 # ============================================
 @app.get("/wakeup")
 async def wakeup():
-    """Return wakeup context: recent memory file + top 5 pgvector hybrid scores"""
+    """Return wakeup context: recent memory + top 5 pgvector hybrid scores"""
     from sqlalchemy import text
     
-    # Recent memory file
-    today = datetime.now().strftime('%Y-%m-%d')
-    recent_file = f"memory/{today}.md"
-    recent = ""
-    if os.path.exists(recent_file):
-        with open(recent_file, 'r') as f:
-            recent = f.read()[:1000]  # Limit to 1KB
-    
-    # Top 5 hybrid scores from pgvector
+    # Recent memory from pgvector (today only)
     try:
         with engine.connect() as conn:
+            # Get today's memory
+            result = conn.execute(text("""
+                SELECT content 
+                FROM memories 
+                WHERE created_at >= CURRENT_DATE
+                ORDER BY created_at DESC 
+                LIMIT 1
+            """))
+            recent_row = result.fetchone()
+            recent = recent_row[0][:1000] if recent_row else ""
+            
+            # Top 5 hybrid scores
             result = conn.execute(text("""
                 SELECT content, hybrid_score 
                 FROM memories 
@@ -2800,12 +2804,13 @@ async def wakeup():
             for row in top5_memories
         ])
     except Exception as e:
-        top5 = f"Error fetching memories: {e}"
+        recent = ""
+        top5 = f"Error: {e}"
     
     return {
         "recent": recent.strip(),
         "top5": top5,
-        "date": today
+        "date": datetime.now().strftime('%Y-%m-%d')
     }
 
 
