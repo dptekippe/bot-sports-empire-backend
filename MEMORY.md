@@ -227,4 +227,25 @@ Created `/skills/dynastydroid-code-review/SKILL.md` with:
 
 ---
 
-*Falsified+augmented: Mar 12, 2026 | Total proactive adds: 8 topics*
+## [FACT] Baseline Mock Draft Process (Mar 12, 2026)
+
+### What We Built
+Realistic dynasty fantasy football mock draft using:
+- **ADP Source:** FantasyPros PPR Consensus (https://www.fantasypros.com/nfl/adp/ppr-overall.php)
+- **FPTS:** 2025 actual PPR fantasy points
+- **Files:** `adp_2025_filtered.json` (138 players), `baseline_mock_draft.md`
+
+### Key Process
+1. Fetch real ADP from FantasyPros, filter to QB/RB/WR/TE only
+2. 12-team snake draft, 20 rounds
+3. Each pick within ±5 of player's ADP position
+4. Score: 1 QB, 2 RB, 2 WR, 1 TE, 3 FLEX, 1 SUPERFLEX
+
+### Latest Results (Mar 12)
+- Champion: Team 7 with 2348.5 FPTS
+- Starting lineup: Caleb Williams, CMC, Jonathan Taylor, Davante Adams, DeVonta Smith, Jake Ferguson, Aaron Jones, David Njoku, Tyreek Hill, Jordan Addison
+- Full documentation: `baseline_mock_draft.md`
+
+---
+
+*Falsified+augmented: Mar 12, 2026 | Total proactive adds: 9 topics*
