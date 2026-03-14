@@ -8,7 +8,7 @@ import json
 import random
 from typing import List, Dict, Optional, Tuple
 from dataclasses import dataclass, field
-from rl_reward import get_fpts
+from rl_reward import get_fpts, roster_penalty, ROSTER_TARGETS
 
 # Constants
 NUM_TEAMS = 12
@@ -311,13 +311,9 @@ class DraftEnv:
         team = self.teams[roger_slot - 1]
         total_pts = sum(p.fpts for p in team.roster)
         
-        # Roster legality penalty
-        penalty = 0
-        needs = team.needs()
-        if needs['QB'] < 1: penalty -= 50
-        if needs['RB'] < 2: penalty -= 50
-        if needs['WR'] < 2: penalty -= 50
-        if needs['TE'] < 1: penalty -= 50
+        # Use roster penalty from rl_reward
+        counts = team.needs()
+        penalty = roster_penalty(counts)
         
         return total_pts + penalty - league_avg
     
@@ -336,13 +332,9 @@ class DraftEnv:
         for i, team in enumerate(self.teams):
             total_pts = sum(p.fpts for p in team.roster)
             
-            # Roster legality penalty
-            penalty = 0
-            needs = team.needs()
-            if needs['QB'] < 1: penalty -= 50
-            if needs['RB'] < 2: penalty -= 50
-            if needs['WR'] < 2: penalty -= 50
-            if needs['TE'] < 1: penalty -= 50
+            # Use roster penalty from rl_reward
+            counts = team.needs()
+            penalty = roster_penalty(counts)
             
             rewards[team.team_id] = total_pts + penalty - league_avg
         
