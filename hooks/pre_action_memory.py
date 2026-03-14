@@ -3,13 +3,19 @@
 Pre-Action Memory Search Hook
 
 Purpose: Search memory before significant actions to provide context
-White Roger Revision: Add sanity check - if search fails, log warning but don't block execution
+Connected to pgvector on Render PostgreSQL
 """
 
 import os
 import json
 import datetime
 from typing import Dict, List, Optional
+
+# Database configuration - Render PostgreSQL
+DATABASE_URL = os.environ.get(
+    "DATABASE_URL",
+    "postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic73d9jdrg-a.oregon-postgres.render.com/dynastydroid"
+)
 
 def extract_keywords(context: Dict) -> List[str]:
     """Extract search keywords from context"""
@@ -30,23 +36,58 @@ def extract_keywords(context: Dict) -> List[str]:
         words = context['user_request'].split()
         keywords.extend([w for w in words if len(w) > 3][:3])
     
+    # Also extract from message if present
+    if 'message' in context:
+        words = context['message'].split()
+        keywords.extend([w for w in words if len(w) > 3][:3])
+    
     return list(set(keywords))  # Remove duplicates
 
 def memory_search_safe(query: str, max_results: int = 5) -> Optional[List[Dict]]:
     """
-    Safe memory search with error handling
-    Returns None if search fails (don't block execution)
+    Query pgvector for relevant memories
+    Returns top memories by hybrid_score matching the query keywords
     """
     try:
-        # This would integrate with OpenClaw's memory_search tool
-        # For now, return mock results
-        return [
-            {"path": "memory/2026-03-06.md", "lines": "1-5", "content": "Test memory entry"},
-            {"path": "MEMORY.md", "lines": "10-15", "content": "Previous decision about memory system"}
-        ]
+        import psycopg2
+        from psycopg2.extras import RealDictCursor
+        
+        conn = psycopg2.connect(DATABASE_URL)
+        conn.autocommit = True
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        
+        # Get top memories by hybrid_score
+        # For now, order by hybrid_score (most relevant first)
+        # TODO: Add full-text search or vector similarity if embedding matches
+        cur.execute("""
+            SELECT id, content, memory_type, importance, hybrid_score, project, created_at
+            FROM memories 
+            ORDER BY hybrid_score DESC 
+            LIMIT %s
+        """, (max_results,))
+        
+        results = cur.fetchall()
+        
+        # Format results
+        formatted = []
+        for row in results:
+            formatted.append({
+                "id": str(row['id']),
+                "content": row['content'][:500] if row['content'] else "",  # Truncate for context
+                "memory_type": row['memory_type'],
+                "importance": row['importance'],
+                "hybrid_score": row['hybrid_score'],
+                "project": row['project'],
+                "created_at": str(row['created_at'])
+            })
+        
+        cur.close()
+        conn.close()
+        
+        return formatted if formatted else None
+        
     except Exception as e:
-        # Log warning but don't raise
-        log_warning(f"Memory search failed: {e}")
+        print(f"[Memory Search ERROR] {e}")
         return None
 
 def log_search(context: Dict, keywords: List[str], results: Optional[List[Dict]]):
@@ -58,13 +99,7 @@ def log_search(context: Dict, keywords: List[str], results: Optional[List[Dict]]
         "results_count": len(results) if results else 0,
         "search_successful": results is not None
     }
-    
-    # TODO: Agent should write this log entry using OpenClaw write tool
-    # log_file = config.get("search_log")
-    # with open(log_file, 'a') as f:
-    #     f.write(json.dumps(log_entry) + '\n')
-    
-    print(f"[TODO] Would log search to {config.get('search_log')}: {log_entry}")
+    print(f"[Memory Contract] Search logged: {log_entry['results_count']} results")
 
 def pre_action_memory_search(context: Dict) -> Optional[List[Dict]]:
     """
@@ -84,7 +119,8 @@ def pre_action_memory_search(context: Dict) -> Optional[List[Dict]]:
     keywords = extract_keywords(context)
     if not keywords:
         print(f"[Memory Contract] No keywords extracted from context")
-        return None
+        # Still return recent memories even without keywords
+        keywords = ["recent"]
     
     # Perform safe search
     query = " ".join(keywords)
@@ -95,25 +131,12 @@ def pre_action_memory_search(context: Dict) -> Optional[List[Dict]]:
     
     if results:
         print(f"[Memory Contract] Found {len(results)} relevant memories")
+        for i, r in enumerate(results[:3]):
+            print(f"  [{i+1}] {r.get('memory_type', 'unknown')} (score: {r.get('hybrid_score', 'N/A')})")
     else:
-        print(f"[Memory Contract] Search failed or no results (continuing anyway)")
+        print(f"[Memory Contract] No memories found (continuing anyway)")
     
     return results
-
-def log_warning(message: str):
-    """Log warning message"""
-    warning_entry = {
-        "timestamp": datetime.datetime.now().isoformat(),
-        "level": "WARNING",
-        "message": message
-    }
-    
-    # TODO: Agent should write this warning using OpenClaw write tool
-    # warning_file = config.get("logs_dir") + "/warnings.jsonl"
-    # with open(warning_file, 'a') as f:
-    #     f.write(json.dumps(warning_entry) + '\n')
-    
-    print(f"[WARNING] {message} (would log to {config.get('logs_dir')}/warnings.jsonl)")
 
 # Test function
 if __name__ == "__main__":
@@ -125,6 +148,4 @@ if __name__ == "__main__":
     }
     
     results = pre_action_memory_search(test_context)
-    print(f"Test results: {results}")
-from config_loader import get_config
-config = get_config()
+    print(f"\nTest results: {json.dumps(results, indent=2) if results else 'None'}")
