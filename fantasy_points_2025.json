@@ -1310,5 +1310,545 @@
     "team": "PIT",
     "fpts_ppr": 42.4,
     "source": "fantasypros_2025"
+  },
+  {
+    "name": "Alvin Kamara",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Tank Bigsby",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Bhayshul Tuten",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Jerry Jeudy",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Isiah Pacheco",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Jayden Reed",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Keon Coleman",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Terry McLaurin",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Kaleb Johnson",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Braelon Allen",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Aaron Jones",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "James Cook",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Cooper Kupp",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Austin Ekeler",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Garrett Wilson",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Brandon Aiyuk",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Deebo Samuel",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Travis Hunter",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Kyler Murray",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Patrick Mahomes",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Josh Allen",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Jalen Hurts",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Lamar Jackson",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Joe Burrow",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Justin Herbert",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Jayden Daniels",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "C.J. Stroud",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Brock Purdy",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Tua Tagovailoa",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Jordan Love",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Jared Goff",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Geno Smith",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Baker Mayfield",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Kirk Cousins",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Matthew Stafford",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Dak Prescott",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Trevor Lawrence",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Drake Maye",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Caleb Williams",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 1",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 2",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 3",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 4",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 5",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 1",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 2",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 3",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 4",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 5",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 6",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 7",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 1",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 2",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 3",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 4",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 5",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 1",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 2",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 3",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 4",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 5",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 6",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 6",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 7",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 8",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 8",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 9",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 10",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 6",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 7",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 8",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 7",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 8",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 9",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 10",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 9",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 10",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 11",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 12",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 11",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 12",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 13",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 14",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 15",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 9",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 10",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 11",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 12",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 11",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 12",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
   }
 ]

@@ -6,14 +6,14 @@ Supports multiple bot strategies for diverse draft simulation.
 
 import json
 import random
-import math
 from typing import List, Dict, Optional, Tuple
 from dataclasses import dataclass, field
-from rl_reward import get_fpts, load_top164, check_roster_legality
+from rl_reward import get_fpts
 
 # Constants
 NUM_TEAMS = 12
 ROSTER_SIZE = 20
+MAX_ROUNDS = 20
 STARTERS = {
     'QB': 1,
     'RB': 2,
@@ -22,6 +22,10 @@ STARTERS = {
     'FLEX': 3,  # RB/WR/TE
     'SUPERFLEX': 1,  # QB/RB/WR/TE
 }
+
+# Default paths (can be overridden)
+DEFAULT_ADP_FILE = 'adp_2025_filtered.json'
+DEFAULT_FPTS_FILE = 'fantasy_points_2025.json'
 
 
 @dataclass
@@ -58,7 +62,7 @@ class Team:
 class DraftEnv:
     """Fantasy Football Draft Environment"""
     
-    def __init__(self, players_file: str = None):
+    def __init__(self, players_file: str = None, adp_file: str = None):
         """Initialize draft environment"""
         # Load players
         if players_file:
@@ -68,14 +72,17 @@ class DraftEnv:
             # Try default locations
             import os
             for path in [
-                'fantasy_points_2025.json',
-                os.path.expanduser('~/.openclaw/workspace/fantasy_points_2025.json'),
-                '/tmp/fantasy_points_2025.json'
+                DEFAULT_FPTS_FILE,
+                os.path.expanduser(f'~/.openclaw/workspace/{DEFAULT_FPTS_FILE}'),
+                f'/tmp/{DEFAULT_FPTS_FILE}'
             ]:
                 if os.path.exists(path):
                     with open(path, 'r') as f:
                         self.all_players = json.load(f)
                     break
+        
+        # Store ADP file path
+        self.adp_file = adp_file or DEFAULT_ADP_FILE
         
         # Build player pool with ADP
         self.player_pool = self._build_player_pool()
@@ -96,15 +103,24 @@ class DraftEnv:
         """Build player pool with ADP values"""
         players = []
         
-        # Load ADP data from correct file
+        # Load ADP data
         adp_lookup = {}
         try:
-            with open('/Users/danieltekippe/.openclaw/workspace/adp_2025_filtered.json', 'r') as f:
+            with open(self.adp_file, 'r') as f:
                 adp_data = json.load(f)
-            adp_lookup = {p['name']: p['adp'] for p in adp_data}
-            print(f"Loaded {len(adp_lookup)} players with ADP")
+            # Handle both 'position' and 'pos' keys
+            adp_lookup = {p['name']: p.get('adp') for p in adp_data}
+            
+            # Also store position lookup from ADP (handles 'position' or 'pos')
+            self.adp_positions = {}
+            for p in adp_data:
+                pos = p.get('position') or p.get('pos', 'WR')
+                self.adp_positions[p['name']] = pos
+                
+            print(f"Loaded {len(adp_lookup)} players with ADP from {self.adp_file}")
         except Exception as e:
-            print(f"Could not load ADP file: {e}")
+            print(f"Could not load ADP file {self.adp_file}: {e}")
+            self.adp_positions = {}
             return players
         
         # First add all players with valid ADP
@@ -112,13 +128,13 @@ class DraftEnv:
         for adp_name, adp in adp_lookup.items():
             # Try to find matching player in fantasy_points
             fpts = 0
-            pos = 'WR'  # default
-            team = ''   # default
+            pos = self.adp_positions.get(adp_name, 'WR')  # Use ADP position as fallback
+            team = ''
             
             for fp in self.all_players:
                 if fp['name'] == adp_name:
                     fpts = fp.get('fpts_ppr', 0)
-                    pos = fp.get('position', 'WR')
+                    pos = fp.get('position', pos)  # Prefer FPTS position
                     team = fp.get('team', '')
                     break
             
@@ -215,8 +231,8 @@ class DraftEnv:
         # Advance draft
         self._advance_draft()
         
-        # Calculate reward (only at end)
-        done = len(self.teams[self.roger_slot - 1].roster) >= ROSTER_SIZE
+        # Calculate reward - draft ends after round 20
+        done = self.round > MAX_ROUNDS
         
         if done:
             reward = self._calculate_reward(self.roger_slot)
@@ -249,12 +265,15 @@ class DraftEnv:
         # Snake draft - reverse order every other round
         self.round = (self.current_pick - 1) // NUM_TEAMS + 1
         
-        # Reverse at START of even rounds (before pick)
-        if self.round > 1 and self.round % 2 == 0:
-            self.teams = self.teams[::-1]
+        # Snake: odd rounds go 1->12, even rounds go 12->1
+        pick_in_round = (self.current_pick - 1) % NUM_TEAMS
         
-        # Advance to next team
-        self.current_team_idx = (self.current_team_idx + 1) % NUM_TEAMS
+        if self.round % 2 == 1:
+            # Odd round: 1->12 (indices 0-11)
+            self.current_team_idx = (self.current_pick - 1) % NUM_TEAMS
+        else:
+            # Even round: 12->1
+            self.current_team_idx = NUM_TEAMS - 1 - ((self.current_pick - 1) % NUM_TEAMS)
     
     def _get_state(self) -> Dict:
         """Get current state for Roger"""
@@ -280,13 +299,17 @@ class DraftEnv:
     
     def _calculate_reward(self, roger_slot: int) -> float:
         """Calculate reward for Roger's team"""
+        # Calculate league average from all teams
+        all_points = []
+        for team in self.teams:
+            team_pts = sum(p.fpts for p in team.roster)
+            all_points.append(team_pts)
+        
+        league_avg = sum(all_points) / len(all_points) if all_points else 2500
+        
+        # Roger's team
         team = self.teams[roger_slot - 1]
-        
-        # Sum of fantasy points
         total_pts = sum(p.fpts for p in team.roster)
-        
-        # League average (estimated)
-        league_avg = 2500
         
         # Roster legality penalty
         penalty = 0
@@ -297,6 +320,33 @@ class DraftEnv:
         if needs['TE'] < 1: penalty -= 50
         
         return total_pts + penalty - league_avg
+    
+    def get_all_rewards(self) -> Dict[int, float]:
+        """Calculate rewards for all teams"""
+        rewards = {}
+        
+        # Calculate league average
+        all_points = []
+        for team in self.teams:
+            team_pts = sum(p.fpts for p in team.roster)
+            all_points.append(team_pts)
+        
+        league_avg = sum(all_points) / len(all_points) if all_points else 2500
+        
+        for i, team in enumerate(self.teams):
+            total_pts = sum(p.fpts for p in team.roster)
+            
+            # Roster legality penalty
+            penalty = 0
+            needs = team.needs()
+            if needs['QB'] < 1: penalty -= 50
+            if needs['RB'] < 2: penalty -= 50
+            if needs['WR'] < 2: penalty -= 50
+            if needs['TE'] < 1: penalty -= 50
+            
+            rewards[team.team_id] = total_pts + penalty - league_avg
+        
+        return rewards
     
     # ========== STRATEGIES ==========
     

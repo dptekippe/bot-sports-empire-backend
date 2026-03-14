@@ -826,5 +826,560 @@
     "name": "Jayden Higgins",
     "pos": "WR",
     "team": "HOU"
+  },
+  {
+    "name": "Matthew Stafford",
+    "adp": 209,
+    "position": "QB"
+  },
+  {
+    "name": "Trevor Lawrence",
+    "adp": 210,
+    "position": "QB"
+  },
+  {
+    "name": "Patrick Mahomes II",
+    "adp": 211,
+    "position": "QB"
+  },
+  {
+    "name": "Sam Darnold",
+    "adp": 212,
+    "position": "QB"
+  },
+  {
+    "name": "Jaxson Dart",
+    "adp": 213,
+    "position": "QB"
+  },
+  {
+    "name": "Jacoby Brissett",
+    "adp": 214,
+    "position": "QB"
+  },
+  {
+    "name": "Daniel Jones",
+    "adp": 215,
+    "position": "QB"
+  },
+  {
+    "name": "Aaron Rodgers",
+    "adp": 216,
+    "position": "QB"
+  },
+  {
+    "name": "Bryce Young",
+    "adp": 217,
+    "position": "QB"
+  },
+  {
+    "name": "Cam Ward",
+    "adp": 218,
+    "position": "QB"
+  },
+  {
+    "name": "Geno Smith",
+    "adp": 219,
+    "position": "QB"
+  },
+  {
+    "name": "Tua Tagovailoa",
+    "adp": 220,
+    "position": "QB"
+  },
+  {
+    "name": "Tyler Shough",
+    "adp": 221,
+    "position": "QB"
+  },
+  {
+    "name": "Joe Flacco",
+    "adp": 222,
+    "position": "QB"
+  },
+  {
+    "name": "James Cook III",
+    "adp": 223,
+    "position": "RB"
+  },
+  {
+    "name": "Travis Etienne Jr.",
+    "adp": 224,
+    "position": "RB"
+  },
+  {
+    "name": "Rico Dowdle",
+    "adp": 225,
+    "position": "RB"
+  },
+  {
+    "name": "Kenneth Gainwell",
+    "adp": 226,
+    "position": "RB"
+  },
+  {
+    "name": "Kyle Monangai",
+    "adp": 227,
+    "position": "RB"
+  },
+  {
+    "name": "Kareem Hunt",
+    "adp": 228,
+    "position": "RB"
+  },
+  {
+    "name": "Woody Marks",
+    "adp": 229,
+    "position": "RB"
+  },
+  {
+    "name": "Blake Corum",
+    "adp": 230,
+    "position": "RB"
+  },
+  {
+    "name": "Tyler Allgeier",
+    "adp": 231,
+    "position": "RB"
+  },
+  {
+    "name": "Kimani Vidal",
+    "adp": 232,
+    "position": "RB"
+  },
+  {
+    "name": "Devin Singletary",
+    "adp": 233,
+    "position": "RB"
+  },
+  {
+    "name": "Aaron Jones Sr.",
+    "adp": 234,
+    "position": "RB"
+  },
+  {
+    "name": "Chris Rodriguez Jr.",
+    "adp": 235,
+    "position": "RB"
+  },
+  {
+    "name": "Michael Wilson",
+    "adp": 236,
+    "position": "WR"
+  },
+  {
+    "name": "AJ Brown",
+    "adp": 237,
+    "position": "WR"
+  },
+  {
+    "name": "Alec Pierce",
+    "adp": 238,
+    "position": "WR"
+  },
+  {
+    "name": "Parker Washington",
+    "adp": 239,
+    "position": "WR"
+  },
+  {
+    "name": "Wan'Dale Robinson",
+    "adp": 240,
+    "position": "WR"
+  },
+  {
+    "name": "Quentin Johnston",
+    "adp": 241,
+    "position": "WR"
+  },
+  {
+    "name": "Deebo Samuel Sr.",
+    "adp": 242,
+    "position": "WR"
+  },
+  {
+    "name": "Troy Franklin",
+    "adp": 243,
+    "position": "WR"
+  },
+  {
+    "name": "Romeo Doubs",
+    "adp": 244,
+    "position": "WR"
+  },
+  {
+    "name": "Tre Tucker",
+    "adp": 245,
+    "position": "WR"
+  },
+  {
+    "name": "Christian Watson",
+    "adp": 246,
+    "position": "WR"
+  },
+  {
+    "name": "Kayshon Boutte",
+    "adp": 247,
+    "position": "WR"
+  },
+  {
+    "name": "Hollywood Brown",
+    "adp": 248,
+    "position": "WR"
+  },
+  {
+    "name": "Luther Burden III",
+    "adp": 249,
+    "position": "WR"
+  },
+  {
+    "name": "Hunter Henry",
+    "adp": 250,
+    "position": "TE"
+  },
+  {
+    "name": "Travis Kelce",
+    "adp": 251,
+    "position": "TE"
+  },
+  {
+    "name": "Harold Fannin Jr.",
+    "adp": 252,
+    "position": "TE"
+  },
+  {
+    "name": "Juwan Johnson",
+    "adp": 253,
+    "position": "TE"
+  },
+  {
+    "name": "Dalton Schultz",
+    "adp": 254,
+    "position": "TE"
+  },
+  {
+    "name": "AJ Barner",
+    "adp": 255,
+    "position": "TE"
+  },
+  {
+    "name": "Colby Parkinson",
+    "adp": 256,
+    "position": "TE"
+  },
+  {
+    "name": "Theo Johnson",
+    "adp": 257,
+    "position": "TE"
+  },
+  {
+    "name": "Oronde Gadsden II",
+    "adp": 258,
+    "position": "TE"
+  },
+  {
+    "name": "Zach Ertz",
+    "adp": 259,
+    "position": "TE"
+  },
+  {
+    "name": "Pat Freiermuth",
+    "adp": 260,
+    "position": "TE"
+  },
+  {
+    "name": "Brenton Strange",
+    "adp": 261,
+    "position": "TE"
+  },
+  {
+    "name": "Chig Okonkwo",
+    "adp": 262,
+    "position": "TE"
+  },
+  {
+    "name": "Dawson Knox",
+    "adp": 263,
+    "position": "TE"
+  },
+  {
+    "name": "Darren Waller",
+    "adp": 264,
+    "position": "TE"
+  },
+  {
+    "name": "Cade Otton",
+    "adp": 265,
+    "position": "TE"
+  },
+  {
+    "name": "Jake Tonges",
+    "adp": 266,
+    "position": "TE"
+  },
+  {
+    "name": "Cole Kmet",
+    "adp": 267,
+    "position": "TE"
+  },
+  {
+    "name": "Gunnar Helm",
+    "adp": 268,
+    "position": "TE"
+  },
+  {
+    "name": "RB Depth 1",
+    "adp": 199,
+    "position": "RB"
+  },
+  {
+    "name": "RB Depth 2",
+    "adp": 200,
+    "position": "RB"
+  },
+  {
+    "name": "RB Depth 3",
+    "adp": 201,
+    "position": "RB"
+  },
+  {
+    "name": "RB Depth 4",
+    "adp": 202,
+    "position": "RB"
+  },
+  {
+    "name": "RB Depth 5",
+    "adp": 203,
+    "position": "RB"
+  },
+  {
+    "name": "WR Depth 1",
+    "adp": 204,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 2",
+    "adp": 205,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 3",
+    "adp": 206,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 4",
+    "adp": 207,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 5",
+    "adp": 208,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 6",
+    "adp": 209,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 7",
+    "adp": 210,
+    "position": "WR"
+  },
+  {
+    "name": "TE Depth 1",
+    "adp": 211,
+    "position": "TE"
+  },
+  {
+    "name": "TE Depth 2",
+    "adp": 212,
+    "position": "TE"
+  },
+  {
+    "name": "TE Depth 3",
+    "adp": 213,
+    "position": "TE"
+  },
+  {
+    "name": "TE Depth 4",
+    "adp": 214,
+    "position": "TE"
+  },
+  {
+    "name": "TE Depth 5",
+    "adp": 215,
+    "position": "TE"
+  },
+  {
+    "name": "QB Depth 1",
+    "adp": 216,
+    "position": "QB"
+  },
+  {
+    "name": "QB Depth 2",
+    "adp": 217,
+    "position": "QB"
+  },
+  {
+    "name": "QB Depth 3",
+    "adp": 218,
+    "position": "QB"
+  },
+  {
+    "name": "QB Depth 4",
+    "adp": 219,
+    "position": "QB"
+  },
+  {
+    "name": "QB Depth 5",
+    "adp": 220,
+    "position": "QB"
+  },
+  {
+    "name": "QB Depth 6",
+    "adp": 221,
+    "position": "QB"
+  },
+  {
+    "name": "RB Depth 6",
+    "adp": 222,
+    "position": "RB"
+  },
+  {
+    "name": "RB Depth 7",
+    "adp": 223,
+    "position": "RB"
+  },
+  {
+    "name": "RB Depth 8",
+    "adp": 224,
+    "position": "RB"
+  },
+  {
+    "name": "WR Depth 8",
+    "adp": 225,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 9",
+    "adp": 226,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 10",
+    "adp": 227,
+    "position": "WR"
+  },
+  {
+    "name": "TE Depth 6",
+    "adp": 228,
+    "position": "TE"
+  },
+  {
+    "name": "TE Depth 7",
+    "adp": 229,
+    "position": "TE"
+  },
+  {
+    "name": "TE Depth 8",
+    "adp": 230,
+    "position": "TE"
+  },
+  {
+    "name": "QB Depth 7",
+    "adp": 231,
+    "position": "QB"
+  },
+  {
+    "name": "QB Depth 8",
+    "adp": 232,
+    "position": "QB"
+  },
+  {
+    "name": "QB Depth 9",
+    "adp": 233,
+    "position": "QB"
+  },
+  {
+    "name": "QB Depth 10",
+    "adp": 234,
+    "position": "QB"
+  },
+  {
+    "name": "RB Depth 9",
+    "adp": 235,
+    "position": "RB"
+  },
+  {
+    "name": "RB Depth 10",
+    "adp": 236,
+    "position": "RB"
+  },
+  {
+    "name": "RB Depth 11",
+    "adp": 237,
+    "position": "RB"
+  },
+  {
+    "name": "RB Depth 12",
+    "adp": 238,
+    "position": "RB"
+  },
+  {
+    "name": "WR Depth 11",
+    "adp": 239,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 12",
+    "adp": 240,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 13",
+    "adp": 241,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 14",
+    "adp": 242,
+    "position": "WR"
+  },
+  {
+    "name": "WR Depth 15",
+    "adp": 243,
+    "position": "WR"
+  },
+  {
+    "name": "TE Depth 9",
+    "adp": 244,
+    "position": "TE"
+  },
+  {
+    "name": "TE Depth 10",
+    "adp": 245,
+    "position": "TE"
+  },
+  {
+    "name": "TE Depth 11",
+    "adp": 246,
+    "position": "TE"
+  },
+  {
+    "name": "TE Depth 12",
+    "adp": 247,
+    "position": "TE"
+  },
+  {
+    "name": "QB Depth 11",
+    "adp": 248,
+    "position": "QB"
+  },
+  {
+    "name": "QB Depth 12",
+    "adp": 249,
+    "position": "QB"
   }
 ]

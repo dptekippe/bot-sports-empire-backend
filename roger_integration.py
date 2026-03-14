@@ -189,12 +189,64 @@ def mock_roger_llm(prompt: str) -> str:
     return best_line if best_line else "0"
 
 
+# Real MiniMax LLM
+def minimax_roger_llm(prompt: str, model: str = "MiniMax-M2.5") -> str:
+    """Real Roger LLM using MiniMax API"""
+    import subprocess
+    import json
+    
+    API_KEY = "sk-cp-FqLcyjipNnLkczzHryLDaDjY06jPVUm2j88vG1KXIzLxPyiJIh3UaFkPz9KF8OGEAAIzns9rQLxYMIWZBPmGvDUmCyl-28rKfNGz_qffOlca87FJP3c"
+    
+    # Create a script that calls MiniMax
+    script = f'''
+import requests
+import json
+
+url = "https://api.minimax.chat/v1/text/chatcompletion_v2"
+headers = {{
+    "Authorization": f"Bearer {API_KEY}",
+    "Content-Type": "application/json"
+}}
+
+data = {{
+    "model": "MiniMax-M2.5",
+    "messages": [
+        {{"role": "system", "content": "You are Roger, a fantasy football draft expert. Analyze the draft situation and pick the best available player. Return ONLY the player name and position from the list provided."}},
+        {{"role": "user", "content": {repr(prompt[:2000])}}}
+    ],
+    "temperature": 0.7,
+    "max_tokens": 100
+}}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(result["choices"][0]["message"]["content"])
+'''
+    
+    try:
+        result = subprocess.run(
+            ['python3', '-c', script],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        if result.returncode == 0:
+            return result.stdout.strip()
+        else:
+            print(f"Error: {result.stderr}")
+            return mock_roger_llm(prompt)  # Fallback
+    except Exception as e:
+        print(f"Exception: {e}")
+        return mock_roger_llm(prompt)  # Fallback
+
+
 # Test
 if __name__ == '__main__':
-    # Test with mock LLM
-    env = RogerDraftEnv(roger_llm_fn=mock_roger_llm)
+    # Use real MiniMax LLM
+    print("=== ROGER INTEGRATION TEST WITH MINIMAX ===\n")
+    print("Using MiniMax-M2.5 for picks...\n")
     
-    print("=== ROGER INTEGRATION TEST ===\n")
+    env = RogerDraftEnv(roger_llm_fn=minimax_roger_llm)
     
     # Run one episode
     result = env.run_episode_with_roger()
