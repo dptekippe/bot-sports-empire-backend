@@ -71,8 +71,9 @@ def proj_pts(adp: float, position: str, use_mc: bool = False) -> float:
     
     pos_mult = POS_MULT.get(position, 1.0)
     
-    # Calibrated formula: 28 * ln(241 - ADP) + 25 * pos_mult - 10
-    base = 28 * math.log(241 - adp) + 25 * pos_mult - 10
+    # Calibrated formula: 35 * ln(241 - ADP) + 30 * pos_mult - 15
+    # Produces: ADP1 RB ~210, ADP100 WR ~140
+    base = 35 * math.log(241 - adp) + 30 * pos_mult - 15
     base = max(50, base)
     
     if use_mc:
@@ -96,8 +97,11 @@ def vorp(projected_pts: float, position: str) -> float:
     baseline = BASELINES.get(position, 120)
     median = MEDIAN_POS.get(position, 150)
     
-    vorp = projected_pts - baseline + 10 * (projected_pts / median - 1)
-    return max(0, vorp)
+    # Stronger stud bonus: +15 for top-tier players
+    bonus = 15 * max(0, (projected_pts / median - 1))
+    
+    # Floor negatives at 0
+    return max(0, projected_pts - baseline + bonus)
 
 
 def need_score(current_count: int, target: int, rounds_left: int) -> float:
