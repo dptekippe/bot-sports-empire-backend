@@ -126,6 +126,9 @@ def final_score(vorp: float, need: float, pick_num: int) -> float:
     """
     Final selection score combining VORP, need, and draft position.
     
+    Early picks have MORE impact (higher weight), not less.
+    Pick 1 = highest weight, Pick 240 = lowest weight.
+    
     Args:
         vorp: VORP score
         need: Position need score
@@ -134,7 +137,8 @@ def final_score(vorp: float, need: float, pick_num: int) -> float:
     Returns:
         Final score (higher = better pick)
     """
-    pick_factor = 1 - (241 - pick_num) / 240
+    # Early picks worth more: pick 1 = 1.0, pick 240 = 0.004
+    pick_factor = (241 - pick_num) / 240
     return vorp * need * pick_factor
 
 
