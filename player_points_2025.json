@@ -1,0 +1,534 @@
+[
+  [
+    "Christian McCaffrey",
+    "RB",
+    "SF",
+    416.6,
+    1
+  ],
+  [
+    "Puka Nacua",
+    "WR",
+    "LAR",
+    375.0,
+    2
+  ],
+  [
+    "Josh Allen",
+    "QB",
+    "BUF",
+    374.5,
+    3
+  ],
+  [
+    "Bijan Robinson",
+    "RB",
+    "ATL",
+    370.8,
+    4
+  ],
+  [
+    "Jahmyr Gibbs",
+    "RB",
+    "DET",
+    366.9,
+    5
+  ],
+  [
+    "Jonathan Taylor",
+    "RB",
+    "IND",
+    362.3,
+    6
+  ],
+  [
+    "Jaxon Smith-Njigba",
+    "WR",
+    "SEA",
+    359.9,
+    7
+  ],
+  [
+    "Drake Maye",
+    "QB",
+    "NE",
+    358.9,
+    8
+  ],
+  [
+    "Matthew Stafford",
+    "QB",
+    "LAR",
+    358.3,
+    9
+  ],
+  [
+    "Trevor Lawrence",
+    "QB",
+    "JAC",
+    350.1,
+    10
+  ],
+  [
+    "Amon-Ra St. Brown",
+    "WR",
+    "DET",
+    324.0,
+    11
+  ],
+  [
+    "Dak Prescott",
+    "QB",
+    "DAL",
+    323.8,
+    12
+  ],
+  [
+    "Caleb Williams",
+    "QB",
+    "CHI",
+    323.3,
+    13
+  ],
+  [
+    "De'Von Achane",
+    "RB",
+    "MIA",
+    322.8,
+    14
+  ],
+  [
+    "Bo Nix",
+    "QB",
+    "DEN",
+    315.8,
+    15
+  ],
+  [
+    "Ja'Marr Chase",
+    "WR",
+    "CIN",
+    313.6,
+    16
+  ],
+  [
+    "Jared Goff",
+    "QB",
+    "DET",
+    305.1,
+    17
+  ],
+  [
+    "Jalen Hurts",
+    "QB",
+    "PHI",
+    305.0,
+    18
+  ],
+  [
+    "James Cook",
+    "RB",
+    "BUF",
+    302.2,
+    19
+  ],
+  [
+    "Justin Herbert",
+    "QB",
+    "LAC",
+    299.8,
+    20
+  ],
+  [
+    "Patrick Mahomes",
+    "QB",
+    "KC",
+    295.7,
+    21
+  ],
+  [
+    "George Pickens",
+    "WR",
+    "PIT",
+    291.9,
+    22
+  ],
+  [
+    "Baker Mayfield",
+    "QB",
+    "TB",
+    282.9,
+    23
+  ],
+  [
+    "Chase Brown",
+    "RB",
+    "CIN",
+    282.6,
+    24
+  ],
+  [
+    "Derrick Henry",
+    "RB",
+    "BAL",
+    279.5,
+    25
+  ],
+  [
+    "Chris Olave",
+    "WR",
+    "NO",
+    269.0,
+    26
+  ],
+  [
+    "Kyren Williams",
+    "RB",
+    "LAR",
+    263.3,
+    27
+  ],
+  [
+    "Brock Bowers",
+    "TE",
+    "LV",
+    259.0,
+    28
+  ],
+  [
+    "Travis Etienne",
+    "RB",
+    "NO",
+    253.9,
+    29
+  ],
+  [
+    "Sam Darnold",
+    "QB",
+    "SEA",
+    249.4,
+    30
+  ],
+  [
+    "Jaxson Dart",
+    "QB",
+    "NYG",
+    246.5,
+    31
+  ],
+  [
+    "Ashton Jeanty",
+    "RB",
+    "LV",
+    245.1,
+    32
+  ],
+  [
+    "Zay Flowers",
+    "WR",
+    "BAL",
+    243.3,
+    33
+  ],
+  [
+    "Javonte Williams",
+    "RB",
+    "DAL",
+    242.8,
+    34
+  ],
+  [
+    "Jordan Love",
+    "QB",
+    "GB",
+    241.3,
+    35
+  ],
+  [
+    "Josh Jacobs",
+    "RB",
+    "GB",
+    237.1,
+    36
+  ],
+  [
+    "Saquon Barkley",
+    "RB",
+    "PHI",
+    232.3,
+    37
+  ],
+  [
+    "Sam LaPorta",
+    "TE",
+    "DET",
+    232.1,
+    38
+  ],
+  [
+    "D'Andre Swift",
+    "RB",
+    "CHI",
+    228.6,
+    39
+  ],
+  [
+    "Nico Collins",
+    "WR",
+    "HOU",
+    226.2,
+    40
+  ],
+  [
+    "Davante Adams",
+    "WR",
+    "LAR",
+    222.9,
+    41
+  ],
+  [
+    "Kenneth Gainwell",
+    "RB",
+    "TB",
+    221.3,
+    42
+  ],
+  [
+    "Michael Wilson",
+    "WR",
+    "ARI",
+    220.6,
+    43
+  ],
+  [
+    "A.J. Brown",
+    "WR",
+    "PHI",
+    220.3,
+    44
+  ],
+  [
+    "Jameson Williams",
+    "WR",
+    "DET",
+    219.9,
+    45
+  ],
+  [
+    "Courtland Sutton",
+    "WR",
+    "DEN",
+    219.7,
+    46
+  ],
+  [
+    "Wan'Dale Robinson",
+    "WR",
+    "TEN",
+    217.9,
+    47
+  ],
+  [
+    "Jaylen Warren",
+    "RB",
+    "PIT",
+    217.1,
+    48
+  ],
+  [
+    "Rico Dowdle",
+    "RB",
+    "PIT",
+    216.3,
+    49
+  ],
+  [
+    "Trey McBride",
+    "TE",
+    "ARI",
+    215.0,
+    50
+  ],
+  [
+    "Tee Higgins",
+    "WR",
+    "CIN",
+    211.6,
+    51
+  ],
+  [
+    "Tetairoa McMillan",
+    "WR",
+    "CAR",
+    211.4,
+    52
+  ],
+  [
+    "Stefon Diggs",
+    "WR",
+    "NE",
+    210.3,
+    53
+  ],
+  [
+    "George Kittle",
+    "TE",
+    "SF",
+    209.7,
+    54
+  ],
+  [
+    "Breece Hall",
+    "RB",
+    "NYJ",
+    207.7,
+    55
+  ],
+  [
+    "RJ Harvey",
+    "RB",
+    "DEN",
+    206.6,
+    56
+  ],
+  [
+    "TreVeyon Henderson",
+    "RB",
+    "NE",
+    206.2,
+    57
+  ],
+  [
+    "Michael Pittman",
+    "WR",
+    "PIT",
+    202.4,
+    58
+  ],
+  [
+    "Drake London",
+    "WR",
+    "ATL",
+    201.9,
+    59
+  ],
+  [
+    "DeVonta Smith",
+    "WR",
+    "PHI",
+    201.8,
+    60
+  ],
+  [
+    "Justin Jefferson",
+    "WR",
+    "MIN",
+    201.5,
+    61
+  ],
+  [
+    "CeeDee Lamb",
+    "WR",
+    "DAL",
+    200.9,
+    62
+  ],
+  [
+    "Emeka Egbuka",
+    "WR",
+    "TB",
+    195.7,
+    63
+  ],
+  [
+    "Jaylen Waddle",
+    "WR",
+    "MIA",
+    194.1,
+    64
+  ],
+  [
+    "Kenneth Walker",
+    "RB",
+    "KC",
+    191.9,
+    65
+  ],
+  [
+    "Deebo Samuel",
+    "WR",
+    "FA",
+    188.2,
+    66
+  ],
+  [
+    "DK Metcalf",
+    "WR",
+    "PIT",
+    187.2,
+    67
+  ],
+  [
+    "Tony Pollard",
+    "RB",
+    "TEN",
+    185.8,
+    68
+  ],
+  [
+    "Zach Charbonnet",
+    "RB",
+    "SEA",
+    181.4,
+    69
+  ],
+  [
+    "Travis Kelce",
+    "TE",
+    "KC",
+    181.4,
+    70
+  ],
+  [
+    "Rhamondre Stevenson",
+    "RB",
+    "NE",
+    178.8,
+    71
+  ],
+  [
+    "David Njoku",
+    "TE",
+    "CLE",
+    162.3,
+    72
+  ],
+  [
+    "Dalton Kincaid",
+    "TE",
+    "BUF",
+    148.9,
+    73
+  ],
+  [
+    "Jake Ferguson",
+    "TE",
+    "DAL",
+    145.3,
+    74
+  ],
+  [
+    "Evan Engram",
+    "TE",
+    "JAC",
+    132.5,
+    75
+  ],
+  [
+    "Cole Kmet",
+    "TE",
+    "CHI",
+    124.8,
+    76
+  ]
+]

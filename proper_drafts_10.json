@@ -1,0 +1,1224 @@
+{
+  "simulations": [
+    {
+      "simulation_id": 1,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Roger Balanced",
+          "score": 1279.9
+        },
+        {
+          "rank": 2,
+          "team": "Hero RB",
+          "score": 1141.6
+        },
+        {
+          "rank": 3,
+          "team": "Veteran Hunter",
+          "score": 1086.6
+        },
+        {
+          "rank": 4,
+          "team": "Best Player",
+          "score": 1015.5
+        },
+        {
+          "rank": 5,
+          "team": "Safe Draft",
+          "score": 975.4
+        },
+        {
+          "rank": 6,
+          "team": "Youth Movement",
+          "score": 940.2
+        },
+        {
+          "rank": 7,
+          "team": "PPR Specialist",
+          "score": 855.2
+        },
+        {
+          "rank": 8,
+          "team": "Elite QB",
+          "score": 829.6
+        },
+        {
+          "rank": 9,
+          "team": "Zero WR",
+          "score": 787.2
+        },
+        {
+          "rank": 10,
+          "team": "Zero RB",
+          "score": 767.5
+        },
+        {
+          "rank": 11,
+          "team": "Risk Taker",
+          "score": 474.6
+        },
+        {
+          "rank": 12,
+          "team": "Value WR",
+          "score": 454.5
+        }
+      ],
+      "champion": "Roger Balanced",
+      "champ_roster": [
+        {
+          "name": "Lamar Jackson",
+          "pos": "QB",
+          "team": "BAL",
+          "adp": 3
+        },
+        {
+          "name": "Matthew Stafford",
+          "pos": "QB",
+          "team": "LAR",
+          "adp": 10
+        },
+        {
+          "name": "Aaron Rodgers",
+          "pos": "QB",
+          "team": "NYJ",
+          "adp": 16
+        },
+        {
+          "name": "Bryce Young",
+          "pos": "QB",
+          "team": "CAR",
+          "adp": 23
+        },
+        {
+          "name": "Josh Jacobs",
+          "pos": "RB",
+          "team": "GB",
+          "adp": 35
+        },
+        {
+          "name": "Rashan Gary",
+          "pos": "RB",
+          "team": "GB",
+          "adp": 42
+        },
+        {
+          "name": "Travis Etienne",
+          "pos": "RB",
+          "team": "JAC",
+          "adp": 49
+        },
+        {
+          "name": "Davante Adams",
+          "pos": "WR",
+          "team": "LV",
+          "adp": 92
+        },
+        {
+          "name": "Rome Odunze",
+          "pos": "WR",
+          "team": "CHI",
+          "adp": 104
+        }
+      ]
+    },
+    {
+      "simulation_id": 2,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Youth Movement",
+          "score": 1140.6
+        },
+        {
+          "rank": 2,
+          "team": "Safe Draft",
+          "score": 1069.5
+        },
+        {
+          "rank": 3,
+          "team": "Elite QB",
+          "score": 1063.3
+        },
+        {
+          "rank": 4,
+          "team": "Hero RB",
+          "score": 1019.5
+        },
+        {
+          "rank": 5,
+          "team": "Zero WR",
+          "score": 954.2
+        },
+        {
+          "rank": 6,
+          "team": "PPR Specialist",
+          "score": 944.2
+        },
+        {
+          "rank": 7,
+          "team": "Roger Balanced",
+          "score": 938.2
+        },
+        {
+          "rank": 8,
+          "team": "Best Player",
+          "score": 903.2
+        },
+        {
+          "rank": 9,
+          "team": "Zero RB",
+          "score": 891.6
+        },
+        {
+          "rank": 10,
+          "team": "Veteran Hunter",
+          "score": 816.4
+        },
+        {
+          "rank": 11,
+          "team": "Value WR",
+          "score": 637.1
+        },
+        {
+          "rank": 12,
+          "team": "Risk Taker",
+          "score": 366.9
+        }
+      ],
+      "champion": "Youth Movement",
+      "champ_roster": [
+        {
+          "name": "Jalen Hurts",
+          "pos": "QB",
+          "team": "PHI",
+          "adp": 2
+        },
+        {
+          "name": "Patrick Mahomes",
+          "pos": "QB",
+          "team": "KC",
+          "adp": 11
+        },
+        {
+          "name": "Geno Smith",
+          "pos": "QB",
+          "team": "SEA",
+          "adp": 15
+        },
+        {
+          "name": "C.J. Stroud",
+          "pos": "QB",
+          "team": "HOU",
+          "adp": 24
+        },
+        {
+          "name": "De'Von Achane",
+          "pos": "RB",
+          "team": "MIA",
+          "adp": 36
+        },
+        {
+          "name": "D'Andre Swift",
+          "pos": "RB",
+          "team": "CHI",
+          "adp": 43
+        },
+        {
+          "name": "Zach Charbonnet",
+          "pos": "RB",
+          "team": "SEA",
+          "adp": 50
+        },
+        {
+          "name": "Garrett Wilson",
+          "pos": "WR",
+          "team": "NYJ",
+          "adp": 95
+        },
+        {
+          "name": "Marvin Harrison Jr.",
+          "pos": "WR",
+          "team": "ARI",
+          "adp": 103
+        }
+      ]
+    },
+    {
+      "simulation_id": 3,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Best Player",
+          "score": 1323.2
+        },
+        {
+          "rank": 2,
+          "team": "Safe Draft",
+          "score": 1090.1
+        },
+        {
+          "rank": 3,
+          "team": "Veteran Hunter",
+          "score": 1061.4
+        },
+        {
+          "rank": 4,
+          "team": "Elite QB",
+          "score": 1033.9
+        },
+        {
+          "rank": 5,
+          "team": "Hero RB",
+          "score": 998.5
+        },
+        {
+          "rank": 6,
+          "team": "Youth Movement",
+          "score": 984.4
+        },
+        {
+          "rank": 7,
+          "team": "Roger Balanced",
+          "score": 983.2
+        },
+        {
+          "rank": 8,
+          "team": "Zero WR",
+          "score": 900.0
+        },
+        {
+          "rank": 9,
+          "team": "Zero RB",
+          "score": 896.0
+        },
+        {
+          "rank": 10,
+          "team": "PPR Specialist",
+          "score": 554.9
+        },
+        {
+          "rank": 11,
+          "team": "Risk Taker",
+          "score": 431.0
+        },
+        {
+          "rank": 12,
+          "team": "Value WR",
+          "score": 351.1
+        }
+      ],
+      "champion": "Best Player",
+      "champ_roster": [
+        {
+          "name": "Jalen Hurts",
+          "pos": "QB",
+          "team": "PHI",
+          "adp": 2
+        },
+        {
+          "name": "Patrick Mahomes",
+          "pos": "QB",
+          "team": "KC",
+          "adp": 11
+        },
+        {
+          "name": "Jordan Love",
+          "pos": "QB",
+          "team": "GB",
+          "adp": 14
+        },
+        {
+          "name": "Christian McCaffrey",
+          "pos": "RB",
+          "team": "SF",
+          "adp": 30
+        },
+        {
+          "name": "Josh Jacobs",
+          "pos": "RB",
+          "team": "GB",
+          "adp": 35
+        },
+        {
+          "name": "James Conner",
+          "pos": "RB",
+          "team": "ARI",
+          "adp": 44
+        },
+        {
+          "name": "Travis Etienne",
+          "pos": "RB",
+          "team": "JAC",
+          "adp": 49
+        },
+        {
+          "name": "Courtland Sutton",
+          "pos": "WR",
+          "team": "DEN",
+          "adp": 90
+        },
+        {
+          "name": "Stefon Diggs",
+          "pos": "WR",
+          "team": "NE",
+          "adp": 99
+        }
+      ]
+    },
+    {
+      "simulation_id": 4,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Hero RB",
+          "score": 1219.9
+        },
+        {
+          "rank": 2,
+          "team": "Safe Draft",
+          "score": 1196.7
+        },
+        {
+          "rank": 3,
+          "team": "Roger Balanced",
+          "score": 1109.7
+        },
+        {
+          "rank": 4,
+          "team": "Youth Movement",
+          "score": 1051.9
+        },
+        {
+          "rank": 5,
+          "team": "Best Player",
+          "score": 1035.0
+        },
+        {
+          "rank": 6,
+          "team": "Elite QB",
+          "score": 983.3
+        },
+        {
+          "rank": 7,
+          "team": "Zero WR",
+          "score": 821.4
+        },
+        {
+          "rank": 8,
+          "team": "Zero RB",
+          "score": 812.0
+        },
+        {
+          "rank": 9,
+          "team": "Veteran Hunter",
+          "score": 739.1
+        },
+        {
+          "rank": 10,
+          "team": "PPR Specialist",
+          "score": 729.0
+        },
+        {
+          "rank": 11,
+          "team": "Value WR",
+          "score": 416.7
+        },
+        {
+          "rank": 12,
+          "team": "Risk Taker",
+          "score": 405.8
+        }
+      ],
+      "champion": "Hero RB",
+      "champ_roster": [
+        {
+          "name": "Bijan Robinson",
+          "pos": "RB",
+          "team": "ATL",
+          "adp": 25
+        },
+        {
+          "name": "Derrick Henry",
+          "pos": "RB",
+          "team": "BAL",
+          "adp": 28
+        },
+        {
+          "name": "Kyler Murray",
+          "pos": "QB",
+          "team": "ARI",
+          "adp": 13
+        },
+        {
+          "name": "Bucky Irving",
+          "pos": "RB",
+          "team": "TB",
+          "adp": 32
+        },
+        {
+          "name": "Kyren Williams",
+          "pos": "RB",
+          "team": "LAR",
+          "adp": 33
+        },
+        {
+          "name": "Najee Harris",
+          "pos": "RB",
+          "team": "PIT",
+          "adp": 46
+        },
+        {
+          "name": "Alvin Kamara",
+          "pos": "RB",
+          "team": "NO",
+          "adp": 47
+        },
+        {
+          "name": "Keenan Allen",
+          "pos": "WR",
+          "team": "CHI",
+          "adp": 98
+        },
+        {
+          "name": "Michael Pittman",
+          "pos": "WR",
+          "team": "IND",
+          "adp": 100
+        }
+      ]
+    },
+    {
+      "simulation_id": 5,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Best Player",
+          "score": 1077.2
+        },
+        {
+          "rank": 2,
+          "team": "Youth Movement",
+          "score": 1065.2
+        },
+        {
+          "rank": 3,
+          "team": "Hero RB",
+          "score": 1034.1
+        },
+        {
+          "rank": 4,
+          "team": "Veteran Hunter",
+          "score": 997.1
+        },
+        {
+          "rank": 5,
+          "team": "Zero WR",
+          "score": 985.4
+        },
+        {
+          "rank": 6,
+          "team": "Zero RB",
+          "score": 963.7
+        },
+        {
+          "rank": 7,
+          "team": "PPR Specialist",
+          "score": 946.6
+        },
+        {
+          "rank": 8,
+          "team": "Roger Balanced",
+          "score": 944.9
+        },
+        {
+          "rank": 9,
+          "team": "Safe Draft",
+          "score": 924.9
+        },
+        {
+          "rank": 10,
+          "team": "Elite QB",
+          "score": 718.1
+        },
+        {
+          "rank": 11,
+          "team": "Risk Taker",
+          "score": 535.6
+        },
+        {
+          "rank": 12,
+          "team": "Value WR",
+          "score": 301.5
+        }
+      ],
+      "champion": "Best Player",
+      "champ_roster": [
+        {
+          "name": "Lamar Jackson",
+          "pos": "QB",
+          "team": "BAL",
+          "adp": 3
+        },
+        {
+          "name": "Matthew Stafford",
+          "pos": "QB",
+          "team": "LAR",
+          "adp": 10
+        },
+        {
+          "name": "Aaron Rodgers",
+          "pos": "QB",
+          "team": "NYJ",
+          "adp": 16
+        },
+        {
+          "name": "Bryce Young",
+          "pos": "QB",
+          "team": "CAR",
+          "adp": 23
+        },
+        {
+          "name": "De'Von Achane",
+          "pos": "RB",
+          "team": "MIA",
+          "adp": 36
+        },
+        {
+          "name": "D'Andre Swift",
+          "pos": "RB",
+          "team": "CHI",
+          "adp": 43
+        },
+        {
+          "name": "Zach Charbonnet",
+          "pos": "RB",
+          "team": "SEA",
+          "adp": 50
+        },
+        {
+          "name": "DeVonta Smith",
+          "pos": "WR",
+          "team": "PHI",
+          "adp": 93
+        },
+        {
+          "name": "Rome Odunze",
+          "pos": "WR",
+          "team": "CHI",
+          "adp": 104
+        }
+      ]
+    },
+    {
+      "simulation_id": 6,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Elite QB",
+          "score": 1138.6
+        },
+        {
+          "rank": 2,
+          "team": "Hero RB",
+          "score": 1121.7
+        },
+        {
+          "rank": 3,
+          "team": "Zero RB",
+          "score": 1111.4
+        },
+        {
+          "rank": 4,
+          "team": "Roger Balanced",
+          "score": 1086.0
+        },
+        {
+          "rank": 5,
+          "team": "Safe Draft",
+          "score": 1009.4
+        },
+        {
+          "rank": 6,
+          "team": "Best Player",
+          "score": 995.9
+        },
+        {
+          "rank": 7,
+          "team": "Zero WR",
+          "score": 930.7
+        },
+        {
+          "rank": 8,
+          "team": "Veteran Hunter",
+          "score": 927.1
+        },
+        {
+          "rank": 9,
+          "team": "Youth Movement",
+          "score": 926.0
+        },
+        {
+          "rank": 10,
+          "team": "Risk Taker",
+          "score": 644.7
+        },
+        {
+          "rank": 11,
+          "team": "PPR Specialist",
+          "score": 572.3
+        },
+        {
+          "rank": 12,
+          "team": "Value WR",
+          "score": 516.2
+        }
+      ],
+      "champion": "Elite QB",
+      "champ_roster": [
+        {
+          "name": "Jayden Daniels",
+          "pos": "QB",
+          "team": "WAS",
+          "adp": 5
+        },
+        {
+          "name": "Justin Herbert",
+          "pos": "QB",
+          "team": "LAC",
+          "adp": 8
+        },
+        {
+          "name": "Sam Darnold",
+          "pos": "QB",
+          "team": "MIN",
+          "adp": 18
+        },
+        {
+          "name": "Bo Nix",
+          "pos": "QB",
+          "team": "DEN",
+          "adp": 21
+        },
+        {
+          "name": "Chase Brown",
+          "pos": "RB",
+          "team": "CIN",
+          "adp": 37
+        },
+        {
+          "name": "Rashan Gary",
+          "pos": "RB",
+          "team": "GB",
+          "adp": 42
+        },
+        {
+          "name": "A.J. Brown",
+          "pos": "WR",
+          "team": "PHI",
+          "adp": 83
+        },
+        {
+          "name": "Mike Evans",
+          "pos": "WR",
+          "team": "TB",
+          "adp": 91
+        },
+        {
+          "name": "Xavier Worthy",
+          "pos": "WR",
+          "team": "KC",
+          "adp": 105
+        }
+      ]
+    },
+    {
+      "simulation_id": 7,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Youth Movement",
+          "score": 1285.5
+        },
+        {
+          "rank": 2,
+          "team": "Best Player",
+          "score": 1084.6
+        },
+        {
+          "rank": 3,
+          "team": "Zero WR",
+          "score": 1066.0
+        },
+        {
+          "rank": 4,
+          "team": "Elite QB",
+          "score": 1053.4
+        },
+        {
+          "rank": 5,
+          "team": "Hero RB",
+          "score": 1049.2
+        },
+        {
+          "rank": 6,
+          "team": "Safe Draft",
+          "score": 920.7
+        },
+        {
+          "rank": 7,
+          "team": "Veteran Hunter",
+          "score": 854.3
+        },
+        {
+          "rank": 8,
+          "team": "Zero RB",
+          "score": 846.6
+        },
+        {
+          "rank": 9,
+          "team": "PPR Specialist",
+          "score": 810.9
+        },
+        {
+          "rank": 10,
+          "team": "Roger Balanced",
+          "score": 723.1
+        },
+        {
+          "rank": 11,
+          "team": "Risk Taker",
+          "score": 621.3
+        },
+        {
+          "rank": 12,
+          "team": "Value WR",
+          "score": 435.3
+        }
+      ],
+      "champion": "Youth Movement",
+      "champ_roster": [
+        {
+          "name": "Lamar Jackson",
+          "pos": "QB",
+          "team": "BAL",
+          "adp": 3
+        },
+        {
+          "name": "Matthew Stafford",
+          "pos": "QB",
+          "team": "LAR",
+          "adp": 10
+        },
+        {
+          "name": "Geno Smith",
+          "pos": "QB",
+          "team": "SEA",
+          "adp": 15
+        },
+        {
+          "name": "C.J. Stroud",
+          "pos": "QB",
+          "team": "HOU",
+          "adp": 24
+        },
+        {
+          "name": "Kyren Williams",
+          "pos": "RB",
+          "team": "LAR",
+          "adp": 33
+        },
+        {
+          "name": "James Conner",
+          "pos": "RB",
+          "team": "ARI",
+          "adp": 44
+        },
+        {
+          "name": "Alvin Kamara",
+          "pos": "RB",
+          "team": "NO",
+          "adp": 47
+        },
+        {
+          "name": "Garrett Wilson",
+          "pos": "WR",
+          "team": "NYJ",
+          "adp": 95
+        },
+        {
+          "name": "Michael Pittman",
+          "pos": "WR",
+          "team": "IND",
+          "adp": 100
+        }
+      ]
+    },
+    {
+      "simulation_id": 8,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Elite QB",
+          "score": 1322.3
+        },
+        {
+          "rank": 2,
+          "team": "Youth Movement",
+          "score": 1119.6
+        },
+        {
+          "rank": 3,
+          "team": "Roger Balanced",
+          "score": 989.5
+        },
+        {
+          "rank": 4,
+          "team": "Hero RB",
+          "score": 959.5
+        },
+        {
+          "rank": 5,
+          "team": "Best Player",
+          "score": 920.6
+        },
+        {
+          "rank": 6,
+          "team": "Veteran Hunter",
+          "score": 863.0
+        },
+        {
+          "rank": 7,
+          "team": "Zero WR",
+          "score": 860.9
+        },
+        {
+          "rank": 8,
+          "team": "Zero RB",
+          "score": 778.3
+        },
+        {
+          "rank": 9,
+          "team": "Safe Draft",
+          "score": 698.4
+        },
+        {
+          "rank": 10,
+          "team": "Value WR",
+          "score": 640.1
+        },
+        {
+          "rank": 11,
+          "team": "Risk Taker",
+          "score": 606.7
+        },
+        {
+          "rank": 12,
+          "team": "PPR Specialist",
+          "score": 405.2
+        }
+      ],
+      "champion": "Elite QB",
+      "champ_roster": [
+        {
+          "name": "Jalen Hurts",
+          "pos": "QB",
+          "team": "PHI",
+          "adp": 2
+        },
+        {
+          "name": "Patrick Mahomes",
+          "pos": "QB",
+          "team": "KC",
+          "adp": 11
+        },
+        {
+          "name": "Geno Smith",
+          "pos": "QB",
+          "team": "SEA",
+          "adp": 15
+        },
+        {
+          "name": "C.J. Stroud",
+          "pos": "QB",
+          "team": "HOU",
+          "adp": 24
+        },
+        {
+          "name": "Josh Jacobs",
+          "pos": "RB",
+          "team": "GB",
+          "adp": 35
+        },
+        {
+          "name": "James Conner",
+          "pos": "RB",
+          "team": "ARI",
+          "adp": 44
+        },
+        {
+          "name": "Travis Etienne",
+          "pos": "RB",
+          "team": "JAC",
+          "adp": 49
+        },
+        {
+          "name": "DeVonta Smith",
+          "pos": "WR",
+          "team": "PHI",
+          "adp": 93
+        },
+        {
+          "name": "Amari Cooper",
+          "pos": "WR",
+          "team": "CLE",
+          "adp": 101
+        }
+      ]
+    },
+    {
+      "simulation_id": 9,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Safe Draft",
+          "score": 1244.9
+        },
+        {
+          "rank": 2,
+          "team": "Best Player",
+          "score": 1208.3
+        },
+        {
+          "rank": 3,
+          "team": "Hero RB",
+          "score": 1180.3
+        },
+        {
+          "rank": 4,
+          "team": "Zero WR",
+          "score": 1085.2
+        },
+        {
+          "rank": 5,
+          "team": "Youth Movement",
+          "score": 1064.0
+        },
+        {
+          "rank": 6,
+          "team": "Roger Balanced",
+          "score": 961.8
+        },
+        {
+          "rank": 7,
+          "team": "Elite QB",
+          "score": 953.6
+        },
+        {
+          "rank": 8,
+          "team": "PPR Specialist",
+          "score": 810.0
+        },
+        {
+          "rank": 9,
+          "team": "Veteran Hunter",
+          "score": 786.0
+        },
+        {
+          "rank": 10,
+          "team": "Zero RB",
+          "score": 777.6
+        },
+        {
+          "rank": 11,
+          "team": "Risk Taker",
+          "score": 509.7
+        },
+        {
+          "rank": 12,
+          "team": "Value WR",
+          "score": 354.1
+        }
+      ],
+      "champion": "Safe Draft",
+      "champ_roster": [
+        {
+          "name": "Saquon Barkley",
+          "pos": "RB",
+          "team": "PHI",
+          "adp": 26
+        },
+        {
+          "name": "Jahmyr Gibbs",
+          "pos": "RB",
+          "team": "DET",
+          "adp": 27
+        },
+        {
+          "name": "Ashton Jeanty",
+          "pos": "RB",
+          "team": "LV",
+          "adp": 29
+        },
+        {
+          "name": "Christian McCaffrey",
+          "pos": "RB",
+          "team": "SF",
+          "adp": 30
+        },
+        {
+          "name": "De'Von Achane",
+          "pos": "RB",
+          "team": "MIA",
+          "adp": 36
+        },
+        {
+          "name": "Tony Pollard",
+          "pos": "RB",
+          "team": "TEN",
+          "adp": 41
+        },
+        {
+          "name": "Zach Charbonnet",
+          "pos": "RB",
+          "team": "SEA",
+          "adp": 50
+        },
+        {
+          "name": "Davante Adams",
+          "pos": "WR",
+          "team": "LV",
+          "adp": 92
+        },
+        {
+          "name": "Xavier Worthy",
+          "pos": "WR",
+          "team": "KC",
+          "adp": 105
+        }
+      ]
+    },
+    {
+      "simulation_id": 10,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Hero RB",
+          "score": 1275.2
+        },
+        {
+          "rank": 2,
+          "team": "Safe Draft",
+          "score": 1159.2
+        },
+        {
+          "rank": 3,
+          "team": "Best Player",
+          "score": 1089.9
+        },
+        {
+          "rank": 4,
+          "team": "Zero WR",
+          "score": 1048.0
+        },
+        {
+          "rank": 5,
+          "team": "Veteran Hunter",
+          "score": 1047.8
+        },
+        {
+          "rank": 6,
+          "team": "Youth Movement",
+          "score": 957.1
+        },
+        {
+          "rank": 7,
+          "team": "Elite QB",
+          "score": 954.0
+        },
+        {
+          "rank": 8,
+          "team": "Zero RB",
+          "score": 856.8
+        },
+        {
+          "rank": 9,
+          "team": "Roger Balanced",
+          "score": 780.5
+        },
+        {
+          "rank": 10,
+          "team": "PPR Specialist",
+          "score": 766.8
+        },
+        {
+          "rank": 11,
+          "team": "Risk Taker",
+          "score": 398.8
+        },
+        {
+          "rank": 12,
+          "team": "Value WR",
+          "score": 391.0
+        }
+      ],
+      "champion": "Hero RB",
+      "champ_roster": [
+        {
+          "name": "Bijan Robinson",
+          "pos": "RB",
+          "team": "ATL",
+          "adp": 25
+        },
+        {
+          "name": "Derrick Henry",
+          "pos": "RB",
+          "team": "BAL",
+          "adp": 28
+        },
+        {
+          "name": "Kyler Murray",
+          "pos": "QB",
+          "team": "ARI",
+          "adp": 13
+        },
+        {
+          "name": "Jonathan Taylor",
+          "pos": "RB",
+          "team": "IND",
+          "adp": 31
+        },
+        {
+          "name": "Bucky Irving",
+          "pos": "RB",
+          "team": "TB",
+          "adp": 32
+        },
+        {
+          "name": "Kenneth Walker III",
+          "pos": "RB",
+          "team": "SEA",
+          "adp": 45
+        },
+        {
+          "name": "Najee Harris",
+          "pos": "RB",
+          "team": "PIT",
+          "adp": 46
+        },
+        {
+          "name": "DK Metcalf",
+          "pos": "WR",
+          "team": "SEA",
+          "adp": 97
+        },
+        {
+          "name": "Keenan Allen",
+          "pos": "WR",
+          "team": "CHI",
+          "adp": 98
+        }
+      ]
+    }
+  ]
+}

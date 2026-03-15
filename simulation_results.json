@@ -1,0 +1,984 @@
+{
+  "championships": {
+    "PPR Specialist": 2,
+    "Veteran Hunter": 1,
+    "Hero RB": 1,
+    "Zero RB": 1,
+    "Zero WR": 3,
+    "Best Player (ADP)": 2
+  },
+  "final_standings": [
+    {
+      "team": "Veteran Hunter",
+      "score": 2247.2,
+      "weekly": [
+        122.4,
+        110.7,
+        115.1,
+        136.5,
+        151.4,
+        160.0,
+        141.9,
+        156.2,
+        113.4,
+        134.9,
+        137.8,
+        107.9,
+        146.9,
+        121.7,
+        135.5,
+        149.5,
+        105.4
+      ],
+      "starters": [
+        {
+          "name": "Patrick Mahomes",
+          "pos": "QB",
+          "team": "KCC",
+          "fpts": 296.7
+        },
+        {
+          "name": "Bijan Robinson",
+          "pos": "RB",
+          "team": "ATL",
+          "fpts": 370.8
+        },
+        {
+          "name": "Kyren Williams",
+          "pos": "RB",
+          "team": "LAR",
+          "fpts": 263.3
+        },
+        {
+          "name": "Drake London",
+          "pos": "WR",
+          "team": "ATL",
+          "fpts": 201.9
+        },
+        {
+          "name": "Quentin Johnston",
+          "pos": "WR",
+          "team": "LAC",
+          "fpts": 50
+        },
+        {
+          "name": "Tyler Warren",
+          "pos": "TE",
+          "team": "IND",
+          "fpts": 188.5
+        },
+        {
+          "name": "Rico Dowdle",
+          "pos": "RB",
+          "team": "CAR",
+          "fpts": 216.3
+        },
+        {
+          "name": "Hunter Henry",
+          "pos": "TE",
+          "team": "NEP",
+          "fpts": 178.8
+        },
+        {
+          "name": "Bucky Irving",
+          "pos": "RB",
+          "team": "TBB",
+          "fpts": 50
+        },
+        {
+          "name": "Baker Mayfield",
+          "pos": "QB",
+          "team": "TBB",
+          "fpts": 282.9
+        }
+      ]
+    },
+    {
+      "team": "Best Player (ADP)",
+      "score": 1881.5,
+      "weekly": [
+        94.5,
+        116.2,
+        135.4,
+        117.3,
+        85.9,
+        135.2,
+        109.3,
+        115.0,
+        140.0,
+        117.2,
+        108.6,
+        84.9,
+        81.6,
+        116.1,
+        134.5,
+        106.2,
+        83.6
+      ],
+      "starters": [
+        {
+          "name": "Josh Allen",
+          "pos": "QB",
+          "team": "BUF",
+          "fpts": 374.5
+        },
+        {
+          "name": "Derrick Henry",
+          "pos": "RB",
+          "team": "BAL",
+          "fpts": 279.5
+        },
+        {
+          "name": "Saquon Barkley",
+          "pos": "RB",
+          "team": "PHI",
+          "fpts": 232.3
+        },
+        {
+          "name": "Ricky Pearsall",
+          "pos": "WR",
+          "team": "SFO",
+          "fpts": 50
+        },
+        {
+          "name": "Khalil Shakir",
+          "pos": "WR",
+          "team": "BUF",
+          "fpts": 50
+        },
+        {
+          "name": "Juwan Johnson",
+          "pos": "TE",
+          "team": "NOS",
+          "fpts": 179.9
+        },
+        {
+          "name": "Chuba Hubbard",
+          "pos": "RB",
+          "team": "CAR",
+          "fpts": 217.1
+        },
+        {
+          "name": "Breece Hall",
+          "pos": "RB",
+          "team": "NYJ",
+          "fpts": 207.7
+        },
+        {
+          "name": "Jeremiyah Love",
+          "pos": "RB",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "Justin Herbert",
+          "pos": "QB",
+          "team": "LAC",
+          "fpts": 299.8
+        }
+      ]
+    },
+    {
+      "team": "Zero RB",
+      "score": 1726.4,
+      "weekly": [
+        93.1,
+        101.0,
+        82.0,
+        83.6,
+        119.3,
+        97.9,
+        124.3,
+        115.5,
+        122.2,
+        119.3,
+        94.1,
+        97.0,
+        95.2,
+        81.0,
+        123.1,
+        93.0,
+        84.8
+      ],
+      "starters": [
+        {
+          "name": "Jalen Hurts",
+          "pos": "QB",
+          "team": "PHI",
+          "fpts": 305.0
+        },
+        {
+          "name": "Puka Nacua",
+          "pos": "WR",
+          "team": "LAR",
+          "fpts": 375.0
+        },
+        {
+          "name": "Chris Olave",
+          "pos": "WR",
+          "team": "NOS",
+          "fpts": 269.0
+        },
+        {
+          "name": "Jake Ferguson",
+          "pos": "TE",
+          "team": "DAL",
+          "fpts": 188.1
+        },
+        {
+          "name": "Zay Flowers",
+          "pos": "WR",
+          "team": "BAL",
+          "fpts": 243.3
+        },
+        {
+          "name": "Tee Higgins",
+          "pos": "WR",
+          "team": "CIN",
+          "fpts": 211.6
+        },
+        {
+          "name": "Rashee Rice",
+          "pos": "WR",
+          "team": "KCC",
+          "fpts": 50
+        },
+        {
+          "name": "Travis Hunter",
+          "pos": "WR",
+          "team": "JAC",
+          "fpts": 50
+        },
+        {
+          "name": "KC Concepcion",
+          "pos": "WR",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "Lamar Jackson",
+          "pos": "QB",
+          "team": "BAL",
+          "fpts": 50
+        }
+      ]
+    },
+    {
+      "team": "Roger Balanced",
+      "score": 1719.0,
+      "weekly": [
+        117.4,
+        123.9,
+        69.7,
+        78.8,
+        118.1,
+        73.2,
+        75.7,
+        99.8,
+        103.0,
+        106.9,
+        120.6,
+        121.5,
+        98.4,
+        113.9,
+        94.1,
+        118.9,
+        85.1
+      ],
+      "starters": [
+        {
+          "name": "Jordan Love",
+          "pos": "QB",
+          "team": "GBP",
+          "fpts": 241.3
+        },
+        {
+          "name": "Chase Brown",
+          "pos": "RB",
+          "team": "CIN",
+          "fpts": 282.6
+        },
+        {
+          "name": "Omarion Hampton",
+          "pos": "RB",
+          "team": "LAC",
+          "fpts": 50
+        },
+        {
+          "name": "Ja'Marr Chase",
+          "pos": "WR",
+          "team": "CIN",
+          "fpts": 313.6
+        },
+        {
+          "name": "Michael Wilson",
+          "pos": "WR",
+          "team": "ARI",
+          "fpts": 220.6
+        },
+        {
+          "name": "George Kittle",
+          "pos": "TE",
+          "team": "SFO",
+          "fpts": 50
+        },
+        {
+          "name": "A.J. Brown",
+          "pos": "WR",
+          "team": "PHI",
+          "fpts": 220.3
+        },
+        {
+          "name": "CeeDee Lamb",
+          "pos": "WR",
+          "team": "DAL",
+          "fpts": 200.9
+        },
+        {
+          "name": "Zach Charbonnet",
+          "pos": "RB",
+          "team": "SEA",
+          "fpts": 50
+        },
+        {
+          "name": "Braelon Allen",
+          "pos": "RB",
+          "team": "NYJ",
+          "fpts": 50
+        }
+      ]
+    },
+    {
+      "team": "Hero RB",
+      "score": 1684.3,
+      "weekly": [
+        76.5,
+        90.6,
+        107.2,
+        96.9,
+        106.8,
+        98.3,
+        105.2,
+        110.4,
+        125.4,
+        73.4,
+        83.3,
+        91.6,
+        74.5,
+        121.4,
+        91.6,
+        115.1,
+        116.1
+      ],
+      "starters": [
+        {
+          "name": "Michael Penix Jr.",
+          "pos": "QB",
+          "team": "ATL",
+          "fpts": 50
+        },
+        {
+          "name": "Jonathan Taylor",
+          "pos": "RB",
+          "team": "IND",
+          "fpts": 362.3
+        },
+        {
+          "name": "De'Von Achane",
+          "pos": "RB",
+          "team": "MIA",
+          "fpts": 322.8
+        },
+        {
+          "name": "Davante Adams",
+          "pos": "WR",
+          "team": "LAR",
+          "fpts": 222.9
+        },
+        {
+          "name": "Marvin Harrison Jr.",
+          "pos": "WR",
+          "team": "ARI",
+          "fpts": 50
+        },
+        {
+          "name": "Colston Loveland",
+          "pos": "TE",
+          "team": "CHI",
+          "fpts": 50
+        },
+        {
+          "name": "Ashton Jeanty",
+          "pos": "RB",
+          "team": "LVR",
+          "fpts": 245.1
+        },
+        {
+          "name": "Josh Jacobs",
+          "pos": "RB",
+          "team": "GBP",
+          "fpts": 237.1
+        },
+        {
+          "name": "Trey Benson",
+          "pos": "RB",
+          "team": "ARI",
+          "fpts": 50
+        },
+        {
+          "name": "Tyler Allgeier",
+          "pos": "RB",
+          "team": "ATL",
+          "fpts": 50
+        }
+      ]
+    },
+    {
+      "team": "Youth Movement",
+      "score": 1561.7,
+      "weekly": [
+        92.0,
+        106.7,
+        92.1,
+        120.4,
+        86.0,
+        112.1,
+        103.1,
+        67.5,
+        87.9,
+        107.7,
+        82.5,
+        65.7,
+        117.5,
+        67.9,
+        85.8,
+        68.5,
+        98.3
+      ],
+      "starters": [
+        {
+          "name": "Caleb Williams",
+          "pos": "QB",
+          "team": "CHI",
+          "fpts": 325.3
+        },
+        {
+          "name": "Christian McCaffrey",
+          "pos": "RB",
+          "team": "SFO",
+          "fpts": 416.6
+        },
+        {
+          "name": "TreVeyon Henderson",
+          "pos": "RB",
+          "team": "NEP",
+          "fpts": 50
+        },
+        {
+          "name": "Wan'Dale Robinson",
+          "pos": "WR",
+          "team": "NYG",
+          "fpts": 217.9
+        },
+        {
+          "name": "Malik Nabers",
+          "pos": "WR",
+          "team": "NYG",
+          "fpts": 50
+        },
+        {
+          "name": "Mason Taylor",
+          "pos": "TE",
+          "team": "NYJ",
+          "fpts": 50
+        },
+        {
+          "name": "Jadarian Price",
+          "pos": "RB",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "Sean Tucker",
+          "pos": "RB",
+          "team": "TBB",
+          "fpts": 50
+        },
+        {
+          "name": "Jaylen Waddle",
+          "pos": "WR",
+          "team": "MIA",
+          "fpts": 50
+        },
+        {
+          "name": "Bo Nix",
+          "pos": "QB",
+          "team": "DEN",
+          "fpts": 315.8
+        }
+      ]
+    },
+    {
+      "team": "PPR Specialist",
+      "score": 1488.7,
+      "weekly": [
+        71.8,
+        94.2,
+        81.6,
+        98.1,
+        89.3,
+        73.9,
+        111.2,
+        72.7,
+        91.9,
+        83.4,
+        71.8,
+        109.6,
+        84.0,
+        71.9,
+        93.8,
+        74.1,
+        115.4
+      ],
+      "starters": [
+        {
+          "name": "Jaxon Smith-Njigba",
+          "pos": "WR",
+          "team": "SEA",
+          "fpts": 359.9
+        },
+        {
+          "name": "George Pickens",
+          "pos": "WR",
+          "team": "DAL",
+          "fpts": 291.9
+        },
+        {
+          "name": "Dallas Goedert",
+          "pos": "TE",
+          "team": "PHI",
+          "fpts": 185.1
+        },
+        {
+          "name": "Jameson Williams",
+          "pos": "WR",
+          "team": "DET",
+          "fpts": 219.9
+        },
+        {
+          "name": "Tetairoa McMillan",
+          "pos": "WR",
+          "team": "CAR",
+          "fpts": 211.4
+        },
+        {
+          "name": "Ladd McConkey",
+          "pos": "WR",
+          "team": "LAC",
+          "fpts": 50
+        },
+        {
+          "name": "Makai Lemon",
+          "pos": "WR",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "Jordyn Tyson",
+          "pos": "WR",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "Denzel Boston",
+          "pos": "WR",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "Alec Pierce",
+          "pos": "WR",
+          "team": "IND",
+          "fpts": 50
+        }
+      ]
+    },
+    {
+      "team": "Safe Draft",
+      "score": 1466.3,
+      "weekly": [
+        76.6,
+        104.6,
+        110.8,
+        70.9,
+        81.6,
+        63.6,
+        109.0,
+        86.9,
+        86.8,
+        88.7,
+        103.2,
+        102.7,
+        66.0,
+        101.7,
+        83.4,
+        65.8,
+        64.0
+      ],
+      "starters": [
+        {
+          "name": "Javonte Williams",
+          "pos": "RB",
+          "team": "DAL",
+          "fpts": 242.8
+        },
+        {
+          "name": "Travis Etienne",
+          "pos": "RB",
+          "team": "JAC",
+          "fpts": 50
+        },
+        {
+          "name": "Amon-Ra St. Brown",
+          "pos": "WR",
+          "team": "DET",
+          "fpts": 324.0
+        },
+        {
+          "name": "Nico Collins",
+          "pos": "WR",
+          "team": "HOU",
+          "fpts": 226.2
+        },
+        {
+          "name": "Courtland Sutton",
+          "pos": "WR",
+          "team": "DEN",
+          "fpts": 219.7
+        },
+        {
+          "name": "Justin Jefferson",
+          "pos": "WR",
+          "team": "MIN",
+          "fpts": 201.5
+        },
+        {
+          "name": "Nicholas Singleton",
+          "pos": "RB",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "J.K. Dobbins",
+          "pos": "RB",
+          "team": "DEN",
+          "fpts": 50
+        },
+        {
+          "name": "Kaleb Johnson",
+          "pos": "RB",
+          "team": "PIT",
+          "fpts": 50
+        },
+        {
+          "name": "Brashard Smith",
+          "pos": "RB",
+          "team": "KCC",
+          "fpts": 50
+        }
+      ]
+    },
+    {
+      "team": "Risk Taker",
+      "score": 1364.3,
+      "weekly": [
+        59.9,
+        63.5,
+        102.2,
+        77.7,
+        76.8,
+        88.2,
+        79.7,
+        103.4,
+        99.3,
+        97.0,
+        62.5,
+        82.8,
+        68.8,
+        94.7,
+        73.2,
+        62.8,
+        71.8
+      ],
+      "starters": [
+        {
+          "name": "Trevor Lawrence",
+          "pos": "QB",
+          "team": "JAC",
+          "fpts": 350.1
+        },
+        {
+          "name": "Jahmyr Gibbs",
+          "pos": "RB",
+          "team": "DET",
+          "fpts": 366.9
+        },
+        {
+          "name": "Jonah Coleman",
+          "pos": "RB",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "Garrett Wilson",
+          "pos": "WR",
+          "team": "NYJ",
+          "fpts": 50
+        },
+        {
+          "name": "Carnell Tate",
+          "pos": "WR",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "Harold Fannin",
+          "pos": "TE",
+          "team": "CLE",
+          "fpts": 50
+        },
+        {
+          "name": "Kenneth Gainwell",
+          "pos": "RB",
+          "team": "PIT",
+          "fpts": 50
+        },
+        {
+          "name": "Kimani Vidal",
+          "pos": "RB",
+          "team": "LAC",
+          "fpts": 50
+        },
+        {
+          "name": "Alvin Kamara",
+          "pos": "RB",
+          "team": "NOS",
+          "fpts": 50
+        },
+        {
+          "name": "Jared Goff",
+          "pos": "QB",
+          "team": "DET",
+          "fpts": 305.1
+        }
+      ]
+    },
+    {
+      "team": "Zero WR",
+      "score": 1307.8,
+      "weekly": [
+        95.0,
+        70.3,
+        56.9,
+        74.7,
+        87.3,
+        95.5,
+        61.4,
+        57.9,
+        64.3,
+        61.6,
+        96.7,
+        93.4,
+        84.0,
+        69.5,
+        80.2,
+        93.2,
+        65.9
+      ],
+      "starters": [
+        {
+          "name": "Dak Prescott",
+          "pos": "QB",
+          "team": "DAL",
+          "fpts": 323.8
+        },
+        {
+          "name": "D'Andre Swift",
+          "pos": "RB",
+          "team": "CHI",
+          "fpts": 228.6
+        },
+        {
+          "name": "James Cook",
+          "pos": "RB",
+          "team": "BUF",
+          "fpts": 50
+        },
+        {
+          "name": "Trey McBride",
+          "pos": "TE",
+          "team": "ARI",
+          "fpts": 315.9
+        },
+        {
+          "name": "Kyle Pitts",
+          "pos": "TE",
+          "team": "ATL",
+          "fpts": 210.8
+        },
+        {
+          "name": "Kenneth Walker III",
+          "pos": "RB",
+          "team": "SEA",
+          "fpts": 50
+        },
+        {
+          "name": "RJ Harvey",
+          "pos": "RB",
+          "team": "DEN",
+          "fpts": 50
+        },
+        {
+          "name": "Woody Marks",
+          "pos": "RB",
+          "team": "HOU",
+          "fpts": 50
+        },
+        {
+          "name": "Jacory Croskey-Merritt",
+          "pos": "RB",
+          "team": "WAS",
+          "fpts": 50
+        },
+        {
+          "name": "Brock Purdy",
+          "pos": "QB",
+          "team": "SFO",
+          "fpts": 50
+        }
+      ]
+    },
+    {
+      "team": "Value WR",
+      "score": 743.9,
+      "weekly": [
+        41.0,
+        53.5,
+        54.2,
+        49.3,
+        36.8,
+        39.6,
+        48.1,
+        53.4,
+        40.3,
+        42.3,
+        33.6,
+        44.8,
+        52.8,
+        49.8,
+        34.9,
+        35.2,
+        34.3
+      ],
+      "starters": [
+        {
+          "name": "Stefon Diggs",
+          "pos": "WR",
+          "team": "NEP",
+          "fpts": 210.3
+        },
+        {
+          "name": "DeVonta Smith",
+          "pos": "WR",
+          "team": "PHI",
+          "fpts": 201.8
+        },
+        {
+          "name": "Luke McCaffrey",
+          "pos": "WR",
+          "team": "WAS",
+          "fpts": 50
+        },
+        {
+          "name": "Darnell Mooney",
+          "pos": "WR",
+          "team": "ATL",
+          "fpts": 50
+        },
+        {
+          "name": "Kevin Coleman",
+          "pos": "WR",
+          "team": "FA",
+          "fpts": 50
+        },
+        {
+          "name": "Tank Dell",
+          "pos": "WR",
+          "team": "HOU",
+          "fpts": 50
+        },
+        {
+          "name": "Jayden Higgins",
+          "pos": "WR",
+          "team": "HOU",
+          "fpts": 50
+        },
+        {
+          "name": "Jordan Whittington",
+          "pos": "WR",
+          "team": "LAR",
+          "fpts": 50
+        },
+        {
+          "name": "Elic Ayomanor",
+          "pos": "WR",
+          "team": "TEN",
+          "fpts": 50
+        },
+        {
+          "name": "Calvin Ridley",
+          "pos": "WR",
+          "team": "TEN",
+          "fpts": 50
+        }
+      ]
+    },
+    {
+      "team": "Elite QB",
+      "score": 716.1,
+      "weekly": [
+        51.2,
+        47.2,
+        29.9,
+        49.9,
+        36.6,
+        47.4,
+        45.3,
+        42.8,
+        48.0,
+        48.9,
+        34.1,
+        42.0,
+        34.5,
+        32.1,
+        36.9,
+        53.3,
+        36.0
+      ],
+      "starters": [
+        {
+          "name": "Drake Maye",
+          "pos": "QB",
+          "team": "NEP",
+          "fpts": 359.9
+        },
+        {
+          "name": "Matthew Stafford",
+          "pos": "QB",
+          "team": "LAR",
+          "fpts": 358.3
+        }
+      ]
+    }
+  ]
+}

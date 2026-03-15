@@ -1,5 +1,11 @@
 # AGENTS.md - Roger's Operating System
 
+## Dynamic Wakeup Context
+Recent (24h): {{wakeup.recent}}
+Top pgvector: {{wakeup.top5}}
+
+---
+
 ## Roger Think Protocol (ALWAYS)
 
 For EVERY prompt, follow this process:

@@ -1,0 +1,1752 @@
+[
+  {
+    "rank": 1,
+    "name": "Josh Allen",
+    "position": "QB",
+    "team": "BUF",
+    "fpts_ppr": 374.5,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 2,
+    "name": "Drake Maye",
+    "position": "QB",
+    "team": "NE",
+    "fpts_ppr": 358.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 3,
+    "name": "Matthew Stafford",
+    "position": "QB",
+    "team": "LAR",
+    "fpts_ppr": 358.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 4,
+    "name": "Trevor Lawrence",
+    "position": "QB",
+    "team": "JAC",
+    "fpts_ppr": 350.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 5,
+    "name": "Dak Prescott",
+    "position": "QB",
+    "team": "DAL",
+    "fpts_ppr": 323.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 6,
+    "name": "Caleb Williams",
+    "position": "QB",
+    "team": "CHI",
+    "fpts_ppr": 323.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 7,
+    "name": "Bo Nix",
+    "position": "QB",
+    "team": "DEN",
+    "fpts_ppr": 315.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 8,
+    "name": "Jared Goff",
+    "position": "QB",
+    "team": "DET",
+    "fpts_ppr": 305.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 9,
+    "name": "Jalen Hurts",
+    "position": "QB",
+    "team": "PHI",
+    "fpts_ppr": 305.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 10,
+    "name": "Justin Herbert",
+    "position": "QB",
+    "team": "LAC",
+    "fpts_ppr": 299.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 11,
+    "name": "Patrick Mahomes II",
+    "position": "QB",
+    "team": "KC",
+    "fpts_ppr": 295.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 12,
+    "name": "Baker Mayfield",
+    "position": "QB",
+    "team": "TB",
+    "fpts_ppr": 282.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 13,
+    "name": "Sam Darnold",
+    "position": "QB",
+    "team": "SEA",
+    "fpts_ppr": 249.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 14,
+    "name": "Jaxson Dart",
+    "position": "QB",
+    "team": "NYG",
+    "fpts_ppr": 246.5,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 15,
+    "name": "Jordan Love",
+    "position": "QB",
+    "team": "GB",
+    "fpts_ppr": 241.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 16,
+    "name": "Jacoby Brissett",
+    "position": "QB",
+    "team": "ARI",
+    "fpts_ppr": 235.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 17,
+    "name": "Daniel Jones",
+    "position": "QB",
+    "team": "IND",
+    "fpts_ppr": 234.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 18,
+    "name": "Aaron Rodgers",
+    "position": "QB",
+    "team": "FA",
+    "fpts_ppr": 233.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 19,
+    "name": "Bryce Young",
+    "position": "QB",
+    "team": "CAR",
+    "fpts_ppr": 229.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 20,
+    "name": "Lamar Jackson",
+    "position": "QB",
+    "team": "BAL",
+    "fpts_ppr": 221.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 21,
+    "name": "C.J. Stroud",
+    "position": "QB",
+    "team": "HOU",
+    "fpts_ppr": 216.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 22,
+    "name": "Cam Ward",
+    "position": "QB",
+    "team": "TEN",
+    "fpts_ppr": 193.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 23,
+    "name": "Geno Smith",
+    "position": "QB",
+    "team": "NYJ",
+    "fpts_ppr": 190.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 24,
+    "name": "Brock Purdy",
+    "position": "QB",
+    "team": "SF",
+    "fpts_ppr": 187.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 25,
+    "name": "Tua Tagovailoa",
+    "position": "QB",
+    "team": "ATL",
+    "fpts_ppr": 175.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 26,
+    "name": "Tyler Shough",
+    "position": "QB",
+    "team": "NO",
+    "fpts_ppr": 164.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 27,
+    "name": "Joe Flacco",
+    "position": "QB",
+    "team": "FA",
+    "fpts_ppr": 156.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 28,
+    "name": "Justin Fields",
+    "position": "QB",
+    "team": "NYJ",
+    "fpts_ppr": 143.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 29,
+    "name": "Joe Burrow",
+    "position": "QB",
+    "team": "CIN",
+    "fpts_ppr": 139.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 30,
+    "name": "J.J. McCarthy",
+    "position": "QB",
+    "team": "MIN",
+    "fpts_ppr": 137.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 31,
+    "name": "Jonathan Taylor",
+    "position": "RB",
+    "team": "IND",
+    "fpts_ppr": 316.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 32,
+    "name": "Christian McCaffrey",
+    "position": "RB",
+    "team": "SF",
+    "fpts_ppr": 314.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 33,
+    "name": "Bijan Robinson",
+    "position": "RB",
+    "team": "ATL",
+    "fpts_ppr": 291.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 34,
+    "name": "Jahmyr Gibbs",
+    "position": "RB",
+    "team": "DET",
+    "fpts_ppr": 289.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 35,
+    "name": "James Cook III",
+    "position": "RB",
+    "team": "BUF",
+    "fpts_ppr": 269.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 36,
+    "name": "Derrick Henry",
+    "position": "RB",
+    "team": "BAL",
+    "fpts_ppr": 264.5,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 37,
+    "name": "De'Von Achane",
+    "position": "RB",
+    "team": "MIA",
+    "fpts_ppr": 255.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 38,
+    "name": "Kyren Williams",
+    "position": "RB",
+    "team": "LAR",
+    "fpts_ppr": 227.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 39,
+    "name": "Travis Etienne Jr.",
+    "position": "RB",
+    "team": "NO",
+    "fpts_ppr": 217.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 40,
+    "name": "Chase Brown",
+    "position": "RB",
+    "team": "CIN",
+    "fpts_ppr": 213.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 41,
+    "name": "Javonte Williams",
+    "position": "RB",
+    "team": "DAL",
+    "fpts_ppr": 207.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 42,
+    "name": "Josh Jacobs",
+    "position": "RB",
+    "team": "GB",
+    "fpts_ppr": 201.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 43,
+    "name": "Saquon Barkley",
+    "position": "RB",
+    "team": "PHI",
+    "fpts_ppr": 195.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 44,
+    "name": "D'Andre Swift",
+    "position": "RB",
+    "team": "CHI",
+    "fpts_ppr": 194.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 45,
+    "name": "Ashton Jeanty",
+    "position": "RB",
+    "team": "LV",
+    "fpts_ppr": 190.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 46,
+    "name": "Rico Dowdle",
+    "position": "RB",
+    "team": "PIT",
+    "fpts_ppr": 177.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 47,
+    "name": "Jaylen Warren",
+    "position": "RB",
+    "team": "PIT",
+    "fpts_ppr": 177.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 48,
+    "name": "Breece Hall",
+    "position": "RB",
+    "team": "NYJ",
+    "fpts_ppr": 171.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 49,
+    "name": "TreVeyon Henderson",
+    "position": "RB",
+    "team": "NE",
+    "fpts_ppr": 171.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 50,
+    "name": "Zach Charbonnet",
+    "position": "RB",
+    "team": "SEA",
+    "fpts_ppr": 161.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 51,
+    "name": "Kenneth Walker III",
+    "position": "RB",
+    "team": "KC",
+    "fpts_ppr": 160.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 52,
+    "name": "RJ Harvey",
+    "position": "RB",
+    "team": "DEN",
+    "fpts_ppr": 159.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 53,
+    "name": "Tony Pollard",
+    "position": "RB",
+    "team": "TEN",
+    "fpts_ppr": 152.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 54,
+    "name": "Kenneth Gainwell",
+    "position": "RB",
+    "team": "TB",
+    "fpts_ppr": 148.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 55,
+    "name": "Rhamondre Stevenson",
+    "position": "RB",
+    "team": "NE",
+    "fpts_ppr": 146.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 56,
+    "name": "Quinshon Judkins",
+    "position": "RB",
+    "team": "CLE",
+    "fpts_ppr": 143.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 57,
+    "name": "David Montgomery",
+    "position": "RB",
+    "team": "HOU",
+    "fpts_ppr": 142.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 58,
+    "name": "Jacory Croskey-Merritt",
+    "position": "RB",
+    "team": "WAS",
+    "fpts_ppr": 131.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 59,
+    "name": "Kyle Monangai",
+    "position": "RB",
+    "team": "CHI",
+    "fpts_ppr": 128.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 60,
+    "name": "Kareem Hunt",
+    "position": "RB",
+    "team": "FA",
+    "fpts_ppr": 127.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 61,
+    "name": "Woody Marks",
+    "position": "RB",
+    "team": "HOU",
+    "fpts_ppr": 127.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 62,
+    "name": "Tyrone Tracy Jr.",
+    "position": "RB",
+    "team": "NYG",
+    "fpts_ppr": 124.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 63,
+    "name": "Jordan Mason",
+    "position": "RB",
+    "team": "MIN",
+    "fpts_ppr": 114.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 64,
+    "name": "Blake Corum",
+    "position": "RB",
+    "team": "LAR",
+    "fpts_ppr": 114.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 65,
+    "name": "Tyler Allgeier",
+    "position": "RB",
+    "team": "ARI",
+    "fpts_ppr": 109.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 66,
+    "name": "Bucky Irving",
+    "position": "RB",
+    "team": "TB",
+    "fpts_ppr": 108.5,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 67,
+    "name": "J.K. Dobbins",
+    "position": "RB",
+    "team": "DEN",
+    "fpts_ppr": 104.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 68,
+    "name": "Cam Skattebo",
+    "position": "RB",
+    "team": "NYG",
+    "fpts_ppr": 103.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 69,
+    "name": "Omarion Hampton",
+    "position": "RB",
+    "team": "LAC",
+    "fpts_ppr": 103.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 70,
+    "name": "Rachaad White",
+    "position": "RB",
+    "team": "WAS",
+    "fpts_ppr": 103.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 71,
+    "name": "Kimani Vidal",
+    "position": "RB",
+    "team": "LAC",
+    "fpts_ppr": 101.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 72,
+    "name": "Chuba Hubbard",
+    "position": "RB",
+    "team": "CAR",
+    "fpts_ppr": 95.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 73,
+    "name": "Devin Singletary",
+    "position": "RB",
+    "team": "NYG",
+    "fpts_ppr": 90.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 74,
+    "name": "Aaron Jones Sr.",
+    "position": "RB",
+    "team": "MIN",
+    "fpts_ppr": 90.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 75,
+    "name": "Chris Rodriguez Jr.",
+    "position": "RB",
+    "team": "JAC",
+    "fpts_ppr": 89.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 76,
+    "name": "Puka Nacua",
+    "position": "WR",
+    "team": "LAR",
+    "fpts_ppr": 246.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 77,
+    "name": "Jaxon Smith-Njigba",
+    "position": "WR",
+    "team": "SEA",
+    "fpts_ppr": 240.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 78,
+    "name": "Amon-Ra St. Brown",
+    "position": "WR",
+    "team": "DET",
+    "fpts_ppr": 207.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 79,
+    "name": "George Pickens",
+    "position": "WR",
+    "team": "DAL",
+    "fpts_ppr": 198.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 80,
+    "name": "Ja'Marr Chase",
+    "position": "WR",
+    "team": "CIN",
+    "fpts_ppr": 188.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 81,
+    "name": "Chris Olave",
+    "position": "WR",
+    "team": "NO",
+    "fpts_ppr": 169.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 82,
+    "name": "Davante Adams",
+    "position": "WR",
+    "team": "LAR",
+    "fpts_ppr": 162.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 83,
+    "name": "Zay Flowers",
+    "position": "WR",
+    "team": "BAL",
+    "fpts_ppr": 157.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 84,
+    "name": "Nico Collins",
+    "position": "WR",
+    "team": "HOU",
+    "fpts_ppr": 155.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 85,
+    "name": "Jameson Williams",
+    "position": "WR",
+    "team": "DET",
+    "fpts_ppr": 154.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 86,
+    "name": "Tee Higgins",
+    "position": "WR",
+    "team": "CIN",
+    "fpts_ppr": 152.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 87,
+    "name": "Courtland Sutton",
+    "position": "WR",
+    "team": "DEN",
+    "fpts_ppr": 145.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 88,
+    "name": "Michael Wilson",
+    "position": "WR",
+    "team": "ARI",
+    "fpts_ppr": 142.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 89,
+    "name": "AJ Brown",
+    "position": "WR",
+    "team": "PHI",
+    "fpts_ppr": 142.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 90,
+    "name": "Tetairoa McMillan",
+    "position": "WR",
+    "team": "CAR",
+    "fpts_ppr": 141.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 91,
+    "name": "Alec Pierce",
+    "position": "WR",
+    "team": "IND",
+    "fpts_ppr": 136.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 92,
+    "name": "Drake London",
+    "position": "WR",
+    "team": "ATL",
+    "fpts_ppr": 133.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 93,
+    "name": "Emeka Egbuka",
+    "position": "WR",
+    "team": "TB",
+    "fpts_ppr": 132.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 94,
+    "name": "Jaylen Waddle",
+    "position": "WR",
+    "team": "MIA",
+    "fpts_ppr": 130.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 95,
+    "name": "DK Metcalf",
+    "position": "WR",
+    "team": "PIT",
+    "fpts_ppr": 128.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 96,
+    "name": "Parker Washington",
+    "position": "WR",
+    "team": "JAC",
+    "fpts_ppr": 126.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 97,
+    "name": "CeeDee Lamb",
+    "position": "WR",
+    "team": "DAL",
+    "fpts_ppr": 125.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 98,
+    "name": "Wan'Dale Robinson",
+    "position": "WR",
+    "team": "TEN",
+    "fpts_ppr": 125.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 99,
+    "name": "Stefon Diggs",
+    "position": "WR",
+    "team": "FA",
+    "fpts_ppr": 125.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 100,
+    "name": "DeVonta Smith",
+    "position": "WR",
+    "team": "PHI",
+    "fpts_ppr": 124.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 101,
+    "name": "Michael Pittman Jr.",
+    "position": "WR",
+    "team": "PIT",
+    "fpts_ppr": 122.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 102,
+    "name": "Quentin Johnston",
+    "position": "WR",
+    "team": "LAC",
+    "fpts_ppr": 120.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 103,
+    "name": "DJ Moore",
+    "position": "WR",
+    "team": "BUF",
+    "fpts_ppr": 120.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 104,
+    "name": "Jauan Jennings",
+    "position": "WR",
+    "team": "FA",
+    "fpts_ppr": 118.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 105,
+    "name": "Justin Jefferson",
+    "position": "WR",
+    "team": "MIN",
+    "fpts_ppr": 117.5,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 106,
+    "name": "Deebo Samuel Sr.",
+    "position": "WR",
+    "team": "FA",
+    "fpts_ppr": 116.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 107,
+    "name": "Ladd McConkey",
+    "position": "WR",
+    "team": "LAC",
+    "fpts_ppr": 114.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 108,
+    "name": "Troy Franklin",
+    "position": "WR",
+    "team": "DEN",
+    "fpts_ppr": 112.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 109,
+    "name": "Romeo Doubs",
+    "position": "WR",
+    "team": "NE",
+    "fpts_ppr": 110.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 110,
+    "name": "Tre Tucker",
+    "position": "WR",
+    "team": "LV",
+    "fpts_ppr": 104.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 111,
+    "name": "Rome Odunze",
+    "position": "WR",
+    "team": "CHI",
+    "fpts_ppr": 102.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 112,
+    "name": "Keenan Allen",
+    "position": "WR",
+    "team": "LAC",
+    "fpts_ppr": 101.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 113,
+    "name": "Jakobi Meyers",
+    "position": "WR",
+    "team": "JAC",
+    "fpts_ppr": 100.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 114,
+    "name": "Rashid Shaheed",
+    "position": "WR",
+    "team": "SEA",
+    "fpts_ppr": 97.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 115,
+    "name": "Christian Watson",
+    "position": "WR",
+    "team": "GB",
+    "fpts_ppr": 97.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 116,
+    "name": "Rashee Rice",
+    "position": "WR",
+    "team": "KC",
+    "fpts_ppr": 97.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 117,
+    "name": "Khalil Shakir",
+    "position": "WR",
+    "team": "BUF",
+    "fpts_ppr": 94.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 118,
+    "name": "Jordan Addison",
+    "position": "WR",
+    "team": "MIN",
+    "fpts_ppr": 93.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 119,
+    "name": "Kayshon Boutte",
+    "position": "WR",
+    "team": "NE",
+    "fpts_ppr": 91.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 120,
+    "name": "Brian Thomas Jr.",
+    "position": "WR",
+    "team": "JAC",
+    "fpts_ppr": 90.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 121,
+    "name": "Hollywood Brown",
+    "position": "WR",
+    "team": "FA",
+    "fpts_ppr": 88.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 122,
+    "name": "Jayden Higgins",
+    "position": "WR",
+    "team": "HOU",
+    "fpts_ppr": 88.5,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 123,
+    "name": "Marvin Harrison Jr.",
+    "position": "WR",
+    "team": "ARI",
+    "fpts_ppr": 86.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 124,
+    "name": "Luther Burden III",
+    "position": "WR",
+    "team": "CHI",
+    "fpts_ppr": 80.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 125,
+    "name": "Josh Downs",
+    "position": "WR",
+    "team": "IND",
+    "fpts_ppr": 78.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 126,
+    "name": "Trey McBride",
+    "position": "TE",
+    "team": "ARI",
+    "fpts_ppr": 189.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 127,
+    "name": "Dallas Goedert",
+    "position": "TE",
+    "team": "FA",
+    "fpts_ppr": 125.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 128,
+    "name": "Kyle Pitts",
+    "position": "TE",
+    "team": "ATL",
+    "fpts_ppr": 122.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 129,
+    "name": "Hunter Henry",
+    "position": "TE",
+    "team": "NE",
+    "fpts_ppr": 118.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 130,
+    "name": "Travis Kelce",
+    "position": "TE",
+    "team": "KC",
+    "fpts_ppr": 117.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 131,
+    "name": "Harold Fannin Jr.",
+    "position": "TE",
+    "team": "CLE",
+    "fpts_ppr": 114.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 132,
+    "name": "Tyler Warren",
+    "position": "TE",
+    "team": "IND",
+    "fpts_ppr": 112.5,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 133,
+    "name": "Brock Bowers",
+    "position": "TE",
+    "team": "LV",
+    "fpts_ppr": 112.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 134,
+    "name": "Colston Loveland",
+    "position": "TE",
+    "team": "CHI",
+    "fpts_ppr": 107.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 135,
+    "name": "Jake Ferguson",
+    "position": "TE",
+    "team": "DAL",
+    "fpts_ppr": 106.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 136,
+    "name": "George Kittle",
+    "position": "TE",
+    "team": "SF",
+    "fpts_ppr": 104.5,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 137,
+    "name": "Juwan Johnson",
+    "position": "TE",
+    "team": "NO",
+    "fpts_ppr": 102.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 138,
+    "name": "Dalton Schultz",
+    "position": "TE",
+    "team": "HOU",
+    "fpts_ppr": 95.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 139,
+    "name": "AJ Barner",
+    "position": "TE",
+    "team": "SEA",
+    "fpts_ppr": 95.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 140,
+    "name": "Dalton Kincaid",
+    "position": "TE",
+    "team": "BUF",
+    "fpts_ppr": 87.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 141,
+    "name": "Colby Parkinson",
+    "position": "TE",
+    "team": "LAR",
+    "fpts_ppr": 86.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 142,
+    "name": "Tucker Kraft",
+    "position": "TE",
+    "team": "GB",
+    "fpts_ppr": 85.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 143,
+    "name": "Mark Andrews",
+    "position": "TE",
+    "team": "BAL",
+    "fpts_ppr": 83.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 144,
+    "name": "Theo Johnson",
+    "position": "TE",
+    "team": "NYG",
+    "fpts_ppr": 82.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 145,
+    "name": "Oronde Gadsden II",
+    "position": "TE",
+    "team": "LAC",
+    "fpts_ppr": 82.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 146,
+    "name": "Zach Ertz",
+    "position": "TE",
+    "team": "FA",
+    "fpts_ppr": 76.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 147,
+    "name": "Pat Freiermuth",
+    "position": "TE",
+    "team": "PIT",
+    "fpts_ppr": 72.6,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 148,
+    "name": "Brenton Strange",
+    "position": "TE",
+    "team": "JAC",
+    "fpts_ppr": 72.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 149,
+    "name": "Chig Okonkwo",
+    "position": "TE",
+    "team": "WAS",
+    "fpts_ppr": 68.0,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 150,
+    "name": "Dawson Knox",
+    "position": "TE",
+    "team": "BUF",
+    "fpts_ppr": 67.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 151,
+    "name": "Sam LaPorta",
+    "position": "TE",
+    "team": "DET",
+    "fpts_ppr": 66.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 152,
+    "name": "Darren Waller",
+    "position": "TE",
+    "team": "FA",
+    "fpts_ppr": 64.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 153,
+    "name": "Cade Otton",
+    "position": "TE",
+    "team": "TB",
+    "fpts_ppr": 63.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 154,
+    "name": "T.J. Hockenson",
+    "position": "TE",
+    "team": "MIN",
+    "fpts_ppr": 61.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 155,
+    "name": "Jake Tonges",
+    "position": "TE",
+    "team": "SF",
+    "fpts_ppr": 59.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 156,
+    "name": "David Njoku",
+    "position": "TE",
+    "team": "FA",
+    "fpts_ppr": 53.3,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 157,
+    "name": "Evan Engram",
+    "position": "TE",
+    "team": "DEN",
+    "fpts_ppr": 52.8,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 158,
+    "name": "Cole Kmet",
+    "position": "TE",
+    "team": "CHI",
+    "fpts_ppr": 48.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 159,
+    "name": "Gunnar Helm",
+    "position": "TE",
+    "team": "TEN",
+    "fpts_ppr": 47.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 160,
+    "name": "Jonnu Smith",
+    "position": "TE",
+    "team": "FA",
+    "fpts_ppr": 47.2,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 161,
+    "name": "Tyler Higbee",
+    "position": "TE",
+    "team": "LAR",
+    "fpts_ppr": 46.1,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 162,
+    "name": "Mason Taylor",
+    "position": "TE",
+    "team": "NYJ",
+    "fpts_ppr": 44.9,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 163,
+    "name": "Mike Gesicki",
+    "position": "TE",
+    "team": "CIN",
+    "fpts_ppr": 42.7,
+    "source": "fantasypros_2025"
+  },
+  {
+    "rank": 164,
+    "name": "Darnell Washington",
+    "position": "TE",
+    "team": "PIT",
+    "fpts_ppr": 42.4,
+    "source": "fantasypros_2025"
+  },
+  {
+    "name": "Alvin Kamara",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Tank Bigsby",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Bhayshul Tuten",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Jerry Jeudy",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Isiah Pacheco",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Jayden Reed",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Keon Coleman",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Terry McLaurin",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Kaleb Johnson",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Braelon Allen",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Aaron Jones",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "James Cook",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Cooper Kupp",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Austin Ekeler",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Garrett Wilson",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Brandon Aiyuk",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Deebo Samuel",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Travis Hunter",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Kyler Murray",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Patrick Mahomes",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Jayden Daniels",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "Kirk Cousins",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 1",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 2",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 3",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 4",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 5",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 1",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 2",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 3",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 4",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 5",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 6",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 7",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 1",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 2",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 3",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 4",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 5",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 1",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 2",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 3",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 4",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 5",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 6",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 6",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 7",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 8",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 8",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 9",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 10",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 6",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 7",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 8",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 7",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 8",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 9",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 10",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 9",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 10",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 11",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "RB Depth 12",
+    "position": "RB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 11",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 12",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 13",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 14",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "WR Depth 15",
+    "position": "WR",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 9",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 10",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 11",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "TE Depth 12",
+    "position": "TE",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 11",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  },
+  {
+    "name": "QB Depth 12",
+    "position": "QB",
+    "team": "",
+    "fpts_ppr": 0
+  }
+]

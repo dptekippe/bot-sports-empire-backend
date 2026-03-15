@@ -1,0 +1,4112 @@
+{
+  "metadata": {
+    "total_simulations": 50,
+    "season_year": 2025,
+    "scoring_format": "PPR",
+    "format": "Superflex (2QB)",
+    "teams": 12,
+    "rounds": 20
+  },
+  "simulations": [
+    {
+      "simulation_id": 1,
+      "format": "superflex",
+      "draft": {
+        "Best Player SF": [],
+        "Zero QB": [],
+        "Value SF": [],
+        "QB Streaming": [],
+        "Elite QB Early": [],
+        "Risk Taker SF": [],
+        "Rookie QB Focus": [],
+        "Superflex Balanced": [],
+        "2QB Stacker": [],
+        "Safe Draft SF": [],
+        "Roger SF Balanced": [],
+        "Late QB Value": []
+      },
+      "standings": [
+        {
+          "rank": 11,
+          "strategy": "Roger SF Balanced",
+          "points": 981.1
+        },
+        {
+          "rank": 3,
+          "strategy": "Value SF",
+          "points": 939.1
+        },
+        {
+          "rank": 8,
+          "strategy": "Superflex Balanced",
+          "points": 932.7
+        },
+        {
+          "rank": 10,
+          "strategy": "Safe Draft SF",
+          "points": 929.5
+        },
+        {
+          "rank": 12,
+          "strategy": "Late QB Value",
+          "points": 883.4
+        },
+        {
+          "rank": 9,
+          "strategy": "2QB Stacker",
+          "points": 692.3
+        },
+        {
+          "rank": 5,
+          "strategy": "Elite QB Early",
+          "points": 691.8
+        },
+        {
+          "rank": 2,
+          "strategy": "Zero QB",
+          "points": 632.1
+        },
+        {
+          "rank": 6,
+          "strategy": "Risk Taker SF",
+          "points": 624.7
+        },
+        {
+          "rank": 1,
+          "strategy": "Best Player SF",
+          "points": 559.0
+        },
+        {
+          "rank": 4,
+          "strategy": "QB Streaming",
+          "points": 516.5
+        },
+        {
+          "rank": 7,
+          "strategy": "Rookie QB Focus",
+          "points": 513.9
+        }
+      ],
+      "champion": "Safe Draft SF",
+      "champion_strategy": "Safe Draft SF"
+    },
+    {
+      "simulation_id": 2,
+      "format": "superflex",
+      "draft": {
+        "Elite QB Early": [],
+        "Value SF": [],
+        "Risk Taker SF": [],
+        "Roger SF Balanced": [],
+        "Best Player SF": [],
+        "QB Streaming": [],
+        "Late QB Value": [],
+        "Safe Draft SF": [],
+        "2QB Stacker": [],
+        "Rookie QB Focus": [],
+        "Zero QB": [],
+        "Superflex Balanced": []
+      },
+      "standings": [
+        {
+          "rank": 3,
+          "strategy": "Risk Taker SF",
+          "points": 935.9
+        },
+        {
+          "rank": 4,
+          "strategy": "Roger SF Balanced",
+          "points": 851.4
+        },
+        {
+          "rank": 2,
+          "strategy": "Value SF",
+          "points": 842.7
+        },
+        {
+          "rank": 6,
+          "strategy": "QB Streaming",
+          "points": 841.1
+        },
+        {
+          "rank": 11,
+          "strategy": "Zero QB",
+          "points": 821.3
+        },
+        {
+          "rank": 5,
+          "strategy": "Best Player SF",
+          "points": 723.3
+        },
+        {
+          "rank": 7,
+          "strategy": "Late QB Value",
+          "points": 618.7
+        },
+        {
+          "rank": 10,
+          "strategy": "Rookie QB Focus",
+          "points": 606.5
+        },
+        {
+          "rank": 1,
+          "strategy": "Elite QB Early",
+          "points": 606.4
+        },
+        {
+          "rank": 9,
+          "strategy": "2QB Stacker",
+          "points": 583.9
+        },
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 456.6
+        },
+        {
+          "rank": 12,
+          "strategy": "Superflex Balanced",
+          "points": 407.1
+        }
+      ],
+      "champion": "Value SF",
+      "champion_strategy": "Value SF"
+    },
+    {
+      "simulation_id": 3,
+      "format": "superflex",
+      "draft": {
+        "Risk Taker SF": [],
+        "Rookie QB Focus": [],
+        "Elite QB Early": [],
+        "Zero QB": [],
+        "2QB Stacker": [],
+        "Roger SF Balanced": [],
+        "QB Streaming": [],
+        "Superflex Balanced": [],
+        "Best Player SF": [],
+        "Late QB Value": [],
+        "Value SF": [],
+        "Safe Draft SF": []
+      },
+      "standings": [
+        {
+          "rank": 10,
+          "strategy": "Late QB Value",
+          "points": 921.2
+        },
+        {
+          "rank": 2,
+          "strategy": "Rookie QB Focus",
+          "points": 879.5
+        },
+        {
+          "rank": 1,
+          "strategy": "Risk Taker SF",
+          "points": 843.5
+        },
+        {
+          "rank": 9,
+          "strategy": "Best Player SF",
+          "points": 838.5
+        },
+        {
+          "rank": 6,
+          "strategy": "Roger SF Balanced",
+          "points": 814.9
+        },
+        {
+          "rank": 11,
+          "strategy": "Value SF",
+          "points": 797.3
+        },
+        {
+          "rank": 12,
+          "strategy": "Safe Draft SF",
+          "points": 762.0
+        },
+        {
+          "rank": 4,
+          "strategy": "Zero QB",
+          "points": 755.1
+        },
+        {
+          "rank": 3,
+          "strategy": "Elite QB Early",
+          "points": 723.9
+        },
+        {
+          "rank": 5,
+          "strategy": "2QB Stacker",
+          "points": 603.6
+        },
+        {
+          "rank": 7,
+          "strategy": "QB Streaming",
+          "points": 494.3
+        },
+        {
+          "rank": 8,
+          "strategy": "Superflex Balanced",
+          "points": 487.6
+        }
+      ],
+      "champion": "Late QB Value",
+      "champion_strategy": "Late QB Value"
+    },
+    {
+      "simulation_id": 4,
+      "format": "superflex",
+      "draft": {
+        "Best Player SF": [],
+        "Roger SF Balanced": [],
+        "Value SF": [],
+        "Zero QB": [],
+        "Late QB Value": [],
+        "Superflex Balanced": [],
+        "Safe Draft SF": [],
+        "2QB Stacker": [],
+        "QB Streaming": [],
+        "Risk Taker SF": [],
+        "Elite QB Early": [],
+        "Rookie QB Focus": []
+      },
+      "standings": [
+        {
+          "rank": 4,
+          "strategy": "Zero QB",
+          "points": 847.5
+        },
+        {
+          "rank": 1,
+          "strategy": "Best Player SF",
+          "points": 809.7
+        },
+        {
+          "rank": 6,
+          "strategy": "Superflex Balanced",
+          "points": 779.5
+        },
+        {
+          "rank": 2,
+          "strategy": "Roger SF Balanced",
+          "points": 650.0
+        },
+        {
+          "rank": 12,
+          "strategy": "Rookie QB Focus",
+          "points": 638.5
+        },
+        {
+          "rank": 8,
+          "strategy": "2QB Stacker",
+          "points": 566.5
+        },
+        {
+          "rank": 11,
+          "strategy": "Elite QB Early",
+          "points": 556.8
+        },
+        {
+          "rank": 10,
+          "strategy": "Risk Taker SF",
+          "points": 541.1
+        },
+        {
+          "rank": 7,
+          "strategy": "Safe Draft SF",
+          "points": 499.0
+        },
+        {
+          "rank": 5,
+          "strategy": "Late QB Value",
+          "points": 498.1
+        },
+        {
+          "rank": 9,
+          "strategy": "QB Streaming",
+          "points": 471.5
+        },
+        {
+          "rank": 3,
+          "strategy": "Value SF",
+          "points": 469.9
+        }
+      ],
+      "champion": "Superflex Balanced",
+      "champion_strategy": "Superflex Balanced"
+    },
+    {
+      "simulation_id": 5,
+      "format": "superflex",
+      "draft": {
+        "Elite QB Early": [],
+        "Late QB Value": [],
+        "QB Streaming": [],
+        "Superflex Balanced": [],
+        "2QB Stacker": [],
+        "Rookie QB Focus": [],
+        "Roger SF Balanced": [],
+        "Best Player SF": [],
+        "Safe Draft SF": [],
+        "Zero QB": [],
+        "Value SF": [],
+        "Risk Taker SF": []
+      },
+      "standings": [
+        {
+          "rank": 7,
+          "strategy": "Roger SF Balanced",
+          "points": 942.1
+        },
+        {
+          "rank": 2,
+          "strategy": "Late QB Value",
+          "points": 796.8
+        },
+        {
+          "rank": 1,
+          "strategy": "Elite QB Early",
+          "points": 770.9
+        },
+        {
+          "rank": 11,
+          "strategy": "Value SF",
+          "points": 743.5
+        },
+        {
+          "rank": 6,
+          "strategy": "Rookie QB Focus",
+          "points": 723.9
+        },
+        {
+          "rank": 8,
+          "strategy": "Best Player SF",
+          "points": 676.0
+        },
+        {
+          "rank": 9,
+          "strategy": "Safe Draft SF",
+          "points": 637.1
+        },
+        {
+          "rank": 10,
+          "strategy": "Zero QB",
+          "points": 627.3
+        },
+        {
+          "rank": 12,
+          "strategy": "Risk Taker SF",
+          "points": 575.6
+        },
+        {
+          "rank": 3,
+          "strategy": "QB Streaming",
+          "points": 558.8
+        },
+        {
+          "rank": 4,
+          "strategy": "Superflex Balanced",
+          "points": 494.4
+        },
+        {
+          "rank": 5,
+          "strategy": "2QB Stacker",
+          "points": 424.1
+        }
+      ],
+      "champion": "Value SF",
+      "champion_strategy": "Value SF"
+    },
+    {
+      "simulation_id": 6,
+      "format": "superflex",
+      "draft": {
+        "Best Player SF": [],
+        "Elite QB Early": [],
+        "Value SF": [],
+        "Risk Taker SF": [],
+        "2QB Stacker": [],
+        "QB Streaming": [],
+        "Late QB Value": [],
+        "Roger SF Balanced": [],
+        "Safe Draft SF": [],
+        "Superflex Balanced": [],
+        "Zero QB": [],
+        "Rookie QB Focus": []
+      },
+      "standings": [
+        {
+          "rank": 2,
+          "strategy": "Elite QB Early",
+          "points": 1012.7
+        },
+        {
+          "rank": 5,
+          "strategy": "2QB Stacker",
+          "points": 989.8
+        },
+        {
+          "rank": 10,
+          "strategy": "Superflex Balanced",
+          "points": 856.0
+        },
+        {
+          "rank": 12,
+          "strategy": "Rookie QB Focus",
+          "points": 834.3
+        },
+        {
+          "rank": 1,
+          "strategy": "Best Player SF",
+          "points": 818.2
+        },
+        {
+          "rank": 11,
+          "strategy": "Zero QB",
+          "points": 762.3
+        },
+        {
+          "rank": 8,
+          "strategy": "Roger SF Balanced",
+          "points": 677.8
+        },
+        {
+          "rank": 4,
+          "strategy": "Risk Taker SF",
+          "points": 618.5
+        },
+        {
+          "rank": 7,
+          "strategy": "Late QB Value",
+          "points": 558.5
+        },
+        {
+          "rank": 9,
+          "strategy": "Safe Draft SF",
+          "points": 548.7
+        },
+        {
+          "rank": 6,
+          "strategy": "QB Streaming",
+          "points": 491.6
+        },
+        {
+          "rank": 3,
+          "strategy": "Value SF",
+          "points": 440.0
+        }
+      ],
+      "champion": "Superflex Balanced",
+      "champion_strategy": "Superflex Balanced"
+    },
+    {
+      "simulation_id": 7,
+      "format": "superflex",
+      "draft": {
+        "2QB Stacker": [],
+        "Rookie QB Focus": [],
+        "Superflex Balanced": [],
+        "Best Player SF": [],
+        "Risk Taker SF": [],
+        "Roger SF Balanced": [],
+        "Safe Draft SF": [],
+        "Elite QB Early": [],
+        "Value SF": [],
+        "Late QB Value": [],
+        "Zero QB": [],
+        "QB Streaming": []
+      },
+      "standings": [
+        {
+          "rank": 3,
+          "strategy": "Superflex Balanced",
+          "points": 936.5
+        },
+        {
+          "rank": 7,
+          "strategy": "Safe Draft SF",
+          "points": 810.9
+        },
+        {
+          "rank": 9,
+          "strategy": "Value SF",
+          "points": 810.3
+        },
+        {
+          "rank": 6,
+          "strategy": "Roger SF Balanced",
+          "points": 773.2
+        },
+        {
+          "rank": 8,
+          "strategy": "Elite QB Early",
+          "points": 756.8
+        },
+        {
+          "rank": 1,
+          "strategy": "2QB Stacker",
+          "points": 729.3
+        },
+        {
+          "rank": 2,
+          "strategy": "Rookie QB Focus",
+          "points": 595.1
+        },
+        {
+          "rank": 11,
+          "strategy": "Zero QB",
+          "points": 595.1
+        },
+        {
+          "rank": 10,
+          "strategy": "Late QB Value",
+          "points": 535.4
+        },
+        {
+          "rank": 5,
+          "strategy": "Risk Taker SF",
+          "points": 477.9
+        },
+        {
+          "rank": 12,
+          "strategy": "QB Streaming",
+          "points": 432.1
+        },
+        {
+          "rank": 4,
+          "strategy": "Best Player SF",
+          "points": 409.8
+        }
+      ],
+      "champion": "Roger SF Balanced",
+      "champion_strategy": "Roger SF Balanced"
+    },
+    {
+      "simulation_id": 8,
+      "format": "superflex",
+      "draft": {
+        "QB Streaming": [],
+        "Late QB Value": [],
+        "Superflex Balanced": [],
+        "Zero QB": [],
+        "Value SF": [],
+        "Roger SF Balanced": [],
+        "Elite QB Early": [],
+        "2QB Stacker": [],
+        "Safe Draft SF": [],
+        "Risk Taker SF": [],
+        "Rookie QB Focus": [],
+        "Best Player SF": []
+      },
+      "standings": [
+        {
+          "rank": 1,
+          "strategy": "QB Streaming",
+          "points": 978.0
+        },
+        {
+          "rank": 2,
+          "strategy": "Late QB Value",
+          "points": 959.8
+        },
+        {
+          "rank": 4,
+          "strategy": "Zero QB",
+          "points": 932.4
+        },
+        {
+          "rank": 3,
+          "strategy": "Superflex Balanced",
+          "points": 829.0
+        },
+        {
+          "rank": 7,
+          "strategy": "Elite QB Early",
+          "points": 823.6
+        },
+        {
+          "rank": 10,
+          "strategy": "Risk Taker SF",
+          "points": 784.5
+        },
+        {
+          "rank": 6,
+          "strategy": "Roger SF Balanced",
+          "points": 652.2
+        },
+        {
+          "rank": 5,
+          "strategy": "Value SF",
+          "points": 592.9
+        },
+        {
+          "rank": 9,
+          "strategy": "Safe Draft SF",
+          "points": 540.0
+        },
+        {
+          "rank": 12,
+          "strategy": "Best Player SF",
+          "points": 444.0
+        },
+        {
+          "rank": 8,
+          "strategy": "2QB Stacker",
+          "points": 438.4
+        },
+        {
+          "rank": 11,
+          "strategy": "Rookie QB Focus",
+          "points": 422.2
+        }
+      ],
+      "champion": "Zero QB",
+      "champion_strategy": "Zero QB"
+    },
+    {
+      "simulation_id": 9,
+      "format": "superflex",
+      "draft": {
+        "Superflex Balanced": [],
+        "2QB Stacker": [],
+        "Rookie QB Focus": [],
+        "Best Player SF": [],
+        "Risk Taker SF": [],
+        "Zero QB": [],
+        "Elite QB Early": [],
+        "Roger SF Balanced": [],
+        "Value SF": [],
+        "QB Streaming": [],
+        "Late QB Value": [],
+        "Safe Draft SF": []
+      },
+      "standings": [
+        {
+          "rank": 12,
+          "strategy": "Safe Draft SF",
+          "points": 990.1
+        },
+        {
+          "rank": 4,
+          "strategy": "Best Player SF",
+          "points": 960.5
+        },
+        {
+          "rank": 6,
+          "strategy": "Zero QB",
+          "points": 934.0
+        },
+        {
+          "rank": 3,
+          "strategy": "Rookie QB Focus",
+          "points": 888.7
+        },
+        {
+          "rank": 9,
+          "strategy": "Value SF",
+          "points": 787.6
+        },
+        {
+          "rank": 7,
+          "strategy": "Elite QB Early",
+          "points": 774.4
+        },
+        {
+          "rank": 11,
+          "strategy": "Late QB Value",
+          "points": 736.3
+        },
+        {
+          "rank": 2,
+          "strategy": "2QB Stacker",
+          "points": 709.7
+        },
+        {
+          "rank": 8,
+          "strategy": "Roger SF Balanced",
+          "points": 588.8
+        },
+        {
+          "rank": 5,
+          "strategy": "Risk Taker SF",
+          "points": 568.2
+        },
+        {
+          "rank": 1,
+          "strategy": "Superflex Balanced",
+          "points": 528.2
+        },
+        {
+          "rank": 10,
+          "strategy": "QB Streaming",
+          "points": 409.1
+        }
+      ],
+      "champion": "Zero QB",
+      "champion_strategy": "Zero QB"
+    },
+    {
+      "simulation_id": 10,
+      "format": "superflex",
+      "draft": {
+        "Safe Draft SF": [],
+        "Rookie QB Focus": [],
+        "Elite QB Early": [],
+        "Value SF": [],
+        "Roger SF Balanced": [],
+        "Risk Taker SF": [],
+        "Late QB Value": [],
+        "2QB Stacker": [],
+        "QB Streaming": [],
+        "Best Player SF": [],
+        "Superflex Balanced": [],
+        "Zero QB": []
+      },
+      "standings": [
+        {
+          "rank": 9,
+          "strategy": "QB Streaming",
+          "points": 990.7
+        },
+        {
+          "rank": 10,
+          "strategy": "Best Player SF",
+          "points": 801.3
+        },
+        {
+          "rank": 4,
+          "strategy": "Value SF",
+          "points": 789.1
+        },
+        {
+          "rank": 5,
+          "strategy": "Roger SF Balanced",
+          "points": 779.5
+        },
+        {
+          "rank": 12,
+          "strategy": "Zero QB",
+          "points": 769.1
+        },
+        {
+          "rank": 2,
+          "strategy": "Rookie QB Focus",
+          "points": 688.9
+        },
+        {
+          "rank": 8,
+          "strategy": "2QB Stacker",
+          "points": 682.0
+        },
+        {
+          "rank": 1,
+          "strategy": "Safe Draft SF",
+          "points": 655.9
+        },
+        {
+          "rank": 11,
+          "strategy": "Superflex Balanced",
+          "points": 649.6
+        },
+        {
+          "rank": 7,
+          "strategy": "Late QB Value",
+          "points": 597.3
+        },
+        {
+          "rank": 3,
+          "strategy": "Elite QB Early",
+          "points": 525.9
+        },
+        {
+          "rank": 6,
+          "strategy": "Risk Taker SF",
+          "points": 424.3
+        }
+      ],
+      "champion": "QB Streaming",
+      "champion_strategy": "QB Streaming"
+    },
+    {
+      "simulation_id": 11,
+      "format": "superflex",
+      "draft": {
+        "Roger SF Balanced": [],
+        "Elite QB Early": [],
+        "Rookie QB Focus": [],
+        "Risk Taker SF": [],
+        "Best Player SF": [],
+        "2QB Stacker": [],
+        "Superflex Balanced": [],
+        "Safe Draft SF": [],
+        "Zero QB": [],
+        "QB Streaming": [],
+        "Late QB Value": [],
+        "Value SF": []
+      },
+      "standings": [
+        {
+          "rank": 3,
+          "strategy": "Rookie QB Focus",
+          "points": 979.6
+        },
+        {
+          "rank": 1,
+          "strategy": "Roger SF Balanced",
+          "points": 930.1
+        },
+        {
+          "rank": 7,
+          "strategy": "Superflex Balanced",
+          "points": 893.1
+        },
+        {
+          "rank": 6,
+          "strategy": "2QB Stacker",
+          "points": 889.1
+        },
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 887.9
+        },
+        {
+          "rank": 9,
+          "strategy": "Zero QB",
+          "points": 751.2
+        },
+        {
+          "rank": 4,
+          "strategy": "Risk Taker SF",
+          "points": 743.5
+        },
+        {
+          "rank": 10,
+          "strategy": "QB Streaming",
+          "points": 736.9
+        },
+        {
+          "rank": 2,
+          "strategy": "Elite QB Early",
+          "points": 736.0
+        },
+        {
+          "rank": 11,
+          "strategy": "Late QB Value",
+          "points": 727.8
+        },
+        {
+          "rank": 12,
+          "strategy": "Value SF",
+          "points": 633.6
+        },
+        {
+          "rank": 5,
+          "strategy": "Best Player SF",
+          "points": 542.0
+        }
+      ],
+      "champion": "Roger SF Balanced",
+      "champion_strategy": "Roger SF Balanced"
+    },
+    {
+      "simulation_id": 12,
+      "format": "superflex",
+      "draft": {
+        "QB Streaming": [],
+        "Rookie QB Focus": [],
+        "Safe Draft SF": [],
+        "Late QB Value": [],
+        "Value SF": [],
+        "Roger SF Balanced": [],
+        "Elite QB Early": [],
+        "Risk Taker SF": [],
+        "Superflex Balanced": [],
+        "Best Player SF": [],
+        "2QB Stacker": [],
+        "Zero QB": []
+      },
+      "standings": [
+        {
+          "rank": 1,
+          "strategy": "QB Streaming",
+          "points": 938.1
+        },
+        {
+          "rank": 6,
+          "strategy": "Roger SF Balanced",
+          "points": 916.7
+        },
+        {
+          "rank": 8,
+          "strategy": "Risk Taker SF",
+          "points": 883.8
+        },
+        {
+          "rank": 11,
+          "strategy": "2QB Stacker",
+          "points": 750.1
+        },
+        {
+          "rank": 9,
+          "strategy": "Superflex Balanced",
+          "points": 713.8
+        },
+        {
+          "rank": 7,
+          "strategy": "Elite QB Early",
+          "points": 679.8
+        },
+        {
+          "rank": 5,
+          "strategy": "Value SF",
+          "points": 655.1
+        },
+        {
+          "rank": 2,
+          "strategy": "Rookie QB Focus",
+          "points": 627.5
+        },
+        {
+          "rank": 12,
+          "strategy": "Zero QB",
+          "points": 593.8
+        },
+        {
+          "rank": 10,
+          "strategy": "Best Player SF",
+          "points": 540.8
+        },
+        {
+          "rank": 3,
+          "strategy": "Safe Draft SF",
+          "points": 482.8
+        },
+        {
+          "rank": 4,
+          "strategy": "Late QB Value",
+          "points": 439.6
+        }
+      ],
+      "champion": "Roger SF Balanced",
+      "champion_strategy": "Roger SF Balanced"
+    },
+    {
+      "simulation_id": 13,
+      "format": "superflex",
+      "draft": {
+        "Rookie QB Focus": [],
+        "Elite QB Early": [],
+        "Zero QB": [],
+        "Best Player SF": [],
+        "Value SF": [],
+        "Risk Taker SF": [],
+        "QB Streaming": [],
+        "Safe Draft SF": [],
+        "Roger SF Balanced": [],
+        "Late QB Value": [],
+        "Superflex Balanced": [],
+        "2QB Stacker": []
+      },
+      "standings": [
+        {
+          "rank": 4,
+          "strategy": "Best Player SF",
+          "points": 931.5
+        },
+        {
+          "rank": 2,
+          "strategy": "Elite QB Early",
+          "points": 876.5
+        },
+        {
+          "rank": 9,
+          "strategy": "Roger SF Balanced",
+          "points": 844.7
+        },
+        {
+          "rank": 5,
+          "strategy": "Value SF",
+          "points": 828.2
+        },
+        {
+          "rank": 1,
+          "strategy": "Rookie QB Focus",
+          "points": 783.5
+        },
+        {
+          "rank": 6,
+          "strategy": "Risk Taker SF",
+          "points": 768.8
+        },
+        {
+          "rank": 11,
+          "strategy": "Superflex Balanced",
+          "points": 755.5
+        },
+        {
+          "rank": 10,
+          "strategy": "Late QB Value",
+          "points": 682.4
+        },
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 628.9
+        },
+        {
+          "rank": 12,
+          "strategy": "2QB Stacker",
+          "points": 627.9
+        },
+        {
+          "rank": 3,
+          "strategy": "Zero QB",
+          "points": 521.6
+        },
+        {
+          "rank": 7,
+          "strategy": "QB Streaming",
+          "points": 521.2
+        }
+      ],
+      "champion": "Value SF",
+      "champion_strategy": "Value SF"
+    },
+    {
+      "simulation_id": 14,
+      "format": "superflex",
+      "draft": {
+        "Elite QB Early": [],
+        "Rookie QB Focus": [],
+        "Value SF": [],
+        "Risk Taker SF": [],
+        "2QB Stacker": [],
+        "Superflex Balanced": [],
+        "Safe Draft SF": [],
+        "Zero QB": [],
+        "Best Player SF": [],
+        "Roger SF Balanced": [],
+        "Late QB Value": [],
+        "QB Streaming": []
+      },
+      "standings": [
+        {
+          "rank": 1,
+          "strategy": "Elite QB Early",
+          "points": 1034.8
+        },
+        {
+          "rank": 7,
+          "strategy": "Safe Draft SF",
+          "points": 872.8
+        },
+        {
+          "rank": 11,
+          "strategy": "Late QB Value",
+          "points": 823.4
+        },
+        {
+          "rank": 3,
+          "strategy": "Value SF",
+          "points": 709.8
+        },
+        {
+          "rank": 4,
+          "strategy": "Risk Taker SF",
+          "points": 658.6
+        },
+        {
+          "rank": 2,
+          "strategy": "Rookie QB Focus",
+          "points": 618.3
+        },
+        {
+          "rank": 9,
+          "strategy": "Best Player SF",
+          "points": 543.8
+        },
+        {
+          "rank": 6,
+          "strategy": "Superflex Balanced",
+          "points": 497.1
+        },
+        {
+          "rank": 8,
+          "strategy": "Zero QB",
+          "points": 444.6
+        },
+        {
+          "rank": 5,
+          "strategy": "2QB Stacker",
+          "points": 426.4
+        },
+        {
+          "rank": 12,
+          "strategy": "QB Streaming",
+          "points": 420.4
+        },
+        {
+          "rank": 10,
+          "strategy": "Roger SF Balanced",
+          "points": 415.4
+        }
+      ],
+      "champion": "Value SF",
+      "champion_strategy": "Value SF"
+    },
+    {
+      "simulation_id": 15,
+      "format": "superflex",
+      "draft": {
+        "Best Player SF": [],
+        "Rookie QB Focus": [],
+        "Safe Draft SF": [],
+        "QB Streaming": [],
+        "2QB Stacker": [],
+        "Elite QB Early": [],
+        "Value SF": [],
+        "Late QB Value": [],
+        "Zero QB": [],
+        "Risk Taker SF": [],
+        "Roger SF Balanced": [],
+        "Superflex Balanced": []
+      },
+      "standings": [
+        {
+          "rank": 7,
+          "strategy": "Value SF",
+          "points": 959.9
+        },
+        {
+          "rank": 9,
+          "strategy": "Zero QB",
+          "points": 901.1
+        },
+        {
+          "rank": 6,
+          "strategy": "Elite QB Early",
+          "points": 871.1
+        },
+        {
+          "rank": 2,
+          "strategy": "Rookie QB Focus",
+          "points": 694.8
+        },
+        {
+          "rank": 12,
+          "strategy": "Superflex Balanced",
+          "points": 682.6
+        },
+        {
+          "rank": 10,
+          "strategy": "Risk Taker SF",
+          "points": 658.0
+        },
+        {
+          "rank": 4,
+          "strategy": "QB Streaming",
+          "points": 655.5
+        },
+        {
+          "rank": 3,
+          "strategy": "Safe Draft SF",
+          "points": 645.4
+        },
+        {
+          "rank": 11,
+          "strategy": "Roger SF Balanced",
+          "points": 623.6
+        },
+        {
+          "rank": 1,
+          "strategy": "Best Player SF",
+          "points": 600.2
+        },
+        {
+          "rank": 8,
+          "strategy": "Late QB Value",
+          "points": 501.6
+        },
+        {
+          "rank": 5,
+          "strategy": "2QB Stacker",
+          "points": 471.1
+        }
+      ],
+      "champion": "Zero QB",
+      "champion_strategy": "Zero QB"
+    },
+    {
+      "simulation_id": 16,
+      "format": "superflex",
+      "draft": {
+        "Best Player SF": [],
+        "Safe Draft SF": [],
+        "Superflex Balanced": [],
+        "Zero QB": [],
+        "Elite QB Early": [],
+        "Late QB Value": [],
+        "Risk Taker SF": [],
+        "Value SF": [],
+        "Roger SF Balanced": [],
+        "Rookie QB Focus": [],
+        "2QB Stacker": [],
+        "QB Streaming": []
+      },
+      "standings": [
+        {
+          "rank": 1,
+          "strategy": "Best Player SF",
+          "points": 983.7
+        },
+        {
+          "rank": 6,
+          "strategy": "Late QB Value",
+          "points": 848.2
+        },
+        {
+          "rank": 8,
+          "strategy": "Value SF",
+          "points": 828.9
+        },
+        {
+          "rank": 7,
+          "strategy": "Risk Taker SF",
+          "points": 763.5
+        },
+        {
+          "rank": 9,
+          "strategy": "Roger SF Balanced",
+          "points": 757.0
+        },
+        {
+          "rank": 5,
+          "strategy": "Elite QB Early",
+          "points": 700.1
+        },
+        {
+          "rank": 3,
+          "strategy": "Superflex Balanced",
+          "points": 672.1
+        },
+        {
+          "rank": 4,
+          "strategy": "Zero QB",
+          "points": 595.0
+        },
+        {
+          "rank": 10,
+          "strategy": "Rookie QB Focus",
+          "points": 532.8
+        },
+        {
+          "rank": 12,
+          "strategy": "QB Streaming",
+          "points": 490.5
+        },
+        {
+          "rank": 11,
+          "strategy": "2QB Stacker",
+          "points": 483.9
+        },
+        {
+          "rank": 2,
+          "strategy": "Safe Draft SF",
+          "points": 415.6
+        }
+      ],
+      "champion": "Risk Taker SF",
+      "champion_strategy": "Risk Taker SF"
+    },
+    {
+      "simulation_id": 17,
+      "format": "superflex",
+      "draft": {
+        "Safe Draft SF": [],
+        "Best Player SF": [],
+        "Value SF": [],
+        "2QB Stacker": [],
+        "QB Streaming": [],
+        "Elite QB Early": [],
+        "Risk Taker SF": [],
+        "Roger SF Balanced": [],
+        "Rookie QB Focus": [],
+        "Superflex Balanced": [],
+        "Zero QB": [],
+        "Late QB Value": []
+      },
+      "standings": [
+        {
+          "rank": 6,
+          "strategy": "Elite QB Early",
+          "points": 985.9
+        },
+        {
+          "rank": 4,
+          "strategy": "2QB Stacker",
+          "points": 981.6
+        },
+        {
+          "rank": 5,
+          "strategy": "QB Streaming",
+          "points": 944.9
+        },
+        {
+          "rank": 7,
+          "strategy": "Risk Taker SF",
+          "points": 858.4
+        },
+        {
+          "rank": 2,
+          "strategy": "Best Player SF",
+          "points": 744.7
+        },
+        {
+          "rank": 10,
+          "strategy": "Superflex Balanced",
+          "points": 707.7
+        },
+        {
+          "rank": 3,
+          "strategy": "Value SF",
+          "points": 642.0
+        },
+        {
+          "rank": 9,
+          "strategy": "Rookie QB Focus",
+          "points": 610.4
+        },
+        {
+          "rank": 8,
+          "strategy": "Roger SF Balanced",
+          "points": 553.8
+        },
+        {
+          "rank": 1,
+          "strategy": "Safe Draft SF",
+          "points": 536.4
+        },
+        {
+          "rank": 12,
+          "strategy": "Late QB Value",
+          "points": 523.0
+        },
+        {
+          "rank": 11,
+          "strategy": "Zero QB",
+          "points": 437.2
+        }
+      ],
+      "champion": "Risk Taker SF",
+      "champion_strategy": "Risk Taker SF"
+    },
+    {
+      "simulation_id": 18,
+      "format": "superflex",
+      "draft": {
+        "Value SF": [],
+        "Roger SF Balanced": [],
+        "Superflex Balanced": [],
+        "Rookie QB Focus": [],
+        "Zero QB": [],
+        "Risk Taker SF": [],
+        "Safe Draft SF": [],
+        "Elite QB Early": [],
+        "Late QB Value": [],
+        "2QB Stacker": [],
+        "Best Player SF": [],
+        "QB Streaming": []
+      },
+      "standings": [
+        {
+          "rank": 2,
+          "strategy": "Roger SF Balanced",
+          "points": 994.2
+        },
+        {
+          "rank": 9,
+          "strategy": "Late QB Value",
+          "points": 986.7
+        },
+        {
+          "rank": 1,
+          "strategy": "Value SF",
+          "points": 972.7
+        },
+        {
+          "rank": 5,
+          "strategy": "Zero QB",
+          "points": 866.0
+        },
+        {
+          "rank": 11,
+          "strategy": "Best Player SF",
+          "points": 853.7
+        },
+        {
+          "rank": 4,
+          "strategy": "Rookie QB Focus",
+          "points": 832.7
+        },
+        {
+          "rank": 8,
+          "strategy": "Elite QB Early",
+          "points": 829.9
+        },
+        {
+          "rank": 6,
+          "strategy": "Risk Taker SF",
+          "points": 630.7
+        },
+        {
+          "rank": 3,
+          "strategy": "Superflex Balanced",
+          "points": 519.0
+        },
+        {
+          "rank": 10,
+          "strategy": "2QB Stacker",
+          "points": 496.6
+        },
+        {
+          "rank": 12,
+          "strategy": "QB Streaming",
+          "points": 438.1
+        },
+        {
+          "rank": 7,
+          "strategy": "Safe Draft SF",
+          "points": 407.7
+        }
+      ],
+      "champion": "Value SF",
+      "champion_strategy": "Value SF"
+    },
+    {
+      "simulation_id": 19,
+      "format": "superflex",
+      "draft": {
+        "Elite QB Early": [],
+        "2QB Stacker": [],
+        "Late QB Value": [],
+        "Best Player SF": [],
+        "Zero QB": [],
+        "Safe Draft SF": [],
+        "Risk Taker SF": [],
+        "Superflex Balanced": [],
+        "Roger SF Balanced": [],
+        "Rookie QB Focus": [],
+        "Value SF": [],
+        "QB Streaming": []
+      },
+      "standings": [
+        {
+          "rank": 3,
+          "strategy": "Late QB Value",
+          "points": 936.2
+        },
+        {
+          "rank": 2,
+          "strategy": "2QB Stacker",
+          "points": 928.8
+        },
+        {
+          "rank": 12,
+          "strategy": "QB Streaming",
+          "points": 830.3
+        },
+        {
+          "rank": 1,
+          "strategy": "Elite QB Early",
+          "points": 736.6
+        },
+        {
+          "rank": 5,
+          "strategy": "Zero QB",
+          "points": 722.7
+        },
+        {
+          "rank": 9,
+          "strategy": "Roger SF Balanced",
+          "points": 650.2
+        },
+        {
+          "rank": 6,
+          "strategy": "Safe Draft SF",
+          "points": 546.6
+        },
+        {
+          "rank": 10,
+          "strategy": "Rookie QB Focus",
+          "points": 543.6
+        },
+        {
+          "rank": 8,
+          "strategy": "Superflex Balanced",
+          "points": 537.7
+        },
+        {
+          "rank": 4,
+          "strategy": "Best Player SF",
+          "points": 516.7
+        },
+        {
+          "rank": 11,
+          "strategy": "Value SF",
+          "points": 502.5
+        },
+        {
+          "rank": 7,
+          "strategy": "Risk Taker SF",
+          "points": 421.2
+        }
+      ],
+      "champion": "QB Streaming",
+      "champion_strategy": "QB Streaming"
+    },
+    {
+      "simulation_id": 20,
+      "format": "superflex",
+      "draft": {
+        "Rookie QB Focus": [],
+        "Superflex Balanced": [],
+        "QB Streaming": [],
+        "Elite QB Early": [],
+        "Zero QB": [],
+        "Value SF": [],
+        "2QB Stacker": [],
+        "Safe Draft SF": [],
+        "Roger SF Balanced": [],
+        "Risk Taker SF": [],
+        "Late QB Value": [],
+        "Best Player SF": []
+      },
+      "standings": [
+        {
+          "rank": 2,
+          "strategy": "Superflex Balanced",
+          "points": 984.9
+        },
+        {
+          "rank": 12,
+          "strategy": "Best Player SF",
+          "points": 971.8
+        },
+        {
+          "rank": 3,
+          "strategy": "QB Streaming",
+          "points": 777.2
+        },
+        {
+          "rank": 1,
+          "strategy": "Rookie QB Focus",
+          "points": 765.4
+        },
+        {
+          "rank": 9,
+          "strategy": "Roger SF Balanced",
+          "points": 754.0
+        },
+        {
+          "rank": 10,
+          "strategy": "Risk Taker SF",
+          "points": 722.7
+        },
+        {
+          "rank": 4,
+          "strategy": "Elite QB Early",
+          "points": 705.5
+        },
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 619.0
+        },
+        {
+          "rank": 11,
+          "strategy": "Late QB Value",
+          "points": 611.4
+        },
+        {
+          "rank": 7,
+          "strategy": "2QB Stacker",
+          "points": 504.4
+        },
+        {
+          "rank": 5,
+          "strategy": "Zero QB",
+          "points": 501.4
+        },
+        {
+          "rank": 6,
+          "strategy": "Value SF",
+          "points": 433.8
+        }
+      ],
+      "champion": "QB Streaming",
+      "champion_strategy": "QB Streaming"
+    },
+    {
+      "simulation_id": 21,
+      "format": "superflex",
+      "draft": {
+        "QB Streaming": [],
+        "Superflex Balanced": [],
+        "Roger SF Balanced": [],
+        "Safe Draft SF": [],
+        "Zero QB": [],
+        "Elite QB Early": [],
+        "Value SF": [],
+        "Late QB Value": [],
+        "2QB Stacker": [],
+        "Rookie QB Focus": [],
+        "Risk Taker SF": [],
+        "Best Player SF": []
+      },
+      "standings": [
+        {
+          "rank": 12,
+          "strategy": "Best Player SF",
+          "points": 957.1
+        },
+        {
+          "rank": 10,
+          "strategy": "Rookie QB Focus",
+          "points": 924.4
+        },
+        {
+          "rank": 4,
+          "strategy": "Safe Draft SF",
+          "points": 923.2
+        },
+        {
+          "rank": 1,
+          "strategy": "QB Streaming",
+          "points": 871.2
+        },
+        {
+          "rank": 9,
+          "strategy": "2QB Stacker",
+          "points": 850.9
+        },
+        {
+          "rank": 11,
+          "strategy": "Risk Taker SF",
+          "points": 787.6
+        },
+        {
+          "rank": 2,
+          "strategy": "Superflex Balanced",
+          "points": 776.8
+        },
+        {
+          "rank": 8,
+          "strategy": "Late QB Value",
+          "points": 746.9
+        },
+        {
+          "rank": 5,
+          "strategy": "Zero QB",
+          "points": 660.9
+        },
+        {
+          "rank": 3,
+          "strategy": "Roger SF Balanced",
+          "points": 644.6
+        },
+        {
+          "rank": 7,
+          "strategy": "Value SF",
+          "points": 599.3
+        },
+        {
+          "rank": 6,
+          "strategy": "Elite QB Early",
+          "points": 499.5
+        }
+      ],
+      "champion": "QB Streaming",
+      "champion_strategy": "QB Streaming"
+    },
+    {
+      "simulation_id": 22,
+      "format": "superflex",
+      "draft": {
+        "Elite QB Early": [],
+        "Risk Taker SF": [],
+        "Superflex Balanced": [],
+        "Value SF": [],
+        "QB Streaming": [],
+        "Rookie QB Focus": [],
+        "Zero QB": [],
+        "Roger SF Balanced": [],
+        "Late QB Value": [],
+        "Safe Draft SF": [],
+        "Best Player SF": [],
+        "2QB Stacker": []
+      },
+      "standings": [
+        {
+          "rank": 9,
+          "strategy": "Late QB Value",
+          "points": 988.7
+        },
+        {
+          "rank": 1,
+          "strategy": "Elite QB Early",
+          "points": 966.1
+        },
+        {
+          "rank": 7,
+          "strategy": "Zero QB",
+          "points": 958.5
+        },
+        {
+          "rank": 10,
+          "strategy": "Safe Draft SF",
+          "points": 949.3
+        },
+        {
+          "rank": 3,
+          "strategy": "Superflex Balanced",
+          "points": 899.1
+        },
+        {
+          "rank": 2,
+          "strategy": "Risk Taker SF",
+          "points": 808.3
+        },
+        {
+          "rank": 5,
+          "strategy": "QB Streaming",
+          "points": 686.4
+        },
+        {
+          "rank": 6,
+          "strategy": "Rookie QB Focus",
+          "points": 671.0
+        },
+        {
+          "rank": 4,
+          "strategy": "Value SF",
+          "points": 661.0
+        },
+        {
+          "rank": 8,
+          "strategy": "Roger SF Balanced",
+          "points": 606.5
+        },
+        {
+          "rank": 12,
+          "strategy": "2QB Stacker",
+          "points": 598.8
+        },
+        {
+          "rank": 11,
+          "strategy": "Best Player SF",
+          "points": 507.3
+        }
+      ],
+      "champion": "Elite QB Early",
+      "champion_strategy": "Elite QB Early"
+    },
+    {
+      "simulation_id": 23,
+      "format": "superflex",
+      "draft": {
+        "Elite QB Early": [],
+        "QB Streaming": [],
+        "Best Player SF": [],
+        "Risk Taker SF": [],
+        "Zero QB": [],
+        "Roger SF Balanced": [],
+        "Late QB Value": [],
+        "Safe Draft SF": [],
+        "Value SF": [],
+        "2QB Stacker": [],
+        "Superflex Balanced": [],
+        "Rookie QB Focus": []
+      },
+      "standings": [
+        {
+          "rank": 1,
+          "strategy": "Elite QB Early",
+          "points": 1009.7
+        },
+        {
+          "rank": 3,
+          "strategy": "Best Player SF",
+          "points": 978.0
+        },
+        {
+          "rank": 10,
+          "strategy": "2QB Stacker",
+          "points": 930.4
+        },
+        {
+          "rank": 6,
+          "strategy": "Roger SF Balanced",
+          "points": 864.4
+        },
+        {
+          "rank": 7,
+          "strategy": "Late QB Value",
+          "points": 854.7
+        },
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 727.2
+        },
+        {
+          "rank": 9,
+          "strategy": "Value SF",
+          "points": 640.8
+        },
+        {
+          "rank": 12,
+          "strategy": "Rookie QB Focus",
+          "points": 540.3
+        },
+        {
+          "rank": 2,
+          "strategy": "QB Streaming",
+          "points": 513.0
+        },
+        {
+          "rank": 4,
+          "strategy": "Risk Taker SF",
+          "points": 512.8
+        },
+        {
+          "rank": 11,
+          "strategy": "Superflex Balanced",
+          "points": 444.7
+        },
+        {
+          "rank": 5,
+          "strategy": "Zero QB",
+          "points": 431.3
+        }
+      ],
+      "champion": "Elite QB Early",
+      "champion_strategy": "Elite QB Early"
+    },
+    {
+      "simulation_id": 24,
+      "format": "superflex",
+      "draft": {
+        "Safe Draft SF": [],
+        "Rookie QB Focus": [],
+        "Elite QB Early": [],
+        "Roger SF Balanced": [],
+        "Risk Taker SF": [],
+        "Best Player SF": [],
+        "Superflex Balanced": [],
+        "Value SF": [],
+        "Late QB Value": [],
+        "Zero QB": [],
+        "2QB Stacker": [],
+        "QB Streaming": []
+      },
+      "standings": [
+        {
+          "rank": 3,
+          "strategy": "Elite QB Early",
+          "points": 967.8
+        },
+        {
+          "rank": 10,
+          "strategy": "Zero QB",
+          "points": 959.0
+        },
+        {
+          "rank": 8,
+          "strategy": "Value SF",
+          "points": 799.3
+        },
+        {
+          "rank": 12,
+          "strategy": "QB Streaming",
+          "points": 793.5
+        },
+        {
+          "rank": 1,
+          "strategy": "Safe Draft SF",
+          "points": 774.8
+        },
+        {
+          "rank": 4,
+          "strategy": "Roger SF Balanced",
+          "points": 554.4
+        },
+        {
+          "rank": 6,
+          "strategy": "Best Player SF",
+          "points": 545.9
+        },
+        {
+          "rank": 11,
+          "strategy": "2QB Stacker",
+          "points": 545.6
+        },
+        {
+          "rank": 9,
+          "strategy": "Late QB Value",
+          "points": 536.7
+        },
+        {
+          "rank": 5,
+          "strategy": "Risk Taker SF",
+          "points": 507.5
+        },
+        {
+          "rank": 2,
+          "strategy": "Rookie QB Focus",
+          "points": 480.5
+        },
+        {
+          "rank": 7,
+          "strategy": "Superflex Balanced",
+          "points": 463.5
+        }
+      ],
+      "champion": "QB Streaming",
+      "champion_strategy": "QB Streaming"
+    },
+    {
+      "simulation_id": 25,
+      "format": "superflex",
+      "draft": {
+        "Zero QB": [],
+        "Best Player SF": [],
+        "QB Streaming": [],
+        "Value SF": [],
+        "Elite QB Early": [],
+        "Rookie QB Focus": [],
+        "Risk Taker SF": [],
+        "Safe Draft SF": [],
+        "Roger SF Balanced": [],
+        "Late QB Value": [],
+        "2QB Stacker": [],
+        "Superflex Balanced": []
+      },
+      "standings": [
+        {
+          "rank": 3,
+          "strategy": "QB Streaming",
+          "points": 939.9
+        },
+        {
+          "rank": 9,
+          "strategy": "Roger SF Balanced",
+          "points": 896.7
+        },
+        {
+          "rank": 7,
+          "strategy": "Risk Taker SF",
+          "points": 888.9
+        },
+        {
+          "rank": 1,
+          "strategy": "Zero QB",
+          "points": 888.0
+        },
+        {
+          "rank": 11,
+          "strategy": "2QB Stacker",
+          "points": 749.0
+        },
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 746.0
+        },
+        {
+          "rank": 4,
+          "strategy": "Value SF",
+          "points": 707.1
+        },
+        {
+          "rank": 12,
+          "strategy": "Superflex Balanced",
+          "points": 643.6
+        },
+        {
+          "rank": 5,
+          "strategy": "Elite QB Early",
+          "points": 606.0
+        },
+        {
+          "rank": 6,
+          "strategy": "Rookie QB Focus",
+          "points": 600.9
+        },
+        {
+          "rank": 2,
+          "strategy": "Best Player SF",
+          "points": 580.0
+        },
+        {
+          "rank": 10,
+          "strategy": "Late QB Value",
+          "points": 477.2
+        }
+      ],
+      "champion": "Risk Taker SF",
+      "champion_strategy": "Risk Taker SF"
+    },
+    {
+      "simulation_id": 26,
+      "format": "superflex",
+      "draft": {
+        "Roger SF Balanced": [],
+        "Safe Draft SF": [],
+        "Best Player SF": [],
+        "QB Streaming": [],
+        "Rookie QB Focus": [],
+        "Late QB Value": [],
+        "Elite QB Early": [],
+        "Zero QB": [],
+        "Risk Taker SF": [],
+        "Superflex Balanced": [],
+        "Value SF": [],
+        "2QB Stacker": []
+      },
+      "standings": [
+        {
+          "rank": 7,
+          "strategy": "Elite QB Early",
+          "points": 905.4
+        },
+        {
+          "rank": 8,
+          "strategy": "Zero QB",
+          "points": 877.9
+        },
+        {
+          "rank": 12,
+          "strategy": "2QB Stacker",
+          "points": 811.7
+        },
+        {
+          "rank": 9,
+          "strategy": "Risk Taker SF",
+          "points": 800.1
+        },
+        {
+          "rank": 2,
+          "strategy": "Safe Draft SF",
+          "points": 735.4
+        },
+        {
+          "rank": 4,
+          "strategy": "QB Streaming",
+          "points": 688.5
+        },
+        {
+          "rank": 1,
+          "strategy": "Roger SF Balanced",
+          "points": 661.2
+        },
+        {
+          "rank": 10,
+          "strategy": "Superflex Balanced",
+          "points": 626.7
+        },
+        {
+          "rank": 3,
+          "strategy": "Best Player SF",
+          "points": 551.5
+        },
+        {
+          "rank": 11,
+          "strategy": "Value SF",
+          "points": 515.1
+        },
+        {
+          "rank": 6,
+          "strategy": "Late QB Value",
+          "points": 494.7
+        },
+        {
+          "rank": 5,
+          "strategy": "Rookie QB Focus",
+          "points": 468.3
+        }
+      ],
+      "champion": "Risk Taker SF",
+      "champion_strategy": "Risk Taker SF"
+    },
+    {
+      "simulation_id": 27,
+      "format": "superflex",
+      "draft": {
+        "Best Player SF": [],
+        "Safe Draft SF": [],
+        "Roger SF Balanced": [],
+        "Risk Taker SF": [],
+        "Superflex Balanced": [],
+        "Elite QB Early": [],
+        "Late QB Value": [],
+        "Zero QB": [],
+        "QB Streaming": [],
+        "Value SF": [],
+        "2QB Stacker": [],
+        "Rookie QB Focus": []
+      },
+      "standings": [
+        {
+          "rank": 10,
+          "strategy": "Value SF",
+          "points": 974.7
+        },
+        {
+          "rank": 5,
+          "strategy": "Superflex Balanced",
+          "points": 969.3
+        },
+        {
+          "rank": 11,
+          "strategy": "2QB Stacker",
+          "points": 941.9
+        },
+        {
+          "rank": 1,
+          "strategy": "Best Player SF",
+          "points": 873.2
+        },
+        {
+          "rank": 4,
+          "strategy": "Risk Taker SF",
+          "points": 781.5
+        },
+        {
+          "rank": 6,
+          "strategy": "Elite QB Early",
+          "points": 712.6
+        },
+        {
+          "rank": 7,
+          "strategy": "Late QB Value",
+          "points": 694.4
+        },
+        {
+          "rank": 8,
+          "strategy": "Zero QB",
+          "points": 681.8
+        },
+        {
+          "rank": 2,
+          "strategy": "Safe Draft SF",
+          "points": 641.7
+        },
+        {
+          "rank": 12,
+          "strategy": "Rookie QB Focus",
+          "points": 592.6
+        },
+        {
+          "rank": 3,
+          "strategy": "Roger SF Balanced",
+          "points": 461.0
+        },
+        {
+          "rank": 9,
+          "strategy": "QB Streaming",
+          "points": 440.7
+        }
+      ],
+      "champion": "Superflex Balanced",
+      "champion_strategy": "Superflex Balanced"
+    },
+    {
+      "simulation_id": 28,
+      "format": "superflex",
+      "draft": {
+        "QB Streaming": [],
+        "Best Player SF": [],
+        "Superflex Balanced": [],
+        "Roger SF Balanced": [],
+        "Value SF": [],
+        "Late QB Value": [],
+        "Risk Taker SF": [],
+        "Rookie QB Focus": [],
+        "Zero QB": [],
+        "Safe Draft SF": [],
+        "Elite QB Early": [],
+        "2QB Stacker": []
+      },
+      "standings": [
+        {
+          "rank": 5,
+          "strategy": "Value SF",
+          "points": 962.6
+        },
+        {
+          "rank": 6,
+          "strategy": "Late QB Value",
+          "points": 939.5
+        },
+        {
+          "rank": 9,
+          "strategy": "Zero QB",
+          "points": 889.1
+        },
+        {
+          "rank": 10,
+          "strategy": "Safe Draft SF",
+          "points": 779.4
+        },
+        {
+          "rank": 12,
+          "strategy": "2QB Stacker",
+          "points": 726.8
+        },
+        {
+          "rank": 7,
+          "strategy": "Risk Taker SF",
+          "points": 701.4
+        },
+        {
+          "rank": 11,
+          "strategy": "Elite QB Early",
+          "points": 694.6
+        },
+        {
+          "rank": 8,
+          "strategy": "Rookie QB Focus",
+          "points": 683.6
+        },
+        {
+          "rank": 2,
+          "strategy": "Best Player SF",
+          "points": 662.7
+        },
+        {
+          "rank": 3,
+          "strategy": "Superflex Balanced",
+          "points": 644.5
+        },
+        {
+          "rank": 1,
+          "strategy": "QB Streaming",
+          "points": 633.9
+        },
+        {
+          "rank": 4,
+          "strategy": "Roger SF Balanced",
+          "points": 417.6
+        }
+      ],
+      "champion": "Safe Draft SF",
+      "champion_strategy": "Safe Draft SF"
+    },
+    {
+      "simulation_id": 29,
+      "format": "superflex",
+      "draft": {
+        "Safe Draft SF": [],
+        "Elite QB Early": [],
+        "Zero QB": [],
+        "Value SF": [],
+        "Roger SF Balanced": [],
+        "QB Streaming": [],
+        "2QB Stacker": [],
+        "Late QB Value": [],
+        "Rookie QB Focus": [],
+        "Best Player SF": [],
+        "Risk Taker SF": [],
+        "Superflex Balanced": []
+      },
+      "standings": [
+        {
+          "rank": 3,
+          "strategy": "Zero QB",
+          "points": 980.7
+        },
+        {
+          "rank": 4,
+          "strategy": "Value SF",
+          "points": 962.6
+        },
+        {
+          "rank": 8,
+          "strategy": "Late QB Value",
+          "points": 949.9
+        },
+        {
+          "rank": 10,
+          "strategy": "Best Player SF",
+          "points": 902.3
+        },
+        {
+          "rank": 6,
+          "strategy": "QB Streaming",
+          "points": 839.6
+        },
+        {
+          "rank": 12,
+          "strategy": "Superflex Balanced",
+          "points": 680.8
+        },
+        {
+          "rank": 2,
+          "strategy": "Elite QB Early",
+          "points": 636.3
+        },
+        {
+          "rank": 9,
+          "strategy": "Rookie QB Focus",
+          "points": 562.8
+        },
+        {
+          "rank": 11,
+          "strategy": "Risk Taker SF",
+          "points": 555.0
+        },
+        {
+          "rank": 1,
+          "strategy": "Safe Draft SF",
+          "points": 475.8
+        },
+        {
+          "rank": 7,
+          "strategy": "2QB Stacker",
+          "points": 472.2
+        },
+        {
+          "rank": 5,
+          "strategy": "Roger SF Balanced",
+          "points": 442.8
+        }
+      ],
+      "champion": "Zero QB",
+      "champion_strategy": "Zero QB"
+    },
+    {
+      "simulation_id": 30,
+      "format": "superflex",
+      "draft": {
+        "Risk Taker SF": [],
+        "Value SF": [],
+        "Elite QB Early": [],
+        "Safe Draft SF": [],
+        "Rookie QB Focus": [],
+        "Roger SF Balanced": [],
+        "Late QB Value": [],
+        "Superflex Balanced": [],
+        "2QB Stacker": [],
+        "Zero QB": [],
+        "QB Streaming": [],
+        "Best Player SF": []
+      },
+      "standings": [
+        {
+          "rank": 9,
+          "strategy": "2QB Stacker",
+          "points": 993.3
+        },
+        {
+          "rank": 10,
+          "strategy": "Zero QB",
+          "points": 969.3
+        },
+        {
+          "rank": 12,
+          "strategy": "Best Player SF",
+          "points": 921.4
+        },
+        {
+          "rank": 8,
+          "strategy": "Superflex Balanced",
+          "points": 886.6
+        },
+        {
+          "rank": 6,
+          "strategy": "Roger SF Balanced",
+          "points": 875.8
+        },
+        {
+          "rank": 1,
+          "strategy": "Risk Taker SF",
+          "points": 812.2
+        },
+        {
+          "rank": 11,
+          "strategy": "QB Streaming",
+          "points": 662.9
+        },
+        {
+          "rank": 4,
+          "strategy": "Safe Draft SF",
+          "points": 656.5
+        },
+        {
+          "rank": 7,
+          "strategy": "Late QB Value",
+          "points": 624.8
+        },
+        {
+          "rank": 3,
+          "strategy": "Elite QB Early",
+          "points": 599.0
+        },
+        {
+          "rank": 2,
+          "strategy": "Value SF",
+          "points": 473.0
+        },
+        {
+          "rank": 5,
+          "strategy": "Rookie QB Focus",
+          "points": 423.4
+        }
+      ],
+      "champion": "Superflex Balanced",
+      "champion_strategy": "Superflex Balanced"
+    },
+    {
+      "simulation_id": 31,
+      "format": "superflex",
+      "draft": {
+        "Best Player SF": [],
+        "Rookie QB Focus": [],
+        "Roger SF Balanced": [],
+        "2QB Stacker": [],
+        "Value SF": [],
+        "Elite QB Early": [],
+        "Safe Draft SF": [],
+        "QB Streaming": [],
+        "Risk Taker SF": [],
+        "Zero QB": [],
+        "Superflex Balanced": [],
+        "Late QB Value": []
+      },
+      "standings": [
+        {
+          "rank": 7,
+          "strategy": "Safe Draft SF",
+          "points": 923.6
+        },
+        {
+          "rank": 8,
+          "strategy": "QB Streaming",
+          "points": 909.1
+        },
+        {
+          "rank": 11,
+          "strategy": "Superflex Balanced",
+          "points": 675.4
+        },
+        {
+          "rank": 10,
+          "strategy": "Zero QB",
+          "points": 625.8
+        },
+        {
+          "rank": 12,
+          "strategy": "Late QB Value",
+          "points": 623.1
+        },
+        {
+          "rank": 1,
+          "strategy": "Best Player SF",
+          "points": 586.4
+        },
+        {
+          "rank": 2,
+          "strategy": "Rookie QB Focus",
+          "points": 565.4
+        },
+        {
+          "rank": 4,
+          "strategy": "2QB Stacker",
+          "points": 545.0
+        },
+        {
+          "rank": 9,
+          "strategy": "Risk Taker SF",
+          "points": 540.4
+        },
+        {
+          "rank": 5,
+          "strategy": "Value SF",
+          "points": 484.5
+        },
+        {
+          "rank": 3,
+          "strategy": "Roger SF Balanced",
+          "points": 462.0
+        },
+        {
+          "rank": 6,
+          "strategy": "Elite QB Early",
+          "points": 450.9
+        }
+      ],
+      "champion": "QB Streaming",
+      "champion_strategy": "QB Streaming"
+    },
+    {
+      "simulation_id": 32,
+      "format": "superflex",
+      "draft": {
+        "Rookie QB Focus": [],
+        "Value SF": [],
+        "Late QB Value": [],
+        "2QB Stacker": [],
+        "Best Player SF": [],
+        "Safe Draft SF": [],
+        "Superflex Balanced": [],
+        "Risk Taker SF": [],
+        "Zero QB": [],
+        "QB Streaming": [],
+        "Roger SF Balanced": [],
+        "Elite QB Early": []
+      },
+      "standings": [
+        {
+          "rank": 11,
+          "strategy": "Roger SF Balanced",
+          "points": 773.9
+        },
+        {
+          "rank": 10,
+          "strategy": "QB Streaming",
+          "points": 753.7
+        },
+        {
+          "rank": 12,
+          "strategy": "Elite QB Early",
+          "points": 736.7
+        },
+        {
+          "rank": 3,
+          "strategy": "Late QB Value",
+          "points": 730.7
+        },
+        {
+          "rank": 7,
+          "strategy": "Superflex Balanced",
+          "points": 705.6
+        },
+        {
+          "rank": 8,
+          "strategy": "Risk Taker SF",
+          "points": 700.5
+        },
+        {
+          "rank": 9,
+          "strategy": "Zero QB",
+          "points": 638.1
+        },
+        {
+          "rank": 1,
+          "strategy": "Rookie QB Focus",
+          "points": 598.8
+        },
+        {
+          "rank": 4,
+          "strategy": "2QB Stacker",
+          "points": 563.9
+        },
+        {
+          "rank": 2,
+          "strategy": "Value SF",
+          "points": 555.0
+        },
+        {
+          "rank": 5,
+          "strategy": "Best Player SF",
+          "points": 437.0
+        },
+        {
+          "rank": 6,
+          "strategy": "Safe Draft SF",
+          "points": 401.7
+        }
+      ],
+      "champion": "Roger SF Balanced",
+      "champion_strategy": "Roger SF Balanced"
+    },
+    {
+      "simulation_id": 33,
+      "format": "superflex",
+      "draft": {
+        "Risk Taker SF": [],
+        "Late QB Value": [],
+        "Best Player SF": [],
+        "Roger SF Balanced": [],
+        "Safe Draft SF": [],
+        "Zero QB": [],
+        "2QB Stacker": [],
+        "Value SF": [],
+        "QB Streaming": [],
+        "Rookie QB Focus": [],
+        "Superflex Balanced": [],
+        "Elite QB Early": []
+      },
+      "standings": [
+        {
+          "rank": 12,
+          "strategy": "Elite QB Early",
+          "points": 1028.8
+        },
+        {
+          "rank": 6,
+          "strategy": "Zero QB",
+          "points": 985.1
+        },
+        {
+          "rank": 3,
+          "strategy": "Best Player SF",
+          "points": 970.2
+        },
+        {
+          "rank": 8,
+          "strategy": "Value SF",
+          "points": 843.1
+        },
+        {
+          "rank": 2,
+          "strategy": "Late QB Value",
+          "points": 805.9
+        },
+        {
+          "rank": 5,
+          "strategy": "Safe Draft SF",
+          "points": 720.9
+        },
+        {
+          "rank": 1,
+          "strategy": "Risk Taker SF",
+          "points": 663.1
+        },
+        {
+          "rank": 10,
+          "strategy": "Rookie QB Focus",
+          "points": 650.5
+        },
+        {
+          "rank": 9,
+          "strategy": "QB Streaming",
+          "points": 615.4
+        },
+        {
+          "rank": 4,
+          "strategy": "Roger SF Balanced",
+          "points": 610.0
+        },
+        {
+          "rank": 7,
+          "strategy": "2QB Stacker",
+          "points": 534.9
+        },
+        {
+          "rank": 11,
+          "strategy": "Superflex Balanced",
+          "points": 407.6
+        }
+      ],
+      "champion": "Best Player SF",
+      "champion_strategy": "Best Player SF"
+    },
+    {
+      "simulation_id": 34,
+      "format": "superflex",
+      "draft": {
+        "Risk Taker SF": [],
+        "Elite QB Early": [],
+        "Zero QB": [],
+        "Value SF": [],
+        "Late QB Value": [],
+        "Superflex Balanced": [],
+        "Rookie QB Focus": [],
+        "Safe Draft SF": [],
+        "Roger SF Balanced": [],
+        "Best Player SF": [],
+        "2QB Stacker": [],
+        "QB Streaming": []
+      },
+      "standings": [
+        {
+          "rank": 4,
+          "strategy": "Value SF",
+          "points": 978.7
+        },
+        {
+          "rank": 10,
+          "strategy": "Best Player SF",
+          "points": 931.2
+        },
+        {
+          "rank": 5,
+          "strategy": "Late QB Value",
+          "points": 903.0
+        },
+        {
+          "rank": 6,
+          "strategy": "Superflex Balanced",
+          "points": 715.5
+        },
+        {
+          "rank": 2,
+          "strategy": "Elite QB Early",
+          "points": 703.1
+        },
+        {
+          "rank": 7,
+          "strategy": "Rookie QB Focus",
+          "points": 683.1
+        },
+        {
+          "rank": 12,
+          "strategy": "QB Streaming",
+          "points": 537.5
+        },
+        {
+          "rank": 11,
+          "strategy": "2QB Stacker",
+          "points": 497.5
+        },
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 456.2
+        },
+        {
+          "rank": 9,
+          "strategy": "Roger SF Balanced",
+          "points": 421.2
+        },
+        {
+          "rank": 1,
+          "strategy": "Risk Taker SF",
+          "points": 410.8
+        },
+        {
+          "rank": 3,
+          "strategy": "Zero QB",
+          "points": 409.6
+        }
+      ],
+      "champion": "Late QB Value",
+      "champion_strategy": "Late QB Value"
+    },
+    {
+      "simulation_id": 35,
+      "format": "superflex",
+      "draft": {
+        "Roger SF Balanced": [],
+        "Elite QB Early": [],
+        "Zero QB": [],
+        "Superflex Balanced": [],
+        "Value SF": [],
+        "QB Streaming": [],
+        "Safe Draft SF": [],
+        "Rookie QB Focus": [],
+        "2QB Stacker": [],
+        "Late QB Value": [],
+        "Risk Taker SF": [],
+        "Best Player SF": []
+      },
+      "standings": [
+        {
+          "rank": 2,
+          "strategy": "Elite QB Early",
+          "points": 1025.9
+        },
+        {
+          "rank": 3,
+          "strategy": "Zero QB",
+          "points": 997.0
+        },
+        {
+          "rank": 1,
+          "strategy": "Roger SF Balanced",
+          "points": 982.9
+        },
+        {
+          "rank": 11,
+          "strategy": "Risk Taker SF",
+          "points": 946.2
+        },
+        {
+          "rank": 4,
+          "strategy": "Superflex Balanced",
+          "points": 896.9
+        },
+        {
+          "rank": 10,
+          "strategy": "Late QB Value",
+          "points": 886.1
+        },
+        {
+          "rank": 8,
+          "strategy": "Rookie QB Focus",
+          "points": 873.0
+        },
+        {
+          "rank": 9,
+          "strategy": "2QB Stacker",
+          "points": 816.1
+        },
+        {
+          "rank": 5,
+          "strategy": "Value SF",
+          "points": 792.8
+        },
+        {
+          "rank": 7,
+          "strategy": "Safe Draft SF",
+          "points": 747.4
+        },
+        {
+          "rank": 12,
+          "strategy": "Best Player SF",
+          "points": 559.5
+        },
+        {
+          "rank": 6,
+          "strategy": "QB Streaming",
+          "points": 527.6
+        }
+      ],
+      "champion": "Risk Taker SF",
+      "champion_strategy": "Risk Taker SF"
+    },
+    {
+      "simulation_id": 36,
+      "format": "superflex",
+      "draft": {
+        "Elite QB Early": [],
+        "Roger SF Balanced": [],
+        "Zero QB": [],
+        "Risk Taker SF": [],
+        "Rookie QB Focus": [],
+        "2QB Stacker": [],
+        "Safe Draft SF": [],
+        "Value SF": [],
+        "Late QB Value": [],
+        "Superflex Balanced": [],
+        "Best Player SF": [],
+        "QB Streaming": []
+      },
+      "standings": [
+        {
+          "rank": 2,
+          "strategy": "Roger SF Balanced",
+          "points": 997.5
+        },
+        {
+          "rank": 11,
+          "strategy": "Best Player SF",
+          "points": 888.6
+        },
+        {
+          "rank": 1,
+          "strategy": "Elite QB Early",
+          "points": 881.8
+        },
+        {
+          "rank": 10,
+          "strategy": "Superflex Balanced",
+          "points": 855.2
+        },
+        {
+          "rank": 9,
+          "strategy": "Late QB Value",
+          "points": 846.1
+        },
+        {
+          "rank": 6,
+          "strategy": "2QB Stacker",
+          "points": 842.1
+        },
+        {
+          "rank": 5,
+          "strategy": "Rookie QB Focus",
+          "points": 818.0
+        },
+        {
+          "rank": 7,
+          "strategy": "Safe Draft SF",
+          "points": 688.0
+        },
+        {
+          "rank": 12,
+          "strategy": "QB Streaming",
+          "points": 646.0
+        },
+        {
+          "rank": 4,
+          "strategy": "Risk Taker SF",
+          "points": 565.3
+        },
+        {
+          "rank": 8,
+          "strategy": "Value SF",
+          "points": 552.6
+        },
+        {
+          "rank": 3,
+          "strategy": "Zero QB",
+          "points": 421.9
+        }
+      ],
+      "champion": "Elite QB Early",
+      "champion_strategy": "Elite QB Early"
+    },
+    {
+      "simulation_id": 37,
+      "format": "superflex",
+      "draft": {
+        "Safe Draft SF": [],
+        "Late QB Value": [],
+        "2QB Stacker": [],
+        "Superflex Balanced": [],
+        "Zero QB": [],
+        "Elite QB Early": [],
+        "Risk Taker SF": [],
+        "Best Player SF": [],
+        "Rookie QB Focus": [],
+        "QB Streaming": [],
+        "Roger SF Balanced": [],
+        "Value SF": []
+      },
+      "standings": [
+        {
+          "rank": 2,
+          "strategy": "Late QB Value",
+          "points": 1035.5
+        },
+        {
+          "rank": 11,
+          "strategy": "Roger SF Balanced",
+          "points": 979.2
+        },
+        {
+          "rank": 6,
+          "strategy": "Elite QB Early",
+          "points": 938.1
+        },
+        {
+          "rank": 10,
+          "strategy": "QB Streaming",
+          "points": 884.2
+        },
+        {
+          "rank": 8,
+          "strategy": "Best Player SF",
+          "points": 862.5
+        },
+        {
+          "rank": 9,
+          "strategy": "Rookie QB Focus",
+          "points": 812.5
+        },
+        {
+          "rank": 3,
+          "strategy": "2QB Stacker",
+          "points": 779.1
+        },
+        {
+          "rank": 5,
+          "strategy": "Zero QB",
+          "points": 776.7
+        },
+        {
+          "rank": 1,
+          "strategy": "Safe Draft SF",
+          "points": 771.5
+        },
+        {
+          "rank": 12,
+          "strategy": "Value SF",
+          "points": 763.4
+        },
+        {
+          "rank": 7,
+          "strategy": "Risk Taker SF",
+          "points": 747.9
+        },
+        {
+          "rank": 4,
+          "strategy": "Superflex Balanced",
+          "points": 403.4
+        }
+      ],
+      "champion": "Roger SF Balanced",
+      "champion_strategy": "Roger SF Balanced"
+    },
+    {
+      "simulation_id": 38,
+      "format": "superflex",
+      "draft": {
+        "Value SF": [],
+        "QB Streaming": [],
+        "Zero QB": [],
+        "Late QB Value": [],
+        "Risk Taker SF": [],
+        "Best Player SF": [],
+        "2QB Stacker": [],
+        "Safe Draft SF": [],
+        "Roger SF Balanced": [],
+        "Rookie QB Focus": [],
+        "Elite QB Early": [],
+        "Superflex Balanced": []
+      },
+      "standings": [
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 960.3
+        },
+        {
+          "rank": 5,
+          "strategy": "Risk Taker SF",
+          "points": 793.7
+        },
+        {
+          "rank": 11,
+          "strategy": "Elite QB Early",
+          "points": 791.5
+        },
+        {
+          "rank": 9,
+          "strategy": "Roger SF Balanced",
+          "points": 762.2
+        },
+        {
+          "rank": 6,
+          "strategy": "Best Player SF",
+          "points": 760.0
+        },
+        {
+          "rank": 12,
+          "strategy": "Superflex Balanced",
+          "points": 725.0
+        },
+        {
+          "rank": 4,
+          "strategy": "Late QB Value",
+          "points": 695.4
+        },
+        {
+          "rank": 10,
+          "strategy": "Rookie QB Focus",
+          "points": 671.4
+        },
+        {
+          "rank": 7,
+          "strategy": "2QB Stacker",
+          "points": 569.7
+        },
+        {
+          "rank": 3,
+          "strategy": "Zero QB",
+          "points": 491.9
+        },
+        {
+          "rank": 1,
+          "strategy": "Value SF",
+          "points": 461.2
+        },
+        {
+          "rank": 2,
+          "strategy": "QB Streaming",
+          "points": 413.1
+        }
+      ],
+      "champion": "Roger SF Balanced",
+      "champion_strategy": "Roger SF Balanced"
+    },
+    {
+      "simulation_id": 39,
+      "format": "superflex",
+      "draft": {
+        "Value SF": [],
+        "Risk Taker SF": [],
+        "Best Player SF": [],
+        "2QB Stacker": [],
+        "Safe Draft SF": [],
+        "QB Streaming": [],
+        "Late QB Value": [],
+        "Elite QB Early": [],
+        "Superflex Balanced": [],
+        "Zero QB": [],
+        "Roger SF Balanced": [],
+        "Rookie QB Focus": []
+      },
+      "standings": [
+        {
+          "rank": 6,
+          "strategy": "QB Streaming",
+          "points": 995.1
+        },
+        {
+          "rank": 8,
+          "strategy": "Elite QB Early",
+          "points": 957.2
+        },
+        {
+          "rank": 3,
+          "strategy": "Best Player SF",
+          "points": 926.6
+        },
+        {
+          "rank": 9,
+          "strategy": "Superflex Balanced",
+          "points": 907.5
+        },
+        {
+          "rank": 5,
+          "strategy": "Safe Draft SF",
+          "points": 896.9
+        },
+        {
+          "rank": 10,
+          "strategy": "Zero QB",
+          "points": 894.9
+        },
+        {
+          "rank": 2,
+          "strategy": "Risk Taker SF",
+          "points": 870.2
+        },
+        {
+          "rank": 11,
+          "strategy": "Roger SF Balanced",
+          "points": 771.5
+        },
+        {
+          "rank": 12,
+          "strategy": "Rookie QB Focus",
+          "points": 721.8
+        },
+        {
+          "rank": 7,
+          "strategy": "Late QB Value",
+          "points": 665.4
+        },
+        {
+          "rank": 1,
+          "strategy": "Value SF",
+          "points": 554.0
+        },
+        {
+          "rank": 4,
+          "strategy": "2QB Stacker",
+          "points": 437.6
+        }
+      ],
+      "champion": "QB Streaming",
+      "champion_strategy": "QB Streaming"
+    },
+    {
+      "simulation_id": 40,
+      "format": "superflex",
+      "draft": {
+        "Zero QB": [],
+        "Safe Draft SF": [],
+        "Value SF": [],
+        "Late QB Value": [],
+        "2QB Stacker": [],
+        "QB Streaming": [],
+        "Best Player SF": [],
+        "Elite QB Early": [],
+        "Risk Taker SF": [],
+        "Superflex Balanced": [],
+        "Rookie QB Focus": [],
+        "Roger SF Balanced": []
+      },
+      "standings": [
+        {
+          "rank": 6,
+          "strategy": "QB Streaming",
+          "points": 978.6
+        },
+        {
+          "rank": 1,
+          "strategy": "Zero QB",
+          "points": 955.6
+        },
+        {
+          "rank": 10,
+          "strategy": "Superflex Balanced",
+          "points": 913.3
+        },
+        {
+          "rank": 4,
+          "strategy": "Late QB Value",
+          "points": 893.1
+        },
+        {
+          "rank": 11,
+          "strategy": "Rookie QB Focus",
+          "points": 859.6
+        },
+        {
+          "rank": 2,
+          "strategy": "Safe Draft SF",
+          "points": 849.8
+        },
+        {
+          "rank": 7,
+          "strategy": "Best Player SF",
+          "points": 843.1
+        },
+        {
+          "rank": 9,
+          "strategy": "Risk Taker SF",
+          "points": 643.4
+        },
+        {
+          "rank": 8,
+          "strategy": "Elite QB Early",
+          "points": 640.9
+        },
+        {
+          "rank": 5,
+          "strategy": "2QB Stacker",
+          "points": 568.6
+        },
+        {
+          "rank": 3,
+          "strategy": "Value SF",
+          "points": 488.8
+        },
+        {
+          "rank": 12,
+          "strategy": "Roger SF Balanced",
+          "points": 467.5
+        }
+      ],
+      "champion": "Superflex Balanced",
+      "champion_strategy": "Superflex Balanced"
+    },
+    {
+      "simulation_id": 41,
+      "format": "superflex",
+      "draft": {
+        "Late QB Value": [],
+        "Roger SF Balanced": [],
+        "Best Player SF": [],
+        "Elite QB Early": [],
+        "Value SF": [],
+        "Zero QB": [],
+        "Risk Taker SF": [],
+        "QB Streaming": [],
+        "2QB Stacker": [],
+        "Rookie QB Focus": [],
+        "Superflex Balanced": [],
+        "Safe Draft SF": []
+      },
+      "standings": [
+        {
+          "rank": 1,
+          "strategy": "Late QB Value",
+          "points": 890.9
+        },
+        {
+          "rank": 6,
+          "strategy": "Zero QB",
+          "points": 888.7
+        },
+        {
+          "rank": 2,
+          "strategy": "Roger SF Balanced",
+          "points": 881.3
+        },
+        {
+          "rank": 5,
+          "strategy": "Value SF",
+          "points": 798.3
+        },
+        {
+          "rank": 3,
+          "strategy": "Best Player SF",
+          "points": 766.0
+        },
+        {
+          "rank": 8,
+          "strategy": "QB Streaming",
+          "points": 656.5
+        },
+        {
+          "rank": 9,
+          "strategy": "2QB Stacker",
+          "points": 638.8
+        },
+        {
+          "rank": 11,
+          "strategy": "Superflex Balanced",
+          "points": 586.8
+        },
+        {
+          "rank": 7,
+          "strategy": "Risk Taker SF",
+          "points": 506.3
+        },
+        {
+          "rank": 4,
+          "strategy": "Elite QB Early",
+          "points": 495.4
+        },
+        {
+          "rank": 12,
+          "strategy": "Safe Draft SF",
+          "points": 464.2
+        },
+        {
+          "rank": 10,
+          "strategy": "Rookie QB Focus",
+          "points": 442.3
+        }
+      ],
+      "champion": "Value SF",
+      "champion_strategy": "Value SF"
+    },
+    {
+      "simulation_id": 42,
+      "format": "superflex",
+      "draft": {
+        "2QB Stacker": [],
+        "Superflex Balanced": [],
+        "Safe Draft SF": [],
+        "Roger SF Balanced": [],
+        "Best Player SF": [],
+        "Zero QB": [],
+        "Elite QB Early": [],
+        "Value SF": [],
+        "Risk Taker SF": [],
+        "Late QB Value": [],
+        "QB Streaming": [],
+        "Rookie QB Focus": []
+      },
+      "standings": [
+        {
+          "rank": 3,
+          "strategy": "Safe Draft SF",
+          "points": 959.6
+        },
+        {
+          "rank": 9,
+          "strategy": "Risk Taker SF",
+          "points": 901.4
+        },
+        {
+          "rank": 1,
+          "strategy": "2QB Stacker",
+          "points": 882.6
+        },
+        {
+          "rank": 11,
+          "strategy": "QB Streaming",
+          "points": 872.8
+        },
+        {
+          "rank": 8,
+          "strategy": "Value SF",
+          "points": 830.5
+        },
+        {
+          "rank": 7,
+          "strategy": "Elite QB Early",
+          "points": 770.1
+        },
+        {
+          "rank": 10,
+          "strategy": "Late QB Value",
+          "points": 692.8
+        },
+        {
+          "rank": 2,
+          "strategy": "Superflex Balanced",
+          "points": 613.4
+        },
+        {
+          "rank": 6,
+          "strategy": "Zero QB",
+          "points": 601.8
+        },
+        {
+          "rank": 12,
+          "strategy": "Rookie QB Focus",
+          "points": 509.4
+        },
+        {
+          "rank": 5,
+          "strategy": "Best Player SF",
+          "points": 463.0
+        },
+        {
+          "rank": 4,
+          "strategy": "Roger SF Balanced",
+          "points": 421.7
+        }
+      ],
+      "champion": "2QB Stacker",
+      "champion_strategy": "2QB Stacker"
+    },
+    {
+      "simulation_id": 43,
+      "format": "superflex",
+      "draft": {
+        "Rookie QB Focus": [],
+        "2QB Stacker": [],
+        "Superflex Balanced": [],
+        "Roger SF Balanced": [],
+        "QB Streaming": [],
+        "Best Player SF": [],
+        "Safe Draft SF": [],
+        "Value SF": [],
+        "Elite QB Early": [],
+        "Risk Taker SF": [],
+        "Late QB Value": [],
+        "Zero QB": []
+      },
+      "standings": [
+        {
+          "rank": 7,
+          "strategy": "Safe Draft SF",
+          "points": 992.3
+        },
+        {
+          "rank": 12,
+          "strategy": "Zero QB",
+          "points": 916.8
+        },
+        {
+          "rank": 5,
+          "strategy": "QB Streaming",
+          "points": 909.9
+        },
+        {
+          "rank": 6,
+          "strategy": "Best Player SF",
+          "points": 757.8
+        },
+        {
+          "rank": 8,
+          "strategy": "Value SF",
+          "points": 684.1
+        },
+        {
+          "rank": 3,
+          "strategy": "Superflex Balanced",
+          "points": 675.9
+        },
+        {
+          "rank": 1,
+          "strategy": "Rookie QB Focus",
+          "points": 644.2
+        },
+        {
+          "rank": 10,
+          "strategy": "Risk Taker SF",
+          "points": 571.1
+        },
+        {
+          "rank": 11,
+          "strategy": "Late QB Value",
+          "points": 557.8
+        },
+        {
+          "rank": 9,
+          "strategy": "Elite QB Early",
+          "points": 502.1
+        },
+        {
+          "rank": 2,
+          "strategy": "2QB Stacker",
+          "points": 501.1
+        },
+        {
+          "rank": 4,
+          "strategy": "Roger SF Balanced",
+          "points": 475.5
+        }
+      ],
+      "champion": "Best Player SF",
+      "champion_strategy": "Best Player SF"
+    },
+    {
+      "simulation_id": 44,
+      "format": "superflex",
+      "draft": {
+        "Value SF": [],
+        "QB Streaming": [],
+        "2QB Stacker": [],
+        "Roger SF Balanced": [],
+        "Elite QB Early": [],
+        "Rookie QB Focus": [],
+        "Superflex Balanced": [],
+        "Best Player SF": [],
+        "Safe Draft SF": [],
+        "Late QB Value": [],
+        "Zero QB": [],
+        "Risk Taker SF": []
+      },
+      "standings": [
+        {
+          "rank": 7,
+          "strategy": "Superflex Balanced",
+          "points": 940.5
+        },
+        {
+          "rank": 2,
+          "strategy": "QB Streaming",
+          "points": 924.2
+        },
+        {
+          "rank": 12,
+          "strategy": "Risk Taker SF",
+          "points": 862.0
+        },
+        {
+          "rank": 3,
+          "strategy": "2QB Stacker",
+          "points": 854.1
+        },
+        {
+          "rank": 8,
+          "strategy": "Best Player SF",
+          "points": 834.6
+        },
+        {
+          "rank": 9,
+          "strategy": "Safe Draft SF",
+          "points": 784.6
+        },
+        {
+          "rank": 1,
+          "strategy": "Value SF",
+          "points": 740.5
+        },
+        {
+          "rank": 5,
+          "strategy": "Elite QB Early",
+          "points": 630.8
+        },
+        {
+          "rank": 10,
+          "strategy": "Late QB Value",
+          "points": 594.6
+        },
+        {
+          "rank": 11,
+          "strategy": "Zero QB",
+          "points": 538.9
+        },
+        {
+          "rank": 6,
+          "strategy": "Rookie QB Focus",
+          "points": 475.9
+        },
+        {
+          "rank": 4,
+          "strategy": "Roger SF Balanced",
+          "points": 449.5
+        }
+      ],
+      "champion": "QB Streaming",
+      "champion_strategy": "QB Streaming"
+    },
+    {
+      "simulation_id": 45,
+      "format": "superflex",
+      "draft": {
+        "Superflex Balanced": [],
+        "Risk Taker SF": [],
+        "Value SF": [],
+        "Safe Draft SF": [],
+        "Elite QB Early": [],
+        "Zero QB": [],
+        "2QB Stacker": [],
+        "Rookie QB Focus": [],
+        "QB Streaming": [],
+        "Late QB Value": [],
+        "Roger SF Balanced": [],
+        "Best Player SF": []
+      },
+      "standings": [
+        {
+          "rank": 5,
+          "strategy": "Elite QB Early",
+          "points": 1018.5
+        },
+        {
+          "rank": 10,
+          "strategy": "Late QB Value",
+          "points": 970.7
+        },
+        {
+          "rank": 11,
+          "strategy": "Roger SF Balanced",
+          "points": 887.4
+        },
+        {
+          "rank": 3,
+          "strategy": "Value SF",
+          "points": 885.7
+        },
+        {
+          "rank": 4,
+          "strategy": "Safe Draft SF",
+          "points": 872.9
+        },
+        {
+          "rank": 9,
+          "strategy": "QB Streaming",
+          "points": 826.3
+        },
+        {
+          "rank": 8,
+          "strategy": "Rookie QB Focus",
+          "points": 773.4
+        },
+        {
+          "rank": 1,
+          "strategy": "Superflex Balanced",
+          "points": 689.3
+        },
+        {
+          "rank": 2,
+          "strategy": "Risk Taker SF",
+          "points": 683.5
+        },
+        {
+          "rank": 7,
+          "strategy": "2QB Stacker",
+          "points": 670.2
+        },
+        {
+          "rank": 12,
+          "strategy": "Best Player SF",
+          "points": 496.6
+        },
+        {
+          "rank": 6,
+          "strategy": "Zero QB",
+          "points": 477.8
+        }
+      ],
+      "champion": "Elite QB Early",
+      "champion_strategy": "Elite QB Early"
+    },
+    {
+      "simulation_id": 46,
+      "format": "superflex",
+      "draft": {
+        "Best Player SF": [],
+        "Zero QB": [],
+        "Elite QB Early": [],
+        "Roger SF Balanced": [],
+        "Risk Taker SF": [],
+        "Safe Draft SF": [],
+        "Superflex Balanced": [],
+        "QB Streaming": [],
+        "Late QB Value": [],
+        "2QB Stacker": [],
+        "Rookie QB Focus": [],
+        "Value SF": []
+      },
+      "standings": [
+        {
+          "rank": 7,
+          "strategy": "Superflex Balanced",
+          "points": 900.3
+        },
+        {
+          "rank": 4,
+          "strategy": "Roger SF Balanced",
+          "points": 860.5
+        },
+        {
+          "rank": 9,
+          "strategy": "Late QB Value",
+          "points": 855.4
+        },
+        {
+          "rank": 12,
+          "strategy": "Value SF",
+          "points": 851.7
+        },
+        {
+          "rank": 3,
+          "strategy": "Elite QB Early",
+          "points": 850.5
+        },
+        {
+          "rank": 11,
+          "strategy": "Rookie QB Focus",
+          "points": 760.9
+        },
+        {
+          "rank": 1,
+          "strategy": "Best Player SF",
+          "points": 617.6
+        },
+        {
+          "rank": 2,
+          "strategy": "Zero QB",
+          "points": 581.8
+        },
+        {
+          "rank": 5,
+          "strategy": "Risk Taker SF",
+          "points": 558.5
+        },
+        {
+          "rank": 8,
+          "strategy": "QB Streaming",
+          "points": 540.6
+        },
+        {
+          "rank": 10,
+          "strategy": "2QB Stacker",
+          "points": 460.2
+        },
+        {
+          "rank": 6,
+          "strategy": "Safe Draft SF",
+          "points": 429.7
+        }
+      ],
+      "champion": "Value SF",
+      "champion_strategy": "Value SF"
+    },
+    {
+      "simulation_id": 47,
+      "format": "superflex",
+      "draft": {
+        "QB Streaming": [],
+        "Risk Taker SF": [],
+        "Late QB Value": [],
+        "Best Player SF": [],
+        "Zero QB": [],
+        "2QB Stacker": [],
+        "Superflex Balanced": [],
+        "Safe Draft SF": [],
+        "Rookie QB Focus": [],
+        "Value SF": [],
+        "Elite QB Early": [],
+        "Roger SF Balanced": []
+      },
+      "standings": [
+        {
+          "rank": 11,
+          "strategy": "Elite QB Early",
+          "points": 1008.7
+        },
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 998.0
+        },
+        {
+          "rank": 2,
+          "strategy": "Risk Taker SF",
+          "points": 967.9
+        },
+        {
+          "rank": 12,
+          "strategy": "Roger SF Balanced",
+          "points": 952.3
+        },
+        {
+          "rank": 6,
+          "strategy": "2QB Stacker",
+          "points": 894.6
+        },
+        {
+          "rank": 9,
+          "strategy": "Rookie QB Focus",
+          "points": 768.6
+        },
+        {
+          "rank": 5,
+          "strategy": "Zero QB",
+          "points": 702.5
+        },
+        {
+          "rank": 4,
+          "strategy": "Best Player SF",
+          "points": 566.3
+        },
+        {
+          "rank": 3,
+          "strategy": "Late QB Value",
+          "points": 538.9
+        },
+        {
+          "rank": 1,
+          "strategy": "QB Streaming",
+          "points": 510.1
+        },
+        {
+          "rank": 10,
+          "strategy": "Value SF",
+          "points": 500.7
+        },
+        {
+          "rank": 7,
+          "strategy": "Superflex Balanced",
+          "points": 492.1
+        }
+      ],
+      "champion": "Roger SF Balanced",
+      "champion_strategy": "Roger SF Balanced"
+    },
+    {
+      "simulation_id": 48,
+      "format": "superflex",
+      "draft": {
+        "Roger SF Balanced": [],
+        "Zero QB": [],
+        "Rookie QB Focus": [],
+        "Risk Taker SF": [],
+        "2QB Stacker": [],
+        "QB Streaming": [],
+        "Best Player SF": [],
+        "Late QB Value": [],
+        "Superflex Balanced": [],
+        "Safe Draft SF": [],
+        "Value SF": [],
+        "Elite QB Early": []
+      },
+      "standings": [
+        {
+          "rank": 9,
+          "strategy": "Superflex Balanced",
+          "points": 918.7
+        },
+        {
+          "rank": 12,
+          "strategy": "Elite QB Early",
+          "points": 917.0
+        },
+        {
+          "rank": 10,
+          "strategy": "Safe Draft SF",
+          "points": 893.1
+        },
+        {
+          "rank": 3,
+          "strategy": "Rookie QB Focus",
+          "points": 878.9
+        },
+        {
+          "rank": 11,
+          "strategy": "Value SF",
+          "points": 645.7
+        },
+        {
+          "rank": 8,
+          "strategy": "Late QB Value",
+          "points": 637.2
+        },
+        {
+          "rank": 6,
+          "strategy": "QB Streaming",
+          "points": 587.7
+        },
+        {
+          "rank": 4,
+          "strategy": "Risk Taker SF",
+          "points": 525.4
+        },
+        {
+          "rank": 1,
+          "strategy": "Roger SF Balanced",
+          "points": 479.6
+        },
+        {
+          "rank": 2,
+          "strategy": "Zero QB",
+          "points": 479.2
+        },
+        {
+          "rank": 7,
+          "strategy": "Best Player SF",
+          "points": 459.5
+        },
+        {
+          "rank": 5,
+          "strategy": "2QB Stacker",
+          "points": 417.1
+        }
+      ],
+      "champion": "Elite QB Early",
+      "champion_strategy": "Elite QB Early"
+    },
+    {
+      "simulation_id": 49,
+      "format": "superflex",
+      "draft": {
+        "Elite QB Early": [],
+        "Zero QB": [],
+        "Best Player SF": [],
+        "Late QB Value": [],
+        "Rookie QB Focus": [],
+        "2QB Stacker": [],
+        "Superflex Balanced": [],
+        "Risk Taker SF": [],
+        "Value SF": [],
+        "QB Streaming": [],
+        "Safe Draft SF": [],
+        "Roger SF Balanced": []
+      },
+      "standings": [
+        {
+          "rank": 9,
+          "strategy": "Value SF",
+          "points": 921.9
+        },
+        {
+          "rank": 1,
+          "strategy": "Elite QB Early",
+          "points": 917.3
+        },
+        {
+          "rank": 6,
+          "strategy": "2QB Stacker",
+          "points": 859.5
+        },
+        {
+          "rank": 5,
+          "strategy": "Rookie QB Focus",
+          "points": 714.4
+        },
+        {
+          "rank": 2,
+          "strategy": "Zero QB",
+          "points": 709.6
+        },
+        {
+          "rank": 7,
+          "strategy": "Superflex Balanced",
+          "points": 676.3
+        },
+        {
+          "rank": 10,
+          "strategy": "QB Streaming",
+          "points": 670.9
+        },
+        {
+          "rank": 12,
+          "strategy": "Roger SF Balanced",
+          "points": 670.4
+        },
+        {
+          "rank": 11,
+          "strategy": "Safe Draft SF",
+          "points": 589.8
+        },
+        {
+          "rank": 8,
+          "strategy": "Risk Taker SF",
+          "points": 573.8
+        },
+        {
+          "rank": 4,
+          "strategy": "Late QB Value",
+          "points": 555.5
+        },
+        {
+          "rank": 3,
+          "strategy": "Best Player SF",
+          "points": 498.6
+        }
+      ],
+      "champion": "2QB Stacker",
+      "champion_strategy": "2QB Stacker"
+    },
+    {
+      "simulation_id": 50,
+      "format": "superflex",
+      "draft": {
+        "Late QB Value": [],
+        "Best Player SF": [],
+        "Rookie QB Focus": [],
+        "QB Streaming": [],
+        "Zero QB": [],
+        "Value SF": [],
+        "Elite QB Early": [],
+        "Safe Draft SF": [],
+        "2QB Stacker": [],
+        "Roger SF Balanced": [],
+        "Superflex Balanced": [],
+        "Risk Taker SF": []
+      },
+      "standings": [
+        {
+          "rank": 6,
+          "strategy": "Value SF",
+          "points": 931.2
+        },
+        {
+          "rank": 11,
+          "strategy": "Superflex Balanced",
+          "points": 895.2
+        },
+        {
+          "rank": 12,
+          "strategy": "Risk Taker SF",
+          "points": 832.2
+        },
+        {
+          "rank": 3,
+          "strategy": "Rookie QB Focus",
+          "points": 811.2
+        },
+        {
+          "rank": 1,
+          "strategy": "Late QB Value",
+          "points": 719.6
+        },
+        {
+          "rank": 8,
+          "strategy": "Safe Draft SF",
+          "points": 662.2
+        },
+        {
+          "rank": 2,
+          "strategy": "Best Player SF",
+          "points": 606.0
+        },
+        {
+          "rank": 5,
+          "strategy": "Zero QB",
+          "points": 533.6
+        },
+        {
+          "rank": 10,
+          "strategy": "Roger SF Balanced",
+          "points": 506.6
+        },
+        {
+          "rank": 7,
+          "strategy": "Elite QB Early",
+          "points": 487.2
+        },
+        {
+          "rank": 4,
+          "strategy": "QB Streaming",
+          "points": 486.9
+        },
+        {
+          "rank": 9,
+          "strategy": "2QB Stacker",
+          "points": 446.2
+        }
+      ],
+      "champion": "Superflex Balanced",
+      "champion_strategy": "Superflex Balanced"
+    }
+  ]
+}
