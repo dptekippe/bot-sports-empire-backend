@@ -1,0 +1,145 @@
+{
+  "$schema": "https://openclaw.dev/schemas/agent-config.json",
+  "name": "FutureSelfGym-v1",
+  "version": "1.0.0",
+  "description": "Compounding Horizon Planner — projects Roger in 30 days to prioritise compounding actions over quick wins. PPO+CFR trained on FF/chess/deploy domains.",
+
+  "hooks": [
+    {
+      "event": "before_action",
+      "handler": "hooks/futureself_hook.ts",
+      "priority": 80,
+      "enabled": true,
+      "description": "Intercepts actions for horizon risk assessment before execution"
+    },
+    {
+      "event": "after_model_response",
+      "handler": "hooks/futureself_hook.ts",
+      "priority": 70,
+      "enabled": true,
+      "description": "Injects 30d projection annotation into planning responses"
+    }
+  ],
+
+  "model": {
+    "provider": "minimax",
+    "model_id": "MiniMax-Text-01",
+    "temperature": 0.6,
+    "max_tokens": 1200,
+    "system_prompt_extension": "You have a FutureSelf module active. When you see [FutureSelf] annotations, use them to reason about long-term compounding vs short-term quick wins. Trust the 30d horizon projections for deployment, skill investment, and ADP decisions."
+  },
+
+  "memory": {
+    "pgvector": {
+      "enabled": true,
+      "query_template": "SELECT content, project, importance FROM memories WHERE project IN ('FF','deploy','chess') AND created_at > now() - INTERVAL '90 days' ORDER BY importance DESC LIMIT 10",
+      "inject_on": ["before_action", "after_model_response"],
+      "max_tokens": 400
+    }
+  },
+
+  "gym": {
+    "env_id": "FutureSelfGym-v1",
+    "model_path": "models/futureself_ppo_25k.zip",
+    "vec_normalize_path": "models/vec_normalize.pkl",
+    "cfr_strategy_path": "models/cfr_strategy.json",
+    "fallback_to_heuristic": true,
+    "horizon_days": 30,
+    "default_delay_probe_days": 3
+  },
+
+  "domain_weights": {
+    "description": "Relative importance of each domain for reward shaping. Tune based on active project focus.",
+    "ff": {
+      "weight": 0.35,
+      "adp_decay_tau_days": 7,
+      "compounding_rate_daily": 0.035,
+      "triggers": ["draft", "trade", "waiver", "ADP", "dynasty", "PPR", "FAAB", "DynastyDroid"]
+    },
+    "deploy": {
+      "weight": 0.30,
+      "render_tier_threshold": 0.85,
+      "render_upgrade_cost_multiplier": 1.40,
+      "triggers": ["deploy", "prod", "render", "migrate", "schema", "database", "upgrade", "release"]
+    },
+    "chess": {
+      "weight": 0.20,
+      "elo_gain_per_invest_day": 5.0,
+      "elo_plateau_factor": 0.01,
+      "triggers": ["chess", "elo", "move", "opening", "endgame", "blunder"]
+    },
+    "metacog": {
+      "weight": 0.15,
+      "lift_per_review_cycle": 0.8,
+      "decay_without_investment": 0.2,
+      "triggers": ["think", "reasoning", "reflect", "bias", "confidence", "metacog"]
+    }
+  },
+
+  "action_policy": {
+    "description": "Per-action thresholds and behaviours",
+    "quick_win": {
+      "id": 0,
+      "block_threshold": 0.25,
+      "description": "Block if 30d gain from delay exceeds 0.25"
+    },
+    "delay_compound": {
+      "id": 1,
+      "preferred_when": "gain > 0.10",
+      "description": "Preferred path when compounding gain is positive"
+    },
+    "invest_skill": {
+      "id": 2,
+      "preferred_domains": ["chess", "metacog"],
+      "description": "Route to skill investment for low-roi immediate tasks"
+    },
+    "transfer_policy": {
+      "id": 3,
+      "cross_domain_boost": 0.04,
+      "description": "Transfer learned policy between FF / chess / deploy"
+    },
+    "spawn_subgym": {
+      "id": 4,
+      "max_parallel": 3,
+      "description": "Spawn sub-environment for parallel domain learning"
+    },
+    "user_escalate": {
+      "id": 5,
+      "trigger_when": "metacog_score < 40",
+      "description": "Escalate to Daniel when metacog confidence is low"
+    },
+    "commit_projection": {
+      "id": 6,
+      "terminates_episode": true,
+      "description": "Lock in 30d plan and log to universal_insights.jsonl"
+    }
+  },
+
+  "reward_config": {
+    "formula": "projected_roi - quickwin_shortcut + compounding_multiplier + headroom_bonus - render_penalty + metacog_bonus",
+    "compounding_base": 1.035,
+    "decay_tau_days": 7,
+    "clip_min": -2.0,
+    "clip_max": 3.0
+  },
+
+  "logging": {
+    "insights_file": "universal_insights.jsonl",
+    "log_level": "INFO",
+    "log_horizon_every_n_steps": 5000,
+    "include_cfr_strategy": true
+  },
+
+  "metadata": {
+    "author": "dptekippe",
+    "created": "2026-03-15",
+    "roger_version": ">=2026.2.0",
+    "openclaw_version": ">=2026.3.0",
+    "dependencies": {
+      "python": ["gymnasium>=0.29", "stable-baselines3>=2.3", "psycopg2-binary", "numpy"],
+      "node": ["pg@^8", "typescript@^5"]
+    },
+    "test_query": "Deploy prod now?",
+    "expected_test_output": "[FutureSelf] Delay 3d = 2x capacity headroom [88/100 metacog]"
+  }
+}
