@@ -8,12 +8,16 @@ VORP Calibration (v2):
 - ProjPts formula scaled up to match historical data
 - Position baselines from RP24-30 across positions
 - ±20% Monte Carlo variance for uncertainty
+
+CFR Integration:
+- Terminal reward = total_proj_pts + roster_penalty - regret
+- HER: For each regret > 1.0, create hindsight episode
 """
 
 import json
 import math
 import random
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Tuple
 
 # Load top 164 players
 TOP164_FILE = 'fantasy_points_2025.json'
@@ -220,6 +224,195 @@ def full_reward(roster: List[str], league_avg: float = 2500) -> Dict[str, float]
         'legality_penalty': legality,
         'total': points + legality - league_avg
     }
+
+
+def calculate_regret(draft_log: List[Dict], team_id: int, pos_lookup: Dict) -> float:
+    """
+    Calculate position-constrained regret for a team's picks.
+    
+    Args:
+        draft_log: List of pick dicts
+        team_id: Team to analyze
+        pos_lookup: Position lookup dict
+    
+    Returns:
+        Total regret score
+    """
+    # Get team's picks
+    team_picks = [p for p in draft_log if p.get('team') == team_id]
+    team_picks.sort(key=lambda x: x.get('pick', 0))
+    
+    total_regret = 0
+    
+    for pick in team_picks:
+        pick_num = pick.get('pick', 0)
+        drafted_name = pick.get('player', '')
+        drafted_adp = pick.get('adp', 100)
+        
+        drafted_pos = pos_lookup.get(drafted_name, 'WR')
+        drafted_vorp = vorp(proj_pts(drafted_adp, drafted_pos), drafted_pos)
+        
+        # Find later picks
+        later_picks = [p for p in draft_log if p.get('pick', 0) > pick_num]
+        
+        # Same position candidates
+        same_pos_candidates = []
+        for later in later_picks:
+            later_name = later.get('player', '')
+            later_pos = pos_lookup.get(later_name, 'WR')
+            if later_pos == drafted_pos:
+                later_adp = later.get('adp', 100)
+                later_vorp = vorp(proj_pts(later_adp, later_pos), later_pos)
+                same_pos_candidates.append(later_vorp)
+        
+        if same_pos_candidates:
+            best_later = max(same_pos_candidates)
+            regret = max(0, best_later - drafted_vorp)
+            total_regret += regret
+    
+    return total_regret
+
+
+def terminal_reward(draft_log: List[Dict], team_id: int, pos_lookup: Dict = None) -> Dict[str, float]:
+    """
+    Calculate terminal reward including CFR regret.
+    
+    Reward = total_proj_pts + roster_penalty - regret
+    
+    Args:
+        draft_log: List of pick dicts
+        team_id: Team to score
+        pos_lookup: Optional position lookup
+    
+    Returns:
+        Dict with 'points', 'penalty', 'regret', 'total'
+    """
+    if pos_lookup is None:
+        pos_lookup = _load_positions()
+    
+    # Get team's picks
+    team_picks = [p for p in draft_log if p.get('team') == team_id]
+    
+    # Calculate projected points
+    total_pts = 0
+    counts = {'QB': 0, 'RB': 0, 'WR': 0, 'TE': 0}
+    
+    for pick in team_picks:
+        name = pick.get('player', '')
+        adp = pick.get('adp', 100)
+        pos = pos_lookup.get(name, 'WR')
+        pts = proj_pts(adp, pos)
+        total_pts += pts
+        
+        if pos in counts:
+            counts[pos] += 1
+    
+    # Roster penalty
+    penalty = roster_penalty(counts)
+    
+    # CFR Regret
+    regret = calculate_regret(draft_log, team_id, pos_lookup)
+    
+    # Final reward: higher = better
+    # Subtract regret to penalize missed opportunities
+    total = total_pts + penalty - regret
+    
+    return {
+        'points': total_pts,
+        'penalty': penalty,
+        'regret': regret,
+        'total': total
+    }
+
+
+def _load_positions() -> Dict[str, str]:
+    """Load position lookup"""
+    try:
+        with open(TOP164_FILE, 'r') as f:
+            players = json.load(f)
+        return {p['name']: p.get('position', 'WR') for p in players}
+    except FileNotFoundError:
+        import os
+        path = os.path.expanduser(f'~/.openclaw/workspace/{TOP164_FILE}')
+        with open(path, 'r') as f:
+            players = json.load(f)
+        return {p['name']: p.get('position', 'WR') for p in players}
+
+
+class HindsightReplayBuffer:
+    """
+    HER: Hindsight Experience Replay for draft training.
+    
+    For each pick with regret > threshold, creates a hindsight episode
+    where the "goal" is the best available player at that position.
+    """
+    
+    def __init__(self, capacity: int = 10000, regret_threshold: float = 1.0):
+        self.buffer = []
+        self.capacity = capacity
+        self.regret_threshold = regret_threshold
+    
+    def add_episode(self, draft_log: List[Dict], team_id: int, pos_lookup: Dict = None):
+        """Analyze draft and add hindsight episodes to buffer"""
+        
+        if pos_lookup is None:
+            pos_lookup = _load_positions()
+        
+        team_picks = [p for p in draft_log if p.get('team') == team_id]
+        team_picks.sort(key=lambda x: x.get('pick', 0))
+        
+        for pick in team_picks:
+            pick_num = pick.get('pick', 0)
+            drafted_name = pick.get('player', '')
+            drafted_adp = pick.get('adp', 100)
+            
+            drafted_pos = pos_lookup.get(drafted_name, 'WR')
+            drafted_vorp = vorp(proj_pts(drafted_adp, drafted_pos), drafted_pos)
+            
+            # Find later picks at same position
+            later_picks = [p for p in draft_log if p.get('pick', 0) > pick_num]
+            
+            same_pos_candidates = []
+            for later in later_picks:
+                later_name = later.get('player', '')
+                later_pos = pos_lookup.get(later_name, 'WR')
+                if later_pos == drafted_pos:
+                    later_adp = later.get('adp', 100)
+                    later_vorp = vorp(proj_pts(later_adp, later_pos), later_pos)
+                    same_pos_candidates.append({
+                        'name': later_name,
+                        'adp': later_adp,
+                        'vorp': later_vorp
+                    })
+            
+            if same_pos_candidates:
+                best_later = max(same_pos_candidates, key=lambda x: x['vorp'])
+                regret = max(0, best_later['vorp'] - drafted_vorp)
+                
+                # If regret > threshold, add hindsight episode
+                if regret > self.regret_threshold:
+                    episode = {
+                        'original_pick': {
+                            'name': drafted_name,
+                            'adp': drafted_adp,
+                            'vorp': drafted_vorp
+                        },
+                        'hindsight_goal': best_later,
+                        'regret': regret,
+                        'pick_num': pick_num,
+                        'position': drafted_pos
+                    }
+                    
+                    if len(self.buffer) >= self.capacity:
+                        self.buffer.pop(0)
+                    self.buffer.append(episode)
+    
+    def get_hindsight_episodes(self) -> List[Dict]:
+        """Get all hindsight episodes for training"""
+        return self.buffer
+    
+    def __len__(self):
+        return len(self.buffer)
 
 
 # Test VORP calibration
