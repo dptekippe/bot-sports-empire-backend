@@ -1,0 +1,96 @@
+{
+  "_comment": "DepthRenderGym v1 — OpenClaw gateway config fragment. Merge into ~/.openclaw/agents/main/agent/openclaw.json",
+  "version": "1.0.0",
+  "gym": "DepthRenderGym",
+
+  "hooks": {
+    "before_model_response": [
+      "depth_render_hook"
+    ]
+  },
+
+  "models": {
+    "primary": {
+      "provider":    "minimax",
+      "model_id":    "MiniMax-Text-01",
+      "temperature": 0.7,
+      "max_tokens":  4096,
+      "thinking":    "low"
+    },
+    "fallback": {
+      "provider":    "deepseek",
+      "model_id":    "deepseek-chat",
+      "temperature": 0.7,
+      "max_tokens":  2048,
+      "thinking":    "minimal"
+    }
+  },
+
+  "canvas": {
+    "enabled":         true,
+    "renderer":        "webkit",
+    "dark_mode":       true,
+    "supported_types": ["mermaid", "plotly", "html"],
+    "colors": {
+      "background":    "#1C1B19",
+      "surface":       "#201F1D",
+      "text":          "#CDCCCA",
+      "accent":        "#4F98A3",
+      "border":        "#393836",
+      "chart_primary": "#20808D"
+    },
+    "fonts": {
+      "code":   "JetBrains Mono, Consolas, monospace",
+      "ui":     "Inter, system-ui, sans-serif"
+    },
+    "plotly_defaults": {
+      "paper_bgcolor": "#1C1B19",
+      "plot_bgcolor":  "#1C1B19",
+      "font_color":    "#CDCCCA",
+      "margin":        { "l": 60, "r": 30, "t": 50, "b": 60 }
+    }
+  },
+
+  "gym_config": {
+    "depth_target":     0.88,
+    "reward_weights": {
+      "depth":  0.45,
+      "visual": 0.30,
+      "truth":  0.25
+    },
+    "cfr_path":         "~/.openclaw/gyms/depth_render_cfr.json",
+    "ppo_path":         "~/.openclaw/gyms/depth_render_ppo.json",
+    "log_path":         "~/.openclaw/gyms/depth_render_hook.log",
+    "actions": [
+      "expand_analysis",
+      "canvas_mermaid",
+      "plotly_chart",
+      "rich_table",
+      "source_tree"
+    ],
+    "cfr_prior":        [0.30, 0.22, 0.20, 0.18, 0.10],
+    "memory_domains":   ["FF", "deploy", "chess"],
+    "memory_recency":   "90d"
+  },
+
+  "context_injection": {
+    "format":      "jsonl",
+    "max_length":  512,
+    "tag_open":    "<depth_render_context>",
+    "tag_close":   "</depth_render_context>",
+    "placement":   "before_system_prompt"
+  },
+
+  "validation_test": {
+    "query":           "1.09 ADP?",
+    "expected_canvas": ["plotly", "html_table"],
+    "min_depth_score": 0.7,
+    "target_score":    95
+  },
+
+  "skills": {
+    "clawhub":     true,
+    "summarize":   true,
+    "model-usage": true
+  }
+}

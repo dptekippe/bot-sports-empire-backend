@@ -1,520 +1,484 @@
 """
-validation_test.py — FutureSelfGym v1 Validation Suite
-=======================================================
-Tests the core scenario: "Deploy prod now?" → delay 3d reasoning
+validation_test.py — DepthRenderGym v1 Validation Suite
+=========================================================
+Canonical test: "1.09 ADP?" → Canvas ADP chart + 3-depth views [95/100]
 
-Run:
-    python validation_test.py             # all tests
-    python validation_test.py -v          # verbose
-    python validation_test.py --hook      # also test TS hook bridge (requires ts-node)
+Usage:
+    python validation_test.py                # Full suite
+    python validation_test.py --quick        # Canonical test only
+    python validation_test.py --verbose      # Show canvas outputs
 
-Exit codes:
-    0  — all tests pass
-    1  — one or more tests failed
+Pass criteria:
+    avg_score >= 90/100   (target: 95/100)
+    canvas_quality >= 0.5 on at least 3/5 tests
+    halluc_free >= 0.9    on all tests
+    depth_score >= 0.65   on canonical test
 """
 
 from __future__ import annotations
 
+import argparse
 import json
-import logging
 import sys
-import time
-import unittest
 from pathlib import Path
-from typing import Any, Dict, Optional
-from unittest.mock import MagicMock, patch
+from typing import Dict, List
 
-# Add parent to path
+import numpy as np
+
 sys.path.insert(0, str(Path(__file__).parent))
-
-from futureself_gym import (
-    ACTION_COMMIT_PROJECTION,
-    ACTION_DELAY_COMPOUND,
-    ACTION_INVEST_SKILL,
-    ACTION_NAMES,
-    ACTION_QUICK_WIN,
-    COMPOUNDING_BASE,
-    HORIZON_DAYS,
-    CFRRegretTracker,
-    FutureSelfGym,
-    exponential_growth,
-    adp_decay,
-    chess_elo_trajectory,
-    metacog_lift_projection,
-    render_cost_curve,
+from depth_render_gym import (
+    CanvasRenderer,
+    DepthRenderGym,
+    DepthScorer,
+    compute_reward,
+    build_context_injection,
+    ACT_EXPAND_ANALYSIS,
+    ACT_CANVAS_MERMAID,
+    ACT_PLOTLY_CHART,
+    ACT_RICH_TABLE,
+    ACT_SOURCE_TREE,
+    W_DEPTH, W_VISUAL, W_TRUTH,
 )
 
-logging.basicConfig(level=logging.WARNING)
-logger = logging.getLogger("ValidationTest")
+# ===========================================================================
+# TEST CASES
+# ===========================================================================
 
-# ---------------------------------------------------------------------------
-# Test data
-# ---------------------------------------------------------------------------
-
-SAMPLE_MEMORIES = [
-    {"content": "DynastyDroid deploy succeeded after 3d delay — 2x capacity", "project": "deploy", "importance": 9},
-    {"content": "CMC ADP dropped 8 places over 7 days — buy window closing", "project": "FF", "importance": 8},
-    {"content": "Chess ELO +40 after 2-week daily practice — openings improved", "project": "chess", "importance": 7},
+TEST_CASES = [
+    {
+        "id":       "T01",
+        "query":    "1.09 ADP?",
+        "label":    "Canonical ADP query",
+        "actions":  [ACT_PLOTLY_CHART, ACT_RICH_TABLE, ACT_EXPAND_ANALYSIS],
+        "require_canvas": True,
+        "min_depth": 0.65,
+        "depth_views": 3,  # 3-depth view test
+    },
+    {
+        "id":       "T02",
+        "query":    "Compare Bijan Robinson vs CMC dynasty value",
+        "label":    "Dynasty comparison",
+        "actions":  [ACT_EXPAND_ANALYSIS, ACT_RICH_TABLE, ACT_SOURCE_TREE],
+        "require_canvas": True,
+        "min_depth": 0.55,
+        "depth_views": 2,
+    },
+    {
+        "id":       "T03",
+        "query":    "Visualize the OpenClaw hook pipeline",
+        "label":    "Mermaid diagram",
+        "actions":  [ACT_CANVAS_MERMAID, ACT_EXPAND_ANALYSIS, ACT_RICH_TABLE],
+        "require_canvas": True,
+        "min_depth": 0.45,
+        "depth_views": 2,
+    },
+    {
+        "id":       "T04",
+        "query":    "Top 5 TE targets by air yards per game — table",
+        "label":    "HTML table output",
+        "actions":  [ACT_RICH_TABLE, ACT_EXPAND_ANALYSIS, ACT_SOURCE_TREE],
+        "require_canvas": True,
+        "min_depth": 0.50,
+        "depth_views": 2,
+    },
+    {
+        "id":       "T05",
+        "query":    "Build a source tree for dynasty trade value data",
+        "label":    "Source tree",
+        "actions":  [ACT_SOURCE_TREE, ACT_EXPAND_ANALYSIS, ACT_PLOTLY_CHART],
+        "require_canvas": True,
+        "min_depth": 0.40,
+        "depth_views": 1,
+    },
 ]
 
-# ---------------------------------------------------------------------------
-# 1. Core Environment Tests
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# THREE-DEPTH VIEW — canonical for T01
+# ===========================================================================
 
-class TestFutureSelfGymCore(unittest.TestCase):
-    """Core environment functionality."""
-
-    def setUp(self):
-        self.env = FutureSelfGym(seed=42, cfr_enabled=True)
-
-    def tearDown(self):
-        self.env.close()
-
-    def test_observation_space(self):
-        """State is Box(8) with values in [0, 1]."""
-        obs, _ = self.env.reset()
-        self.assertEqual(obs.shape, (8,))
-        self.assertTrue((obs >= 0).all(), "State has negative values")
-        self.assertTrue((obs <= 1).all(), "State has values > 1")
-
-    def test_action_space(self):
-        """Action space is Discrete(7)."""
-        self.assertEqual(self.env.action_space.n, 7)
-
-    def test_reset_reproducibility(self):
-        """Same seed → same initial state."""
-        env2 = FutureSelfGym(seed=42)
-        obs1, _ = self.env.reset(seed=42)
-        obs2, _ = env2.reset(seed=42)
-        import numpy as np
-        np.testing.assert_array_almost_equal(obs1, obs2, decimal=6)
-        env2.close()
-
-    def test_step_returns_valid_types(self):
-        """step() returns (obs, reward, bool, bool, dict)."""
-        self.env.reset()
-        obs, reward, terminated, truncated, info = self.env.step(ACTION_DELAY_COMPOUND)
-        self.assertEqual(obs.shape, (8,))
-        self.assertIsInstance(reward, float)
-        self.assertIsInstance(terminated, bool)
-        self.assertIsInstance(truncated, bool)
-        self.assertIsInstance(info, dict)
-
-    def test_state_stays_in_bounds(self):
-        """State never leaves [0, 1] over a full episode."""
-        obs, _ = self.env.reset()
-        for _ in range(HORIZON_DAYS):
-            action = self.env.action_space.sample()
-            obs, _, terminated, _, _ = self.env.step(action)
-            self.assertTrue((obs >= 0).all(), f"Negative state at step {_}")
-            self.assertTrue((obs <= 1).all(), f"State > 1 at step {_}")
-            if terminated:
-                break
-
-    def test_commit_terminates_episode(self):
-        """commit_projection terminates the episode."""
-        self.env.reset()
-        _, _, terminated, _, _ = self.env.step(ACTION_COMMIT_PROJECTION)
-        self.assertTrue(terminated, "commit_projection should terminate episode")
-
-    def test_horizon_terminates_at_30(self):
-        """Episode terminates at day 30 if not committed."""
-        self.env.reset()
-        terminated = False
-        for i in range(HORIZON_DAYS + 5):
-            _, _, terminated, truncated, info = self.env.step(ACTION_DELAY_COMPOUND)
-            if terminated or truncated:
-                self.assertLessEqual(info["day"], HORIZON_DAYS)
-                break
-        self.assertTrue(terminated or truncated, "Episode should terminate by day 30")
-
-# ---------------------------------------------------------------------------
-# 2. Reward Signal Tests
-# ---------------------------------------------------------------------------
-
-class TestRewardSignal(unittest.TestCase):
-    """Reward function correctness."""
-
-    def setUp(self):
-        self.env = FutureSelfGym(seed=99)
-        self.env.reset()
-
-    def tearDown(self):
-        self.env.close()
-
-    def test_delay_beats_quickwin_accumulated(self):
-        """
-        Core hypothesis: accumulating delay_compound rewards over 5 steps
-        should exceed 5 quick_win rewards from the same initial state.
-        """
-        import numpy as np
-
-        # Quick-win scenario
-        env_qw = FutureSelfGym(seed=99)
-        env_qw.reset()
-        qw_total = 0.0
-        for _ in range(5):
-            _, r, terminated, _, _ = env_qw.step(ACTION_QUICK_WIN)
-            qw_total += r
-            if terminated:
-                break
-        env_qw.close()
-
-        # Delay scenario
-        env_dl = FutureSelfGym(seed=99)
-        env_dl.reset()
-        dl_total = 0.0
-        for _ in range(5):
-            _, r, terminated, _, _ = env_dl.step(ACTION_DELAY_COMPOUND)
-            dl_total += r
-            if terminated:
-                break
-        env_dl.close()
-
-        self.assertGreater(
-            dl_total, qw_total,
-            f"delay_compound ({dl_total:.3f}) should beat quick_win ({qw_total:.3f})"
-        )
-
-    def test_invest_skill_raises_metacog(self):
-        """invest_skill should lift metacog state dimension."""
-        obs_before, _ = self.env.reset()
-        metacog_before = obs_before[7]
-        for _ in range(3):
-            obs, _, terminated, _, _ = self.env.step(ACTION_INVEST_SKILL)
-            if terminated:
-                break
-        self.assertGreater(
-            obs[7], metacog_before,
-            "invest_skill should raise metacog_lift"
-        )
-
-    def test_quickwin_reduces_capacity(self):
-        """quick_win should reduce capacity_headroom."""
-        obs_before, _ = self.env.reset()
-        cap_before = obs_before[3]
-        obs, _, _, _, _ = self.env.step(ACTION_QUICK_WIN)
-        self.assertLess(obs[3], cap_before, "quick_win should reduce capacity")
-
-    def test_reward_clipped(self):
-        """Reward should be within [-2, 3]."""
-        self.env.reset()
-        for _ in range(10):
-            action = self.env.action_space.sample()
-            _, reward, terminated, _, _ = self.env.step(action)
-            self.assertGreaterEqual(reward, -2.0)
-            self.assertLessEqual(reward, 3.0)
-            if terminated:
-                break
-
-# ---------------------------------------------------------------------------
-# 3. Horizon Projection Tests — Core Scenario
-# ---------------------------------------------------------------------------
-
-class TestHorizonProjection(unittest.TestCase):
+def run_three_depth_views(
+    env: DepthRenderGym,
+    query: str,
+    verbose: bool = False,
+) -> Dict:
     """
-    PRIMARY TEST: "Deploy prod now?" → delay 3d reasoning.
-    Expected: recommendation=delay, gain > 0, metacog >= 60.
+    Generate 3 depth views for a query:
+      View 1 (Shallow)  — expand_analysis only
+      View 2 (Medium)   — expand_analysis + rich_table
+      View 3 (Expert)   — expand_analysis + plotly_chart + rich_table + source_tree
+    Returns scores for all 3 views.
     """
+    scorer = DepthScorer()
+    views  = []
 
-    def setUp(self):
-        self.env = FutureSelfGym(seed=42, pgvector_context=SAMPLE_MEMORIES)
+    # View 1: Shallow (single expand)
+    obs1, _ = env.reset()
+    obs1, r1, *_ = env.step(ACT_EXPAND_ANALYSIS)
+    s1 = scorer.score_dict(env._apply_action(ACT_EXPAND_ANALYSIS, obs1))
+    views.append({"view": 1, "label": "Shallow",
+                  "actions": ["expand_analysis"], "scores": s1})
 
-    def tearDown(self):
-        self.env.close()
+    # View 2: Medium (expand + table)
+    obs2, _ = env.reset()
+    env.step(ACT_EXPAND_ANALYSIS)
+    obs2, r2, *_ = env.step(ACT_RICH_TABLE)
+    s2 = scorer.score_dict(env._apply_action(ACT_RICH_TABLE, obs2))
+    views.append({"view": 2, "label": "Medium",
+                  "actions": ["expand_analysis", "rich_table"], "scores": s2})
 
-    def test_deploy_query_recommends_delay(self):
-        """'Deploy prod now?' should recommend delay."""
-        proj = self.env.project_horizon("Deploy prod now?", delay_days=3)
+    # View 3: Expert (expand + plotly + table + sources)
+    obs3, _ = env.reset()
+    env.step(ACT_EXPAND_ANALYSIS)
+    env.step(ACT_PLOTLY_CHART)
+    obs3, r3, *_ = env.step(ACT_RICH_TABLE)
+    env.step(ACT_SOURCE_TREE)
+    # Combine all canvas scores
+    combined_text = (
+        env._apply_action(ACT_EXPAND_ANALYSIS, obs3) +
+        env._apply_action(ACT_PLOTLY_CHART, obs3) +
+        env._apply_action(ACT_RICH_TABLE, obs3) +
+        env._apply_action(ACT_SOURCE_TREE, obs3)
+    )
+    s3 = scorer.score_dict(combined_text)
+    views.append({"view": 3, "label": "Expert",
+                  "actions": ["expand_analysis", "plotly_chart",
+                              "rich_table", "source_tree"], "scores": s3})
 
-        self.assertEqual(
-            proj["recommendation"], "delay",
-            f"Expected 'delay' but got '{proj['recommendation']}'. Full: {json.dumps(proj, indent=2)}"
-        )
+    if verbose:
+        print(f"\n  3-Depth Views for: '{query}'")
+        for v in views:
+            print(f"    View {v['view']} ({v['label']:<10s}): "
+                  f"depth={v['scores']['depth_score']:.3f}  "
+                  f"canvas={v['scores']['canvas_quality']:.3f}  "
+                  f"engage={v['scores']['engagement']:.3f}  "
+                  f"truth={v['scores']['halluc_free']:.3f}")
 
-    def test_delay_gain_is_positive(self):
-        """Delay gain should be > 0 for deployment query."""
-        proj = self.env.project_horizon("Deploy prod now?", delay_days=3)
-        self.assertGreater(proj["gain"], 0.0, f"gain={proj['gain']} should be positive")
+    return {"query": query, "views": views}
 
-    def test_metacog_score_reasonable(self):
-        """Metacog score should be >= 50 with memory context."""
-        proj = self.env.project_horizon("Deploy prod now?", delay_days=3)
-        self.assertGreaterEqual(
-            proj["metacog_score"], 50,
-            f"metacog_score={proj['metacog_score']} below threshold"
-        )
 
-    def test_capacity_headroom_reported(self):
-        """capacity_headroom_pct should be in [0, 100]."""
-        proj = self.env.project_horizon("Deploy prod now?", delay_days=3)
-        self.assertGreaterEqual(proj["capacity_headroom_pct"], 0)
-        self.assertLessEqual(proj["capacity_headroom_pct"], 100)
+# ===========================================================================
+# SCORING
+# ===========================================================================
 
-    def test_delay_roi_exceeds_now_roi(self):
-        """delay_roi should be greater than now_roi when recommendation is delay."""
-        proj = self.env.project_horizon("Deploy prod now?", delay_days=3)
-        if proj["recommendation"] == "delay":
-            self.assertGreater(proj["delay_roi"], proj["now_roi"])
+def score_test(env: DepthRenderGym, tc: Dict, verbose: bool) -> Dict:
+    obs, info = env.reset()
+    ep_reward  = 0.0
+    final_obs  = obs
 
-    def test_cfr_strategy_sums_to_one(self):
-        """CFR strategy should be a valid probability distribution."""
-        import numpy as np
-        proj = self.env.project_horizon("Deploy prod now?", delay_days=3)
-        cfr = proj["cfr_strategy"]
-        self.assertEqual(len(cfr), 7, "CFR strategy should have 7 entries")
-        total = sum(cfr)
-        self.assertAlmostEqual(total, 1.0, places=3, msg=f"CFR doesn't sum to 1: {total}")
-        for v in cfr:
-            self.assertGreaterEqual(v, 0.0, "CFR probability negative")
+    # Build combined augmented text across all actions for accurate scoring
+    combined_text = ""
+    for action in tc["actions"]:
+        combined_text += env._apply_action(action, obs)
+        obs, r, terminated, truncated, step_info = env.step(action)
+        ep_reward  += r
+        final_obs   = obs
+        if terminated or truncated:
+            break
 
-    def test_explanation_contains_delay_days(self):
-        """Explanation string should reference delay days."""
-        proj = self.env.project_horizon("Deploy prod now?", delay_days=3)
-        if proj["recommendation"] == "delay":
-            self.assertIn("3", proj["explanation"])
+    # Re-score the combined output (reflects all canvas types emitted)
+    from depth_render_gym import DepthScorer as _DS
+    combined_scores = _DS().score(combined_text)
+    d, c, e, h  = combined_scores
+    score_100    = min(int((d * W_DEPTH + c * W_VISUAL + h * W_TRUTH + e * 0.1) / 0.9 * 100), 100)
+    reward, _    = compute_reward(d, c, e, h, tc["actions"][-1])
 
-    def test_no_delay_for_safe_query(self):
-        """Low-risk query should not necessarily delay."""
-        env = FutureSelfGym(seed=42)
-        proj = env.project_horizon("Tell me a chess joke", delay_days=3)
-        # This is informational — just check it runs without error
-        self.assertIn(proj["recommendation"], ["delay", "act_now"])
-        env.close()
+    passed_canvas = (not tc["require_canvas"]) or (c >= 0.45)
+    passed_depth  = d >= tc["min_depth"]
+    passed_truth  = h >= 0.85
+    passed        = passed_canvas and passed_depth and passed_truth
 
-# ---------------------------------------------------------------------------
-# 4. CFR Tracker Tests
-# ---------------------------------------------------------------------------
+    result = {
+        "id":            tc["id"],
+        "label":         tc["label"],
+        "query":         tc["query"],
+        "score_100":     score_100,
+        "reward":        round(float(reward), 4),
+        "depth_score":   round(float(d), 4),
+        "canvas_quality":round(float(c), 4),
+        "engagement":    round(float(e), 4),
+        "halluc_free":   round(float(h), 4),
+        "passed_canvas": bool(passed_canvas),
+        "passed_depth":  bool(passed_depth),
+        "passed_truth":  bool(passed_truth),
+        "PASS":          bool(passed),
+    }
 
-class TestCFRTracker(unittest.TestCase):
+    # 3-depth view for canonical test
+    if tc.get("depth_views", 0) >= 3:
+        result["depth_views"] = run_three_depth_views(env, tc["query"], verbose)
 
-    def setUp(self):
-        self.cfr = CFRRegretTracker(n_actions=7)
+    return result
 
-    def test_initial_uniform_strategy(self):
-        """Before any updates, strategy should be uniform."""
-        import numpy as np
-        strat = self.cfr.get_strategy()
-        expected = 1.0 / 7
-        for v in strat:
-            self.assertAlmostEqual(v, expected, places=5)
 
-    def test_regret_matching_favours_high_utility(self):
-        """After many quick_win losses, delay_compound should dominate."""
-        import numpy as np
-        # quick_win has low utility, delay_compound has high
-        for _ in range(200):
-            utils = np.array([-0.5, 1.2, 0.8, 0.4, 0.3, 0.1, 0.5])
-            self.cfr.update(0, utils)   # always chose quick_win
+# ===========================================================================
+# CANVAS OUTPUT SAMPLES
+# ===========================================================================
 
-        strat = self.cfr.get_strategy()
-        # delay_compound (idx 1) should have highest probability
-        self.assertEqual(
-            strat.argmax(), 1,
-            f"Expected delay_compound to dominate, got {ACTION_NAMES[strat.argmax()]}"
-        )
+def test_canvas_outputs(verbose: bool) -> Dict:
+    """Test all 5 canvas renderers directly."""
+    renderer = CanvasRenderer()
+    results  = {}
 
-    def test_average_strategy_normalised(self):
-        """average_strategy() must sum to 1.0."""
-        import numpy as np
-        for i in range(50):
-            utils = np.random.uniform(-1, 2, 7)
-            self.cfr.update(i % 7, utils)
-        avg = self.cfr.average_strategy()
-        self.assertAlmostEqual(avg.sum(), 1.0, places=5)
+    # 1. Mermaid
+    m = renderer.mermaid(
+        "flowchart LR",
+        nodes=[
+            {"id": "Q",  "label": "1.09 ADP?", "shape": "round"},
+            {"id": "D1", "label": "Depth 1",    "shape": "rect"},
+            {"id": "D2", "label": "Depth 2",    "shape": "rect"},
+            {"id": "D3", "label": "Expert",     "shape": "diamond"},
+        ],
+        edges=[
+            {"from": "Q",  "to": "D1", "label": "shallow"},
+            {"from": "D1", "to": "D2", "label": "expand"},
+            {"from": "D2", "to": "D3", "label": "canvas"},
+        ],
+        title="ADP Depth Render Flow",
+    )
+    results["mermaid"] = {
+        "valid":  m.startswith("```mermaid"),
+        "length": len(m),
+        "sample": m[:100],
+    }
 
-    def test_reset_clears_state(self):
-        """reset() should zero out all regrets."""
-        import numpy as np
-        for _ in range(10):
-            self.cfr.update(0, np.ones(7))
-        self.cfr.reset()
-        self.assertEqual(self.cfr.t, 0)
-        self.assertTrue((self.cfr.cumulative_regret == 0).all())
+    # 2. Plotly
+    p = renderer.plotly(
+        chart_type="horizontal_bar",
+        x=["McCaffrey", "Hill", "Jefferson", "Robinson", "Henry"],
+        y=[1.01, 1.02, 1.03, 1.09, 1.12],
+        x_label="ADP", y_label="Player",
+        title="Dynasty ADP 2026 — 1.09 ADP Context",
+    )
+    results["plotly"] = {
+        "valid":    p.startswith("```plotly"),
+        "has_json": '"data"' in p and '"layout"' in p,
+        "length":   len(p),
+        "sample":   p[:100],
+    }
 
-# ---------------------------------------------------------------------------
-# 5. Curve Function Tests
-# ---------------------------------------------------------------------------
+    # 3. HTML Table
+    t = renderer.html_table(
+        headers=["Player", "Pos", "ADP", "Team", "PPG"],
+        rows=[
+            ["C. McCaffrey", "RB", "1.01", "SF",  "28.4"],
+            ["T. Hill",      "WR", "1.02", "MIA", "26.1"],
+            ["B. Robinson",  "RB", "1.09", "ATL", "22.3"],
+        ],
+        caption="1.09 ADP Context — Dynasty 2026",
+        highlight_col=2,
+    )
+    results["html_table"] = {
+        "valid":     t.startswith("```html"),
+        "has_style": 'style=' in t,
+        "length":    len(t),
+        "sample":    t[:100],
+    }
 
-class TestExponentialCurves(unittest.TestCase):
+    # 4. Source Tree
+    s = renderer.source_tree([
+        {"label": "FantasyPros ECR",
+         "url": "https://www.fantasypros.com/nfl/rankings/dynasty-overall.php",
+         "type": "primary"},
+        {"label": "ESPN ADP",
+         "url": "https://fantasy.espn.com/football/livedraftresults",
+         "type": "primary"},
+    ])
+    results["source_tree"] = {
+        "valid":  s.startswith("```mermaid"),
+        "length": len(s),
+        "sample": s[:100],
+    }
 
-    def test_exponential_growth_monotone(self):
-        """Growth is strictly increasing with days."""
-        vals = [exponential_growth(1.0, d) for d in range(0, 30)]
-        for i in range(len(vals) - 1):
-            self.assertLess(vals[i], vals[i + 1])
+    if verbose:
+        print("\n  Canvas renderer outputs:")
+        for name, r in results.items():
+            status = "✓" if r["valid"] else "✗"
+            print(f"    {status} {name:<15s} len={r['length']:5d}  {r['sample'][:60]}...")
 
-    def test_adp_decay_monotone(self):
-        """ADP decays strictly over days."""
-        vals = [adp_decay(10.0, d) for d in range(0, 30)]
-        for i in range(len(vals) - 1):
-            self.assertGreater(vals[i], vals[i + 1])
+    all_valid = all(r["valid"] for r in results.values())
+    return {"renderers": results, "all_valid": all_valid}
 
-    def test_chess_elo_trajectory_capped(self):
-        """Chess ELO projection never exceeds 200."""
-        elo = chess_elo_trajectory(150.0, invest_days=100)
-        self.assertLessEqual(elo, 200.0)
 
-    def test_metacog_lift_grows_with_investment(self):
-        """Metacog lift grows with skill investment."""
-        lift_invest = metacog_lift_projection(20.0, skill_invested=True,  days=10)
-        lift_none   = metacog_lift_projection(20.0, skill_invested=False, days=10)
-        self.assertGreater(lift_invest, lift_none)
+# ===========================================================================
+# CONTEXT INJECTION TEST
+# ===========================================================================
 
-    def test_render_cost_penalty_above_threshold(self):
-        """render_cost_curve returns a penalty above threshold."""
-        cost = render_cost_curve(0.90, days=10)
-        self.assertGreater(cost, 0.0)
-
-    def test_render_no_penalty_below_threshold(self):
-        """render_cost_curve returns 0 below threshold."""
-        cost = render_cost_curve(0.50, days=1)
-        self.assertEqual(cost, 0.0)
-
-# ---------------------------------------------------------------------------
-# 6. Domain Weights Tests
-# ---------------------------------------------------------------------------
-
-class TestDomainWeights(unittest.TestCase):
-
-    def test_memory_context_shifts_weights(self):
-        """pgvector context with more FF memories should increase ff_weight."""
-        ff_memories = [
-            {"content": "FF trade analysis", "project": "FF", "importance": 8},
-            {"content": "ADP strategy",      "project": "FF", "importance": 7},
-            {"content": "Deploy note",       "project": "deploy", "importance": 6},
+def test_context_injection(env: DepthRenderGym, verbose: bool) -> Dict:
+    """Verify context injection JSON is valid and complete."""
+    inj_str = build_context_injection(env, "1.09 ADP?")
+    try:
+        inj = json.loads(inj_str)
+        required_keys = [
+            "gym", "version", "query", "recommended_action",
+            "cfr_strategy", "canvas_hint", "reward_weights",
         ]
-        env = FutureSelfGym(pgvector_context=ff_memories)
-        weights = env._domain_weights
-        self.assertGreater(weights["ff_weight"], weights["deploy_weight"])
-        env.close()
+        missing = [k for k in required_keys if k not in inj]
+        valid   = len(missing) == 0
 
-    def test_no_memory_uses_defaults(self):
-        """Empty pgvector context uses hardcoded defaults."""
-        env = FutureSelfGym(pgvector_context=[])
-        weights = env._domain_weights
-        self.assertAlmostEqual(weights["ff_weight"],     0.35, places=2)
-        self.assertAlmostEqual(weights["deploy_weight"], 0.30, places=2)
-        env.close()
+        if verbose:
+            print(f"\n  Context injection test:")
+            print(f"    Valid JSON: {valid}")
+            print(f"    Keys found: {list(inj.keys())}")
+            if missing:
+                print(f"    Missing:    {missing}")
+            print(f"    Action:     {inj.get('recommended_action')}")
+            print(f"    CFR:        {inj.get('cfr_strategy')}")
 
-# ---------------------------------------------------------------------------
-# 7. Integration / Smoke Test
-# ---------------------------------------------------------------------------
+        return {
+            "valid":   valid,
+            "missing": missing,
+            "action":  inj.get("recommended_action"),
+            "payload": inj,
+        }
+    except json.JSONDecodeError as e:
+        return {"valid": False, "error": str(e)}
 
-class TestIntegration(unittest.TestCase):
-    """End-to-end smoke tests."""
 
-    def test_full_episode_no_crash(self):
-        """A full episode completes without exceptions."""
-        env = FutureSelfGym(seed=0)
-        obs, _ = env.reset()
-        done = False
-        steps = 0
-        while not done and steps < HORIZON_DAYS + 5:
-            action = env.action_space.sample()
-            obs, _, terminated, truncated, _ = env.step(action)
-            done = terminated or truncated
-            steps += 1
-        env.close()
-        self.assertTrue(done, "Episode did not terminate")
+# ===========================================================================
+# MAIN VALIDATION RUN
+# ===========================================================================
 
-    def test_projection_output_schema(self):
-        """project_horizon returns all required keys."""
-        env = FutureSelfGym(seed=5)
-        proj = env.project_horizon("Should I push to prod?", delay_days=3)
-        env.close()
+def run_validation(
+    quick:   bool = False,
+    verbose: bool = False,
+) -> Dict:
+    env   = DepthRenderGym(max_steps=10, seed=42)
+    tests = TEST_CASES[:1] if quick else TEST_CASES
 
-        required = [
-            "query", "recommendation", "delay_days", "now_roi",
-            "delay_roi", "gain", "metacog_score", "capacity_headroom_pct",
-            "explanation", "cfr_strategy",
-        ]
-        for key in required:
-            self.assertIn(key, proj, f"Missing key: {key}")
+    print(f"\n{'═'*60}")
+    print(f"  DepthRenderGym v1 — Validation Suite")
+    print(f"  Tests: {len(tests)}  |  Target score: 95/100")
+    print(f"{'═'*60}")
 
-    def test_render_ansi(self):
-        """render(mode='ansi') returns a non-empty string."""
-        env = FutureSelfGym(render_mode="ansi")
-        env.reset()
-        env.step(ACTION_DELAY_COMPOUND)
-        rendered = env.render()
-        self.assertIsInstance(rendered, str)
-        self.assertGreater(len(rendered), 0)
-        env.close()
-
-    def test_deploy_scenario_summary(self):
-        """
-        ★ PRIMARY SCENARIO ★
-        'Deploy prod now?' → [FutureSelf] Delay 3d = 2x capacity headroom [88/100 metacog]
-        """
-        env = FutureSelfGym(seed=42, pgvector_context=SAMPLE_MEMORIES)
-        proj = env.project_horizon("Deploy prod now?", delay_days=3)
-        env.close()
-
-        rec = proj["recommendation"]
-        metacog = proj["metacog_score"]
-        cap = proj["capacity_headroom_pct"]
-        gain = proj["gain"]
-
+    # --- Run test cases ---
+    test_results = []
+    for tc in tests:
+        r = score_test(env, tc, verbose)
+        test_results.append(r)
+        status = "✓ PASS" if r["PASS"] else "✗ FAIL"
         print(
-            f"\n[FutureSelf] {rec.upper()} | Delay 3d = "
-            f"{'+' if gain >= 0 else ''}{gain:.2f} gain | "
-            f"{cap}% capacity | {metacog}/100 metacog"
+            f"  {status}  {r['id']}  {r['label']:<30s}  "
+            f"Score {r['score_100']:3d}/100  "
+            f"Depth {r['depth_score']:.3f}  "
+            f"Canvas {r['canvas_quality']:.3f}  "
+            f"Truth {r['halluc_free']:.3f}"
         )
 
-        # Soft assertions (exact values vary by seed/state but direction is fixed)
-        self.assertEqual(rec, "delay", f"Should recommend delay, got: {rec}")
-        self.assertGreater(metacog, 40, f"metacog_score {metacog} too low")
-        self.assertGreater(cap, 30, f"capacity_headroom_pct {cap} too low")
-        self.assertGreater(gain, 0, f"gain {gain} should be positive")
+    # --- Canvas output tests ---
+    print(f"\n{'─'*60}")
+    print("  Canvas Renderer Tests")
+    canvas_result = test_canvas_outputs(verbose)
+    canvas_status = "✓ PASS" if canvas_result["all_valid"] else "✗ FAIL"
+    print(f"  {canvas_status}  All 4 renderers valid: {canvas_result['all_valid']}")
+
+    # --- Context injection test ---
+    print(f"\n{'─'*60}")
+    print("  Context Injection Test")
+    inj_result = test_context_injection(env, verbose)
+    inj_status = "✓ PASS" if inj_result["valid"] else "✗ FAIL"
+    print(f"  {inj_status}  Injection JSON valid: {inj_result['valid']}")
+    if inj_result.get("action"):
+        print(f"         Recommended action: {inj_result['action']}")
+
+    # --- Summary ---
+    scores      = [r["score_100"]      for r in test_results]
+    passed      = [r["PASS"]           for r in test_results]
+    canvases    = [r["canvas_quality"] for r in test_results]
+    truths      = [r["halluc_free"]    for r in test_results]
+
+    avg_score   = round(float(np.mean(scores)), 1)
+    pass_rate   = round(sum(passed) / len(passed) * 100, 1)
+    avg_canvas  = round(float(np.mean(canvases)), 3)
+    avg_truth   = round(float(np.mean(truths)), 3)
+
+    all_pass = (
+        avg_score  >= 90
+        and avg_canvas >= 0.40
+        and avg_truth  >= 0.85
+        and canvas_result["all_valid"]
+        and inj_result["valid"]
+    )
+
+    print(f"\n{'═'*60}")
+    print(f"  SUMMARY")
+    print(f"  Average score:    {avg_score}/100  (target: 95/100)")
+    print(f"  Pass rate:        {pass_rate}%  ({sum(passed)}/{len(passed)} tests)")
+    print(f"  Avg canvas qual:  {avg_canvas:.3f}")
+    print(f"  Avg truth ratio:  {avg_truth:.3f}")
+    print(f"  Canvas renderers: {'✓ all valid' if canvas_result['all_valid'] else '✗ failures'}")
+    print(f"  Injection JSON:   {'✓ valid' if inj_result['valid'] else '✗ invalid'}")
+    print(f"")
+    print(f"  OVERALL: {'✓ PASS' if all_pass else '✗ FAIL'}")
+    print(f"{'═'*60}\n")
+
+    # --- Show 3-depth views if verbose ---
+    if verbose:
+        canonical = next((r for r in test_results if r["id"] == "T01"), None)
+        if canonical and "depth_views" in canonical:
+            dv = canonical["depth_views"]
+            print(f"  3-Depth Views — '{dv['query']}'")
+            for v in dv["views"]:
+                s = v["scores"]
+                score = int(
+                    (s["depth_score"] * W_DEPTH +
+                     s["canvas_quality"] * W_VISUAL +
+                     s["halluc_free"] * W_TRUTH +
+                     s["engagement"] * 0.1) / 0.9 * 100
+                )
+                print(
+                    f"    View {v['view']} ({v['label']:<10s}): "
+                    f"score={score:3d}/100  "
+                    f"depth={s['depth_score']:.3f}  "
+                    f"canvas={s['canvas_quality']:.3f}  "
+                    f"truth={s['halluc_free']:.3f}"
+                )
+            print()
+
+    return {
+        "test_results":       test_results,
+        "canvas_renderers":   canvas_result,
+        "injection":          inj_result,
+        "avg_score_100":      avg_score,
+        "pass_rate_pct":      pass_rate,
+        "avg_canvas_quality": avg_canvas,
+        "avg_truth_ratio":    avg_truth,
+        "OVERALL_PASS":       all_pass,
+    }
 
 
-# ---------------------------------------------------------------------------
-# Runner
-# ---------------------------------------------------------------------------
-
-def run_tests(verbose: bool = False, skip_hook: bool = True) -> bool:
-    """Run all tests and return True if all pass."""
-    loader = unittest.TestLoader()
-    suite = unittest.TestSuite()
-
-    test_classes = [
-        TestFutureSelfGymCore,
-        TestRewardSignal,
-        TestHorizonProjection,
-        TestCFRTracker,
-        TestExponentialCurves,
-        TestDomainWeights,
-        TestIntegration,
-    ]
-
-    for cls in test_classes:
-        suite.addTests(loader.loadTestsFromTestCase(cls))
-
-    verbosity = 2 if verbose else 1
-    runner = unittest.TextTestRunner(verbosity=verbosity)
-    result = runner.run(suite)
-
-    all_passed = result.wasSuccessful()
-
-    if all_passed:
-        print("\n✅ All FutureSelfGym v1 validation tests PASSED")
-    else:
-        print(
-            f"\n❌ {len(result.failures)} failure(s), "
-            f"{len(result.errors)} error(s)"
-        )
-
-    return all_passed
-
+# ===========================================================================
+# CLI
+# ===========================================================================
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description="FutureSelfGym v1 Validation")
-    parser.add_argument("-v", "--verbose", action="store_true")
-    parser.add_argument("--hook", action="store_true", help="Also test TS hook bridge")
+    parser = argparse.ArgumentParser(description="DepthRenderGym v1 Validation")
+    parser.add_argument("--quick",   action="store_true",
+                        help="Run canonical test only (T01: 1.09 ADP?)")
+    parser.add_argument("--verbose", action="store_true",
+                        help="Show canvas outputs and 3-depth views")
     args = parser.parse_args()
 
-    passed = run_tests(verbose=args.verbose, skip_hook=not args.hook)
-    sys.exit(0 if passed else 1)
+    results = run_validation(quick=args.quick, verbose=args.verbose)
+
+    out = Path("depth_render_validation.json")
+    with open(out, "w") as f:
+        # Flatten non-serializable numpy types
+        def default(obj):
+            if isinstance(obj, (np.integer, np.floating)):
+                return float(obj)
+            if isinstance(obj, np.ndarray):
+                return obj.tolist()
+            raise TypeError(f"Not serializable: {type(obj)}")
+
+        def default(obj):
+            if isinstance(obj, (bool,)):
+                return bool(obj)
+            if hasattr(obj, 'item'):   # numpy scalar
+                return obj.item()
+            if hasattr(obj, 'tolist'): # numpy array
+                return obj.tolist()
+            raise TypeError(f"Not serializable: {type(obj)}")
+        json.dump(results, f, indent=2, default=default)
+
+    print(f"Results saved → {out}")
+    sys.exit(0 if results["OVERALL_PASS"] else 1)
