@@ -37,6 +37,56 @@ def calculate_vorp_for_player(player_name: str, adp: float, position: str) -> fl
     return vorp(pts, position)
 
 
+def position_constrained_regret(drafted_player: str, drafted_pos: str, drafted_adp: float, 
+                               later_picks: List[Dict], pos_lookup: Dict) -> Tuple[float, Dict]:
+    """
+    Calculate regret ONLY within the same position.
+    
+    This is more realistic: "Could I have waited for a better player at THIS position?"
+    vs cross-position which ignores positional hierarchy (RB1 > TE1 always).
+    
+    Args:
+        drafted_player: Name of player drafted
+        drafted_pos: Position of drafted player
+        drafted_adp: ADP of drafted player
+        later_picks: All picks made after this pick
+        pos_lookup: Position lookup dict
+    
+    Returns:
+        (regret_score, best_missed_dict)
+    """
+    # Find players at same position drafted later
+    same_pos_candidates = []
+    for later_pick in later_picks:
+        later_name = later_pick['player']
+        later_pos = pos_lookup.get(later_name, 'WR')
+        
+        if later_pos == drafted_pos:
+            later_adp = later_pick.get('adp', 100)
+            later_vorp = calculate_vorp_for_player(later_name, later_adp, later_pos)
+            same_pos_candidates.append({
+                'name': later_name,
+                'pick': later_pick['pick'],
+                'position': later_pos,
+                'adp': later_adp,
+                'vorp': later_vorp
+            })
+    
+    if not same_pos_candidates:
+        # No better option available at same position later
+        return 0, None
+    
+    # Find best missed at same position
+    drafted_vorp = calculate_vorp_for_player(drafted_player, drafted_adp, drafted_pos)
+    
+    best_same_pos = max(same_pos_candidates, key=lambda p: p['vorp'])
+    
+    # Regret = how much better was the later player at same position?
+    regret = max(0, best_same_pos['vorp'] - drafted_vorp)
+    
+    return regret, best_same_pos
+
+
 def analyze_draft_regret(draft_log: List[Dict], teams: List, roger_slot: int = None) -> Dict:
     """
     Analyze a completed draft for regret.
@@ -100,35 +150,18 @@ def analyze_draft_regret(draft_log: List[Dict], teams: List, roger_slot: int = N
         drafted_name = pick['player']
         drafted_adp = pick.get('adp', 100)
         
-        # Get drafted player's VORP
+        # Get drafted player's position
         drafted_pos = pos_lookup.get(drafted_name, 'WR')
-        drafted_vorp = calculate_vorp_for_player(drafted_name, drafted_adp, drafted_pos)
         
         # Find all players drafted AFTER this pick (by any team)
         later_picks = [p for p in draft_log if p['pick'] > pick_num]
         
-        # Find best opportunity missed
-        best_missed = None
-        best_missed_vorp = -float('inf')
+        # Calculate POSITION-CONSTRAINED regret (same position only)
+        regret, best_missed = position_constrained_regret(
+            drafted_name, drafted_pos, drafted_adp, later_picks, pos_lookup
+        )
         
-        for later_pick in later_picks:
-            later_name = later_pick['player']
-            later_adp = later_pick.get('adp', 100)
-            later_pos = pos_lookup.get(later_name, 'WR')
-            later_vorp = calculate_vorp_for_player(later_name, later_adp, later_pos)
-            
-            if later_vorp > best_missed_vorp:
-                best_missed_vorp = later_vorp
-                best_missed = {
-                    'name': later_name,
-                    'pick': later_pick['pick'],
-                    'vorp': later_vorp,
-                    'position': later_pos,
-                    'adp': later_adp
-                }
-        
-        # Calculate regret
-        regret = max(0, best_missed_vorp - drafted_vorp) if best_missed else 0
+        drafted_vorp = calculate_vorp_for_player(drafted_name, drafted_adp, drafted_pos)
         cumulative_regret += regret
         
         regret_analysis.append({
