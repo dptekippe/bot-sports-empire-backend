@@ -1,0 +1,47 @@
+{
+  "hooks": {
+    "external": {
+      "enabled": true,
+      "entries": {
+        "mcts-reflection": {
+          "enabled": true,
+          "path": "hooks/mcts_reflection_hook.py",
+          "handler": "handler",
+          "triggers": ["pre_message"],
+          "auto_fire_keywords": ["think", "optimal", "complex", "deploy", "render"],
+          "auto_fire_complexity_threshold": 0.6,
+          "auto_fire_risk_threshold": 0.5,
+          "metacog_version": "v3",
+          "kill_switch_env": "MCTS_ENABLED",
+          "description": "MCTS pre-answer reasoning tree search. Forces exploration-first before LLM commits to a response."
+        }
+      }
+    }
+  },
+  "metacognition": {
+    "version": "v3",
+    "upgraded_from": "v2",
+    "mcts_enabled": true,
+    "exploration_branches": 8,
+    "min_branches_complex": 16,
+    "max_depth": 4,
+    "num_simulations": 50,
+    "exploration_constant": 1.414,
+    "score_target": 85,
+    "history_file": "~/.openclaw/workspace/metacog_v3_history.json",
+    "model_file": "mcts_exploration_model.zip",
+    "reward_weights": {
+      "reasoning_accuracy": 0.4,
+      "exploration_diversity": 0.3,
+      "answer_regret_penalty": 0.3
+    },
+    "training": {
+      "algorithm": "PPO+CFR-HER",
+      "total_timesteps": 100000,
+      "checkpoint_freq": 10000,
+      "validation_split": 0.2,
+      "convergence_threshold": 0.001,
+      "convergence_patience": 500
+    }
+  }
+}
