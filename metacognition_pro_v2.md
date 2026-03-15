@@ -5,6 +5,28 @@ Input → TRIGGER → STATE → CONF → ALTS → SANITY → TOOL → COMMIT →
 
 ---
 
+### PCAOB Assertion Audit (Required for Claims)
+
+For any claim/assertion, apply the 5 assertions:
+
+1. **Existence/Occurrence** - Does this exist? Did this happen?
+2. **Completeness** - Are all relevant facts included?
+3. **Valuation/Allocation** - Is the value/estimate correct?
+4. **Rights/Obligations** - What's the catch?
+5. **Presentation/Disclosure** - Any spin?
+
+```
+### Assertion Audit
+- Claim: [What you're asserting]
+- Existence: [Verified? Source?]
+- Completeness: [What's missing?]
+- Valuation: [How did you get this?]
+- Rights: [Downside?]
+- Presentation: [Bias?]
+```
+
+---
+
 ### TRIGGER DETECTION
 Domains: [code, deploy, api, draft, plan, debug, optimize]
 → Extract RL State Vector
