@@ -1,0 +1,137 @@
+{
+  "_comment": "MetaGym v1 — OpenClaw gateway config. Merge into ~/.openclaw/agents/main/agent/openclaw.json",
+  "version": "1.0.0",
+  "gym": "MetaGym",
+
+  "hooks": {
+    "before_prompt_build": [
+      "meta_orchestrator_before_prompt"
+    ],
+    "after_model_think": [
+      "meta_orchestrator_after_think"
+    ],
+    "before_model_response": [
+      "meta_orchestrator_before_response",
+      "depth_render_hook"
+    ]
+  },
+
+  "models": {
+    "primary": {
+      "provider":    "minimax",
+      "model_id":    "MiniMax-Text-01",
+      "temperature": 0.72,
+      "max_tokens":  8192,
+      "thinking":    "high",
+      "_note":       "High thinking enables after_model_think hook to fire"
+    },
+    "fallback": {
+      "provider":    "deepseek",
+      "model_id":    "deepseek-chat",
+      "temperature": 0.7,
+      "max_tokens":  4096,
+      "thinking":    "low"
+    }
+  },
+
+  "gym_config": {
+    "metacog_target":    98,
+    "metacog_formula":   "conf*(1-risk_bias)*truth_ratio",
+    "metacog_weights": {
+      "truth_feedback":  0.35,
+      "cross_domain":    0.25,
+      "metacog_streak":  0.20,
+      "gym_health":      0.15
+    },
+    "cfr_path":          "~/.openclaw/gyms/metagym_cfr.json",
+    "ppo_path":          "~/.openclaw/gyms/metagym_ppo.json",
+    "fusion_path":       "~/.openclaw/gyms/metagym_fusion.json",
+    "matrix_path":       "~/.openclaw/gyms/metagym_matrix.json",
+    "session_path":      "~/.openclaw/gyms/metagym_session.json",
+    "last_score_path":   "~/.openclaw/gyms/metagym_last_score.json",
+    "log_s1":            "~/.openclaw/gyms/metagym_s1.log",
+    "log_s2":            "~/.openclaw/gyms/metagym_s2.log",
+    "log_s3":            "~/.openclaw/gyms/metagym_s3.log",
+    "training_log":      "~/.openclaw/gyms/metagym_log.jsonl",
+    "hooks_total":       15,
+    "actions": [
+      "halluc_block", "thought_forge", "gym_spawn", "policy_evolve",
+      "canvas_orchestrate", "truth_audit", "momentum_surge", "gap_seal"
+    ],
+    "all_hooks": [
+      "echochamber", "futureself", "question", "proactive",
+      "biascheck", "doubttrigger", "mcts", "memory_pre",
+      "render_deploy", "self_improve", "depth_render",
+      "boot_md", "session_memory", "bootstrap_extra", "command_logger"
+    ],
+    "neural_fusion_layers": [24, 64, 48, 32, 15],
+    "her_buffer_size": 3000,
+    "cfr_prior":       [0.15, 0.20, 0.08, 0.12, 0.15, 0.15, 0.10, 0.05]
+  },
+
+  "canvas": {
+    "enabled":   true,
+    "renderer":  "webkit",
+    "dark_mode": true,
+    "supported": ["mermaid", "plotly", "html"],
+    "theme": {
+      "bg":      "#1C1B19",
+      "surface": "#201F1D",
+      "text":    "#CDCCCA",
+      "accent":  "#4F98A3",
+      "border":  "#393836",
+      "chart1":  "#20808D",
+      "chart2":  "#A84B2F"
+    }
+  },
+
+  "memory": {
+    "pgvector_domains":   ["FF", "deploy", "chess", "code"],
+    "recency_days":       90,
+    "temporal_decay_tau": 30,
+    "truth_chain_maxlen": 50,
+    "auto_commit_threshold": 0.72
+  },
+
+  "context_injection": {
+    "stage1": {
+      "format":    "jsonl",
+      "tag":       "metagym_stage1",
+      "max_length": 512
+    },
+    "stage2": {
+      "format":    "jsonl",
+      "tag":       "metagym_stage2",
+      "max_length": 512
+    },
+    "stage3": {
+      "format":    "jsonl",
+      "tag":       "metagym_master",
+      "max_length": 1024
+    }
+  },
+
+  "validation_test": {
+    "query":           "Ty Simpson PFF grades this season?",
+    "domain":          "FF",
+    "target_metacog":  98,
+    "min_pass_metacog": 90,
+    "expected_canvas": ["plotly_chart", "html_table"],
+    "expected_action": "canvas_orchestrate"
+  },
+
+  "gym_series": {
+    "1": "SelfImproveGym",
+    "2": "EchoChamberGym",
+    "3": "FutureSelfGym",
+    "4": "DepthRenderGym",
+    "5": "MCTS_ExplorationGym",
+    "FINAL": "MetaGym"
+  },
+
+  "skills": {
+    "clawhub":     true,
+    "summarize":   true,
+    "model-usage": true
+  }
+}

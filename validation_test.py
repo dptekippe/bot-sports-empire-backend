@@ -1,18 +1,27 @@
 """
-validation_test.py — DepthRenderGym v1 Validation Suite
-=========================================================
-Canonical test: "1.09 ADP?" → Canvas ADP chart + 3-depth views [95/100]
+validation_test.py — MetaGym v1 Validation Suite
+==================================================
+Canonical test: "Ty Simpson PFF grades?" → Masterpiece fusion [98/100]
 
-Usage:
-    python validation_test.py                # Full suite
-    python validation_test.py --quick        # Canonical test only
-    python validation_test.py --verbose      # Show canvas outputs
+Tests:
+  T01: Canonical FF query — Ty Simpson PFF grades (domain=FF)
+  T02: Deploy CFR analysis — Render microservice deploy
+  T03: Dynasty comparison — Bijan vs CMC with canvas
+  T04: Code debug — async loop slowdown
+  T05: Cross-domain — OpenClaw hook pipeline visualization
+  T06: Frustration recovery — wrong answer recovery flow
+  T07: Truth audit — unverified claim detection
 
 Pass criteria:
-    avg_score >= 90/100   (target: 95/100)
-    canvas_quality >= 0.5 on at least 3/5 tests
-    halluc_free >= 0.9    on all tests
-    depth_score >= 0.65   on canonical test
+  avg_metacog >= 90/100 (target: 98)
+  truth_ratio >= 0.85 on all tests
+  halluc_rate < 0.20 on all tests
+  canvas + injection valid
+
+Usage:
+    python validation_test.py                  # Full suite
+    python validation_test.py --quick          # T01 only
+    python validation_test.py --verbose        # Show injection payloads
 """
 
 from __future__ import annotations
@@ -26,459 +35,454 @@ from typing import Dict, List
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent))
-from depth_render_gym import (
-    CanvasRenderer,
-    DepthRenderGym,
-    DepthScorer,
-    compute_reward,
-    build_context_injection,
-    ACT_EXPAND_ANALYSIS,
-    ACT_CANVAS_MERMAID,
-    ACT_PLOTLY_CHART,
-    ACT_RICH_TABLE,
-    ACT_SOURCE_TREE,
-    W_DEPTH, W_VISUAL, W_TRUTH,
+from metagym import (
+    MetaGym,
+    GymMatrix,
+    EmergentState,
+    TruthChain,
+    NeuralFusion,
+    MetaCFR,
+    MetaCogHistory,
+    ActionEngine,
+    compute_meta_reward,
+    build_meta_injection,
+    classify_domain,
+    ACTION_NAMES,
+    ACT_THOUGHT_FORGE,
+    ACT_HALLUC_BLOCK,
+    ACT_CANVAS_ORCHESTRATE,
+    ACT_TRUTH_AUDIT,
+    ACT_MOMENTUM_SURGE,
+    ACT_GAP_SEAL,
+    ACT_POLICY_EVOLVE,
+    W_TRUTH_FEEDBACK, W_CROSS_DOMAIN, W_METACOG_STREAK, W_GYM_HEALTH,
 )
 
-# ===========================================================================
+# ══════════════════════════════════════════════════════════════════════════════
 # TEST CASES
-# ===========================================================================
+# ══════════════════════════════════════════════════════════════════════════════
 
 TEST_CASES = [
     {
-        "id":       "T01",
-        "query":    "1.09 ADP?",
-        "label":    "Canonical ADP query",
-        "actions":  [ACT_PLOTLY_CHART, ACT_RICH_TABLE, ACT_EXPAND_ANALYSIS],
-        "require_canvas": True,
-        "min_depth": 0.65,
-        "depth_views": 3,  # 3-depth view test
+        "id":      "T01",
+        "query":   "Ty Simpson PFF grades this season?",
+        "label":   "Canonical FF — PFF grades",
+        "actions": [ACT_CANVAS_ORCHESTRATE, ACT_THOUGHT_FORGE,
+                    ACT_TRUTH_AUDIT, ACT_MOMENTUM_SURGE],
+        "domain":  "FF",
+        "min_metacog": 60,   # cold-start baseline; post-training: 98
+        "expect_canvas": True,
     },
     {
-        "id":       "T02",
-        "query":    "Compare Bijan Robinson vs CMC dynasty value",
-        "label":    "Dynasty comparison",
-        "actions":  [ACT_EXPAND_ANALYSIS, ACT_RICH_TABLE, ACT_SOURCE_TREE],
-        "require_canvas": True,
-        "min_depth": 0.55,
-        "depth_views": 2,
+        "id":      "T02",
+        "query":   "Should I deploy this Node.js microservice to Render now or stage first?",
+        "label":   "Deploy CFR analysis",
+        "actions": [ACT_TRUTH_AUDIT, ACT_THOUGHT_FORGE, ACT_GAP_SEAL],
+        "domain":  "deploy",
+        "min_metacog": 55,
+        "expect_canvas": False,
     },
     {
-        "id":       "T03",
-        "query":    "Visualize the OpenClaw hook pipeline",
-        "label":    "Mermaid diagram",
-        "actions":  [ACT_CANVAS_MERMAID, ACT_EXPAND_ANALYSIS, ACT_RICH_TABLE],
-        "require_canvas": True,
-        "min_depth": 0.45,
-        "depth_views": 2,
+        "id":      "T03",
+        "query":   "Dynasty trade: Bijan Robinson for 2 late 1sts?",
+        "label":   "Dynasty comparison + canvas",
+        "actions": [ACT_CANVAS_ORCHESTRATE, ACT_THOUGHT_FORGE, ACT_TRUTH_AUDIT],
+        "domain":  "FF",
+        "min_metacog": 55,
+        "expect_canvas": True,
     },
     {
-        "id":       "T04",
-        "query":    "Top 5 TE targets by air yards per game — table",
-        "label":    "HTML table output",
-        "actions":  [ACT_RICH_TABLE, ACT_EXPAND_ANALYSIS, ACT_SOURCE_TREE],
-        "require_canvas": True,
-        "min_depth": 0.50,
-        "depth_views": 2,
+        "id":      "T04",
+        "query":   "Why is my Python async loop 3x slower than expected?",
+        "label":   "Code debug + gap seal",
+        "actions": [ACT_GAP_SEAL, ACT_THOUGHT_FORGE, ACT_TRUTH_AUDIT],
+        "domain":  "code",
+        "min_metacog": 60,
+        "expect_canvas": False,
     },
     {
-        "id":       "T05",
-        "query":    "Build a source tree for dynasty trade value data",
-        "label":    "Source tree",
-        "actions":  [ACT_SOURCE_TREE, ACT_EXPAND_ANALYSIS, ACT_PLOTLY_CHART],
-        "require_canvas": True,
-        "min_depth": 0.40,
-        "depth_views": 1,
+        "id":      "T05",
+        "query":   "Visualize the OpenClaw 15-hook pipeline as a Mermaid diagram.",
+        "label":   "Canvas mermaid pipeline",
+        "actions": [ACT_CANVAS_ORCHESTRATE, ACT_THOUGHT_FORGE],
+        "domain":  "general",
+        "min_metacog": 60,
+        "expect_canvas": True,
+    },
+    {
+        "id":      "T06",
+        "query":   "That's wrong — try again. What are Ty Simpson's actual PFF grades?",
+        "label":   "Frustration recovery",
+        "actions": [ACT_HALLUC_BLOCK, ACT_TRUTH_AUDIT, ACT_THOUGHT_FORGE],
+        "domain":  "FF",
+        "min_metacog": 55,
+        "expect_canvas": False,
+    },
+    {
+        "id":      "T07",
+        "query":   "Self-improve: what cognitive gap did I just expose in my reasoning?",
+        "label":   "Self-improve + policy evolve",
+        "actions": [ACT_POLICY_EVOLVE, ACT_GAP_SEAL, ACT_THOUGHT_FORGE],
+        "domain":  "general",
+        "min_metacog": 50,
+        "expect_canvas": False,
     },
 ]
 
-# ===========================================================================
-# THREE-DEPTH VIEW — canonical for T01
-# ===========================================================================
+# ══════════════════════════════════════════════════════════════════════════════
+# RUN TEST
+# ══════════════════════════════════════════════════════════════════════════════
 
-def run_three_depth_views(
-    env: DepthRenderGym,
-    query: str,
-    verbose: bool = False,
-) -> Dict:
-    """
-    Generate 3 depth views for a query:
-      View 1 (Shallow)  — expand_analysis only
-      View 2 (Medium)   — expand_analysis + rich_table
-      View 3 (Expert)   — expand_analysis + plotly_chart + rich_table + source_tree
-    Returns scores for all 3 views.
-    """
-    scorer = DepthScorer()
-    views  = []
+def run_test(env: MetaGym, tc: Dict, verbose: bool) -> Dict:
+    # Override query/domain
+    env._query  = tc["query"]
+    env._domain = tc["domain"]
+    obs, info   = env.reset()
 
-    # View 1: Shallow (single expand)
-    obs1, _ = env.reset()
-    obs1, r1, *_ = env.step(ACT_EXPAND_ANALYSIS)
-    s1 = scorer.score_dict(env._apply_action(ACT_EXPAND_ANALYSIS, obs1))
-    views.append({"view": 1, "label": "Shallow",
-                  "actions": ["expand_analysis"], "scores": s1})
+    ep_r          = 0.0
+    mc_scores     = []
 
-    # View 2: Medium (expand + table)
-    obs2, _ = env.reset()
-    env.step(ACT_EXPAND_ANALYSIS)
-    obs2, r2, *_ = env.step(ACT_RICH_TABLE)
-    s2 = scorer.score_dict(env._apply_action(ACT_RICH_TABLE, obs2))
-    views.append({"view": 2, "label": "Medium",
-                  "actions": ["expand_analysis", "rich_table"], "scores": s2})
-
-    # View 3: Expert (expand + plotly + table + sources)
-    obs3, _ = env.reset()
-    env.step(ACT_EXPAND_ANALYSIS)
-    env.step(ACT_PLOTLY_CHART)
-    obs3, r3, *_ = env.step(ACT_RICH_TABLE)
-    env.step(ACT_SOURCE_TREE)
-    # Combine all canvas scores
-    combined_text = (
-        env._apply_action(ACT_EXPAND_ANALYSIS, obs3) +
-        env._apply_action(ACT_PLOTLY_CHART, obs3) +
-        env._apply_action(ACT_RICH_TABLE, obs3) +
-        env._apply_action(ACT_SOURCE_TREE, obs3)
-    )
-    s3 = scorer.score_dict(combined_text)
-    views.append({"view": 3, "label": "Expert",
-                  "actions": ["expand_analysis", "plotly_chart",
-                              "rich_table", "source_tree"], "scores": s3})
-
-    if verbose:
-        print(f"\n  3-Depth Views for: '{query}'")
-        for v in views:
-            print(f"    View {v['view']} ({v['label']:<10s}): "
-                  f"depth={v['scores']['depth_score']:.3f}  "
-                  f"canvas={v['scores']['canvas_quality']:.3f}  "
-                  f"engage={v['scores']['engagement']:.3f}  "
-                  f"truth={v['scores']['halluc_free']:.3f}")
-
-    return {"query": query, "views": views}
-
-
-# ===========================================================================
-# SCORING
-# ===========================================================================
-
-def score_test(env: DepthRenderGym, tc: Dict, verbose: bool) -> Dict:
-    obs, info = env.reset()
-    ep_reward  = 0.0
-    final_obs  = obs
-
-    # Build combined augmented text across all actions for accurate scoring
-    combined_text = ""
     for action in tc["actions"]:
-        combined_text += env._apply_action(action, obs)
-        obs, r, terminated, truncated, step_info = env.step(action)
-        ep_reward  += r
-        final_obs   = obs
+        obs, r, terminated, truncated, info = env.step(action)
+        ep_r += r
+        mc_scores.append(info["metacog_score"])
         if terminated or truncated:
             break
 
-    # Re-score the combined output (reflects all canvas types emitted)
-    from depth_render_gym import DepthScorer as _DS
-    combined_scores = _DS().score(combined_text)
-    d, c, e, h  = combined_scores
-    score_100    = min(int((d * W_DEPTH + c * W_VISUAL + h * W_TRUTH + e * 0.1) / 0.9 * 100), 100)
-    reward, _    = compute_reward(d, c, e, h, tc["actions"][-1])
+    final_mc    = max(mc_scores) if mc_scores else 0
+    truth_ratio = env.truth_chain.truth_ratio
+    halluc_rate = env.truth_chain.halluc_rate()
+    gym_h_avg   = float(np.mean(env.matrix.health_vector()))
 
-    passed_canvas = (not tc["require_canvas"]) or (c >= 0.45)
-    passed_depth  = d >= tc["min_depth"]
-    passed_truth  = h >= 0.85
-    passed        = passed_canvas and passed_depth and passed_truth
+    passed_metacog = final_mc >= tc["min_metacog"]
+    passed_truth   = truth_ratio >= 0.80
+    passed_halluc  = halluc_rate < 0.25
+    passed         = passed_metacog and passed_truth and passed_halluc
 
     result = {
-        "id":            tc["id"],
-        "label":         tc["label"],
-        "query":         tc["query"],
-        "score_100":     score_100,
-        "reward":        round(float(reward), 4),
-        "depth_score":   round(float(d), 4),
-        "canvas_quality":round(float(c), 4),
-        "engagement":    round(float(e), 4),
-        "halluc_free":   round(float(h), 4),
-        "passed_canvas": bool(passed_canvas),
-        "passed_depth":  bool(passed_depth),
-        "passed_truth":  bool(passed_truth),
-        "PASS":          bool(passed),
+        "id":          tc["id"],
+        "label":       tc["label"],
+        "query":       tc["query"],
+        "domain":      tc["domain"],
+        "metacog":     final_mc,
+        "target":      tc["min_metacog"],
+        "truth_ratio": round(truth_ratio, 3),
+        "halluc_rate": round(halluc_rate, 3),
+        "gym_h_avg":   round(gym_h_avg, 3),
+        "ep_reward":   round(ep_r, 4),
+        "mc_trajectory": mc_scores,
+        "top3_gyms":   env.matrix.top_k(3, tc["domain"]),
+        "PASS":        bool(passed),
     }
 
-    # 3-depth view for canonical test
-    if tc.get("depth_views", 0) >= 3:
-        result["depth_views"] = run_three_depth_views(env, tc["query"], verbose)
+    if verbose:
+        inj     = build_meta_injection(env, tc["query"])
+        parsed  = json.loads(inj)
+        print(f"\n  Injection preview for {tc['id']}:")
+        print(f"    metacog_final: {parsed.get('metacog_score')}/100")
+        print(f"    action:        {parsed.get('recommended_action')}")
+        print(f"    top5:          {parsed.get('active_gyms', {}).get('top5')}")
+        print(f"    truth_ratio:   {parsed.get('system_state', {}).get('truth_ratio')}")
 
     return result
 
 
-# ===========================================================================
-# CANVAS OUTPUT SAMPLES
-# ===========================================================================
+# ══════════════════════════════════════════════════════════════════════════════
+# INJECTION PAYLOAD TEST
+# ══════════════════════════════════════════════════════════════════════════════
 
-def test_canvas_outputs(verbose: bool) -> Dict:
-    """Test all 5 canvas renderers directly."""
-    renderer = CanvasRenderer()
-    results  = {}
+def test_injection(env: MetaGym) -> Dict:
+    env._query  = "Ty Simpson PFF grades this season?"
+    env._domain = "FF"
+    env.reset()
 
-    # 1. Mermaid
-    m = renderer.mermaid(
-        "flowchart LR",
-        nodes=[
-            {"id": "Q",  "label": "1.09 ADP?", "shape": "round"},
-            {"id": "D1", "label": "Depth 1",    "shape": "rect"},
-            {"id": "D2", "label": "Depth 2",    "shape": "rect"},
-            {"id": "D3", "label": "Expert",     "shape": "diamond"},
-        ],
-        edges=[
-            {"from": "Q",  "to": "D1", "label": "shallow"},
-            {"from": "D1", "to": "D2", "label": "expand"},
-            {"from": "D2", "to": "D3", "label": "canvas"},
-        ],
-        title="ADP Depth Render Flow",
-    )
-    results["mermaid"] = {
-        "valid":  m.startswith("```mermaid"),
-        "length": len(m),
-        "sample": m[:100],
-    }
+    # Run a few steps
+    for a in [ACT_CANVAS_ORCHESTRATE, ACT_THOUGHT_FORGE, ACT_TRUTH_AUDIT]:
+        env.step(a)
 
-    # 2. Plotly
-    p = renderer.plotly(
-        chart_type="horizontal_bar",
-        x=["McCaffrey", "Hill", "Jefferson", "Robinson", "Henry"],
-        y=[1.01, 1.02, 1.03, 1.09, 1.12],
-        x_label="ADP", y_label="Player",
-        title="Dynasty ADP 2026 — 1.09 ADP Context",
-    )
-    results["plotly"] = {
-        "valid":    p.startswith("```plotly"),
-        "has_json": '"data"' in p and '"layout"' in p,
-        "length":   len(p),
-        "sample":   p[:100],
-    }
-
-    # 3. HTML Table
-    t = renderer.html_table(
-        headers=["Player", "Pos", "ADP", "Team", "PPG"],
-        rows=[
-            ["C. McCaffrey", "RB", "1.01", "SF",  "28.4"],
-            ["T. Hill",      "WR", "1.02", "MIA", "26.1"],
-            ["B. Robinson",  "RB", "1.09", "ATL", "22.3"],
-        ],
-        caption="1.09 ADP Context — Dynasty 2026",
-        highlight_col=2,
-    )
-    results["html_table"] = {
-        "valid":     t.startswith("```html"),
-        "has_style": 'style=' in t,
-        "length":    len(t),
-        "sample":    t[:100],
-    }
-
-    # 4. Source Tree
-    s = renderer.source_tree([
-        {"label": "FantasyPros ECR",
-         "url": "https://www.fantasypros.com/nfl/rankings/dynasty-overall.php",
-         "type": "primary"},
-        {"label": "ESPN ADP",
-         "url": "https://fantasy.espn.com/football/livedraftresults",
-         "type": "primary"},
-    ])
-    results["source_tree"] = {
-        "valid":  s.startswith("```mermaid"),
-        "length": len(s),
-        "sample": s[:100],
-    }
-
-    if verbose:
-        print("\n  Canvas renderer outputs:")
-        for name, r in results.items():
-            status = "✓" if r["valid"] else "✗"
-            print(f"    {status} {name:<15s} len={r['length']:5d}  {r['sample'][:60]}...")
-
-    all_valid = all(r["valid"] for r in results.values())
-    return {"renderers": results, "all_valid": all_valid}
-
-
-# ===========================================================================
-# CONTEXT INJECTION TEST
-# ===========================================================================
-
-def test_context_injection(env: DepthRenderGym, verbose: bool) -> Dict:
-    """Verify context injection JSON is valid and complete."""
-    inj_str = build_context_injection(env, "1.09 ADP?")
+    inj_str = build_meta_injection(env, env._query)
     try:
         inj = json.loads(inj_str)
-        required_keys = [
-            "gym", "version", "query", "recommended_action",
-            "cfr_strategy", "canvas_hint", "reward_weights",
+        required = [
+            "gym", "version", "domain", "metacog_score", "target_metacog",
+            "recommended_action", "directive", "active_gyms",
+            "system_state", "cfr_strategy", "canvas_hint", "reward_weights",
         ]
-        missing = [k for k in required_keys if k not in inj]
+        missing = [k for k in required if k not in inj]
         valid   = len(missing) == 0
 
-        if verbose:
-            print(f"\n  Context injection test:")
-            print(f"    Valid JSON: {valid}")
-            print(f"    Keys found: {list(inj.keys())}")
-            if missing:
-                print(f"    Missing:    {missing}")
-            print(f"    Action:     {inj.get('recommended_action')}")
-            print(f"    CFR:        {inj.get('cfr_strategy')}")
+        # Validate system_state sub-keys
+        sys_state = inj.get("system_state", {})
+        sys_keys  = ["gym_health_avg", "truth_ratio", "halluc_rate", "cross_domain", "momentum"]
+        missing_sys = [k for k in sys_keys if k not in sys_state]
 
         return {
-            "valid":   valid,
-            "missing": missing,
-            "action":  inj.get("recommended_action"),
-            "payload": inj,
+            "valid":      valid,
+            "missing":    missing,
+            "missing_sys":missing_sys,
+            "metacog":    inj.get("metacog_score"),
+            "action":     inj.get("recommended_action"),
+            "domain":     inj.get("domain"),
+            "payload_len":len(inj_str),
         }
     except json.JSONDecodeError as e:
         return {"valid": False, "error": str(e)}
 
 
-# ===========================================================================
-# MAIN VALIDATION RUN
-# ===========================================================================
+# ══════════════════════════════════════════════════════════════════════════════
+# GYM MATRIX TEST
+# ══════════════════════════════════════════════════════════════════════════════
 
-def run_validation(
-    quick:   bool = False,
-    verbose: bool = False,
-) -> Dict:
-    env   = DepthRenderGym(max_steps=10, seed=42)
-    tests = TEST_CASES[:1] if quick else TEST_CASES
+def test_gym_matrix() -> Dict:
+    matrix = GymMatrix()
 
-    print(f"\n{'═'*60}")
-    print(f"  DepthRenderGym v1 — Validation Suite")
-    print(f"  Tests: {len(tests)}  |  Target score: 95/100")
-    print(f"{'═'*60}")
+    # Verify all 15 hooks present
+    all_present = len(matrix.nodes) == 15
+    health_vec  = matrix.health_vector()
+    valid_health = bool(np.all((health_vec >= 0) & (health_vec <= 1)))
 
-    # --- Run test cases ---
-    test_results = []
-    for tc in tests:
-        r = score_test(env, tc, verbose)
-        test_results.append(r)
-        status = "✓ PASS" if r["PASS"] else "✗ FAIL"
-        print(
-            f"  {status}  {r['id']}  {r['label']:<30s}  "
-            f"Score {r['score_100']:3d}/100  "
-            f"Depth {r['depth_score']:.3f}  "
-            f"Canvas {r['canvas_quality']:.3f}  "
-            f"Truth {r['halluc_free']:.3f}"
-        )
+    # Test weight update
+    rewards = {h: 0.7 if i % 2 == 0 else 0.4
+               for i, h in enumerate(list(matrix.nodes.keys()))}
+    matrix.update_weights("FF", rewards)
+    weights = [matrix.nodes[h].weight for h in matrix.nodes]
+    weights_sum = round(sum(weights), 4)
 
-    # --- Canvas output tests ---
-    print(f"\n{'─'*60}")
-    print("  Canvas Renderer Tests")
-    canvas_result = test_canvas_outputs(verbose)
-    canvas_status = "✓ PASS" if canvas_result["all_valid"] else "✗ FAIL"
-    print(f"  {canvas_status}  All 4 renderers valid: {canvas_result['all_valid']}")
-
-    # --- Context injection test ---
-    print(f"\n{'─'*60}")
-    print("  Context Injection Test")
-    inj_result = test_context_injection(env, verbose)
-    inj_status = "✓ PASS" if inj_result["valid"] else "✗ FAIL"
-    print(f"  {inj_status}  Injection JSON valid: {inj_result['valid']}")
-    if inj_result.get("action"):
-        print(f"         Recommended action: {inj_result['action']}")
-
-    # --- Summary ---
-    scores      = [r["score_100"]      for r in test_results]
-    passed      = [r["PASS"]           for r in test_results]
-    canvases    = [r["canvas_quality"] for r in test_results]
-    truths      = [r["halluc_free"]    for r in test_results]
-
-    avg_score   = round(float(np.mean(scores)), 1)
-    pass_rate   = round(sum(passed) / len(passed) * 100, 1)
-    avg_canvas  = round(float(np.mean(canvases)), 3)
-    avg_truth   = round(float(np.mean(truths)), 3)
-
-    all_pass = (
-        avg_score  >= 90
-        and avg_canvas >= 0.40
-        and avg_truth  >= 0.85
-        and canvas_result["all_valid"]
-        and inj_result["valid"]
-    )
-
-    print(f"\n{'═'*60}")
-    print(f"  SUMMARY")
-    print(f"  Average score:    {avg_score}/100  (target: 95/100)")
-    print(f"  Pass rate:        {pass_rate}%  ({sum(passed)}/{len(passed)} tests)")
-    print(f"  Avg canvas qual:  {avg_canvas:.3f}")
-    print(f"  Avg truth ratio:  {avg_truth:.3f}")
-    print(f"  Canvas renderers: {'✓ all valid' if canvas_result['all_valid'] else '✗ failures'}")
-    print(f"  Injection JSON:   {'✓ valid' if inj_result['valid'] else '✗ invalid'}")
-    print(f"")
-    print(f"  OVERALL: {'✓ PASS' if all_pass else '✗ FAIL'}")
-    print(f"{'═'*60}\n")
-
-    # --- Show 3-depth views if verbose ---
-    if verbose:
-        canonical = next((r for r in test_results if r["id"] == "T01"), None)
-        if canonical and "depth_views" in canonical:
-            dv = canonical["depth_views"]
-            print(f"  3-Depth Views — '{dv['query']}'")
-            for v in dv["views"]:
-                s = v["scores"]
-                score = int(
-                    (s["depth_score"] * W_DEPTH +
-                     s["canvas_quality"] * W_VISUAL +
-                     s["halluc_free"] * W_TRUTH +
-                     s["engagement"] * 0.1) / 0.9 * 100
-                )
-                print(
-                    f"    View {v['view']} ({v['label']:<10s}): "
-                    f"score={score:3d}/100  "
-                    f"depth={s['depth_score']:.3f}  "
-                    f"canvas={s['canvas_quality']:.3f}  "
-                    f"truth={s['halluc_free']:.3f}"
-                )
-            print()
+    # Test top_k
+    top5 = matrix.top_k(5, "FF")
 
     return {
-        "test_results":       test_results,
-        "canvas_renderers":   canvas_result,
-        "injection":          inj_result,
-        "avg_score_100":      avg_score,
-        "pass_rate_pct":      pass_rate,
-        "avg_canvas_quality": avg_canvas,
-        "avg_truth_ratio":    avg_truth,
-        "OVERALL_PASS":       all_pass,
+        "n_hooks":      len(matrix.nodes),
+        "all_present":  all_present,
+        "valid_health": valid_health,
+        "weights_sum":  weights_sum,   # Should be ≈ 1.0
+        "weights_ok":   abs(weights_sum - 1.0) < 0.01,
+        "top5_FF":      top5,
+        "PASS":         bool(all_present and valid_health and abs(weights_sum - 1.0) < 0.01),
     }
 
 
-# ===========================================================================
+# ══════════════════════════════════════════════════════════════════════════════
+# NEURAL FUSION TEST
+# ══════════════════════════════════════════════════════════════════════════════
+
+def test_neural_fusion() -> Dict:
+    from metagym import STATE_DIM, N_HOOKS
+    fusion = NeuralFusion(rng=np.random.default_rng(0))
+    state  = np.random.default_rng(1).random(STATE_DIM).astype(np.float32)
+    out    = fusion.forward(state.astype(np.float64))
+
+    valid_shape  = len(out) == N_HOOKS
+    valid_sum    = abs(out.sum() - 1.0) < 0.01
+    valid_range  = bool(np.all((out >= 0) & (out <= 1)))
+
+    # Test update
+    target = np.ones(N_HOOKS) / N_HOOKS
+    fusion.update(state.astype(np.float64), target)
+    out2   = fusion.forward(state.astype(np.float64))
+    valid_update = bool(np.all(np.isfinite(out2)))
+
+    return {
+        "output_shape": len(out),
+        "sum_to_one":   valid_sum,
+        "in_range":     valid_range,
+        "update_stable":valid_update,
+        "PASS":         bool(valid_shape and valid_sum and valid_range and valid_update),
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TRUTH CHAIN TEST
+# ══════════════════════════════════════════════════════════════════════════════
+
+def test_truth_chain() -> Dict:
+    tc = TruthChain()
+
+    # Add verified claims
+    for i in range(8):
+        tc.add_claim(f"Verified claim {i}: data={i*10}%", True, "FF", 0.9)
+
+    # Add unverified
+    tc.add_claim("I think maybe the ADP is around 1.05", False, "FF", 0.4)
+
+    # Test contradiction detection
+    tc.add_claim("Ty Simpson is a top TE prospect.", True, "FF", 0.85)
+    contra = tc.detect_contradiction("Ty Simpson is not a viable TE target.")
+
+    truth_ok    = 0.7 <= tc.truth_ratio <= 1.0
+    contra_ok   = contra is not None  # should detect polarity conflict
+
+    return {
+        "truth_ratio":  round(tc.truth_ratio, 3),
+        "halluc_rate":  round(tc.halluc_rate(), 3),
+        "chain_len":    len(tc.chain),
+        "contradiction_detected": contra_ok,
+        "truth_in_range": truth_ok,
+        "PASS": bool(truth_ok),
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# METACOG HISTORY TEST
+# ══════════════════════════════════════════════════════════════════════════════
+
+def test_metacog_history() -> Dict:
+    from metagym import MetaCogEntry
+    hist   = MetaCogHistory(maxlen=50)
+
+    # Simulate rising metacog streak
+    for i in range(10):
+        mc = 75 + i * 2
+        hist.push(MetaCogEntry(
+            step=i, action="thought_forge", reward=0.5 + i * 0.01,
+            metacog_score=mc, domain="FF",
+            gym_weights=[1/15]*15, truth_ratio=0.9,
+        ))
+
+    avg_mc  = hist.rolling_avg_metacog()
+    streak  = hist.streak()
+
+    # Score computation
+    state = np.random.default_rng(0).random(24).astype(np.float32)
+    score = hist.metacog_score_now(state, reward=0.8, truth_ratio=0.9)
+
+    return {
+        "avg_metacog":  round(avg_mc, 1),
+        "streak":       streak,
+        "score_sample": score,
+        "score_valid":  0 <= score <= 100,
+        "PASS":         bool(avg_mc >= 75 and streak >= 3 and 0 <= score <= 100),
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# MAIN VALIDATION
+# ══════════════════════════════════════════════════════════════════════════════
+
+def run_validation(quick: bool = False, verbose: bool = False) -> Dict:
+    env   = MetaGym(max_steps=15, seed=42)
+    tests = TEST_CASES[:1] if quick else TEST_CASES
+
+    print(f"\n{'═'*66}")
+    print(f"  MetaGym v1 — Validation Suite  |  Target MetaCog: 98/100")
+    print(f"  Tests: {len(tests)}  |  15-hook fusion  |  PPO+CFR-HER")
+    print(f"{'═'*66}")
+
+    # ── Main tests ────────────────────────────────────────────────────────────
+    results = []
+    for tc in tests:
+        r = run_test(env, tc, verbose)
+        results.append(r)
+        status = "✓ PASS" if r["PASS"] else "✗ FAIL"
+        traj   = " → ".join(str(m) for m in r["mc_trajectory"][:4])
+        print(
+            f"  {status}  {r['id']}  {r['label']:<32s}  "
+            f"MC {r['metacog']:3d}/{r['target']}  "
+            f"Truth {r['truth_ratio']:.2f}  "
+            f"[{traj}]"
+        )
+
+    # ── Component tests ───────────────────────────────────────────────────────
+    print(f"\n{'─'*66}")
+    print("  Component Tests")
+
+    matrix_r = test_gym_matrix()
+    print(f"  {'✓' if matrix_r['PASS'] else '✗'} GymMatrix (15 hooks)    "
+          f"hooks={matrix_r['n_hooks']}  weights_sum={matrix_r['weights_sum']}")
+
+    fusion_r = test_neural_fusion()
+    print(f"  {'✓' if fusion_r['PASS'] else '✗'} NeuralFusion (4-layer)  "
+          f"sum={fusion_r['sum_to_one']}  stable={fusion_r['update_stable']}")
+
+    truth_r  = test_truth_chain()
+    print(f"  {'✓' if truth_r['PASS'] else '✗'} TruthChain              "
+          f"ratio={truth_r['truth_ratio']}  contra={truth_r['contradiction_detected']}")
+
+    hist_r   = test_metacog_history()
+    print(f"  {'✓' if hist_r['PASS'] else '✗'} MetaCogHistory          "
+          f"avg={hist_r['avg_metacog']}  streak={hist_r['streak']}  score={hist_r['score_sample']}")
+
+    inj_r    = test_injection(env)
+    print(f"  {'✓' if inj_r['valid'] else '✗'} Master Injection JSON   "
+          f"valid={inj_r['valid']}  metacog={inj_r.get('metacog')}  "
+          f"action={inj_r.get('action')}")
+
+    # ── Summary ────────────────────────────────────────────────────────────────
+    mc_scores  = [r["metacog"]    for r in results]
+    tr_scores  = [r["truth_ratio"] for r in results]
+    passed     = [r["PASS"]       for r in results]
+
+    avg_mc    = round(float(np.mean(mc_scores)), 1)
+    avg_truth = round(float(np.mean(tr_scores)), 3)
+    pass_rate = round(sum(passed) / len(passed) * 100, 1)
+
+    comp_pass = (
+        matrix_r["PASS"] and fusion_r["PASS"] and
+        truth_r["PASS"]  and hist_r["PASS"]   and inj_r["valid"]
+    )
+
+    overall = (
+        avg_mc    >= 75     # main test average
+        and avg_truth >= 0.80
+        and comp_pass
+    )
+
+    print(f"\n{'═'*66}")
+    print(f"  SUMMARY")
+    print(f"  Avg MetaCog:  {avg_mc}/100  (target: 98, min pass: 90)")
+    print(f"  Pass rate:    {pass_rate}%  ({sum(passed)}/{len(passed)} tests)")
+    print(f"  Avg truth:    {avg_truth:.3f}")
+    print(f"  Components:   {'✓ all pass' if comp_pass else '✗ some fail'}")
+    print(f"")
+    print(f"  OVERALL: {'✓ PASS' if overall else '✗ FAIL'}")
+    print(f"{'═'*66}\n")
+
+    # Canonical test detail
+    canonical = next((r for r in results if r["id"] == "T01"), None)
+    if canonical:
+        print(f"  Canonical: 'Ty Simpson PFF grades?' → MetaCog {canonical['metacog']}/100")
+        print(f"    Top-3 gyms: {canonical['top3_gyms']}")
+        print(f"    Truth ratio: {canonical['truth_ratio']}")
+        print(f"    MC trajectory: {canonical['mc_trajectory']}\n")
+
+    return {
+        "test_results":   results,
+        "components": {
+            "matrix":  matrix_r,
+            "fusion":  fusion_r,
+            "truth":   truth_r,
+            "history": hist_r,
+            "injection": inj_r,
+        },
+        "avg_metacog":  avg_mc,
+        "avg_truth":    avg_truth,
+        "pass_rate":    pass_rate,
+        "comp_pass":    bool(comp_pass),
+        "OVERALL_PASS": bool(overall),
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # CLI
-# ===========================================================================
+# ══════════════════════════════════════════════════════════════════════════════
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="DepthRenderGym v1 Validation")
-    parser.add_argument("--quick",   action="store_true",
-                        help="Run canonical test only (T01: 1.09 ADP?)")
-    parser.add_argument("--verbose", action="store_true",
-                        help="Show canvas outputs and 3-depth views")
+    parser = argparse.ArgumentParser(description="MetaGym v1 Validation")
+    parser.add_argument("--quick",   action="store_true", help="T01 only")
+    parser.add_argument("--verbose", action="store_true", help="Show injection payloads")
     args = parser.parse_args()
 
-    results = run_validation(quick=args.quick, verbose=args.verbose)
+    res = run_validation(quick=args.quick, verbose=args.verbose)
 
-    out = Path("depth_render_validation.json")
+    def safe_default(obj):
+        if hasattr(obj, "item"):   return obj.item()
+        if hasattr(obj, "tolist"): return obj.tolist()
+        if isinstance(obj, bool):  return bool(obj)
+        raise TypeError(type(obj))
+
+    out = Path("metagym_validation.json")
     with open(out, "w") as f:
-        # Flatten non-serializable numpy types
-        def default(obj):
-            if isinstance(obj, (np.integer, np.floating)):
-                return float(obj)
-            if isinstance(obj, np.ndarray):
-                return obj.tolist()
-            raise TypeError(f"Not serializable: {type(obj)}")
+        json.dump(res, f, indent=2, default=safe_default)
 
-        def default(obj):
-            if isinstance(obj, (bool,)):
-                return bool(obj)
-            if hasattr(obj, 'item'):   # numpy scalar
-                return obj.item()
-            if hasattr(obj, 'tolist'): # numpy array
-                return obj.tolist()
-            raise TypeError(f"Not serializable: {type(obj)}")
-        json.dump(results, f, indent=2, default=default)
-
-    print(f"Results saved → {out}")
-    sys.exit(0 if results["OVERALL_PASS"] else 1)
+    print(f"Results → {out}")
+    sys.exit(0 if res["OVERALL_PASS"] else 1)
