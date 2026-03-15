@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "enabled": true,
+    "self-improve": {
+      "source": "selfimprove_hook.ts",
+      "trigger_on": ["message:planning", "message:received", "action:planning"]
+    }
+  },
+  "self_improve": {
+    "enabled": true,
+    "failure_patterns": 5,
+    "auto_generate": true,
+    "domains": ["api", "deploy", "draft", "optimize", "code"]
+  }
+}
