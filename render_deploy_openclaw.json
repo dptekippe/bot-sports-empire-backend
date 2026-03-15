@@ -1,0 +1,180 @@
+{
+  "_comment": "OpenClaw hook registration patch for Render Deploy Gym v1",
+  "_version": "1.0.0",
+  "_generated": "2026-03-15",
+
+  "hooks": {
+    "render_deploy_hook": {
+      "enabled": true,
+      "module": "hooks/render_deploy_hook",
+      "handler": "on_deploy_event",
+      "register_fn": "register",
+      "version": "1.0.0",
+      "description": "CFR-guided Render deployment advisor with Metacog Pro v2 output",
+
+      "events": [
+        "pre_deploy",
+        "post_deploy",
+        "before_deploy",
+        "after_deploy",
+        "deploy_complete"
+      ],
+
+      "priority": 10,
+      "async": false,
+      "timeout_seconds": 5,
+
+      "config": {
+        "cfr_epsilon": 0.05,
+        "cfr_gamma": 0.95,
+        "metacog_version": "pro_v2",
+        "state_file": "${OPENCLAW_WORKSPACE:-~/.openclaw/workspace}/hooks/render_deploy_state.json",
+        "log_level": "INFO",
+
+        "risk_gates": {
+          "soft_block_prod_when_stage_advantage_gt": 0.20,
+          "warn_high_cpu_threshold": 0.75,
+          "warn_error_rate_threshold": 0.05
+        },
+
+        "plan_tier_override": null
+      },
+
+      "output_format": {
+        "metacog_header": "[RL State]",
+        "cfr_reject_format": "[CFR Rejected {action} +{delta:.1f}%]",
+        "cfr_approve_format": "[CFR Approved {action}]"
+      }
+    }
+  },
+
+  "gym": {
+    "env_id": "RenderDeployGym-v1",
+    "module": "render_deploy_gym",
+    "class": "RenderDeployGym",
+    "default_plan_tier": "starter",
+    "max_episode_steps": 168,
+
+    "state_space": {
+      "size": 7,
+      "fields": [
+        {"index": 0, "name": "cpu_pct",           "range": [0.0, 1.0], "description": "CPU utilisation"},
+        {"index": 1, "name": "traffic_norm",       "range": [0.0, 1.0], "description": "Normalised RPS"},
+        {"index": 2, "name": "error_rate",         "range": [0.0, 1.0], "description": "HTTP error rate"},
+        {"index": 3, "name": "week_norm",          "range": [0.0, 1.0], "description": "Hour of week / 167"},
+        {"index": 4, "name": "deploys_24h_norm",   "range": [0.0, 1.0], "description": "Deploys in last 24h (norm)"},
+        {"index": 5, "name": "last_deploy_success","range": [0.0, 1.0], "description": "1.0=success, 0.0=failed"},
+        {"index": 6, "name": "plan_tier_norm",     "range": [0.0, 1.0], "description": "Plan tier (free=0, pro=1)"}
+      ]
+    },
+
+    "action_space": {
+      "type": "Discrete",
+      "n": 8,
+      "actions": [
+        {"index": 0, "name": "prod_deploy",    "description": "Deploy to production"},
+        {"index": 1, "name": "stage_deploy",   "description": "Deploy to staging"},
+        {"index": 2, "name": "rollback",       "description": "Rollback to previous version"},
+        {"index": 3, "name": "scale_up",       "description": "Scale up service instances"},
+        {"index": 4, "name": "scale_down",     "description": "Scale down service instances"},
+        {"index": 5, "name": "restart_service","description": "Restart service"},
+        {"index": 6, "name": "noop",           "description": "No operation"},
+        {"index": 7, "name": "canary_deploy",  "description": "Canary / partial deploy"}
+      ]
+    },
+
+    "reward": {
+      "formula": "uptime_ema - 0.15 * cost_norm + cfr_regret_delta",
+      "components": {
+        "uptime_ema": "Exponential moving average of service uptime (target: 0.995)",
+        "cost_norm":  "Normalised hourly cost (plan + scale)",
+        "cfr_regret_delta": "CFR regret for chosen action (0.0–1.0)"
+      }
+    },
+
+    "validation": {
+      "sanity_100eps": {
+        "uptime_target": 0.823,
+        "regret_target": 0.123,
+        "policy": "random"
+      },
+      "cfr_ep300": {
+        "uptime_target": 0.935,
+        "regret_target": 0.005,
+        "epsilon": 0.05
+      },
+      "week1_cpu40": {
+        "stage_deploy_advantage_min_pct": 12.4,
+        "description": "Week1, CPU=40%: stage_deploy should be preferred over prod_deploy"
+      }
+    }
+  },
+
+  "trainer": {
+    "module": "train_render_deploy",
+    "default_timesteps": 100000,
+    "ppo_config": {
+      "learning_rate": 0.0003,
+      "n_steps": 512,
+      "batch_size": 64,
+      "n_epochs": 10,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "clip_range": 0.2,
+      "ent_coef": 0.01,
+      "vf_coef": 0.5,
+      "max_grad_norm": 0.5,
+      "target_kl": 0.02
+    },
+    "her_config": {
+      "buffer_size": 2048,
+      "k": 4,
+      "goal_strategy": "future"
+    },
+    "cli": {
+      "quick_test":      "python train_render_deploy.py --timesteps 1000 --sanity-only",
+      "cfr_only":        "python train_render_deploy.py --cfr-only --cfr-episodes 300",
+      "full_train":      "python train_render_deploy.py --timesteps 100000 --commit-insights",
+      "week1_validate":  "python train_render_deploy.py --timesteps 100000 --eval-week1"
+    }
+  },
+
+  "roger_mirror_integration": {
+    "target_dir": "roger-mirror/",
+    "files": {
+      "render_deploy_gym.py":        "render_deploy_gym.py",
+      "train_render_deploy.py":      "train_render_deploy.py",
+      "hooks/render_deploy_hook.py": "hooks/render_deploy_hook.py",
+      "render_deploy_openclaw.json": "render_deploy_openclaw.json"
+    },
+    "roger_commands": {
+      "step1_unzip":   "unzip render_deploy_gym_files.zip -d roger-mirror/",
+      "step2_git_add": "cd roger-mirror && git add render_deploy_gym.py train_render_deploy.py hooks/render_deploy_hook.py render_deploy_openclaw.json",
+      "step3_commit":  "git commit -m 'feat: Add Render Deploy Gym v1 (PPO+CFR-HER, 100k steps)'",
+      "step4_push":    "git push origin main",
+      "step5_train":   "python train_render_deploy.py --timesteps 1000 --sanity-only",
+      "step6_hooks":   "openclaw hooks register hooks/render_deploy_hook.py",
+      "step7_restart": "openclaw gateway restart"
+    },
+    "full_roger_command": "[Roger] cd roger-mirror && git add render_deploy_gym.py train_render_deploy.py hooks/render_deploy_hook.py render_deploy_openclaw.json && git commit -m 'feat: Add Render Deploy Gym v1 (PPO+CFR-HER, 100k steps)' && git push origin main && python train_render_deploy.py --timesteps 1000 --sanity-only && openclaw hooks register hooks/render_deploy_hook.py && openclaw gateway restart"
+  },
+
+  "dependencies": {
+    "required": [
+      "gymnasium>=0.29.0",
+      "numpy>=1.24.0"
+    ],
+    "optional_ppo": [
+      "stable-baselines3>=2.0.0",
+      "torch>=2.0.0"
+    ],
+    "optional_db": [
+      "psycopg2-binary>=2.9.0"
+    ],
+    "install": {
+      "minimal":  "pip install gymnasium numpy",
+      "full":     "pip install gymnasium numpy stable-baselines3 torch psycopg2-binary",
+      "roger_requirements": "pip install -r hooks/requirements.txt"
+    }
+  }
+}
