@@ -1,0 +1,1 @@
+{"timestamp": "2026-03-15T10:27:51.990175", "domain": "deploy", "confidence": 0.66, "risk_bias": 0.15, "metacog_score": 0.561, "regret_delta": 0.07, "summary": "[deploy] [State] deploy | Risk: 15% [Conf] 66% [CFR] +7% regret...", "message_count": 1, "session_id": null}
