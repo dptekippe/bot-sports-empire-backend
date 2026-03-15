@@ -12,15 +12,15 @@ from typing import Dict, Optional
 
 TRACE_FILE = os.path.expanduser("~/.openclaw/workspace/traces.jsonl")
 
-# Domain risk biases
+# Domain risk biases (as percentages 0-100)
 RISK_BIAS = {
-    'deploy': 0.15,
-    'code': 0.08,
-    'api': 0.22,
-    'draft': 1.20,
-    'debug': 0.35,
-    'plan': 0.25,
-    'optimize': 0.18
+    'deploy': 15,
+    'code': 8,
+    'api': 22,
+    'draft': 15,  # 15% risk bias
+    'debug': 35,
+    'plan': 25,
+    'optimize': 18
 }
 
 
@@ -65,9 +65,9 @@ def extract_confidence(text: str) -> float:
 
 
 def extract_risk_bias(text: str) -> float:
-    """Extract or lookup risk bias"""
+    """Extract or lookup risk bias (as percentage)"""
     domain = detect_domain(text)
-    return RISK_BIAS.get(domain, 0.10)
+    return RISK_BIAS.get(domain, 10) / 100  # Convert to 0-1
 
 
 def extract_cfr_delta(text: str) -> float:
