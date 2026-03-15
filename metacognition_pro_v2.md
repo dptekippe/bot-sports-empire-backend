@@ -179,7 +179,16 @@ pgvector: "{domain}: {insight} (n={episodes}, delta={delta:.1f}%)"
 
 ---
 
-## Test Outputs (TBD)
+## Final Score Calculation
+```
+Metacog Score = conf * (1 - risk_bias/100)
+```
+
+Example: 66% * (1 - 0.15) = 66% * 0.85 = **56/100**
+
+---
+
+### Test Outputs (TBD)
 1. "Deploy Render service?"
 2. "Optimize this Python loop?"
 3. "1.05 superflex pick?"
