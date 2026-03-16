@@ -1,0 +1,22 @@
+{
+  "total_steps": 100000,
+  "episodes": 27848,
+  "elapsed_s": 90.3,
+  "sps": 1108.0,
+  "mean_reward": 3.1455,
+  "max_reward": 21.0132,
+  "mean_metacog": 97.8,
+  "max_metacog": 100,
+  "mean_truth": 1.0,
+  "cfr_avg": {
+    "halluc_block": 0.0,
+    "thought_forge": 0.934,
+    "gym_spawn": 0.0,
+    "policy_evolve": 0.0,
+    "canvas_orchestrate": 0.0,
+    "truth_audit": 0.0,
+    "momentum_surge": 0.0,
+    "gap_seal": 0.065
+  },
+  "her_buffer": 3000
+}

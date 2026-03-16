@@ -1,5 +1,5 @@
 """
-train_meta.py — PPO + CFR-HER Training for MetaGym v1
+train_meta.py - PPO + CFR-HER Training for MetaGym v1
 =======================================================
 50k steps, MiniMax-Text-01 genius profile.
 Neural fusion weights updated jointly with policy.
@@ -12,12 +12,12 @@ Usage:
     python train_meta.py --demo                   # 5-step demo
 
 Outputs:
-    ~/.openclaw/gyms/metagym_cfr.json         — CFR strategy
-    ~/.openclaw/gyms/metagym_fusion.json      — NeuralFusion weights
-    ~/.openclaw/gyms/metagym_matrix.json      — GymMatrix health
-    ~/.openclaw/gyms/metagym_ppo.json         — PPO policy
-    ~/.openclaw/gyms/metagym_log.jsonl        — per-episode log
-    metagym_results.json                      — final summary
+    ~/.openclaw/gyms/metagym_cfr.json         - CFR strategy
+    ~/.openclaw/gyms/metagym_fusion.json      - NeuralFusion weights
+    ~/.openclaw/gyms/metagym_matrix.json      - GymMatrix health
+    ~/.openclaw/gyms/metagym_ppo.json         - PPO policy
+    ~/.openclaw/gyms/metagym_log.jsonl        - per-episode log
+    metagym_results.json                      - final summary
 """
 
 from __future__ import annotations
@@ -54,7 +54,7 @@ LOG_PATH     = GYM_DIR / "metagym_log.jsonl"
 RESULTS_PATH = Path("metagym_results.json")
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PPO POLICY — 3-layer with larger hidden for meta-complexity
+# PPO POLICY - 3-layer with larger hidden for meta-complexity
 # ══════════════════════════════════════════════════════════════════════════════
 
 @dataclass
@@ -70,16 +70,18 @@ class MetaPPOPolicy:
     b2: np.ndarray
     W3: np.ndarray
     b3: np.ndarray
-    lr:       float = 2e-4
+    lr:       float = 1e-4  # Reduced from 2e-4 for stability
     gamma:    float = 0.99
     eps_clip: float = 0.2
     ent_coef: float = 0.01   # Entropy bonus for exploration
+    clip_norm: float = 1.0   # Gradient clipping
 
     @classmethod
     def init(cls, seed: int = 42) -> "MetaPPOPolicy":
         rng = np.random.default_rng(seed)
         def he(fan_in, fan_out):
-            return rng.normal(0, math.sqrt(2.0 / fan_in), (fan_out, fan_in)).astype(np.float64)
+            # Smaller init to prevent gradient explosion
+            return rng.normal(0, 0.1 * math.sqrt(2.0 / fan_in), (fan_out, fan_in)).astype(np.float64)
         return cls(
             W1=he(STATE_DIM, 128), b1=np.zeros(128),
             W2=he(128, 64),        b2=np.zeros(64),
@@ -142,7 +144,7 @@ class MetaPPOPolicy:
             delta = self.W3.T @ (grad_log * loss)
             delta *= (h2 > 0).astype(np.float64)
 
-            dW2 = np.outer(delta, h1) 
+            dW2 = np.outer(delta, h1)
             db2 = delta.copy()
 
             delta2 = self.W2.T @ delta
@@ -150,6 +152,12 @@ class MetaPPOPolicy:
 
             dW1 = np.outer(delta2, x1)
             db1 = delta2.copy()
+
+            # Gradient clipping (clip_norm=1.0)
+            for grad in [dW3, db3, dW2, db2, dW1, db1]:
+                norm = np.linalg.norm(grad)
+                if norm > self.clip_norm:
+                    grad *= self.clip_norm / norm
 
             self.W3 -= self.lr * dW3
             self.b3 -= self.lr * db3
@@ -183,7 +191,7 @@ class MetaPPOPolicy:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# HER BUFFER — Hindsight Experience Replay
+# HER BUFFER - Hindsight Experience Replay
 # ══════════════════════════════════════════════════════════════════════════════
 
 class HERBuffer:
@@ -282,7 +290,7 @@ def train(
 
     if verbose:
         print(f"\n{'─'*64}")
-        print(f"  MetaGym v{__import__('metagym').VERSION} — PPO+CFR-HER Training")
+        print(f"  MetaGym v{__import__('metagym').VERSION} - PPO+CFR-HER Training")
         print(f"  Total steps: {total_steps:,}  |  Seed: {seed}")
         print(f"  Architecture: 15-hook fusion | NeuralFusion 4-layer | HER buffer")
         print(f"{'─'*64}")
@@ -306,7 +314,11 @@ def train(
             blend    = t_ratio * ppo_p + (1 - t_ratio) * cfr_s
             blend    = np.clip(blend, 1e-6, 1.0)
             blend   /= blend.sum()
-
+            
+            # NaN guard
+            if np.isnan(blend).any() or np.isinf(blend).any():
+                blend = np.ones(N_ACTIONS) / N_ACTIONS
+            
             action   = int(rng.choice(N_ACTIONS, p=blend))
             old_p    = float(blend[action])
 
@@ -419,7 +431,7 @@ def train(
 
 EVAL_QUERIES = [
     "Ty Simpson PFF grades this season?",
-    "Should I deploy this microservice to Render — CFR analysis?",
+    "Should I deploy this microservice to Render - CFR analysis?",
     "Dynasty trade: Bijan Robinson for 2× late 1sts?",
     "Visualize the OpenClaw 15-hook pipeline as a Mermaid diagram.",
     "Debug: why is my Python async loop 3× slower than expected?",
@@ -438,7 +450,7 @@ def evaluate(
     scores = []
 
     print(f"\n{'─'*64}")
-    print(f"  MetaGym v1 — Evaluation ({n} queries)")
+    print(f"  MetaGym v1 - Evaluation ({n} queries)")
     print(f"{'─'*64}")
 
     for i, query in enumerate(EVAL_QUERIES[:n]):
@@ -468,7 +480,7 @@ def evaluate(
 
         # Full injection for canonical test
         if "Simpson" in query or "PFF" in query:
-            print(f"\n  [Master Injection — '{query}']")
+            print(f"\n  [Master Injection - '{query}']")
             inj = build_meta_injection(env, query)
             p   = json.loads(inj)
             print(f"    domain:     {p['domain']}")
@@ -495,7 +507,7 @@ def evaluate(
 # ══════════════════════════════════════════════════════════════════════════════
 
 def demo():
-    print("\n=== MetaGym v1 — Quick Demo ===\n")
+    print("\n=== MetaGym v1 - Quick Demo ===\n")
     env = MetaGym(max_steps=5, seed=0)
     obs, info = env.reset()
     print(f"Query:  {info['query']}")
