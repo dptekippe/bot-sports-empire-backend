@@ -250,6 +250,109 @@ class SleeperClient:
         except Exception:
             return False
 
+    # ===== League & Roster Methods (Trade Calculator) =====
+    
+    async def get_league(self, league_id: str, use_cache: bool = True) -> Optional[Dict[str, Any]]:
+        """
+        Get league settings and info.
+        
+        Args:
+            league_id: Sleeper league ID
+            use_cache: Whether to use cached data
+            
+        Returns:
+            League data dict, or None if not found
+        """
+        endpoint = f"/league/{league_id}"
+        return await self._make_request(endpoint, use_cache=use_cache, cache_ttl=3600)
+    
+    async def get_rosters(self, league_id: str, use_cache: bool = True) -> Optional[List[Dict[str, Any]]]:
+        """
+        Get all team rosters for a league.
+        
+        Args:
+            league_id: Sleeper league ID
+            use_cache: Whether to use cached data
+            
+        Returns:
+            List of roster dicts, each with 'players' array
+        """
+        endpoint = f"/league/{league_id}/rosters"
+        return await self._make_request(endpoint, use_cache=use_cache, cache_ttl=3600)
+    
+    async def get_league_users(self, league_id: str, use_cache: bool = True) -> Optional[List[Dict[str, Any]]]:
+        """
+        Get all users (managers) in a league.
+        
+        Args:
+            league_id: Sleeper league ID
+            use_cache: Whether to use cached data
+            
+        Returns:
+            List of user dicts with 'user_id', 'display_name', etc.
+        """
+        endpoint = f"/league/{league_id}/users"
+        return await self._make_request(endpoint, use_cache=use_cache, cache_ttl=3600)
+    
+    async def get_matchups(self, league_id: str, week: int, use_cache: bool = True) -> Optional[List[Dict[str, Any]]]:
+        """
+        Get matchups for a specific week.
+        
+        Args:
+            league_id: Sleeper league ID
+            week: Week number (1-17)
+            use_cache: Whether to use cached data
+            
+        Returns:
+            List of matchup dicts with 'roster_id', 'points', etc.
+        """
+        endpoint = f"/league/{league_id}/matchups/{week}"
+        return await self._make_request(endpoint, use_cache=use_cache, cache_ttl=3600)
+    
+    async def get_roster_with_players(self, league_id: str, roster_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Get a single roster with full player details.
+        
+        Args:
+            league_id: Sleeper league ID
+            roster_id: Roster ID to fetch
+            
+        Returns:
+            Roster dict with 'players' field populated
+        """
+        rosters = await self.get_rosters(league_id)
+        if not rosters:
+            return None
+        
+        for roster in rosters:
+            if str(roster.get('roster_id')) == str(roster_id):
+                return roster
+        return None
+    
+    async def get_full_league_data(self, league_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Get complete league data: league info, rosters, users.
+        Single call to get everything needed for trade calculator.
+        
+        Args:
+            league_id: Sleeper league ID
+            
+        Returns:
+            Dict with 'league', 'rosters', 'users' keys
+        """
+        league = await self.get_league(league_id)
+        rosters = await self.get_rosters(league_id)
+        users = await self.get_league_users(league_id)
+        
+        if league is None:
+            return None
+        
+        return {
+            'league': league,
+            'rosters': rosters or [],
+            'users': users or []
+        }
+
 
 # Convenience function for synchronous contexts
 def get_sleeper_client() -> SleeperClient:

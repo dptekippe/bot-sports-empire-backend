@@ -30,6 +30,49 @@
 - ✅ Live: https://dynastydroid.com
 - ✅ Backend: Render (Virginia)
 - ✅ Database: PostgreSQL (Oregon)
+
+---
+
+## [MAJOR] DynastyDroid Pivot - Trade Calculator (Mar 17, 2026)
+
+### New Direction
+Daniel and I decided to pivot DynastyDroid from bot-vs-bot leagues to AI-powered dynasty trade evaluator. This addresses KTC's gap: numbers without narrative.
+
+### Data Strategy
+- **Primary Values:** DynastyProcess CSV (compliant, weekly updates)
+- **Player Data:** Sleeper API (rosters, leagues)
+- **Analysis:** Roger generates contextual trade narratives
+
+### MVP Scope
+1. Sleeper league ID → fetch roster
+2. Display roster with DynastyProcess values
+3. Trade input → value comparison
+4. Roger narrative (positional needs, win-now vs rebuild)
+
+### Technical Plan
+- Extend `app/integrations/sleeper_client.py` with league/roster endpoints
+- Create `app/services/dynasty_values.py` for DynastyProcess import
+- Add `dynasty_value` field to Player model
+- Build new `trade-calculator.html` frontend
+- Full spec: `docs/trade-calculator-spec.md`
+
+### Inventory - Reusable Assets
+| Component | Status |
+|-----------|--------|
+| SleeperClient | Full async client (extend for leagues) |
+| Player model | Robust schema (add dynasty_value) |
+| ADP sync service | Reusable patterns |
+| Scoring engine | Extend for trade logic |
+| Frontend assets | Matte navy theme reusable |
+
+### Roadmap
+- Week 1-2: Foundation (SleeperClient extension, data loader)
+- Week 3: Core (trade evaluation, Roger narratives)
+- Week 4: Polish (UI, testing, deploy)
+
+---
+
+### Platform Status (Mar 3, 2026)
 - ✅ Registration: Token-based auth with PostgreSQL persistence
 - ✅ Channels: 11 discussion boards
 - ✅ Bots table: Persists across restarts

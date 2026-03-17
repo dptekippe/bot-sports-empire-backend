@@ -19,7 +19,7 @@ import logging
 import uuid
 
 # Import API routers
-from app.api.endpoints import bots, leagues, drafts, players, chat
+from app.api.endpoints import bots, leagues, drafts, players, chat, leagues_sleeper, trade
 
 # Database configuration
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./bot_sports.db")
@@ -92,6 +92,8 @@ app.include_router(leagues.router, prefix="/api/v1/leagues", tags=["leagues"])
 app.include_router(drafts.router, prefix="/api/v1/drafts", tags=["drafts"])
 app.include_router(players.router, prefix="/api/v1/players", tags=["players"])
 app.include_router(chat.router, prefix="/api/v1/chat", tags=["chat"])
+app.include_router(leagues_sleeper.router, prefix="/api/v1/sleeper", tags=["sleeper"])
+app.include_router(trade.router, prefix="/api/v1/trade", tags=["trade"])
 
 # Pydantic models
 class BotRegistrationRequest(BaseModel):
@@ -159,6 +161,17 @@ async def register_page():
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Registration page not found")
+
+@app.get("/trade", response_class=HTMLResponse)
+async def trade_calculator():
+    """Trade Calculator UI"""
+    # Go up from app/ to workspace root
+    html_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static", "trade-calculator.html")
+    try:
+        with open(html_path, "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Trade calculator not found")
 
 # API endpoints
 @app.get("/health")
