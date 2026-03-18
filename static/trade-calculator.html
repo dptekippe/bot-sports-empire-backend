@@ -517,16 +517,21 @@ function updateUI() {
     renderSelectedList('give'); renderSelectedList('get');
     const gvRaw = give.reduce((s, p) => s + p.value, 0);
     const rvRaw = get.reduce((s, p) => s + p.value, 0);
-    const THRESHOLD = 0.38, MULTIPLIER = 0.70;
+    const STUD_THRESHOLD = 6500; // Only players above this are "studs"
+    const GAP_MULTIPLIER = 2.0; // Stud must be 2x better than opponent's best to qualify
+    const BONUS_MULTIPLIER = 0.35;
     let giveBonus = 0, getBonus = 0;
     const maxGive = give.length ? Math.max(...give.map(p => p.value)) : 0;
     const maxGet = get.length ? Math.max(...get.map(p => p.value)) : 0;
-    if (maxGive > maxGet && rvRaw > 0) {
-        const ratio = maxGive / rvRaw;
-        if (ratio > THRESHOLD) giveBonus = Math.round((maxGive - rvRaw * THRESHOLD) * MULTIPLIER);
-    } else if (maxGet > maxGive && gvRaw > 0) {
-        const ratio = maxGet / gvRaw;
-        if (ratio > THRESHOLD) getBonus = Math.round((maxGet - gvRaw * THRESHOLD) * MULTIPLIER);
+    const nextBestGive = give.length > 1 ? give.map(p => p.value).sort((a,b) => b-a)[1] : 0;
+    const nextBestGet = get.length > 1 ? get.map(p => p.value).sort((a,b) => b-a)[1] : 0;
+    // Give side gets stud bonus if: give has a stud AND get doesn't AND stud dominates
+    if (maxGive > STUD_THRESHOLD && maxGet < STUD_THRESHOLD && maxGive > maxGet * GAP_MULTIPLIER) {
+        giveBonus = Math.round((maxGive - maxGet * GAP_MULTIPLIER) * BONUS_MULTIPLIER);
+    }
+    // Get side gets stud bonus if: get has a stud AND give doesn't AND stud dominates
+    if (maxGet > STUD_THRESHOLD && maxGive < STUD_THRESHOLD && maxGet > maxGive * GAP_MULTIPLIER) {
+        getBonus = Math.round((maxGet - maxGive * GAP_MULTIPLIER) * BONUS_MULTIPLIER);
     }
     const gvAdjusted = gvRaw + giveBonus, rvAdjusted = rvRaw + getBonus, diff = rvAdjusted - gvAdjusted;
     document.getElementById('giveValue').textContent = gvRaw.toLocaleString();
