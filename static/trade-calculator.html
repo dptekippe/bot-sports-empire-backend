@@ -482,54 +482,29 @@
 
 <script>
 let allPlayers = []; let give = []; let get = []; let balanceChart = null; let consensusCache = {};
-const KTC_MAX = 9999, TEAM_VALUE = 8200;
+const KTC_MAX = 11796;  // Tuned to match KTC outputs
 
 /**
- * Daniel's KTC-style nonlinear raw adjustment formula.
- * Compresses mid-tier players more than elite players.
- * Returns trade value on 0-9999 scale.
+ * Pure KTC raw adjustment formula.
+ * t = trade max (max value in this trade)
+ * v = overall max (9999)
+ * Compresses mid-tier, amplifies studs via curve shape.
  */
-function ktcRawAdjustment(p) {
-    const term1 = 0.15 * Math.pow(p / KTC_MAX, 8);
-    const term2 = 0.15 * Math.pow(p / TEAM_VALUE, 1.3);
-    const term3 = 0.1 * Math.pow(p / (KTC_MAX + 2000), 1.28);
-    return p * (0.1 + term1 + term2 + term3);
+function ktcRawAdjust(p, t) {
+    const v = KTC_MAX;
+    return p * (0.1 + 0.15 * Math.pow(p / v, 8) + 0.15 * Math.pow(p / t, 1.3) + 0.1 * Math.pow(p / (v + 2000), 1.28));
 }
 
 /**
- * Calculate stud factor for extreme percentiles.
- * Top 10%: multiplier up to 1.5x
- * Bottom 10%: multiplier down to 0.5x
- */
-function getStudFactor(blendedP) {
-    const percentile = Math.min(blendedP / 10000, 1);
-    if (percentile > 0.9) {
-        return 1.0 + 0.5 * (percentile - 0.9) / 0.1;
-    } else if (percentile < 0.1) {
-        return Math.max(0.5, 1.0 - 0.5 * (0.1 - percentile) / 0.1);
-    }
-    return 1.0;
-}
-
-/**
- * Get trade value for a player (blended, normalized, stud-adjusted).
+ * Get trade value for a player using KTC raw adjustment.
  * consensusValue: 0-999 scale (from API), or raw KTC if not available.
- * Returns trade value on 0-9999 scale.
+ * t: trade max (largest value in this trade)
  */
-function getTradeValue(consensusValue, rawKtc) {
-    // Use consensus if available (0-999 scale → multiply to 0-9999)
-    // Otherwise use raw KTC directly
+function getTradeValue(consensusValue, rawKtc, t) {
     const baseValue = (consensusValue !== undefined && consensusValue > 0) 
         ? consensusValue * 10 
         : rawKtc;
-    
-    // Apply nonlinear adjustment
-    const normalized = ktcRawAdjustment(baseValue);
-    
-    // Apply stud factor for extreme percentiles
-    const studFactor = getStudFactor(baseValue);
-    
-    return normalized * studFactor;
+    return ktcRawAdjust(baseValue, t);
 }
 
 fetch('/ktc_values.json').then(r => r.json()).then(data => { allPlayers = data; updateUI(); });
@@ -567,8 +542,10 @@ function updateUI() {
     renderSelectedList('give'); renderSelectedList('get');
     
     // Calculate trade values using Daniel's corrected formula
-    const gvTrade = give.reduce((s, p) => s + getTradeValue(consensusCache[p.name], p.value), 0);
-    const rvTrade = get.reduce((s, p) => s + getTradeValue(consensusCache[p.name], p.value), 0);
+    const allValues = [...give, ...get].map(p => consensusCache[p.name] || p.value);
+    const tradeMax = Math.max(...allValues, KTC_MAX);
+    const gvTrade = give.reduce((s, p) => s + getTradeValue(consensusCache[p.name], p.value, tradeMax), 0);
+    const rvTrade = get.reduce((s, p) => s + getTradeValue(consensusCache[p.name], p.value, tradeMax), 0);
     
     // Delta (positive = GET winning)
     const diff = Math.round(rvTrade - gvTrade);
@@ -588,7 +565,7 @@ function updateUI() {
     const diffEl = document.getElementById('tradeDiff'), labelEl = document.getElementById('tradeLabel');
     if (give.length === 0 && get.length === 0) {
         diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'No assets selected';
-    } else if (Math.abs(diff) < 50) {
+    } else if (Math.abs(diff) < 700) {
         diffEl.textContent = 'FAIR'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'Values are closely matched';
     } else if (diff > 0) {
         diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-positive'; labelEl.textContent = 'Get side is leading';
@@ -634,13 +611,15 @@ async function analyze() {
 function showModal(data, tep) {
     const map = {}; data.forEach(p => map[p.name] = p);
     // Consensus is 0-999 scale; scale to 9999 before applying power curve
-    const gv = give.reduce((s, p) => s + getTradeValue(map[p.name]?.consensus, p.value), 0);
-    const rv = get.reduce((s, p) => s + getTradeValue(map[p.name]?.consensus, p.value), 0);
+    const allVals = [...give, ...get].map(p => map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value);
+    const tradeMax = Math.max(...allVals, KTC_MAX);
+    const gv = give.reduce((s, p) => s + getTradeValue(map[p.name]?.consensus, p.value, tradeMax), 0);
+    const rv = get.reduce((s, p) => s + getTradeValue(map[p.name]?.consensus, p.value, tradeMax), 0);
     const diff = Math.round(rv - gv);
     document.getElementById('modalGiveVal').textContent = Math.round(gv).toLocaleString();
     document.getElementById('modalGetVal').textContent = Math.round(rv).toLocaleString();
     document.getElementById('modalDiffVal').textContent = (diff > 0 ? '+' : '') + diff.toLocaleString();
-    let msg = `Using KTC effective-value normalization, this deal is ${Math.abs(diff) < 50 ? 'near-perfect parity' : (diff > 0 ? 'favoring the incoming side' : 'favoring the outgoing side')} (${Math.abs(diff)} eff pts).`;
+    let msg = `Using KTC effective-value normalization, this deal is ${Math.abs(diff) < 700 ? 'near-perfect parity' : (diff > 0 ? 'favoring the incoming side' : 'favoring the outgoing side')} (${Math.abs(diff)} eff pts).`;
     if (tep) msg += " Tight End Premium was active for this calculation.";
     document.getElementById('modalNarrative').textContent = msg;
     document.getElementById('resultsModal').style.display = 'flex';
