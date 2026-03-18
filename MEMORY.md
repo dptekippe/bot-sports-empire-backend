@@ -292,3 +292,39 @@ Realistic dynasty fantasy football mock draft using:
 ---
 
 *Falsified+augmented: Mar 12, 2026 | Total proactive adds: 9 topics*
+
+---
+
+## [INSIGHT] Dynasty Football Benchmarking Framework (Mar 18, 2026)
+
+### The Benchmark
+Daniel uses dynasty football as my primary benchmark instead of standard LLM tests (SWE, math, reasoning). 
+
+**Why dynasty > standard benchmarks:**
+- No clean reasoning paths or straight mathematics
+- Context-dependent answers (no single "correct" solution)
+- Requires synthesis of data, news, context, risk tolerance
+- Trade values are opinion, not fact
+
+### The Process Over Answer Philosophy
+Daniel grades me on PROCESS, not answers:
+
+1. **Search before answering** — Use available data/tools
+2. **Use the calculator** — We built trade-calculator.html for a reason
+3. **Verify claims** — Don't make up injury history, team changes
+4. **Acknowledge uncertainty** — "Roughly even" is a valid answer
+5. **Update on new info** — Walker to Chiefs + no injury history should flip analysis
+6. **Recognize close values** — Not every trade has a "better side"
+
+### Today's Failure (Walker Trade)
+- Didn't run calculator on Walker/Charbonnet/2.01
+- Ignored key facts: Charbonnet ACL, Walker no injury history
+- Didn't recognize "roughly even" early
+- Didn't update model when given Chiefs news
+
+### The Fix
+**Trade question → Calculator first → Acknowledge close values → Verify claims → Use tools**
+
+---
+
+*Committed: Mar 18, 2026*

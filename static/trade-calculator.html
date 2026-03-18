@@ -6,13 +6,14 @@
     <title>DynastyDroid - AI Trade Engine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0A1428;
-            --card: rgba(17, 24, 39, 0.8);
+            --bg: #0a0f1e;
+            --card: #0f1629;
             --border: rgba(55, 65, 81, 0.5);
             --gold: #F59E0B;
+            --gold-dark: #D97706;
             --cyan: #06B6D4;
             --pos-qb: #EF4444;
             --pos-rb: #10B981;
@@ -20,74 +21,150 @@
             --pos-te: #8B5CF6;
             --pos-pick: #6B7280;
         }
-
         body {
             background-color: var(--bg);
             background-image: 
-                radial-gradient(circle at top left, rgba(6, 182, 212, 0.07) 0%, transparent 40%),
-                radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.07) 0%, transparent 40%);
+                radial-gradient(ellipse at 20% 0%, rgba(239, 68, 68, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpath d='M30 0L60 15v22L30 52 0 37V15z' fill='none' stroke='rgba(55,65,81,0.08)' stroke-width='0.5'/%3E%3C/svg%3E");
+            background-size: 100% 100%, 60px 52px, 100% 100%;
             color: #F3F4F6;
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            animation: bgShift 20s ease-in-out infinite alternate;
         }
-
+        @keyframes bgShift {
+            0% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+            100% { background-position: 10% 10%, 0% 0%, 0% 0%, 0% 0%; }
+        }
+        @keyframes pulse-even {
+            0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.1); }
+            50% { text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        }
+        @keyframes dash-march { to { stroke-dashoffset: -20; } }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .font-bebas { font-family: 'Bebas Neue', sans-serif; }
-
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .header-glow { position: relative; }
+        .header-glow::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.5), transparent);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
         .glass-panel {
             background: var(--card);
             backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
             border-radius: 20px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
         }
-
+        .glass-panel:hover { transform: translateY(-2px); }
+        .glass-panel.give-panel {
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.1), inset 0 1px 0 rgba(239, 68, 68, 0.1);
+        }
+        .glass-panel.get-panel {
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1), inset 0 1px 0 rgba(16, 185, 129, 0.1);
+        }
+        .glass-panel.give-panel:hover {
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.2), inset 0 1px 0 rgba(239, 68, 68, 0.2);
+        }
+        .glass-panel.get-panel:hover {
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2), inset 0 1px 0 rgba(16, 185, 129, 0.2);
+        }
+        .center-panel {
+            background: linear-gradient(180deg, rgba(15, 22, 41, 0.9) 0%, rgba(10, 15, 30, 0.95) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.05);
+        }
+        .drop-zone {
+            border: 2px dashed rgba(100, 116, 139, 0.4);
+            border-radius: 16px;
+            position: relative;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .drop-zone::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 18px;
+            padding: 2px;
+            background: linear-gradient(90deg, transparent, rgba(100, 116, 139, 0.2), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: dash-march 1s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .drop-zone:hover::before, .drop-zone:focus-within::before { opacity: 1; }
+        .drop-zone:hover {
+            border-color: rgba(100, 116, 139, 0.6);
+            box-shadow: inset 0 0 20px rgba(6, 182, 212, 0.05);
+        }
+        .drop-zone.has-items { border-color: transparent; background: transparent; }
+        .drop-zone.has-items:hover { border-color: rgba(100, 116, 139, 0.3); }
         .search-input {
             width: 100%;
-            padding: 12px 16px;
-            background: rgba(0, 0, 0, 0.4);
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            color: white; /* Increased readability */
+            border-radius: 14px;
+            color: white;
             font-size: 1rem;
             transition: all 0.2s;
         }
-
         .search-input:focus {
             outline: none;
             border-color: var(--cyan);
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
         }
-
         .player-card {
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 10px 14px;
+            padding: 12px 16px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
-        .player-card:hover { border-color: var(--cyan); background: rgba(255, 255, 255, 0.05); }
-        .player-card.selected { border-color: var(--gold); background: rgba(245, 158, 11, 0.1); }
-
+        .player-card:hover { 
+            border-color: var(--cyan); 
+            background: rgba(255, 255, 255, 0.05); 
+            transform: translateY(-1px);
+        }
+        .player-card.selected { 
+            border-color: var(--gold); 
+            background: rgba(245, 158, 11, 0.08); 
+        }
         .pos-badge {
             font-size: 0.65rem;
             font-weight: 800;
-            padding: 1px 6px;
-            border-radius: 4px;
-            min-width: 34px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            min-width: 36px;
             text-align: center;
             color: white;
         }
-
         .pos-QB { background: var(--pos-qb); }
         .pos-RB { background: var(--pos-rb); }
         .pos-WR { background: var(--pos-wr); }
         .pos-TE { background: var(--pos-te); }
         .pos-Pick { background: var(--pos-pick); }
-
         .search-results-overlay {
             position: absolute;
             top: 100%;
@@ -96,40 +173,119 @@
             z-index: 50;
             background: #111827;
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             max-height: 300px;
             overflow-y: auto;
-            margin-top: 4px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            margin-top: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
-
         .btn-analyze {
-            background: linear-gradient(135deg, var(--gold), #D97706);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 50%, #B45309 100%);
+            background-size: 200% auto;
             color: #000;
             font-weight: 800;
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 0.05em;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
             border-radius: 14px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.2);
         }
-
-        .btn-analyze:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
+        .btn-analyze::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .btn-analyze:hover:not(:disabled) { 
+            transform: scale(1.03); 
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.5);
+            background-position: right center;
+        }
+        .btn-analyze:hover:not(:disabled)::before { left: 100%; }
         .btn-analyze:disabled { opacity: 0.3; filter: grayscale(1); }
-
+        .even-text { animation: pulse-even 3s ease-in-out infinite; }
+        .delta-positive { color: #10B981; text-shadow: 0 0 30px rgba(16, 185, 129, 0.5); }
+        .delta-negative { color: #EF4444; text-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
+        .delta-even { color: #9CA3AF; text-shadow: 0 0 20px rgba(156, 163, 175, 0.3); }
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.75rem;
+            letter-spacing: -0.02em;
+        }
+        .stat-value.give { color: #EF4444; }
+        .stat-value.get { color: #10B981; }
+        .stat-value.bonus { color: #F59E0B; }
+        .stat-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #6B7280;
+            margin-bottom: 4px;
+        }
+        .stat-divider {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(180deg, transparent, rgba(100, 116, 139, 0.5), transparent);
+        }
+        .toggle-switch { position: relative; width: 52px; height: 28px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: rgba(50, 60, 80, 0.8);
+            border-radius: 28px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background: #9CA3AF;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .toggle-switch input:checked + .toggle-slider {
+            background: rgba(139, 92, 246, 0.4);
+            border-color: #8B5CF6;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(24px);
+            background: #A78BFA;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+        .summary-value { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.5rem; }
+        .info-footer {
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+            border-top: 1px solid rgba(55, 65, 81, 0.3);
+        }
         @keyframes pulse-glow {
             0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.2); }
             70% { box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
             100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
         }
-        .winning-side { animation: pulse-glow 2s infinite; border-color: var(--cyan); }
-
+        .winning-side { animation: pulse-glow 2s infinite; }
         .mobile-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 20, 40, 0.95);
+            background: rgba(10, 15, 30, 0.95);
             backdrop-filter: blur(10px);
             border-top: 1px solid var(--border);
             padding: 12px 20px;
@@ -138,125 +294,151 @@
             justify-content: space-between;
             align-items: center;
         }
+        .page-load { animation: fadeInUp 0.8s ease-out; }
+        .page-load-delay-1 { animation-delay: 0.1s; opacity: 0; animation-fill-mode: forwards; }
+        .page-load-delay-2 { animation-delay: 0.2s; opacity: 0; animation-fill-mode: forwards; }
+        .page-load-delay-3 { animation-delay: 0.3s; opacity: 0; animation-fill-mode: forwards; }
     </style>
 </head>
-<body class="p-4 md:p-6">
-    <!-- Navbar / Header -->
-    <nav class="flex justify-between items-center mb-8">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-amber-400 rounded-xl flex items-center justify-center shadow-lg shadow-amber-400/20">
-                <svg viewBox="0 0 24 24" class="w-6 h-6 text-slate-900" fill="currentColor">
-                    <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14V22H3V14A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z" />
-                </svg>
+<body class="p-4 md:p-8">
+    <nav class="flex justify-between items-center mb-10 header-glow pb-4 page-load">
+        <div class="flex items-center gap-4">
+            <div class="relative">
+                <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/30">
+                    <svg viewBox="0 0 24 24" class="w-7 h-7 text-slate-900" fill="currentColor">
+                        <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14V22H3V14A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z" />
+                    </svg>
+                </div>
+                <div class="absolute -inset-2 bg-gradient-to-r from-amber-500/20 to-amber-600/20 rounded-xl blur-xl -z-10"></div>
             </div>
             <div>
-                <span class="text-2xl font-bold tracking-tighter font-bebas block leading-none">DYNASTY DROID</span>
-                <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">AI Trade Engine</span>
+                <span class="text-3xl font-bold tracking-tighter font-bebas block leading-none text-white">DYNASTY DROID</span>
+                <span class="text-[10px] text-amber-500/80 uppercase tracking-[0.3em] font-bold">AI Trade Engine</span>
             </div>
         </div>
-
-        <div class="flex items-center gap-4">
-            <label class="flex items-center gap-2 cursor-pointer group">
-                <span class="text-[10px] font-bold text-gray-500 group-hover:text-purple-400 transition-colors uppercase">TE Premium</span>
-                <input type="checkbox" id="tePremium" class="w-4 h-4 rounded border-gray-700 bg-gray-800 text-purple-600 focus:ring-purple-500">
+        <div class="flex items-center gap-6">
+            <label class="flex items-center gap-3 cursor-pointer group">
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-purple-400 transition-colors uppercase tracking-wider">TE Premium</span>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="tePremium">
+                    <span class="toggle-slider"></span>
+                </div>
             </label>
         </div>
     </nav>
 
-    <main class="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-7xl mx-auto">
-        <!-- GIVE SIDE -->
-        <section id="giveContainer" class="lg:col-span-4 glass-panel p-5 flex flex-col">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-bold text-red-400 font-bebas tracking-wide uppercase">Outgoing Assets</h2>
-                <span class="text-[10px] font-mono text-gray-600" id="giveCount">0 Items</span>
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-7xl mx-auto page-load page-load-delay-1">
+        <section id="giveContainer" class="lg:col-span-4 glass-panel give-panel p-6 flex flex-col">
+            <div class="flex justify-between items-center mb-5">
+                <div class="flex items-center gap-3">
+                    <div class="w-1 h-6 bg-gradient-to-b from-red-500 to-red-600 rounded-full"></div>
+                    <h2 class="text-xl font-bold font-bebas tracking-wide uppercase text-red-400">Outgoing</h2>
+                </div>
+                <span class="text-[10px] font-mono text-gray-600 bg-black/30 px-2 py-1 rounded" id="giveCount">0 Items</span>
             </div>
-
             <div class="relative mb-4">
                 <input type="text" id="giveSearch" class="search-input" placeholder="Add player to give..." oninput="onSearchInput('give')">
                 <div id="giveSearchResults" class="search-results-overlay" style="display:none"></div>
             </div>
-
-            <div id="giveSelectedList" class="flex-1 space-y-2 min-h-[150px] max-h-[400px] overflow-y-auto">
-                <!-- Selected players only -->
-            </div>
-
-            <div class="mt-4 pt-4 border-t border-gray-800 flex justify-between items-end">
-                <div>
-                    <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest block">Base Value</span>
-                    <span class="text-2xl font-bebas text-red-400" id="giveValue">0</span>
+            <div id="giveSelectedList" class="flex-1 space-y-2 min-h-[200px] max-h-[450px] overflow-y-auto drop-zone p-3">
+                <div class="h-full flex flex-col items-center justify-center text-gray-600 space-y-3 py-8">
+                    <svg class="w-10 h-10 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 4v16m8-8H4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="text-[10px] uppercase font-bold tracking-[0.2em] italic">Drop zone — add players</span>
                 </div>
-                <div class="text-right">
-                    <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest block">Stud Bonus</span>
-                    <span class="text-xl font-bebas text-amber-500" id="giveBonus">+0</span>
+            </div>
+            <div class="mt-5 pt-5 border-t border-gray-800/50 flex items-center gap-4">
+                <div class="flex-1">
+                    <span class="stat-label">Base Value</span>
+                    <span class="stat-value give font-mono" id="giveValue">0</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="flex-1">
+                    <span class="stat-label">Stud Bonus</span>
+                    <span class="stat-value bonus font-mono" id="giveBonus">+0</span>
                 </div>
             </div>
         </section>
 
-        <!-- CENTER / SUMMARY -->
-        <section class="lg:col-span-4 flex flex-col gap-6 order-last lg:order-none">
-            <div class="glass-panel p-6 flex-1 flex flex-col items-center justify-center text-center">
-                <p class="text-gray-500 font-bold uppercase tracking-widest text-[10px] mb-2">Market Delta</p>
-                <div class="font-bebas text-6xl mb-1 even" id="tradeDiff">EVEN</div>
+        <section class="lg:col-span-4 flex flex-col gap-6 order-last lg:order-none page-load page-load-delay-2">
+            <div class="center-panel glass-panel p-8 flex-1 flex flex-col items-center justify-center text-center rounded-2xl">
+                <p class="text-gray-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-3">Market Delta</p>
+                <div class="font-bebas text-7xl mb-2 even-text" id="tradeDiff">EVEN</div>
                 <p class="text-xs text-gray-500 mb-8" id="tradeLabel">No assets selected</p>
-
-                <button id="analyzeBtn" onclick="analyze()" disabled class="btn-analyze w-full py-4 shadow-xl">
-                    ANALYZE BLEND
-                </button>
-
-                <div class="grid grid-cols-2 w-full gap-4 mt-10">
-                    <div class="text-center">
-                        <p class="text-[9px] text-gray-500 uppercase font-black">Adjusted Give</p>
-                        <p class="text-xl font-bebas" id="summaryGiveVal">0</p>
+                <button id="analyzeBtn" onclick="analyze()" disabled class="btn-analyze w-full py-5 shadow-xl">ANALYZE BLEND</button>
+                <div class="grid grid-cols-2 w-full gap-6 mt-12">
+                    <div class="text-center p-3 bg-black/20 rounded-xl border border-gray-800/30">
+                        <p class="stat-label">Adjusted Give</p>
+                        <p class="summary-value text-red-400" id="summaryGiveVal">0</p>
                     </div>
-                    <div class="text-center">
-                        <p class="text-[9px] text-gray-500 uppercase font-black">Adjusted Get</p>
-                        <p class="text-xl font-bebas" id="summaryGetVal">0</p>
+                    <div class="text-center p-3 bg-black/20 rounded-xl border border-gray-800/30">
+                        <p class="stat-label">Adjusted Get</p>
+                        <p class="summary-value text-green-400" id="summaryGetVal">0</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- GET SIDE -->
-        <section id="getContainer" class="lg:col-span-4 glass-panel p-5 flex flex-col">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-bold text-green-400 font-bebas tracking-wide uppercase">Incoming Assets</h2>
-                <span class="text-[10px] font-mono text-gray-600" id="getCount">0 Items</span>
+        <section id="getContainer" class="lg:col-span-4 glass-panel get-panel p-6 flex flex-col">
+            <div class="flex justify-between items-center mb-5">
+                <div class="flex items-center gap-3">
+                    <div class="w-1 h-6 bg-gradient-to-b from-green-500 to-green-600 rounded-full"></div>
+                    <h2 class="text-xl font-bold font-bebas tracking-wide uppercase text-green-400">Incoming</h2>
+                </div>
+                <span class="text-[10px] font-mono text-gray-600 bg-black/30 px-2 py-1 rounded" id="getCount">0 Items</span>
             </div>
-
             <div class="relative mb-4">
                 <input type="text" id="getSearch" class="search-input" placeholder="Add player to get..." oninput="onSearchInput('get')">
                 <div id="getSearchResults" class="search-results-overlay" style="display:none"></div>
             </div>
-
-            <div id="getSelectedList" class="flex-1 space-y-2 min-h-[150px] max-h-[400px] overflow-y-auto">
-                <!-- Selected players only -->
-            </div>
-
-            <div class="mt-4 pt-4 border-t border-gray-800 flex justify-between items-end">
-                <div>
-                    <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest block">Base Value</span>
-                    <span class="text-2xl font-bebas text-green-400" id="getValue">0</span>
+            <div id="getSelectedList" class="flex-1 space-y-2 min-h-[200px] max-h-[450px] overflow-y-auto drop-zone p-3">
+                <div class="h-full flex flex-col items-center justify-center text-gray-600 space-y-3 py-8">
+                    <svg class="w-10 h-10 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 4v16m8-8H4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="text-[10px] uppercase font-bold tracking-[0.2em] italic">Drop zone — add players</span>
                 </div>
-                <div class="text-right">
-                    <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest block">Stud Bonus</span>
-                    <span class="text-xl font-bebas text-amber-500" id="getBonus">+0</span>
+            </div>
+            <div class="mt-5 pt-5 border-t border-gray-800/50 flex items-center gap-4">
+                <div class="flex-1">
+                    <span class="stat-label">Base Value</span>
+                    <span class="stat-value get font-mono" id="getValue">0</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="flex-1">
+                    <span class="stat-label">Stud Bonus</span>
+                    <span class="stat-value bonus font-mono" id="getBonus">+0</span>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Modal Results -->
-    <div id="resultsModal" class="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4" style="display:none">
+    <footer class="info-footer mt-8 py-4 px-6 max-w-7xl mx-auto page-load page-load-delay-3">
+        <div class="flex flex-wrap items-center justify-between gap-4 text-[10px] text-gray-600">
+            <div class="flex items-center gap-6">
+                <span class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    Data: KeepTradeCut + DynastyProcess
+                </span>
+                <span>Updated: March 2026</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-gray-700">DynastyDroid v2.0</span>
+                <span class="text-gray-800">|</span>
+                <span>Superflex + TEP Enabled</span>
+            </div>
+        </div>
+    </footer>
+
+    <div id="resultsModal" class="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm" style="display:none">
         <div class="glass-panel w-full max-w-3xl p-8 max-h-[90vh] overflow-y-auto border-cyan-500/30">
             <div class="flex justify-between items-start mb-6">
                 <h2 class="text-4xl font-bold font-bebas tracking-tight">ANALYSIS RESULTS</h2>
-                <button onclick="closeResults()" class="text-gray-500 hover:text-white">✕</button>
+                <button onclick="closeResults()" class="text-gray-500 hover:text-white text-xl">✕</button>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div class="h-48 flex items-center justify-center">
-                    <canvas id="balanceChart"></canvas>
-                </div>
+                <div class="h-48 flex items-center justify-center"><canvas id="balanceChart"></canvas></div>
                 <div class="space-y-4">
                     <div class="grid grid-cols-3 gap-2">
                         <div class="bg-black/40 p-3 rounded-xl border border-red-500/20 text-center">
@@ -278,7 +460,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="flex gap-4">
                 <button class="btn-analyze flex-1 py-3" onclick="shareTrade()">Copy to Clipboard</button>
                 <button class="bg-white/5 hover:bg-white/10 px-8 rounded-14 font-bold text-sm" onclick="closeResults()">Back</button>
@@ -286,7 +467,6 @@
         </div>
     </div>
 
-    <!-- Mobile Sticky Footer -->
     <div class="mobile-bar md:hidden" id="mobileSummary" style="display:none">
         <div>
             <span class="text-[9px] text-gray-500 uppercase block font-bold">Difference</span>
@@ -296,249 +476,128 @@
     </div>
 
 <script>
-    let allPlayers = [];
-    let give = [];
-    let get = [];
-    let balanceChart = null;
+let allPlayers = []; let give = []; let get = []; let balanceChart = null;
+fetch('/ktc_values.json').then(r => r.json()).then(data => { allPlayers = data; updateUI(); });
 
-    // Initialization
-    fetch('/ktc_values.json')
-        .then(r => r.json())
-        .then(data => {
-            allPlayers = data;
-            updateUI();
-        });
-
-    function onSearchInput(side) {
-        const query = document.getElementById(side + 'Search').value.trim().toLowerCase();
-        const resultsEl = document.getElementById(side + 'SearchResults');
-        
-        if (query.length < 2) {
-            resultsEl.style.display = 'none';
-            return;
-        }
-
-        const selectedNames = new Set([...give, ...get].map(p => p.name));
-        const filtered = allPlayers.filter(p => 
-            !selectedNames.has(p.name) && 
-            p.name.toLowerCase().includes(query)
-        ).slice(0, 10);
-
-        if (filtered.length === 0) {
-            resultsEl.innerHTML = '<div class="p-4 text-xs text-gray-500 text-center font-bold">No players found</div>';
-        } else {
-            resultsEl.innerHTML = filtered.map(p => `
-                <div class="p-4 border-b border-gray-800 hover:bg-gray-800 cursor-pointer flex justify-between items-center transition-colors" 
-                     onclick="addPlayerById('${p.id}', '${side}')">
-                    <div class="flex items-center gap-3">
-                        <span class="pos-badge pos-${p.pos}">${p.pos}</span>
-                        <div class="flex flex-col">
-                            <span class="text-sm font-bold text-white">${p.name}</span>
-                            <span class="text-[9px] text-gray-500 uppercase tracking-tighter">${p.team || 'Free Agent'}</span>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-xs font-bebas text-amber-500 tracking-wider">${p.value.toLocaleString()}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-        resultsEl.style.display = 'block';
+function onSearchInput(side) {
+    const query = document.getElementById(side + 'Search').value.trim().toLowerCase();
+    const resultsEl = document.getElementById(side + 'SearchResults');
+    if (query.length < 2) { resultsEl.style.display = 'none'; return; }
+    const selectedNames = new Set([...give, ...get].map(p => p.name));
+    const filtered = allPlayers.filter(p => !selectedNames.has(p.name) && p.name.toLowerCase().includes(query)).slice(0, 10);
+    if (filtered.length === 0) {
+        resultsEl.innerHTML = '<div class="p-4 text-xs text-gray-500 text-center font-bold">No players found</div>';
+    } else {
+        resultsEl.innerHTML = filtered.map(p => `<div class="p-4 border-b border-gray-800 hover:bg-gray-800 cursor-pointer flex justify-between items-center transition-colors" onclick="addPlayerById('${p.id}', '${side}')"><div class="flex items-center gap-3"><span class="pos-badge pos-${p.pos}">${p.pos}</span><div class="flex flex-col"><span class="text-sm font-bold text-white">${p.name}</span><span class="text-[9px] text-gray-500 uppercase tracking-tighter">${p.team || 'Free Agent'}</span></div></div><div class="text-right"><span class="text-xs font-bebas text-amber-500 tracking-wider">${p.value.toLocaleString()}</span></div></div>`).join('');
     }
+    resultsEl.style.display = 'block';
+}
 
-    function addPlayerById(id, side) {
-        const player = allPlayers.find(p => p.id === id);
-        if (!player) return;
-        
-        if (side === 'give') give.push(player);
-        else get.push(player);
+function addPlayerById(id, side) {
+    const player = allPlayers.find(p => p.id === id);
+    if (!player) return;
+    if (side === 'give') give.push(player); else get.push(player);
+    document.getElementById(side + 'Search').value = '';
+    document.getElementById(side + 'SearchResults').style.display = 'none';
+    updateUI();
+}
 
-        // Clear search
-        const searchInput = document.getElementById(side + 'Search');
-        const resultsEl = document.getElementById(side + 'SearchResults');
-        searchInput.value = '';
-        resultsEl.style.display = 'none';
-        
-        updateUI();
+function removePlayer(id, side) {
+    if (side === 'give') give = give.filter(p => p.id !== id);
+    else get = get.filter(p => p.id !== id);
+    updateUI();
+}
+
+function updateUI() {
+    renderSelectedList('give'); renderSelectedList('get');
+    const gvRaw = give.reduce((s, p) => s + p.value, 0);
+    const rvRaw = get.reduce((s, p) => s + p.value, 0);
+    const THRESHOLD = 0.38, MULTIPLIER = 0.70;
+    let giveBonus = 0, getBonus = 0;
+    const maxGive = give.length ? Math.max(...give.map(p => p.value)) : 0;
+    const maxGet = get.length ? Math.max(...get.map(p => p.value)) : 0;
+    if (maxGive > maxGet && rvRaw > 0) {
+        const ratio = maxGive / rvRaw;
+        if (ratio > THRESHOLD) giveBonus = Math.round((maxGive - rvRaw * THRESHOLD) * MULTIPLIER);
+    } else if (maxGet > maxGive && gvRaw > 0) {
+        const ratio = maxGet / gvRaw;
+        if (ratio > THRESHOLD) getBonus = Math.round((maxGet - gvRaw * THRESHOLD) * MULTIPLIER);
     }
-
-    function removePlayer(id, side) {
-        if (side === 'give') give = give.filter(p => p.id !== id);
-        else get = get.filter(p => p.id !== id);
-        updateUI();
+    const gvAdjusted = gvRaw + giveBonus, rvAdjusted = rvRaw + getBonus, diff = rvAdjusted - gvAdjusted;
+    document.getElementById('giveValue').textContent = gvRaw.toLocaleString();
+    document.getElementById('getValue').textContent = rvRaw.toLocaleString();
+    document.getElementById('giveBonus').textContent = '+' + giveBonus.toLocaleString();
+    document.getElementById('getBonus').textContent = '+' + getBonus.toLocaleString();
+    document.getElementById('giveBonus').className = giveBonus > 0 ? 'stat-value bonus font-mono' : 'stat-value font-mono text-gray-700';
+    document.getElementById('getBonus').className = getBonus > 0 ? 'stat-value bonus font-mono' : 'stat-value font-mono text-gray-700';
+    document.getElementById('summaryGiveVal').textContent = gvAdjusted.toLocaleString();
+    document.getElementById('summaryGetVal').textContent = rvAdjusted.toLocaleString();
+    const diffEl = document.getElementById('tradeDiff'), labelEl = document.getElementById('tradeLabel');
+    if (give.length === 0 && get.length === 0) {
+        diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-7xl mb-2 even-text delta-even'; labelEl.textContent = 'No assets selected';
+    } else if (Math.abs(diff) < 100) {
+        diffEl.textContent = 'FAIR'; diffEl.className = 'font-bebas text-7xl mb-2 even-text delta-even'; labelEl.textContent = 'Values are closely matched';
+    } else if (diff > 0) {
+        diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-7xl mb-2 delta-positive'; labelEl.textContent = 'Get side is leading';
+    } else {
+        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-7xl mb-2 delta-negative'; labelEl.textContent = 'Give side is leading';
     }
+    document.getElementById('mobileDiff').textContent = diffEl.textContent;
+    document.getElementById('analyzeBtn').disabled = (give.length === 0 || get.length === 0);
+    document.getElementById('mobileSummary').style.display = (give.length > 0 || get.length > 0) ? 'flex' : 'none';
+    document.getElementById('getContainer').classList.toggle('winning-side', diff >500);
+    document.getElementById('giveContainer').classList.toggle('winning-side', diff < -500);
+    document.getElementById('giveCount').textContent = give.length + ' Items';
+    document.getElementById('getCount').textContent = get.length + ' Items';
+}
 
-    function updateUI() {
-        renderSelectedList('give');
-        renderSelectedList('get');
-        
-        const gvRaw = give.reduce((s, p) => s + p.value, 0);
-        const rvRaw = get.reduce((s, p) => s + p.value, 0);
-
-        // --- Stud Bonus Calculation ---
-        const THRESHOLD = 0.38;
-        const MULTIPLIER = 0.70;
-        
-        let giveBonus = 0;
-        let getBonus = 0;
-
-        const maxGive = give.length ? Math.max(...give.map(p => p.value)) : 0;
-        const maxGet = get.length ? Math.max(...get.map(p => p.value)) : 0;
-
-        if (maxGive > maxGet && rvRaw > 0) {
-            const ratio = maxGive / rvRaw;
-            if (ratio > THRESHOLD) {
-                const excess = maxGive - (rvRaw * THRESHOLD);
-                giveBonus = Math.round(excess * MULTIPLIER);
-            }
-        } else if (maxGet > maxGive && gvRaw > 0) {
-            const ratio = maxGet / gvRaw;
-            if (ratio > THRESHOLD) {
-                const excess = maxGet - (gvRaw * THRESHOLD);
-                getBonus = Math.round(excess * MULTIPLIER);
-            }
-        }
-
-        const gvAdjusted = gvRaw + giveBonus;
-        const rvAdjusted = rvRaw + getBonus;
-        const diff = rvAdjusted - gvAdjusted;
-
-        // Update basic values
-        document.getElementById('giveValue').textContent = gvRaw.toLocaleString();
-        document.getElementById('getValue').textContent = rvRaw.toLocaleString();
-        
-        // Update Bonus Labels
-        document.getElementById('giveBonus').textContent = '+' + giveBonus.toLocaleString();
-        document.getElementById('getBonus').textContent = '+' + getBonus.toLocaleString();
-        document.getElementById('giveBonus').className = giveBonus > 0 ? 'text-xl font-bebas text-amber-500' : 'text-xl font-bebas text-gray-700';
-        document.getElementById('getBonus').className = getBonus > 0 ? 'text-xl font-bebas text-amber-500' : 'text-xl font-bebas text-gray-700';
-
-        // Update Summary values
-        document.getElementById('summaryGiveVal').textContent = gvAdjusted.toLocaleString();
-        document.getElementById('summaryGetVal').textContent = rvAdjusted.toLocaleString();
-
-        const diffEl = document.getElementById('tradeDiff');
-        const labelEl = document.getElementById('tradeLabel');
-        const mobileDiff = document.getElementById('mobileDiff');
-
-        if (give.length === 0 && get.length === 0) {
-            diffEl.textContent = 'EVEN';
-            diffEl.className = 'font-bebas text-6xl mb-1 even text-gray-600';
-            labelEl.textContent = 'No assets selected';
-        } else if (Math.abs(diff) < 100) {
-            diffEl.textContent = 'FAIR';
-            diffEl.className = 'font-bebas text-6xl mb-1 even text-gray-400';
-            labelEl.textContent = 'Values are closely matched';
-        } else if (diff > 0) {
-            diffEl.textContent = '+' + diff.toLocaleString();
-            diffEl.className = 'font-bebas text-6xl mb-1 win text-green-500';
-            labelEl.textContent = 'Get side is leading';
-        } else {
-            diffEl.textContent = diff.toLocaleString();
-            diffEl.className = 'font-bebas text-6xl mb-1 loss text-red-500';
-            labelEl.textContent = 'Give side is leading';
-        }
-
-        mobileDiff.textContent = diffEl.textContent;
-        mobileDiff.className = 'font-bebas text-xl ' + diffEl.className;
-
-        document.getElementById('analyzeBtn').disabled = (give.length === 0 || get.length === 0);
-        document.getElementById('mobileSummary').style.display = (give.length > 0 || get.length > 0) ? 'flex' : 'none';
-
-        // Winning side glow - based on adjusted diff
-        document.getElementById('getContainer').classList.toggle('winning-side', diff > 500);
-        document.getElementById('giveContainer').classList.toggle('winning-side', diff < -500);
-
-        document.getElementById('giveCount').textContent = give.length + ' Items';
-        document.getElementById('getCount').textContent = get.length + ' Items';
+function renderSelectedList(side) {
+    const list = side === 'give' ? give : get;
+    const el = document.getElementById(side + 'SelectedList');
+    if (list.length === 0) {
+        el.innerHTML = '<div class="h-full flex flex-col items-center justify-center text-gray-600 space-y-3 py-8"><svg class="w-10 h-10 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m8-8H4" stroke-linecap="round"/></svg><span class="text-[10px] uppercase font-bold tracking-[0.2em] italic">Drop zone — add players</span></div>';
+        el.classList.remove('has-items');
+        return;
     }
+    el.classList.add('has-items');
+    el.innerHTML = list.map(p => `<div class="player-card selected" onclick="removePlayer('${p.id}', '${side}')"><div class="flex items-center gap-2"><span class="pos-badge pos-${p.pos}">${p.pos}</span><span class="text-sm font-semibold">${p.name}</span></div><div class="flex items-center gap-2"><span class="text-xs font-bebas text-amber-500">${p.value.toLocaleString()}</span><span class="text-gray-600 hover:text-red-400">✕</span></div></div>`).join('');
+}
 
-    function renderSelectedList(side) {
-        const list = side === 'give' ? give : get;
-        const el = document.getElementById(side + 'SelectedList');
-        
-        if (list.length === 0) {
-            el.innerHTML = '<div class="h-full flex flex-col items-center justify-center border-2 border-dashed border-gray-800 rounded-xl py-10 text-gray-600 space-y-2"> <span class="text-2xl opacity-20">📥</span> <span class="text-[10px] uppercase font-bold tracking-widest italic">Drop zone empty</span></div>';
-            return;
-        }
+async function analyze() {
+    const tep = document.getElementById('tePremium').checked;
+    const names = [...give, ...get].map(p => p.name);
+    document.getElementById('analyzeBtn').textContent = "CALCULATING...";
+    try {
+        const resp = await fetch('/api/v2/consensus-values', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({player_ids: names, te_premium: tep})});
+        const data = await resp.json();
+        showModal(data, tep);
+    } catch(e) { alert("API connection failed."); }
+    finally { document.getElementById('analyzeBtn').textContent = "ANALYZE BLEND"; }
+}
 
-        el.innerHTML = list.map(p => `
-            <div class="player-card selected" onclick="removePlayer('${p.id}', '${side}')">
-                <div class="flex items-center gap-2">
-                    <span class="pos-badge pos-${p.pos}">${p.pos}</span>
-                    <span class="text-sm font-semibold">${p.name}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-xs font-bebas text-amber-500">${p.value.toLocaleString()}</span>
-                    <span class="text-gray-600 hover:text-red-400">✕</span>
-                </div>
-            </div>
-        `).join('');
-    }
+function showModal(data, tep) {
+    const map = {}; data.forEach(p => map[p.name] = p);
+    const gv = give.reduce((s, p) => s + (map[p.name]?.consensus || p.value), 0);
+    const rv = get.reduce((s, p) => s + (map[p.name]?.consensus || p.value), 0);
+    const diff = Math.round(rv - gv);
+    document.getElementById('modalGiveVal').textContent = Math.round(gv).toLocaleString();
+    document.getElementById('modalGetVal').textContent = Math.round(rv).toLocaleString();
+    document.getElementById('modalDiffVal').textContent = (diff > 0 ? '+' : '') + diff.toLocaleString();
+    let msg = `Cross-referencing 6 market sources shows this deal is ${Math.abs(diff) < 50 ? 'near-perfect parity' : (diff > 0 ? 'favoring the incoming side' : 'favoring the outgoing side')}.`;
+    if (tep) msg += " Tight End Premium was active for this calculation.";
+    document.getElementById('modalNarrative').textContent = msg;
+    document.getElementById('resultsModal').style.display = 'flex';
+    const ctx = document.getElementById('balanceChart').getContext('2d');
+    if (balanceChart) balanceChart.destroy();
+    balanceChart = new Chart(ctx, {type: 'doughnut', data: {datasets: [{data: [gv, rv], backgroundColor: ['#EF4444', '#10B981'], borderWidth: 0, circumference: 180, rotation: 270}]}, options: { cutout: '85%', plugins: { legend: { display: false } } }});
+}
 
-    async function analyze() {
-        const tep = document.getElementById('tePremium').checked;
-        const names = [...give, ...get].map(p => p.name);
-        
-        document.getElementById('analyzeBtn').textContent = "CALCULATING...";
-        
-        try {
-            const resp = await fetch('/api/v2/consensus-values', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({player_ids: names, te_premium: tep})
-            });
-            const data = await resp.json();
-            showModal(data, tep);
-        } catch(e) {
-            alert("API connection failed.");
-        } finally {
-            document.getElementById('analyzeBtn').textContent = "ANALYZE BLEND";
-        }
-    }
-
-    function showModal(data, tep) {
-        const map = {};
-        data.forEach(p => map[p.name] = p);
-
-        const gv = give.reduce((s, p) => s + (map[p.name]?.consensus || p.value), 0);
-        const rv = get.reduce((s, p) => s + (map[p.name]?.consensus || p.value), 0);
-        const diff = Math.round(rv - gv);
-
-        document.getElementById('modalGiveVal').textContent = Math.round(gv).toLocaleString();
-        document.getElementById('modalGetVal').textContent = Math.round(rv).toLocaleString();
-        document.getElementById('modalDiffVal').textContent = (diff > 0 ? '+' : '') + diff.toLocaleString();
-        
-        let msg = `Cross-referencing 6 market sources shows this deal is ${Math.abs(diff) < 50 ? 'near-perfect parity' : (diff > 0 ? 'favoring the incoming side' : 'favoring the outgoing side')}.`;
-        if (tep) msg += " Tight End Premium was active for this calculation.";
-        
-        document.getElementById('modalNarrative').textContent = msg;
-        document.getElementById('resultsModal').style.display = 'flex';
-
-        const ctx = document.getElementById('balanceChart').getContext('2d');
-        if (balanceChart) balanceChart.destroy();
-        balanceChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [gv, rv],
-                    backgroundColor: ['#EF4444', '#10B981'],
-                    borderWidth: 0,
-                    circumference: 180,
-                    rotation: 270
-                }]
-            },
-            options: { cutout: '85%', plugins: { legend: { display: false } } }
-        });
-    }
-
-    function closeResults() { document.getElementById('resultsModal').style.display = 'none'; }
-    
-    function shareTrade() {
-        const txt = `Trade Evaluation via DynastyDroid:\nGIVE: ${give.map(p=>p.name).join(', ')}\nGET: ${get.map(p=>p.name).join(', ')}\nDelta: ${document.getElementById('modalDiffVal').textContent}`;
-        navigator.clipboard.writeText(txt);
-        alert("Copied!");
-    }
+function closeResults() { document.getElementById('resultsModal').style.display = 'none'; }
+function shareTrade() {
+    const txt = `Trade Evaluation via DynastyDroid:\nGIVE: ${give.map(p=>p.name).join(', ')}\nGET: ${get.map(p=>p.name).join(', ')}\nDelta: ${document.getElementById('modalDiffVal').textContent}`;
+    navigator.clipboard.writeText(txt);
+    alert("Copied!");
+}
 </script>
 </body>
 </html>
