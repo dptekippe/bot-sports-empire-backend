@@ -1,0 +1,151 @@
+{
+  "hooks": {
+    "boot-md": {
+      "icon": "🚀",
+      "desc": "Run BOOT.md on gateway startup",
+      "triggers": ["gateway:startup"],
+      "source": "openclaw-bundled",
+      "path": "/opt/homebrew/lib/node_modules/openclaw/dist/bundled/boot-md/HOOK.md"
+    },
+    "bootstrap-extra-files": {
+      "icon": "📎",
+      "desc": "Inject additional workspace bootstrap files via glob/path patterns",
+      "triggers": ["agent:bootstrap"],
+      "source": "openclaw-bundled",
+      "path": "/opt/homebrew/lib/node_modules/openclaw/dist/bundled/bootstrap-extra-files/HOOK.md"
+    },
+    "command-logger": {
+      "icon": "📝",
+      "desc": "Log all command events to a centralized audit file",
+      "triggers": ["command"],
+      "source": "openclaw-bundled",
+      "path": "/opt/homebrew/lib/node_modules/openclaw/dist/bundled/command-logger/HOOK.md"
+    },
+    "session-memory": {
+      "icon": "💾",
+      "desc": "Save session context to memory when /new or /reset command is issued",
+      "triggers": ["command:new", "command:reset"],
+      "source": "openclaw-bundled",
+      "path": "/opt/homebrew/lib/node_modules/openclaw/dist/bundled/session-memory/HOOK.md"
+    },
+    "biascheck-gym": {
+      "icon": "🔍",
+      "desc": "Reward bias detection for PPO/CFR training",
+      "triggers": ["think:end", "action:planning"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/biascheck-gym/HOOK.md"
+    },
+    "darwin-swarm": {
+      "icon": "🧬",
+      "desc": "8-agent Darwin Swarm with evolutionary selection for FF, finance, and polls",
+      "triggers": ["message:preprocessed", "tool:pre-execute", "message:planning"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/darwin-swarm/HOOK.md"
+    },
+    "depth-render": {
+      "icon": "📊",
+      "desc": "Recursive reasoning visualization",
+      "triggers": ["before_model_response"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/depth-render/HOOK.md"
+    },
+    "doubttrigger-gym": {
+      "icon": "❓",
+      "desc": "Uncertainty quantification for planning",
+      "triggers": ["before_model_response"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/doubttrigger-gym/HOOK.md"
+    },
+    "echochamber": {
+      "icon": "🔄",
+      "desc": "Contradiction detection via pgvector queries",
+      "triggers": ["after_model_response"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/echochamber/HOOK.md"
+    },
+    "factcheck-swarm": {
+      "icon": "🔬",
+      "desc": "Pre-action staleness gate + post-response critique loop via darwin-swarm and pgvector",
+      "triggers": ["message:preprocessed", "message:sent"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/factcheck-swarm/HOOK.md"
+    },
+    "futureself": {
+      "icon": "⏳",
+      "desc": "Compounding horizon planner (PPO/CFR)",
+      "triggers": ["before_action", "after_model_response"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/futureself/HOOK.md"
+    },
+    "mcts-reflection": {
+      "icon": "🎯",
+      "desc": "Monte Carlo planning with self-critique",
+      "triggers": ["message:planning", "action:planning", "prompt:start"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/mcts-reflection/HOOK.md"
+    },
+    "memory-pre-action": {
+      "icon": "🧠",
+      "desc": "pgvector top-5 episodes pre-tool",
+      "triggers": ["action:planning", "message:planning", "reasoning:start", "tool:pre-execute", "prompt:start"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/memory-pre-action/HOOK.md"
+    },
+    "meta-gym": {
+      "icon": "📈",
+      "desc": "NeuralFusion telemetry + Stage2 injection",
+      "triggers": ["before_prompt_build", "after_think", "before_response"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/meta-gym/HOOK.md"
+    },
+    "proactive-gym": {
+      "icon": "⚡",
+      "desc": "Anticipatory action synthesis",
+      "triggers": ["message:planning"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/proactive-gym/HOOK.md"
+    },
+    "question-gym": {
+      "icon": "💡",
+      "desc": "Question decomposition + validation",
+      "triggers": ["after_model_response"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/question-gym/HOOK.md"
+    },
+    "render-deploy-gym": {
+      "icon": "🚀",
+      "desc": "Automated Render deployment testing",
+      "triggers": ["message:planning", "action:planning"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/render-deploy-gym/HOOK.md"
+    },
+    "rl-harness": {
+      "icon": "🏋️",
+      "desc": "PPO/CFR episodes → pgvector → darwin evolution",
+      "triggers": ["message:planning", "tool:pre-execute", "agent:complete"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/rl-harness/HOOK.md"
+    },
+    "self-improve": {
+      "icon": "🔄",
+      "desc": "Hyperparameter evolution from episodes",
+      "triggers": ["action:planning"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/self-improve/HOOK.md"
+    },
+    "timestamp-anchor": {
+      "icon": "⏰",
+      "desc": "Context recency scoring",
+      "triggers": ["message:planning", "action:planning", "prompt:start"],
+      "source": "openclaw-managed",
+      "path": "~/.openclaw/hooks/timestamp-anchor/HOOK.md"
+    }
+  },
+  "summary": {
+    "total": 20,
+    "bundled": 4,
+    "managed": 16,
+    "rl_enhanced": true,
+    "generated": "2026-03-18T23:27:00Z"
+  }
+}
