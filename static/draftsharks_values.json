@@ -1,0 +1,242 @@
+[
+  {
+    "name": "Josh Allen",
+    "pos": "QB",
+    "value": 1000,
+    "id": "1"
+  },
+  {
+    "name": "Drake Maye",
+    "pos": "QB",
+    "value": 960,
+    "id": "2"
+  },
+  {
+    "name": "Jayden Daniels",
+    "pos": "QB",
+    "value": 890,
+    "id": "3"
+  },
+  {
+    "name": "Lamar Jackson",
+    "pos": "QB",
+    "value": 820,
+    "id": "4"
+  },
+  {
+    "name": "Joe Burrow",
+    "pos": "QB",
+    "value": 740,
+    "id": "5"
+  },
+  {
+    "name": "Patrick Mahomes",
+    "pos": "QB",
+    "value": 730,
+    "id": "6"
+  },
+  {
+    "name": "Caleb Williams",
+    "pos": "QB",
+    "value": 710,
+    "id": "7"
+  },
+  {
+    "name": "Jalen Hurts",
+    "pos": "QB",
+    "value": 630,
+    "id": "8"
+  },
+  {
+    "name": "Justin Herbert",
+    "pos": "QB",
+    "value": 610,
+    "id": "9"
+  },
+  {
+    "name": "Trevor Lawrence",
+    "pos": "QB",
+    "value": 570,
+    "id": "10"
+  },
+  {
+    "name": "Brock Purdy",
+    "pos": "QB",
+    "value": 490,
+    "id": "11"
+  },
+  {
+    "name": "Bijan Robinson",
+    "pos": "RB",
+    "value": 820,
+    "id": "12"
+  },
+  {
+    "name": "Jahmyr Gibbs",
+    "pos": "RB",
+    "value": 780,
+    "id": "13"
+  },
+  {
+    "name": "Ashton Jeanty",
+    "pos": "RB",
+    "value": 650,
+    "id": "14"
+  },
+  {
+    "name": "Jeremiyah Love",
+    "pos": "RB",
+    "value": 650,
+    "id": "15"
+  },
+  {
+    "name": "De'Von Achane",
+    "pos": "RB",
+    "value": 610,
+    "id": "16"
+  },
+  {
+    "name": "Omarion Hampton",
+    "pos": "RB",
+    "value": 590,
+    "id": "17"
+  },
+  {
+    "name": "TreVeyon Henderson",
+    "pos": "RB",
+    "value": 530,
+    "id": "18"
+  },
+  {
+    "name": "Jonathan Taylor",
+    "pos": "RB",
+    "value": 520,
+    "id": "19"
+  },
+  {
+    "name": "James Cook",
+    "pos": "RB",
+    "value": 420,
+    "id": "20"
+  },
+  {
+    "name": "Breece Hall",
+    "pos": "RB",
+    "value": 410,
+    "id": "21"
+  },
+  {
+    "name": "Saquon Barkley",
+    "pos": "RB",
+    "value": 330,
+    "id": "22"
+  },
+  {
+    "name": "Ja'Marr Chase",
+    "pos": "WR",
+    "value": 810,
+    "id": "23"
+  },
+  {
+    "name": "Jaxon Smith-Njigba",
+    "pos": "WR",
+    "value": 790,
+    "id": "24"
+  },
+  {
+    "name": "Puka Nacua",
+    "pos": "WR",
+    "value": 780,
+    "id": "25"
+  },
+  {
+    "name": "Amon-Ra St. Brown",
+    "pos": "WR",
+    "value": 680,
+    "id": "26"
+  },
+  {
+    "name": "Malik Nabers",
+    "pos": "WR",
+    "value": 670,
+    "id": "27"
+  },
+  {
+    "name": "CeeDee Lamb",
+    "pos": "WR",
+    "value": 670,
+    "id": "28"
+  },
+  {
+    "name": "Justin Jefferson",
+    "pos": "WR",
+    "value": 660,
+    "id": "29"
+  },
+  {
+    "name": "Drake London",
+    "pos": "WR",
+    "value": 600,
+    "id": "30"
+  },
+  {
+    "name": "Nico Collins",
+    "pos": "WR",
+    "value": 550,
+    "id": "31"
+  },
+  {
+    "name": "Tetairoa McMillan",
+    "pos": "WR",
+    "value": 440,
+    "id": "32"
+  },
+  {
+    "name": "George Pickens",
+    "pos": "WR",
+    "value": 420,
+    "id": "33"
+  },
+  {
+    "name": "Rashee Rice",
+    "pos": "WR",
+    "value": 420,
+    "id": "34"
+  },
+  {
+    "name": "Brock Bowers",
+    "pos": "TE",
+    "value": 430,
+    "id": "35"
+  },
+  {
+    "name": "Trey McBride",
+    "pos": "TE",
+    "value": 420,
+    "id": "36"
+  },
+  {
+    "name": "Colston Loveland",
+    "pos": "TE",
+    "value": 280,
+    "id": "37"
+  },
+  {
+    "name": "Tyler Warren",
+    "pos": "TE",
+    "value": 260,
+    "id": "38"
+  },
+  {
+    "name": "Harold Fannin Jr.",
+    "pos": "TE",
+    "value": 250,
+    "id": "39"
+  },
+  {
+    "name": "Tucker Kraft",
+    "pos": "TE",
+    "value": 210,
+    "id": "40"
+  }
+]

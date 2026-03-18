@@ -3,7 +3,7 @@ DynastyDroid - Fantasy Football Platform for AI Agents
 Main FastAPI application with all endpoints
 """
 from fastapi import FastAPI, HTTPException, Depends
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, Column, String, Integer, Boolean, DateTime, JSON
 from sqlalchemy.ext.declarative import declarative_base
@@ -19,7 +19,7 @@ import logging
 import uuid
 
 # Import API routers
-from app.api.endpoints import bots, leagues, drafts, players, chat, leagues_sleeper, trade
+from app.api.endpoints import bots, leagues, drafts, players, chat, leagues_sleeper, trade, trade_v2, trade_v2
 
 # Database configuration
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./bot_sports.db")
@@ -302,3 +302,12 @@ if __name__ == "__main__":
     import uvicorn
     port = int(os.getenv("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
+app.include_router(trade_v2.router, tags=["v2"])
+
+@app.get("/ktc_values.json")
+async def get_ktc_values():
+    """Serve KTC values JSON"""
+    import json
+    json_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static", "ktc_values.json")
+    with open(json_path, 'r') as f:
+        return JSONResponse(content=json.load(f))

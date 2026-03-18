@@ -1,0 +1,436 @@
+[
+  {
+    "id": "1",
+    "name": "Josh Allen",
+    "pos": "QB",
+    "value": 9999,
+    "team": ""
+  },
+  {
+    "id": "2",
+    "name": "Bijan Robinson",
+    "pos": "RB",
+    "value": 9994,
+    "team": ""
+  },
+  {
+    "id": "3",
+    "name": "Ja'Marr Chase",
+    "pos": "WR",
+    "value": 9762,
+    "team": ""
+  },
+  {
+    "id": "4",
+    "name": "Jaxon Smith-Njigba",
+    "pos": "WR",
+    "value": 9748,
+    "team": ""
+  },
+  {
+    "id": "5",
+    "name": "Jahmyr Gibbs",
+    "pos": "RB",
+    "value": 9694,
+    "team": ""
+  },
+  {
+    "id": "6",
+    "name": "Drake Maye",
+    "pos": "QB",
+    "value": 9391,
+    "team": ""
+  },
+  {
+    "id": "7",
+    "name": "Puka Nacua",
+    "pos": "WR",
+    "value": 9379,
+    "team": ""
+  },
+  {
+    "id": "8",
+    "name": "Malik Nabers",
+    "pos": "WR",
+    "value": 7765,
+    "team": ""
+  },
+  {
+    "id": "9",
+    "name": "Brock Bowers",
+    "pos": "TE",
+    "value": 7729,
+    "team": ""
+  },
+  {
+    "id": "10",
+    "name": "Caleb Williams",
+    "pos": "QB",
+    "value": 7685,
+    "team": ""
+  },
+  {
+    "id": "11",
+    "name": "Lamar Jackson",
+    "pos": "QB",
+    "value": 7661,
+    "team": ""
+  },
+  {
+    "id": "12",
+    "name": "Justin Jefferson",
+    "pos": "WR",
+    "value": 7651,
+    "team": ""
+  },
+  {
+    "id": "13",
+    "name": "Jayden Daniels",
+    "pos": "QB",
+    "value": 7650,
+    "team": ""
+  },
+  {
+    "id": "14",
+    "name": "Amon-Ra St. Brown",
+    "pos": "WR",
+    "value": 7646,
+    "team": ""
+  },
+  {
+    "id": "15",
+    "name": "Trey McBride",
+    "pos": "TE",
+    "value": 7544,
+    "team": ""
+  },
+  {
+    "id": "16",
+    "name": "Ashton Jeanty",
+    "pos": "RB",
+    "value": 7477,
+    "team": ""
+  },
+  {
+    "id": "17",
+    "name": "CeeDee Lamb",
+    "pos": "WR",
+    "value": 7456,
+    "team": ""
+  },
+  {
+    "id": "18",
+    "name": "Joe Burrow",
+    "pos": "QB",
+    "value": 7308,
+    "team": ""
+  },
+  {
+    "id": "19",
+    "name": "Jeremiyah Love",
+    "pos": "RB",
+    "value": 7242,
+    "team": ""
+  },
+  {
+    "id": "20",
+    "name": "Drake London",
+    "pos": "WR",
+    "value": 6885,
+    "team": ""
+  },
+  {
+    "id": "21",
+    "name": "De'Von Achane",
+    "pos": "RB",
+    "value": 6871,
+    "team": ""
+  },
+  {
+    "id": "22",
+    "name": "Justin Herbert",
+    "pos": "QB",
+    "value": 6848,
+    "team": ""
+  },
+  {
+    "id": "23",
+    "name": "Tetairoa McMillan",
+    "pos": "WR",
+    "value": 6720,
+    "team": ""
+  },
+  {
+    "id": "24",
+    "name": "Patrick Mahomes",
+    "pos": "QB",
+    "value": 6713,
+    "team": ""
+  },
+  {
+    "id": "25",
+    "name": "Omarion Hampton",
+    "pos": "RB",
+    "value": 6713,
+    "team": ""
+  },
+  {
+    "id": "26",
+    "name": "Jaxson Dart",
+    "pos": "QB",
+    "value": 6613,
+    "team": ""
+  },
+  {
+    "id": "27",
+    "name": "Jalen Hurts",
+    "pos": "QB",
+    "value": 6299,
+    "team": ""
+  },
+  {
+    "id": "28",
+    "name": "Trevor Lawrence",
+    "pos": "QB",
+    "value": 6252,
+    "team": ""
+  },
+  {
+    "id": "29",
+    "name": "George Pickens",
+    "pos": "WR",
+    "value": 6147,
+    "team": ""
+  },
+  {
+    "id": "30",
+    "name": "Bo Nix",
+    "pos": "QB",
+    "value": 6101,
+    "team": ""
+  },
+  {
+    "id": "31",
+    "name": "James Cook",
+    "pos": "RB",
+    "value": 6057,
+    "team": ""
+  },
+  {
+    "id": "32",
+    "name": "Colston Loveland",
+    "pos": "TE",
+    "value": 6052,
+    "team": ""
+  },
+  {
+    "id": "33",
+    "name": "Jonathan Taylor",
+    "pos": "RB",
+    "value": 6011,
+    "team": ""
+  },
+  {
+    "id": "34",
+    "name": "Brock Purdy",
+    "pos": "QB",
+    "value": 5959,
+    "team": ""
+  },
+  {
+    "id": "35",
+    "name": "Garrett Wilson",
+    "pos": "WR",
+    "value": 5871,
+    "team": ""
+  },
+  {
+    "id": "36",
+    "name": "Nico Collins",
+    "pos": "WR",
+    "value": 5820,
+    "team": ""
+  },
+  {
+    "id": "37",
+    "name": "Kenneth Walker III",
+    "pos": "RB",
+    "value": 5769,
+    "team": ""
+  },
+  {
+    "id": "38",
+    "name": "Tyler Warren",
+    "pos": "TE",
+    "value": 5735,
+    "team": ""
+  },
+  {
+    "id": "39",
+    "name": "Jordan Love",
+    "pos": "QB",
+    "value": 5725,
+    "team": ""
+  },
+  {
+    "id": "40",
+    "name": "Chris Olave",
+    "pos": "WR",
+    "value": 5591,
+    "team": ""
+  },
+  {
+    "id": "41",
+    "name": "Breece Hall",
+    "pos": "RB",
+    "value": 5393,
+    "team": ""
+  },
+  {
+    "id": "42",
+    "name": "A.J. Brown",
+    "pos": "WR",
+    "value": 5800,
+    "team": ""
+  },
+  {
+    "id": "43",
+    "name": "Jaylen Waddle",
+    "pos": "WR",
+    "value": 5200,
+    "team": ""
+  },
+  {
+    "id": "44",
+    "name": "Deebo Samuel",
+    "pos": "WR",
+    "value": 4500,
+    "team": ""
+  },
+  {
+    "id": "45",
+    "name": "Brandon Aiyuk",
+    "pos": "WR",
+    "value": 4200,
+    "team": ""
+  },
+  {
+    "id": "46",
+    "name": "Terry McLaurin",
+    "pos": "WR",
+    "value": 4000,
+    "team": ""
+  },
+  {
+    "id": "47",
+    "name": "Cooper Kupp",
+    "pos": "WR",
+    "value": 3800,
+    "team": ""
+  },
+  {
+    "id": "48",
+    "name": "Tyreek Hill",
+    "pos": "WR",
+    "value": 5500,
+    "team": ""
+  },
+  {
+    "id": "49",
+    "name": "Davante Adams",
+    "pos": "WR",
+    "value": 4500,
+    "team": ""
+  },
+  {
+    "id": "50",
+    "name": "DeVonta Smith",
+    "pos": "WR",
+    "value": 4800,
+    "team": ""
+  },
+  {
+    "id": "51",
+    "name": "Jordan Addison",
+    "pos": "WR",
+    "value": 3800,
+    "team": ""
+  },
+  {
+    "id": "52",
+    "name": "Saquon Barkley",
+    "pos": "RB",
+    "value": 5500,
+    "team": ""
+  },
+  {
+    "id": "53",
+    "name": "Kyren Williams",
+    "pos": "RB",
+    "value": 5000,
+    "team": ""
+  },
+  {
+    "id": "54",
+    "name": "Derrick Henry",
+    "pos": "RB",
+    "value": 4000,
+    "team": ""
+  },
+  {
+    "id": "55",
+    "name": "Tony Pollard",
+    "pos": "RB",
+    "value": 3500,
+    "team": ""
+  },
+  {
+    "id": "56",
+    "name": "Rachaad White",
+    "pos": "RB",
+    "value": 3200,
+    "team": ""
+  },
+  {
+    "id": "57",
+    "name": "Aaron Jones",
+    "pos": "RB",
+    "value": 3800,
+    "team": ""
+  },
+  {
+    "id": "58",
+    "name": "George Kittle",
+    "pos": "TE",
+    "value": 4200,
+    "team": ""
+  },
+  {
+    "id": "59",
+    "name": "Travis Kelce",
+    "pos": "TE",
+    "value": 3800,
+    "team": ""
+  },
+  {
+    "id": "60",
+    "name": "Sam LaPorta",
+    "pos": "TE",
+    "value": 4000,
+    "team": ""
+  },
+  {
+    "id": "61",
+    "name": "Mark Andrews",
+    "pos": "TE",
+    "value": 3500,
+    "team": ""
+  },
+  {
+    "id": "62",
+    "name": "Dalton Kincaid",
+    "pos": "TE",
+    "value": 3200,
+    "team": ""
+  }
+]

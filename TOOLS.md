@@ -39,7 +39,42 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 Add whatever helps you do your job. This is your cheat sheet.
 
-## 🌐 **Browser Control**
+## 🤖 Browser Automation (OpenClaw CDP)
+
+OpenClaw includes built-in browser automation via Chrome DevTools Protocol.
+
+### Quick Start
+```bash
+openclaw browser start
+openclaw browser navigate "https://example.com"
+openclaw browser snapshot --limit 50
+openclaw browser screenshot
+openclaw browser stop
+```
+
+### Common Commands
+| Command | Purpose |
+|---------|---------|
+| `openclaw browser start` | Start browser |
+| `openclaw browser navigate <url>` | Go to URL |
+| `openclaw browser snapshot` | Get page content |
+| `openclaw browser click <ref>` | Click element |
+| `openclaw browser type <ref> "text"` | Type text |
+| `openclaw browser stop` | Close browser |
+
+### Use Cases
+- Scrape JS-rendered sites (FantasyPros, Draft Sharks)
+- Automate web interactions
+- Take screenshots
+
+### Example: Scrape FantasyPros
+```bash
+openclaw browser start
+openclaw browser navigate "https://www.fantasypros.com/nfl/rankings/dynasty-overall.php"
+openclaw browser snapshot --limit 100
+```
+
+See full skill: `skills/browser-automation/SKILL.md`
 
 ### **OpenClaw Browser Profiles:**
 - **`profile="chrome"`** - Chrome extension relay (requires attached tab)

@@ -1,234 +1,544 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DynastyDroid - AI Trade Analyzer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <title>DynastyDroid - AI Trade Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-primary: #0A0F1C; --bg-card: rgba(17,24,39,0.8); --glass-border: rgba(255,255,255,0.08); --accent-gold: #F59E0B; --accent-gold-light: #FBBF24; --accent-cyan: #06B6D4; --text-primary: #F9FAFB; --text-secondary: #9CA3AF; --text-muted: #6B7280; --success: #10B981; --danger: #EF4444; --qb: #3B82F6; --rb: #EF4444; --wr: #10B981; --te: #8B5CF6; --border: rgba(148,163,184,0.12); --shadow-lg: 0 25px 50px -12px rgba(0,0,0,0.5); --shadow-glow-cyan: 0 0 30px rgba(6,182,212,0.3); --shadow-glow-gold: 0 0 30px rgba(245,158,11,0.3); }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Outfit',sans-serif; background: linear-gradient(145deg,#0A0F1C 0%,#0F1A2E 50%,#0A1628 100%); color: var(--text-primary); min-height: 100vh; background-attachment: fixed; }
-        body::before { content:''; position:fixed; inset:0; background: radial-gradient(ellipse at 20% 20%, rgba(6,182,212,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(245,158,11,0.06) 0%, transparent 50%); pointer-events:none; z-index:-1; }
-        .header { backdrop-filter:blur(24px); background: linear-gradient(180deg, rgba(10,15,28,0.95),rgba(10,15,28,0.8)); border-bottom:1px solid var(--glass-border); padding:1rem 1.5rem; position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; }
-        .logo { display:flex; align-items:center; gap:0.625rem; font-family:'Orbitron',monospace; font-size:1.35rem; font-weight:900; background: linear-gradient(135deg,var(--accent-gold),var(--accent-cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .logo-icon { width:1.75rem; height:1.75rem; }
-        .header-actions { display:flex; gap:0.5rem; }
-        .header-btn { padding:0.5rem 0.875rem; background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02)); border:1px solid var(--border); border-radius:10px; color:var(--text-secondary); cursor:pointer; font-size:0.8rem; font-weight:600; transition:all 0.25s; }
-        .header-btn:hover { border-color:var(--accent-cyan); color:var(--accent-cyan); box-shadow:var(--shadow-glow-cyan); }
-        .container { max-width:1500px; margin:0 auto; padding:1.5rem; display:flex; flex-direction:column; gap:1.25rem; }
-        .glass-card { background:linear-gradient(145deg,var(--bg-card),rgba(17,24,39,0.4)); backdrop-filter:blur(20px); border:1px solid var(--glass-border); border-radius:20px; padding:1.5rem; box-shadow:var(--shadow-lg); position:relative; }
-        .glass-card::before { content:''; position:absolute; top:0; inset-x:0; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); }
-        .card-title { font-family:'Orbitron',monospace; font-size:0.95rem; font-weight:700; margin-bottom:1rem; color:var(--text-secondary); letter-spacing:1.5px; text-transform:uppercase; display:flex; align-items:center; justify-content:space-between; }
-        .card-count { font-size:0.7rem; background:linear-gradient(135deg,var(--accent-gold),var(--accent-cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700; }
-        .trade-panels { display:grid; grid-template-columns:1fr auto 1fr; gap:1.25rem; align-items:start; }
-        @media(max-width:1100px){ .trade-panels{ grid-template-columns:1fr; } }
-        .roster-section { max-height:60vh; overflow-y:auto; padding:0.5rem; background:rgba(0,0,0,0.2); border-radius:14px; min-height:350px; transition:all 0.3s; }
-        .roster-section.drag-over { background:rgba(6,182,212,0.08); border:1px dashed var(--accent-cyan); }
-        .roster-section::-webkit-scrollbar{ width:5px; }
-        .roster-section::-webkit-scrollbar-thumb{ background:var(--border); border-radius:3px; }
-        .player-chip { display:flex; justify-content:space-between; align-items:center; padding:0.875rem 1rem; background:linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02)); border:1px solid var(--border); border-radius:12px; margin-bottom:0.5rem; cursor:pointer; transition:all 0.25s; user-select:none; position:relative; }
-        .player-chip::before{ content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent-gold); opacity:0; transition:opacity 0.2s; }
-        .player-chip:hover{ transform:translateY(-3px); box-shadow:0 4px 12px rgba(0,0,0,0.3); border-color:rgba(255,255,255,0.15); }
-        .player-chip.selected{ border-color:var(--accent-cyan); box-shadow:var(--shadow-glow-cyan); background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(6,182,212,0.05)); }
-        .player-chip.selected::before{ opacity:1; }
-        .player-chip .player-info{ display:flex; align-items:center; gap:0.75rem; }
-        .player-pos{ font-size:0.65rem; font-weight:800; padding:0.3rem 0.6rem; border-radius:6px; min-width:36px; text-align:center; }
-        .player-pos.qb{ background:rgba(59,130,246,0.2); color:#60A5FA; }
-        .player-pos.rb{ background:rgba(239,68,68,0.2); color:#F87171; }
-        .player-pos.wr{ background:rgba(16,185,129,0.2); color:#34D399; }
-        .player-pos.te{ background:rgba(139,92,246,0.2); color:#A78BFA; }
-        .player-name{ font-weight:600; font-size:0.9rem; }
-        .player-team{ font-size:0.7rem; color:var(--text-muted); }
-        .player-value{ font-weight:800; font-size:0.95rem; background:linear-gradient(135deg,var(--accent-gold-light),var(--accent-cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-family:'Orbitron',monospace; }
-        .live-summary{ display:flex; flex-direction:column; gap:0.75rem; min-width:220px; }
-        @media(max-width:1100px){ .live-summary{ position:fixed; bottom:0; inset-x:0; background:linear-gradient(180deg,transparent,var(--bg-primary) 30%); padding:1rem; z-index:99; } }
-        .summary-card{ background:linear-gradient(145deg,var(--bg-card),rgba(17,24,39,0.4)); border:1px solid var(--glass-border); border-radius:16px; padding:1.25rem; text-align:center; }
-        .summary-label{ font-size:0.7rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:0.4rem; font-weight:600; }
-        .summary-value{ font-family:'Orbitron',monospace; font-size:1.5rem; font-weight:900; }
-        .summary-value.give{ color:#F87171; }
-        .summary-value.get{ color:#34D399; }
-        .value-diff{ font-family:'Orbitron',monospace; font-size:1.75rem; font-weight:900; text-align:center; padding:0.875rem; border-radius:12px; background:linear-gradient(145deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01)); border:1px solid var(--glass-border); transition:all 0.3s; }
-        .value-diff.win{ background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(6,182,212,0.1)); color:#34D399; border-color:rgba(16,185,129,0.3); }
-        .value-diff.loss{ background:linear-gradient(135deg,rgba(239,68,68,0.2),rgba(239,68,68,0.1)); color:#F87171; border-color:rgba(239,68,68,0.3); }
-        .value-diff.even{ background:rgba(255,255,255,0.03); color:var(--text-muted); border-color:var(--border); }
-        @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:0.75} }
-        .value-diff.win{ animation:pulse 2s ease-in-out infinite; }
-        .analyze-btn{ width:100%; padding:1rem; font-size:0.95rem; font-weight:700; border:none; background:linear-gradient(135deg,var(--accent-gold),var(--accent-gold-light)); border-radius:14px; color:var(--bg-primary); cursor:pointer; transition:all 0.3s; box-shadow:var(--shadow-glow-gold),0 4px 15px rgba(245,158,11,0.3); }
-        .analyze-btn:hover:not(:disabled){ transform:translateY(-2px); box-shadow:0 0 40px rgba(245,158,11,0.5); }
-        .analyze-btn:disabled{ opacity:0.4; cursor:not-allowed; box-shadow:none; }
-        .settings-row{ display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1rem; }
-        .setting-group{ display:flex; flex-direction:column; gap:0.35rem; flex:1; min-width:100px; }
-        .setting-label{ font-size:0.65rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); font-weight:600; }
-        .setting-toggle{ display:flex; gap:0.35rem; }
-        .setting-toggle button{ flex:1; padding:0.5rem; border:1px solid var(--border); background:transparent; color:var(--text-muted); border-radius:8px; cursor:pointer; font-weight:600; font-size:0.75rem; transition:all 0.2s; }
-        .setting-toggle button.active{ border-color:var(--accent-cyan); background:rgba(6,182,212,0.1); color:var(--accent-cyan); }
-        .search-input{ margin-bottom:0.75rem; position:relative; }
-        .search-input input{ width:100%; padding:0.875rem 1rem 0.875rem 2.5rem; background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:12px; color:var(--text-primary); font-size:0.9rem; transition:all 0.2s; }
-        .search-input input:focus{ outline:none; border-color:var(--accent-cyan); box-shadow:var(--shadow-glow-cyan); }
-        .search-input::before{ content:'🔍'; position:absolute; left:0.875rem; top:50%; transform:translateY(-50%); font-size:0.9rem; opacity:0.5; }
-        .input-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-        @media(max-width:600px){ .input-row{ grid-template-columns:1fr; } }
-        .input-group{ display:flex; flex-direction:column; gap:0.4rem; }
-        .input-group label{ font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); font-weight:600; }
-        .input-group input,.input-group select{ padding:0.75rem 1rem; background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:10px; color:var(--text-primary); font-size:0.9rem; font-family:'Outfit',sans-serif; }
-        .input-group input:focus,.input-group select:focus{ outline:none; border-color:var(--accent-cyan); }
-        .import-btn{ padding:0.75rem 1.5rem; background:linear-gradient(135deg,var(--accent-cyan),#0891B2); border:none; border-radius:10px; color:white; font-weight:700; cursor:pointer; transition:all 0.25s; box-shadow:0 4px 15px rgba(6,182,212,0.3); }
-        .import-btn:hover{ transform:translateY(-2px); box-shadow:0 6px 20px rgba(6,182,212,0.4); }
-        #results{ animation:slideInUp 0.5s cubic-bezier(0.16,1,0.3,1); }
-        @keyframes slideInUp{ from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
-        .results-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
-        @media(max-width:800px){ .results-grid{ grid-template-columns:1fr; } }
-        .chart-container{ height:280px; margin-top:0.75rem; }
-        .team-badges{ display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.6rem; }
-        .badge{ padding:0.35rem 0.7rem; border-radius:8px; font-size:0.7rem; font-weight:700; }
-        .badge.strength{ background:rgba(16,185,129,0.2); color:#34D399; }
-        .badge.weakness{ background:rgba(239,68,68,0.2); color:#F87171; }
-        .narrative-box{ background:linear-gradient(135deg,rgba(6,182,212,0.08),rgba(245,158,11,0.08)); border:1px solid rgba(6,182,212,0.2); border-radius:16px; padding:1.5rem; margin-top:1.25rem; }
-        .narrative-box h3{ font-family:'Orbitron',monospace; font-size:0.9rem; color:var(--accent-cyan); margin-bottom:0.6rem; }
-        .narrative-box p{ line-height:1.75; }
-        .team-type{ display:inline-block; padding:0.4rem 0.875rem; border-radius:10px; font-weight:700; font-size:0.8rem; margin-left:0.5rem; }
-        .team-type.contender{ background:rgba(245,158,11,0.2); color:#FBBF24; }
-        .team-type.rebuilder{ background:rgba(139,92,246,0.2); color:#A78BFA; }
-        .team-type.neutral{ background:rgba(255,255,255,0.05); color:var(--text-muted); }
-        .error-msg{ background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:10px; padding:1rem; color:#F87171; margin-top:1rem; display:none; }
-        .error-msg.show{ display:block; }
-        .empty-state{ text-align:center; padding:2.5rem 1rem; color:var(--text-muted); }
-        .empty-state-icon{ font-size:2.5rem; margin-bottom:0.75rem; opacity:0.4; }
+        :root {
+            --bg: #0A1428;
+            --card: rgba(17, 24, 39, 0.8);
+            --border: rgba(55, 65, 81, 0.5);
+            --gold: #F59E0B;
+            --cyan: #06B6D4;
+            --pos-qb: #EF4444;
+            --pos-rb: #10B981;
+            --pos-wr: #3B82F6;
+            --pos-te: #8B5CF6;
+            --pos-pick: #6B7280;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at top left, rgba(6, 182, 212, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.07) 0%, transparent 40%);
+            color: #F3F4F6;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        .font-bebas { font-family: 'Bebas Neue', sans-serif; }
+
+        .glass-panel {
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: white; /* Increased readability */
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .player-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .player-card:hover { border-color: var(--cyan); background: rgba(255, 255, 255, 0.05); }
+        .player-card.selected { border-color: var(--gold); background: rgba(245, 158, 11, 0.1); }
+
+        .pos-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 4px;
+            min-width: 34px;
+            text-align: center;
+            color: white;
+        }
+
+        .pos-QB { background: var(--pos-qb); }
+        .pos-RB { background: var(--pos-rb); }
+        .pos-WR { background: var(--pos-wr); }
+        .pos-TE { background: var(--pos-te); }
+        .pos-Pick { background: var(--pos-pick); }
+
+        .search-results-overlay {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: #111827;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .btn-analyze {
+            background: linear-gradient(135deg, var(--gold), #D97706);
+            color: #000;
+            font-weight: 800;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            border-radius: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-analyze:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
+        .btn-analyze:disabled { opacity: 0.3; filter: grayscale(1); }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.2); }
+            70% { box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+        }
+        .winning-side { animation: pulse-glow 2s infinite; border-color: var(--cyan); }
+
+        .mobile-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 20, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            padding: 12px 20px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 </head>
-<body>
-<header class="header">
-    <div class="logo">
-        <svg class="logo-icon" viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs><circle cx="50" cy="50" r="45" fill="none" stroke="url(#g)" stroke-width="3"/><circle cx="50" cy="38" r="14" fill="url(#g)"/><rect x="36" y="56" width="28" height="22" rx="6" fill="url(#g)"/><rect x="26" y="78" width="14" height="16" rx="5" fill="url(#g)"/><rect x="60" y="78" width="14" height="16" rx="5" fill="url(#g)"/></svg>
-        DynastyDroid
-    </div>
-    <div class="header-actions">
-        <button class="header-btn" onclick="shareTrade()">Share</button>
-        <button class="header-btn" onclick="resetTrade()">Reset</button>
-    </div>
-</header>
-<div class="container">
-    <div class="glass-card">
-        <div class="card-title">LEAGUE SYNC</div>
-        <div class="input-row">
-            <div class="input-group"><label>Sleeper League ID</label><input type="text" id="leagueId" placeholder="Enter league ID..."></div>
-            <div class="input-group"><label>Your Team</label><select id="rosterSelect"><option value="">Import first...</option></select></div>
+<body class="p-4 md:p-6">
+    <!-- Navbar / Header -->
+    <nav class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-amber-400 rounded-xl flex items-center justify-center shadow-lg shadow-amber-400/20">
+                <svg viewBox="0 0 24 24" class="w-6 h-6 text-slate-900" fill="currentColor">
+                    <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14V22H3V14A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z" />
+                </svg>
+            </div>
+            <div>
+                <span class="text-2xl font-bold tracking-tighter font-bebas block leading-none">DYNASTY DROID</span>
+                <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">AI Trade Engine</span>
+            </div>
         </div>
-        <div class="settings-row">
-            <div class="setting-group"><div class="setting-label">Format</div><div class="setting-toggle"><button id="format1qb" onclick="setFormat('1qb')">1QB</button><button id="format2qb" class="active" onclick="setFormat('2qb')">Superflex</button></div></div>
-            <div class="setting-group"><div class="setting-label">Teams</div><div class="setting-toggle"><button id="team10" onclick="setTeams(10)">10</button><button id="team12" class="active" onclick="setTeams(12)">12</button><button id="team14" onclick="setTeams(14)">14</button></div></div>
-            <div style="display:flex;align-items:flex-end"><button class="import-btn" onclick="importLeague()">Import</button></div>
+
+        <div class="flex items-center gap-4">
+            <label class="flex items-center gap-2 cursor-pointer group">
+                <span class="text-[10px] font-bold text-gray-500 group-hover:text-purple-400 transition-colors uppercase">TE Premium</span>
+                <input type="checkbox" id="tePremium" class="w-4 h-4 rounded border-gray-700 bg-gray-800 text-purple-600 focus:ring-purple-500">
+            </label>
         </div>
-        <div id="importError" class="error-msg"></div>
-    </div>
-    <div class="trade-panels">
-        <div class="glass-card"><div class="card-title"><span>GIVE</span><span class="card-count" id="outgoingCount">0</span></div><div class="roster-section" id="outgoingRoster"><div class="empty-state"><div class="empty-state-icon">🏈</div><div>Import league</div></div></div></div>
-        <div class="live-summary">
-            <div class="summary-card"><div class="summary-label">Giving</div><div class="summary-value give" id="outgoingValue">0</div></div>
-            <div class="value-diff even" id="valueDiff">EVEN</div>
-            <div class="summary-card"><div class="summary-label">Getting</div><div class="summary-value get" id="incomingValue">0</div></div>
-            <button class="analyze-btn" onclick="analyzeTrade()" id="analyzeBtn" disabled>Analyze</button>
+    </nav>
+
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-7xl mx-auto">
+        <!-- GIVE SIDE -->
+        <section id="giveContainer" class="lg:col-span-4 glass-panel p-5 flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-red-400 font-bebas tracking-wide uppercase">Outgoing Assets</h2>
+                <span class="text-[10px] font-mono text-gray-600" id="giveCount">0 Items</span>
+            </div>
+
+            <div class="relative mb-4">
+                <input type="text" id="giveSearch" class="search-input" placeholder="Add player to give..." oninput="onSearchInput('give')">
+                <div id="giveSearchResults" class="search-results-overlay" style="display:none"></div>
+            </div>
+
+            <div id="giveSelectedList" class="flex-1 space-y-2 min-h-[150px] max-h-[400px] overflow-y-auto">
+                <!-- Selected players only -->
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-gray-800 flex justify-between items-end">
+                <div>
+                    <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest block">Base Value</span>
+                    <span class="text-2xl font-bebas text-red-400" id="giveValue">0</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest block">Stud Bonus</span>
+                    <span class="text-xl font-bebas text-amber-500" id="giveBonus">+0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CENTER / SUMMARY -->
+        <section class="lg:col-span-4 flex flex-col gap-6 order-last lg:order-none">
+            <div class="glass-panel p-6 flex-1 flex flex-col items-center justify-center text-center">
+                <p class="text-gray-500 font-bold uppercase tracking-widest text-[10px] mb-2">Market Delta</p>
+                <div class="font-bebas text-6xl mb-1 even" id="tradeDiff">EVEN</div>
+                <p class="text-xs text-gray-500 mb-8" id="tradeLabel">No assets selected</p>
+
+                <button id="analyzeBtn" onclick="analyze()" disabled class="btn-analyze w-full py-4 shadow-xl">
+                    ANALYZE BLEND
+                </button>
+
+                <div class="grid grid-cols-2 w-full gap-4 mt-10">
+                    <div class="text-center">
+                        <p class="text-[9px] text-gray-500 uppercase font-black">Adjusted Give</p>
+                        <p class="text-xl font-bebas" id="summaryGiveVal">0</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-[9px] text-gray-500 uppercase font-black">Adjusted Get</p>
+                        <p class="text-xl font-bebas" id="summaryGetVal">0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GET SIDE -->
+        <section id="getContainer" class="lg:col-span-4 glass-panel p-5 flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-green-400 font-bebas tracking-wide uppercase">Incoming Assets</h2>
+                <span class="text-[10px] font-mono text-gray-600" id="getCount">0 Items</span>
+            </div>
+
+            <div class="relative mb-4">
+                <input type="text" id="getSearch" class="search-input" placeholder="Add player to get..." oninput="onSearchInput('get')">
+                <div id="getSearchResults" class="search-results-overlay" style="display:none"></div>
+            </div>
+
+            <div id="getSelectedList" class="flex-1 space-y-2 min-h-[150px] max-h-[400px] overflow-y-auto">
+                <!-- Selected players only -->
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-gray-800 flex justify-between items-end">
+                <div>
+                    <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest block">Base Value</span>
+                    <span class="text-2xl font-bebas text-green-400" id="getValue">0</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest block">Stud Bonus</span>
+                    <span class="text-xl font-bebas text-amber-500" id="getBonus">+0</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Results -->
+    <div id="resultsModal" class="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4" style="display:none">
+        <div class="glass-panel w-full max-w-3xl p-8 max-h-[90vh] overflow-y-auto border-cyan-500/30">
+            <div class="flex justify-between items-start mb-6">
+                <h2 class="text-4xl font-bold font-bebas tracking-tight">ANALYSIS RESULTS</h2>
+                <button onclick="closeResults()" class="text-gray-500 hover:text-white">✕</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="h-48 flex items-center justify-center">
+                    <canvas id="balanceChart"></canvas>
+                </div>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="bg-black/40 p-3 rounded-xl border border-red-500/20 text-center">
+                            <span class="text-[9px] text-gray-500 block">GIVE</span>
+                            <span class="text-xl font-bebas text-red-400" id="modalGiveVal">0</span>
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-gray-500/20 text-center">
+                            <span class="text-[9px] text-gray-500 block">DIFF</span>
+                            <span class="text-xl font-bebas" id="modalDiffVal">0</span>
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-green-500/20 text-center">
+                            <span class="text-[9px] text-gray-500 block">GET</span>
+                            <span class="text-xl font-bebas text-green-400" id="modalGetVal">0</span>
+                        </div>
+                    </div>
+                    <div class="bg-cyan-500/5 p-4 rounded-xl border border-cyan-500/20">
+                        <p class="text-[10px] font-bold text-cyan-400 uppercase mb-2">Roger AI Insights</p>
+                        <p id="modalNarrative" class="text-gray-300 text-xs italic leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <button class="btn-analyze flex-1 py-3" onclick="shareTrade()">Copy to Clipboard</button>
+                <button class="bg-white/5 hover:bg-white/10 px-8 rounded-14 font-bold text-sm" onclick="closeResults()">Back</button>
+            </div>
         </div>
-        <div class="glass-card"><div class="card-title"><span>GET</span><span class="card-count" id="incomingCount">0</span></div><div class="search-input"><input type="text" id="playerSearch" placeholder="Search players..." oninput="debounceSearch(this.value)"></div><div class="roster-section" id="incomingRoster"><div class="empty-state"><div class="empty-state-icon">🔍</div><div>Search</div></div></div></div>
     </div>
-    <div id="results" class="glass-card" style="display:none">
-        <div class="card-title">ANALYSIS</div>
-        <div class="results-grid">
-            <div><div class="chart-container"><canvas id="valueChart"></canvas></div></div>
-            <div><div style="margin-bottom:1rem"><div class="summary-label">Team Type</div><span id="teamType" class="team-type neutral">-</span></div><div style="margin-bottom:1rem"><div class="summary-label">Strengths</div><div class="team-badges" id="strengths"></div></div><div><div class="summary-label">Weaknesses</div><div class="team-badges" id="weaknesses"></div></div></div>
+
+    <!-- Mobile Sticky Footer -->
+    <div class="mobile-bar md:hidden" id="mobileSummary" style="display:none">
+        <div>
+            <span class="text-[9px] text-gray-500 uppercase block font-bold">Difference</span>
+            <span class="text-xl font-bebas" id="mobileDiff">EVEN</span>
         </div>
-        <div class="narrative-box"><h3>🤖 Roger Analysis</h3><p id="narrative">-</p></div>
+        <button onclick="analyze()" class="btn-analyze px-6 py-2 text-sm">Analyze</button>
     </div>
-</div>
+
 <script>
-let currentFormat='2qb',numTeams=12,leagueData=null,allPlayers=[],outgoing=[],incoming=[],chart=null,searchTimeout=null;
-document.getElementById('leagueId').value=localStorage.getItem('lid')||'';
-function setFormat(f){currentFormat=f;document.getElementById('format1qb').classList.toggle('active',f==='1qb');document.getElementById('format2qb').classList.toggle('active',f==='2qb');}
-function setTeams(n){numTeams=n;[10,12,14].forEach((t,i)=>document.getElementById('team'+t).classList.toggle('active',n===t));}
-function showError(m){const e=document.getElementById('importError');e.textContent=m;e.classList.add('show');}
-function hideError(){document.getElementById('importError').classList.remove('show');}
-async function importLeague(){
-    const lid=document.getElementById('leagueId').value.trim();
-    hideError();
-    if(!lid){showError('Enter league ID');return;}
-    try{
-        const r=await fetch('/api/v1/sleeper/league/'+lid+'/rosters?format='+currentFormat);
-        if(!r.ok)throw new Error('Not found');
-        leagueData=await r.json();
-        localStorage.setItem('lid',lid);
-        const s=document.getElementById('rosterSelect');s.innerHTML='';
-        leagueData.teams.forEach(t=>{let o=document.createElement('option');o.value=t.roster_id;o.textContent=t.owner_name+' ('+t.players.length+')';s.appendChild(o);});
-        allPlayers=[];leagueData.teams.forEach(t=>t.players.forEach(p=>{if(!allPlayers.find(x=>x.player_id===p.player_id))allPlayers.push(p);}));
-        s.onchange=()=>renderRoster(s.value);
-        if(leagueData.teams.length>0){s.value=leagueData.teams[0].roster_id;renderRoster(leagueData.teams[0].roster_id);}
-    }catch(e){showError(e.message);}
-}
-function renderRoster(rid){
-    const t=leagueData.teams.find(x=>x.roster_id===parseInt(rid));
-    if(!t)return;
-    const c=document.getElementById('outgoingRoster');c.innerHTML='';
-    const po={'QB':0,'RB':1,'WR':2,'TE':3,'K':4,'DEF':5};
-    t.players.sort((a,b)=>{const pd=(po[a.position]||10)-(po[b.position]||10);return pd!==0?pd:b.value-a.value;});
-    t.players.forEach(p=>{let d=document.createElement('div');d.className='player-chip';d.dataset.id=p.player_id;d.dataset.side='out';d.innerHTML='<div class="player-info"><span class="player-pos '+(p.position||'').toLowerCase()+'">'+(p.position||'')+'</span><div><div class="player-name">'+(p.name||'')+'</div><div class="player-team">'+(p.team||'')+'</div></div></div><span class="player-value">'+(p.value||0)+'</span>';d.onclick=()=>toggle(d,p);c.appendChild(d);});
-    outgoing=[];incoming=[];update();
-}
-function toggle(el,p){
-    const side=el.dataset.side;
-    const arr=side==='out'?outgoing:incoming;
-    const i=arr.findIndex(x=>x.player_id===p.player_id);
-    if(i>=0){arr.splice(i,1);el.classList.remove('selected');}
-    else{arr.push(p);el.classList.add('selected');}
-    update();
-}
-function debounceSearch(q){clearTimeout(searchTimeout);searchTimeout=setTimeout(()=>searchPlayers(q),300);}
-function searchPlayers(q=''){
-    const c=document.getElementById('incomingRoster');c.innerHTML='';
-    const qq=q.toLowerCase(),oids=new Set(outgoing.map(x=>x.player_id)),iids=new Set(incoming.map(x=>x.player_id));
-    const sel=incoming.filter(p=>p.name.toLowerCase().includes(qq)||qq==='');
-    const avail=allPlayers.filter(p=>!oids.has(p.player_id)&&!iids.has(p.player_id)&&(p.name.toLowerCase().includes(qq)||(p.position||'').toLowerCase().includes(qq)||(p.team||'').toLowerCase().includes(qq))).slice(0,30);
-    sel.forEach(p=>{let d=document.createElement('div');d.className='player-chip';d.dataset.id=p.player_id;d.dataset.side='in';d.innerHTML='<div class="player-info"><span class="player-pos '+(p.position||'').toLowerCase()+'">'+(p.position||'')+'</span><div><div class="player-name">'+(p.name||'')+'</div><div class="player-team">'+(p.team||'')+'</div></div></div><span class="player-value">'+(p.value||0)+'</span>';d.onclick=()=>toggle(d,p);c.appendChild(d);});
-    if(!sel.length&&!avail.length){c.innerHTML='<div class="empty-state"><div class="empty-state-icon">🔍</div><div>No results</div></div>';return;}
-    avail.forEach(p=>{let d=document.createElement('div');d.className='player-chip';d.dataset.id=p.player_id;d.dataset.side='in';d.innerHTML='<div class="player-info"><span class="player-pos '+(p.position||'').toLowerCase()+'">'+(p.position||'')+'</span><div><div class="player-name">'+(p.name||'')+'</div><div class="player-team">'+(p.team||'')+'</div></div></div><span class="player-value">'+(p.value||0)+'</span>';d.onclick=()=>toggle(d,p);c.appendChild(d);});
-}
-function update(){
-    const ov=outgoing.reduce((s,p)=>s+(p.value||0),0),iv=incoming.reduce((s,p)=>s+(p.value||0),0),diff=iv-ov;
-    document.getElementById('outgoingValue').textContent=ov;
-    document.getElementById('incomingValue').textContent=iv;
-    document.getElementById('outgoingCount').textContent=outgoing.length;
-    document.getElementById('incomingCount').textContent=incoming.length;
-    const de=document.getElementById('valueDiff');
-    if(diff>200){de.textContent='+'+diff;de.className='value-diff win';}
-    else if(diff<-200){de.textContent=diff;de.className='value-diff loss';}
-    else{de.textContent='EVEN';de.className='value-diff even';}
-    document.getElementById('analyzeBtn').disabled=!outgoing.length||!incoming.length;
-}
-async function analyzeTrade(){
-    const rid=document.getElementById('rosterSelect').value;
-    if(!rid||!outgoing.length||!incoming.length)return;
-    const b=document.getElementById('analyzeBtn');b.disabled=true;b.textContent='Analyzing...';
-    try{
-        const r=await fetch('/api/v1/trade/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({league_id:document.getElementById('leagueId').value,user_roster_id:parseInt(rid),outgoing_player_ids:outgoing.map(p=>p.player_id),incoming_player_ids:incoming.map(p=>p.player_id),format:currentFormat,num_teams:numTeams})});
-        const res=await r.json();
-        displayResults(res);
-    }catch(e){alert(e.message);}
-    finally{b.disabled=false;b.textContent='Analyze';}
-}
-function displayResults(res){
-    document.getElementById('results').style.display='block';
-    const ctx=document.getElementById('valueChart').getContext('2d');
-    if(chart)chart.destroy();
-    chart=new Chart(ctx,{type:'bar',data:{labels:['Give','Get'],datasets:[{data:[res.outgoing_value,res.incoming_value],backgroundColor:['#EF4444','#10B981'],borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(148,163,184,0.1)'},ticks:{color:'#9CA3AF'}},x:{grid:{display:false},ticks:{color:'#9CA3AF'}}}}});
-    const tl={win_now:{t:'🏆 Contender',c:'contender'},rebuild:{t:'📉 Rebuilding',c:'rebuilder'},neutral:{t:'⚖️ Neutral',c:'neutral'}};
-    const ti=tl[res.team_classification]||tl.neutral;
-    const te=document.getElementById('teamType');te.textContent=ti.t;te.className='team-type '+ti.c;
-    document.getElementById('strengths').innerHTML=res.strengths.length?res.strengths.map(s=>'<span class="badge strength">'+s+'</span>').join(''):'None';
-    document.getElementById('weaknesses').innerHTML=res.weaknesses.length?res.weaknesses.map(w=>'<span class="badge weakness">'+w+'</span>').join(''):'None';
-    document.getElementById('narrative').textContent=res.narrative;
-    document.getElementById('results').scrollIntoView({behavior:'smooth'});
-}
-function resetTrade(){outgoing=[];incoming=[];document.querySelectorAll('.player-chip.selected').forEach(x=>x.classList.remove('selected'));update();document.getElementById('results').style.display='none';}
-function shareTrade(){const t='Give: '+outgoing.map(p=>p.name).join(', ')+' | Get: '+incoming.map(p=>p.name).join(', ');navigator.clipboard.writeText(t);alert('Copied!');}
-searchPlayers();
-</script></body></html>
+    let allPlayers = [];
+    let give = [];
+    let get = [];
+    let balanceChart = null;
+
+    // Initialization
+    fetch('/ktc_values.json')
+        .then(r => r.json())
+        .then(data => {
+            allPlayers = data;
+            updateUI();
+        });
+
+    function onSearchInput(side) {
+        const query = document.getElementById(side + 'Search').value.trim().toLowerCase();
+        const resultsEl = document.getElementById(side + 'SearchResults');
+        
+        if (query.length < 2) {
+            resultsEl.style.display = 'none';
+            return;
+        }
+
+        const selectedNames = new Set([...give, ...get].map(p => p.name));
+        const filtered = allPlayers.filter(p => 
+            !selectedNames.has(p.name) && 
+            p.name.toLowerCase().includes(query)
+        ).slice(0, 10);
+
+        if (filtered.length === 0) {
+            resultsEl.innerHTML = '<div class="p-4 text-xs text-gray-500 text-center font-bold">No players found</div>';
+        } else {
+            resultsEl.innerHTML = filtered.map(p => `
+                <div class="p-4 border-b border-gray-800 hover:bg-gray-800 cursor-pointer flex justify-between items-center transition-colors" 
+                     onclick="addPlayerById('${p.id}', '${side}')">
+                    <div class="flex items-center gap-3">
+                        <span class="pos-badge pos-${p.pos}">${p.pos}</span>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-white">${p.name}</span>
+                            <span class="text-[9px] text-gray-500 uppercase tracking-tighter">${p.team || 'Free Agent'}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-bebas text-amber-500 tracking-wider">${p.value.toLocaleString()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        resultsEl.style.display = 'block';
+    }
+
+    function addPlayerById(id, side) {
+        const player = allPlayers.find(p => p.id === id);
+        if (!player) return;
+        
+        if (side === 'give') give.push(player);
+        else get.push(player);
+
+        // Clear search
+        const searchInput = document.getElementById(side + 'Search');
+        const resultsEl = document.getElementById(side + 'SearchResults');
+        searchInput.value = '';
+        resultsEl.style.display = 'none';
+        
+        updateUI();
+    }
+
+    function removePlayer(id, side) {
+        if (side === 'give') give = give.filter(p => p.id !== id);
+        else get = get.filter(p => p.id !== id);
+        updateUI();
+    }
+
+    function updateUI() {
+        renderSelectedList('give');
+        renderSelectedList('get');
+        
+        const gvRaw = give.reduce((s, p) => s + p.value, 0);
+        const rvRaw = get.reduce((s, p) => s + p.value, 0);
+
+        // --- Stud Bonus Calculation ---
+        const THRESHOLD = 0.38;
+        const MULTIPLIER = 0.70;
+        
+        let giveBonus = 0;
+        let getBonus = 0;
+
+        const maxGive = give.length ? Math.max(...give.map(p => p.value)) : 0;
+        const maxGet = get.length ? Math.max(...get.map(p => p.value)) : 0;
+
+        if (maxGive > maxGet && rvRaw > 0) {
+            const ratio = maxGive / rvRaw;
+            if (ratio > THRESHOLD) {
+                const excess = maxGive - (rvRaw * THRESHOLD);
+                giveBonus = Math.round(excess * MULTIPLIER);
+            }
+        } else if (maxGet > maxGive && gvRaw > 0) {
+            const ratio = maxGet / gvRaw;
+            if (ratio > THRESHOLD) {
+                const excess = maxGet - (gvRaw * THRESHOLD);
+                getBonus = Math.round(excess * MULTIPLIER);
+            }
+        }
+
+        const gvAdjusted = gvRaw + giveBonus;
+        const rvAdjusted = rvRaw + getBonus;
+        const diff = rvAdjusted - gvAdjusted;
+
+        // Update basic values
+        document.getElementById('giveValue').textContent = gvRaw.toLocaleString();
+        document.getElementById('getValue').textContent = rvRaw.toLocaleString();
+        
+        // Update Bonus Labels
+        document.getElementById('giveBonus').textContent = '+' + giveBonus.toLocaleString();
+        document.getElementById('getBonus').textContent = '+' + getBonus.toLocaleString();
+        document.getElementById('giveBonus').className = giveBonus > 0 ? 'text-xl font-bebas text-amber-500' : 'text-xl font-bebas text-gray-700';
+        document.getElementById('getBonus').className = getBonus > 0 ? 'text-xl font-bebas text-amber-500' : 'text-xl font-bebas text-gray-700';
+
+        // Update Summary values
+        document.getElementById('summaryGiveVal').textContent = gvAdjusted.toLocaleString();
+        document.getElementById('summaryGetVal').textContent = rvAdjusted.toLocaleString();
+
+        const diffEl = document.getElementById('tradeDiff');
+        const labelEl = document.getElementById('tradeLabel');
+        const mobileDiff = document.getElementById('mobileDiff');
+
+        if (give.length === 0 && get.length === 0) {
+            diffEl.textContent = 'EVEN';
+            diffEl.className = 'font-bebas text-6xl mb-1 even text-gray-600';
+            labelEl.textContent = 'No assets selected';
+        } else if (Math.abs(diff) < 100) {
+            diffEl.textContent = 'FAIR';
+            diffEl.className = 'font-bebas text-6xl mb-1 even text-gray-400';
+            labelEl.textContent = 'Values are closely matched';
+        } else if (diff > 0) {
+            diffEl.textContent = '+' + diff.toLocaleString();
+            diffEl.className = 'font-bebas text-6xl mb-1 win text-green-500';
+            labelEl.textContent = 'Get side is leading';
+        } else {
+            diffEl.textContent = diff.toLocaleString();
+            diffEl.className = 'font-bebas text-6xl mb-1 loss text-red-500';
+            labelEl.textContent = 'Give side is leading';
+        }
+
+        mobileDiff.textContent = diffEl.textContent;
+        mobileDiff.className = 'font-bebas text-xl ' + diffEl.className;
+
+        document.getElementById('analyzeBtn').disabled = (give.length === 0 || get.length === 0);
+        document.getElementById('mobileSummary').style.display = (give.length > 0 || get.length > 0) ? 'flex' : 'none';
+
+        // Winning side glow - based on adjusted diff
+        document.getElementById('getContainer').classList.toggle('winning-side', diff > 500);
+        document.getElementById('giveContainer').classList.toggle('winning-side', diff < -500);
+
+        document.getElementById('giveCount').textContent = give.length + ' Items';
+        document.getElementById('getCount').textContent = get.length + ' Items';
+    }
+
+    function renderSelectedList(side) {
+        const list = side === 'give' ? give : get;
+        const el = document.getElementById(side + 'SelectedList');
+        
+        if (list.length === 0) {
+            el.innerHTML = '<div class="h-full flex flex-col items-center justify-center border-2 border-dashed border-gray-800 rounded-xl py-10 text-gray-600 space-y-2"> <span class="text-2xl opacity-20">📥</span> <span class="text-[10px] uppercase font-bold tracking-widest italic">Drop zone empty</span></div>';
+            return;
+        }
+
+        el.innerHTML = list.map(p => `
+            <div class="player-card selected" onclick="removePlayer('${p.id}', '${side}')">
+                <div class="flex items-center gap-2">
+                    <span class="pos-badge pos-${p.pos}">${p.pos}</span>
+                    <span class="text-sm font-semibold">${p.name}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bebas text-amber-500">${p.value.toLocaleString()}</span>
+                    <span class="text-gray-600 hover:text-red-400">✕</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    async function analyze() {
+        const tep = document.getElementById('tePremium').checked;
+        const names = [...give, ...get].map(p => p.name);
+        
+        document.getElementById('analyzeBtn').textContent = "CALCULATING...";
+        
+        try {
+            const resp = await fetch('/api/v2/consensus-values', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({player_ids: names, te_premium: tep})
+            });
+            const data = await resp.json();
+            showModal(data, tep);
+        } catch(e) {
+            alert("API connection failed.");
+        } finally {
+            document.getElementById('analyzeBtn').textContent = "ANALYZE BLEND";
+        }
+    }
+
+    function showModal(data, tep) {
+        const map = {};
+        data.forEach(p => map[p.name] = p);
+
+        const gv = give.reduce((s, p) => s + (map[p.name]?.consensus || p.value), 0);
+        const rv = get.reduce((s, p) => s + (map[p.name]?.consensus || p.value), 0);
+        const diff = Math.round(rv - gv);
+
+        document.getElementById('modalGiveVal').textContent = Math.round(gv).toLocaleString();
+        document.getElementById('modalGetVal').textContent = Math.round(rv).toLocaleString();
+        document.getElementById('modalDiffVal').textContent = (diff > 0 ? '+' : '') + diff.toLocaleString();
+        
+        let msg = `Cross-referencing 6 market sources shows this deal is ${Math.abs(diff) < 50 ? 'near-perfect parity' : (diff > 0 ? 'favoring the incoming side' : 'favoring the outgoing side')}.`;
+        if (tep) msg += " Tight End Premium was active for this calculation.";
+        
+        document.getElementById('modalNarrative').textContent = msg;
+        document.getElementById('resultsModal').style.display = 'flex';
+
+        const ctx = document.getElementById('balanceChart').getContext('2d');
+        if (balanceChart) balanceChart.destroy();
+        balanceChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [gv, rv],
+                    backgroundColor: ['#EF4444', '#10B981'],
+                    borderWidth: 0,
+                    circumference: 180,
+                    rotation: 270
+                }]
+            },
+            options: { cutout: '85%', plugins: { legend: { display: false } } }
+        });
+    }
+
+    function closeResults() { document.getElementById('resultsModal').style.display = 'none'; }
+    
+    function shareTrade() {
+        const txt = `Trade Evaluation via DynastyDroid:\nGIVE: ${give.map(p=>p.name).join(', ')}\nGET: ${get.map(p=>p.name).join(', ')}\nDelta: ${document.getElementById('modalDiffVal').textContent}`;
+        navigator.clipboard.writeText(txt);
+        alert("Copied!");
+    }
+</script>
+</body>
+</html>
