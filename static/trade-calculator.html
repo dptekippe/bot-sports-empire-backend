@@ -541,36 +541,33 @@ function removePlayer(id, side) {
 function updateUI() {
     renderSelectedList('give'); renderSelectedList('get');
     
-    // Calculate trade values using Daniel's corrected formula
+    // Calculate trade max for formula
     const allValues = [...give, ...get].map(p => consensusCache[p.name] || p.value);
     const tradeMax = Math.max(...allValues, KTC_MAX);
-    const gvTrade = give.reduce((s, p) => s + getTradeValue(consensusCache[p.name], p.value, tradeMax), 0);
-    const rvTrade = get.reduce((s, p) => s + getTradeValue(consensusCache[p.name], p.value, tradeMax), 0);
     
-    // Delta (positive = GET winning)
-    const diff = Math.round(rvTrade - gvTrade);
+    // Show RAW KTC values as Base Value (not adjusted)
+    const gvRaw = give.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
+    const rvRaw = get.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
     
-    // Display trade values
-    document.getElementById('giveValue').textContent = gvTrade.toFixed(0);
-    document.getElementById('getValue').textContent = rvTrade.toFixed(0);
+    // Delta = raw value difference (positive = GET winning)
+    const diff = Math.round(gvRaw - rvRaw);
     
-    // No separate stud bonus - baked into getTradeValue()
-    document.getElementById('giveBonus').textContent = '+0';
-    document.getElementById('getBonus').textContent = '+0';
-    document.getElementById('giveBonus').className = 'stat-value font-mono text-gray-700';
-    document.getElementById('getBonus').className = 'stat-value font-mono text-gray-700';
+    // Display raw KTC values as Base Value
+    document.getElementById('giveValue').textContent = gvRaw.toFixed(0);
+    document.getElementById('getValue').textContent = rvRaw.toFixed(0);
     
-    document.getElementById('summaryGiveVal').textContent = gvTrade.toFixed(0);
-    document.getElementById('summaryGetVal').textContent = rvTrade.toFixed(0);
+    // Summary shows same raw values
+    document.getElementById('summaryGiveVal').textContent = gvRaw.toFixed(0);
+    document.getElementById('summaryGetVal').textContent = rvRaw.toFixed(0);
     const diffEl = document.getElementById('tradeDiff'), labelEl = document.getElementById('tradeLabel');
     if (give.length === 0 && get.length === 0) {
         diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'No assets selected';
     } else if (Math.abs(diff) < 700) {
         diffEl.textContent = 'FAIR'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'Values are closely matched';
     } else if (diff > 0) {
-        diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-positive'; labelEl.textContent = 'Get side is leading';
+        diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-positive'; labelEl.textContent = 'Give side winning';
     } else {
-        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-negative'; labelEl.textContent = 'Give side is leading';
+        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-negative'; labelEl.textContent = 'Get side winning';
     }
     document.getElementById('mobileDiff').textContent = diffEl.textContent;
     document.getElementById('analyzeBtn').disabled = ( give.length === 0 || get.length === 0 );
