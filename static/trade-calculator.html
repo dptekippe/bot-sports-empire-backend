@@ -482,18 +482,54 @@
 
 <script>
 let allPlayers = []; let give = []; let get = []; let balanceChart = null; let consensusCache = {};
-const KTC_MAX = 9999, KTC_POWER = 1.8085;
+const KTC_MAX = 9999, TEAM_VALUE = 8200;
 
-function effectiveValue(raw) {
-    if (raw <= 0) return 0;
-    raw = Math.min(raw, KTC_MAX);
-    return Math.pow(raw / KTC_MAX, KTC_POWER) * KTC_MAX;
+/**
+ * Daniel's KTC-style nonlinear raw adjustment formula.
+ * Compresses mid-tier players more than elite players.
+ * Returns trade value on 0-9999 scale.
+ */
+function ktcRawAdjustment(p) {
+    const term1 = 0.15 * Math.pow(p / KTC_MAX, 8);
+    const term2 = 0.15 * Math.pow(p / TEAM_VALUE, 1.3);
+    const term3 = 0.1 * Math.pow(p / (KTC_MAX + 2000), 1.28);
+    return p * (0.1 + term1 + term2 + term3);
 }
 
-function rawFromEffective(target) {
-    if (target <= 0) return 0;
-    target = Math.min(target, KTC_MAX);
-    return Math.pow(target / KTC_MAX, 1 / KTC_POWER) * KTC_MAX;
+/**
+ * Calculate stud factor for extreme percentiles.
+ * Top 10%: multiplier up to 1.5x
+ * Bottom 10%: multiplier down to 0.5x
+ */
+function getStudFactor(blendedP) {
+    const percentile = Math.min(blendedP / 10000, 1);
+    if (percentile > 0.9) {
+        return 1.0 + 0.5 * (percentile - 0.9) / 0.1;
+    } else if (percentile < 0.1) {
+        return Math.max(0.5, 1.0 - 0.5 * (0.1 - percentile) / 0.1);
+    }
+    return 1.0;
+}
+
+/**
+ * Get trade value for a player (blended, normalized, stud-adjusted).
+ * consensusValue: 0-999 scale (from API), or raw KTC if not available.
+ * Returns trade value on 0-9999 scale.
+ */
+function getTradeValue(consensusValue, rawKtc) {
+    // Use consensus if available (0-999 scale → multiply to 0-9999)
+    // Otherwise use raw KTC directly
+    const baseValue = (consensusValue !== undefined && consensusValue > 0) 
+        ? consensusValue * 10 
+        : rawKtc;
+    
+    // Apply nonlinear adjustment
+    const normalized = ktcRawAdjustment(baseValue);
+    
+    // Apply stud factor for extreme percentiles
+    const studFactor = getStudFactor(baseValue);
+    
+    return normalized * studFactor;
 }
 
 fetch('/ktc_values.json').then(r => r.json()).then(data => { allPlayers = data; updateUI(); });
@@ -529,40 +565,30 @@ function removePlayer(id, side) {
 
 function updateUI() {
     renderSelectedList('give'); renderSelectedList('get');
-    // Use consensus (×10 to get 9999 scale) when available, else raw KTC
-    const gvEff = give.reduce((s, p) => s + effectiveValue((consensusCache[p.name] || p.value) * 10), 0);
-    const rvEff = get.reduce((s, p) => s + effectiveValue((consensusCache[p.name] || p.value) * 10), 0);
-    const effDelta = rvEff - gvEff;
-    // Stud bonus: only when one side has an elite player (7000+) dominating against weak pieces
-    const STUD_THRESHOLD = 7000;
-    const GAP_MULTIPLIER = 2.5;
-    const BONUS_MULTIPLIER = 0.30;
-    let giveBonus = 0, getBonus = 0;
-    const maxGive = give.length ? Math.max(...give.map(p => consensusCache[p.name] || p.value)) : 0;
-    const maxGet = get.length ? Math.max(...get.map(p => consensusCache[p.name] || p.value)) : 0;
-    const minGet = get.length ? Math.min(...get.map(p => consensusCache[p.name] || p.value)) : 0;
-    const minGive = give.length ? Math.min(...give.map(p => consensusCache[p.name] || p.value)) : 0;
-    // Give side: stud dominating weak opponent pieces
-    if (maxGive > STUD_THRESHOLD && minGet < STUD_THRESHOLD * 0.5 && maxGive > minGet * GAP_MULTIPLIER) {
-        giveBonus = Math.round((effectiveValue(maxGive) - effectiveValue(minGet) * GAP_MULTIPLIER) * BONUS_MULTIPLIER);
-    }
-    // Get side: stud dominating weak opponent pieces
-    if (maxGet > STUD_THRESHOLD && minGive < STUD_THRESHOLD * 0.5 && maxGet > minGive * GAP_MULTIPLIER) {
-        getBonus = Math.round((effectiveValue(maxGet) - effectiveValue(minGive) * GAP_MULTIPLIER) * BONUS_MULTIPLIER);
-    }
-    const gvAdjusted = gvEff + giveBonus, rvAdjusted = rvEff + getBonus, diff = Math.round(rvAdjusted - gvAdjusted);
-    document.getElementById('giveValue').textContent = gvEff.toFixed(0);
-    document.getElementById('getValue').textContent = rvEff.toFixed(0);
-    document.getElementById('giveBonus').textContent = '+' + giveBonus.toLocaleString();
-    document.getElementById('getBonus').textContent = '+' + getBonus.toLocaleString();
-    document.getElementById('giveBonus').className = giveBonus > 0 ? 'stat-value bonus font-mono' : 'stat-value font-mono text-gray-700';
-    document.getElementById('getBonus').className = getBonus > 0 ? 'stat-value bonus font-mono' : 'stat-value font-mono text-gray-700';
-    document.getElementById('summaryGiveVal').textContent = gvAdjusted.toLocaleString();
-    document.getElementById('summaryGetVal').textContent = rvAdjusted.toLocaleString();
+    
+    // Calculate trade values using Daniel's corrected formula
+    const gvTrade = give.reduce((s, p) => s + getTradeValue(consensusCache[p.name], p.value), 0);
+    const rvTrade = get.reduce((s, p) => s + getTradeValue(consensusCache[p.name], p.value), 0);
+    
+    // Delta (positive = GET winning)
+    const diff = Math.round(rvTrade - gvTrade);
+    
+    // Display trade values
+    document.getElementById('giveValue').textContent = gvTrade.toFixed(0);
+    document.getElementById('getValue').textContent = rvTrade.toFixed(0);
+    
+    // No separate stud bonus - baked into getTradeValue()
+    document.getElementById('giveBonus').textContent = '+0';
+    document.getElementById('getBonus').textContent = '+0';
+    document.getElementById('giveBonus').className = 'stat-value font-mono text-gray-700';
+    document.getElementById('getBonus').className = 'stat-value font-mono text-gray-700';
+    
+    document.getElementById('summaryGiveVal').textContent = gvTrade.toFixed(0);
+    document.getElementById('summaryGetVal').textContent = rvTrade.toFixed(0);
     const diffEl = document.getElementById('tradeDiff'), labelEl = document.getElementById('tradeLabel');
     if (give.length === 0 && get.length === 0) {
         diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'No assets selected';
-    } else if (Math.abs(diff) < 100) {
+    } else if (Math.abs(diff) < 50) {
         diffEl.textContent = 'FAIR'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'Values are closely matched';
     } else if (diff > 0) {
         diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-positive'; labelEl.textContent = 'Get side is leading';
@@ -570,14 +596,13 @@ function updateUI() {
         diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-negative'; labelEl.textContent = 'Give side is leading';
     }
     document.getElementById('mobileDiff').textContent = diffEl.textContent;
-    document.getElementById('analyzeBtn').disabled = (give.length === 0 || get.length === 0);
+    document.getElementById('analyzeBtn').disabled = ( give.length === 0 || get.length === 0 );
     document.getElementById('mobileSummary').style.display = (give.length > 0 || get.length > 0) ? 'flex' : 'none';
-    document.getElementById('getContainer').classList.toggle('winning-side', diff >500);
+    document.getElementById('getContainer').classList.toggle('winning-side', diff > 500);
     document.getElementById('giveContainer').classList.toggle('winning-side', diff < -500);
     document.getElementById('giveCount').textContent = give.length + ' Items';
     document.getElementById('getCount').textContent = get.length + ' Items';
 }
-
 function renderSelectedList(side) {
     const list = side === 'give' ? give : get;
     const el = document.getElementById(side + 'SelectedList');
@@ -609,8 +634,8 @@ async function analyze() {
 function showModal(data, tep) {
     const map = {}; data.forEach(p => map[p.name] = p);
     // Consensus is 0-999 scale; scale to 9999 before applying power curve
-    const gv = give.reduce((s, p) => s + effectiveValue((map[p.name]?.consensus || p.value) * 10), 0);
-    const rv = get.reduce((s, p) => s + effectiveValue((map[p.name]?.consensus || p.value) * 10), 0);
+    const gv = give.reduce((s, p) => s + getTradeValue(map[p.name]?.consensus, p.value), 0);
+    const rv = get.reduce((s, p) => s + getTradeValue(map[p.name]?.consensus, p.value), 0);
     const diff = Math.round(rv - gv);
     document.getElementById('modalGiveVal').textContent = Math.round(gv).toLocaleString();
     document.getElementById('modalGetVal').textContent = Math.round(rv).toLocaleString();
