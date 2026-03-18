@@ -545,20 +545,24 @@ function updateUI() {
     const allValues = [...give, ...get].map(p => consensusCache[p.name] || p.value);
     const tradeMax = Math.max(...allValues, KTC_MAX);
     
-    // Show RAW KTC values as Base Value (not adjusted)
+    // RAW KTC values as Base Value
     const gvRaw = give.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
     const rvRaw = get.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
     
-    // Delta = raw value difference (positive = GET winning)
-    const diff = Math.round(gvRaw - rvRaw);
+    // ADJUSTED values using ktcRawAdjust (for comparison)
+    const gvAdj = give.reduce((s, p) => s + ktcRawAdjust(consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value, tradeMax), 0);
+    const rvAdj = get.reduce((s, p) => s + ktcRawAdjust(consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value, tradeMax), 0);
+    
+    // Delta based on ADJUSTED values (positive = Give winning after compression)
+    const diff = Math.round(gvAdj - rvAdj);
     
     // Display raw KTC values as Base Value
     document.getElementById('giveValue').textContent = gvRaw.toFixed(0);
     document.getElementById('getValue').textContent = rvRaw.toFixed(0);
     
-    // Summary shows same raw values
-    document.getElementById('summaryGiveVal').textContent = gvRaw.toFixed(0);
-    document.getElementById('summaryGetVal').textContent = rvRaw.toFixed(0);
+    // Summary shows ADJUSTED totals for comparison
+    document.getElementById('summaryGiveVal').textContent = gvAdj.toFixed(0);
+    document.getElementById('summaryGetVal').textContent = rvAdj.toFixed(0);
     const diffEl = document.getElementById('tradeDiff'), labelEl = document.getElementById('tradeLabel');
     if (give.length === 0 && get.length === 0) {
         diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'No assets selected';
@@ -610,13 +614,13 @@ function showModal(data, tep) {
     // Consensus is 0-999 scale; scale to 9999 before applying power curve
     const allVals = [...give, ...get].map(p => map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value);
     const tradeMax = Math.max(...allVals, KTC_MAX);
-    const gv = give.reduce((s, p) => s + getTradeValue(map[p.name]?.consensus, p.value, tradeMax), 0);
-    const rv = get.reduce((s, p) => s + getTradeValue(map[p.name]?.consensus, p.value, tradeMax), 0);
-    const diff = Math.round(rv - gv);
+    const gv = give.reduce((s, p) => s + ktcRawAdjust(map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value, tradeMax), 0);
+    const rv = get.reduce((s, p) => s + ktcRawAdjust(map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value, tradeMax), 0);
+    const diff = Math.round(gv - rv);  // positive = give winning
     document.getElementById('modalGiveVal').textContent = Math.round(gv).toLocaleString();
     document.getElementById('modalGetVal').textContent = Math.round(rv).toLocaleString();
     document.getElementById('modalDiffVal').textContent = (diff > 0 ? '+' : '') + diff.toLocaleString();
-    let msg = `Using KTC effective-value normalization, this deal is ${Math.abs(diff) < 700 ? 'near-perfect parity' : (diff > 0 ? 'favoring the incoming side' : 'favoring the outgoing side')} (${Math.abs(diff)} eff pts).`;
+    let msg = `KTC raw adjustment compression applied. Gap of ${Math.abs(diff)} points is ${Math.abs(diff) < 700 ? 'within fair trade range' : (diff > 0 ? 'favoring the give side' : 'favoring the get side')}.`;
     if (tep) msg += " Tight End Premium was active for this calculation.";
     document.getElementById('modalNarrative').textContent = msg;
     document.getElementById('resultsModal').style.display = 'flex';
