@@ -482,6 +482,20 @@
 
 <script>
 let allPlayers = []; let give = []; let get = []; let balanceChart = null;
+const KTC_MAX = 9999, KTC_POWER = 1.8085;
+
+function effectiveValue(raw) {
+    if (raw <= 0) return 0;
+    raw = Math.min(raw, KTC_MAX);
+    return Math.pow(raw / KTC_MAX, KTC_POWER) * KTC_MAX;
+}
+
+function rawFromEffective(target) {
+    if (target <= 0) return 0;
+    target = Math.min(target, KTC_MAX);
+    return Math.pow(target / KTC_MAX, 1 / KTC_POWER) * KTC_MAX;
+}
+
 fetch('/ktc_values.json').then(r => r.json()).then(data => { allPlayers = data; updateUI(); });
 
 function onSearchInput(side) {
@@ -517,25 +531,30 @@ function updateUI() {
     renderSelectedList('give'); renderSelectedList('get');
     const gvRaw = give.reduce((s, p) => s + p.value, 0);
     const rvRaw = get.reduce((s, p) => s + p.value, 0);
-    const STUD_THRESHOLD = 6500; // Only players above this are "studs"
-    const GAP_MULTIPLIER = 2.0; // Stud must be 2x better than opponent's best to qualify
-    const BONUS_MULTIPLIER = 0.35;
+    // Use KTC effective values (power curve normalized) for trade comparison
+    const gvEff = give.reduce((s, p) => s + effectiveValue(p.value), 0);
+    const rvEff = get.reduce((s, p) => s + effectiveValue(p.value), 0);
+    const effDelta = rvEff - gvEff;
+    // Stud bonus: only when one side has an elite player (7000+) dominating against weak pieces
+    const STUD_THRESHOLD = 7000;
+    const GAP_MULTIPLIER = 2.5;
+    const BONUS_MULTIPLIER = 0.30;
     let giveBonus = 0, getBonus = 0;
     const maxGive = give.length ? Math.max(...give.map(p => p.value)) : 0;
     const maxGet = get.length ? Math.max(...get.map(p => p.value)) : 0;
-    const nextBestGive = give.length > 1 ? give.map(p => p.value).sort((a,b) => b-a)[1] : 0;
-    const nextBestGet = get.length > 1 ? get.map(p => p.value).sort((a,b) => b-a)[1] : 0;
-    // Give side gets stud bonus if: give has a stud AND get doesn't AND stud dominates
-    if (maxGive > STUD_THRESHOLD && maxGet < STUD_THRESHOLD && maxGive > maxGet * GAP_MULTIPLIER) {
-        giveBonus = Math.round((maxGive - maxGet * GAP_MULTIPLIER) * BONUS_MULTIPLIER);
+    const minGet = get.length ? Math.min(...get.map(p => p.value)) : 0;
+    const minGive = give.length ? Math.min(...give.map(p => p.value)) : 0;
+    // Give side: stud dominating weak opponent pieces
+    if (maxGive > STUD_THRESHOLD && minGet < STUD_THRESHOLD * 0.5 && maxGive > minGet * GAP_MULTIPLIER) {
+        giveBonus = Math.round((effectiveValue(maxGive) - effectiveValue(minGet) * GAP_MULTIPLIER) * BONUS_MULTIPLIER);
     }
-    // Get side gets stud bonus if: get has a stud AND give doesn't AND stud dominates
-    if (maxGet > STUD_THRESHOLD && maxGive < STUD_THRESHOLD && maxGet > maxGive * GAP_MULTIPLIER) {
-        getBonus = Math.round((maxGet - maxGive * GAP_MULTIPLIER) * BONUS_MULTIPLIER);
+    // Get side: stud dominating weak opponent pieces
+    if (maxGet > STUD_THRESHOLD && minGive < STUD_THRESHOLD * 0.5 && maxGet > minGive * GAP_MULTIPLIER) {
+        getBonus = Math.round((effectiveValue(maxGet) - effectiveValue(minGive) * GAP_MULTIPLIER) * BONUS_MULTIPLIER);
     }
-    const gvAdjusted = gvRaw + giveBonus, rvAdjusted = rvRaw + getBonus, diff = rvAdjusted - gvAdjusted;
-    document.getElementById('giveValue').textContent = gvRaw.toLocaleString();
-    document.getElementById('getValue').textContent = rvRaw.toLocaleString();
+    const gvAdjusted = gvEff + giveBonus, rvAdjusted = rvEff + getBonus, diff = Math.round(rvAdjusted - gvAdjusted);
+    document.getElementById('giveValue').textContent = gvEff.toFixed(0);
+    document.getElementById('getValue').textContent = rvEff.toFixed(0);
     document.getElementById('giveBonus').textContent = '+' + giveBonus.toLocaleString();
     document.getElementById('getBonus').textContent = '+' + getBonus.toLocaleString();
     document.getElementById('giveBonus').className = giveBonus > 0 ? 'stat-value bonus font-mono' : 'stat-value font-mono text-gray-700';
@@ -587,19 +606,19 @@ async function analyze() {
 
 function showModal(data, tep) {
     const map = {}; data.forEach(p => map[p.name] = p);
-    const gv = give.reduce((s, p) => s + (map[p.name]?.consensus || p.value), 0);
-    const rv = get.reduce((s, p) => s + (map[p.name]?.consensus || p.value), 0);
+    const gv = give.reduce((s, p) => s + effectiveValue(map[p.name]?.consensus || p.value), 0);
+    const rv = get.reduce((s, p) => s + effectiveValue(map[p.name]?.consensus || p.value), 0);
     const diff = Math.round(rv - gv);
     document.getElementById('modalGiveVal').textContent = Math.round(gv).toLocaleString();
     document.getElementById('modalGetVal').textContent = Math.round(rv).toLocaleString();
     document.getElementById('modalDiffVal').textContent = (diff > 0 ? '+' : '') + diff.toLocaleString();
-    let msg = `Cross-referencing 6 market sources shows this deal is ${Math.abs(diff) < 50 ? 'near-perfect parity' : (diff > 0 ? 'favoring the incoming side' : 'favoring the outgoing side')}.`;
+    let msg = `Using KTC effective-value normalization, this deal is ${Math.abs(diff) < 50 ? 'near-perfect parity' : (diff > 0 ? 'favoring the incoming side' : 'favoring the outgoing side')} (${Math.abs(diff)} eff pts).`;
     if (tep) msg += " Tight End Premium was active for this calculation.";
     document.getElementById('modalNarrative').textContent = msg;
     document.getElementById('resultsModal').style.display = 'flex';
     const ctx = document.getElementById('balanceChart').getContext('2d');
     if (balanceChart) balanceChart.destroy();
-    balanceChart = new Chart(ctx, {type: 'doughnut', data: {datasets: [{data: [gv, rv], backgroundColor: ['#EF4444', '#10B981'], borderWidth: 0, circumference: 180, rotation: 270}]}, options: { cutout: '85%', plugins: { legend: { display: false } } }});
+    balanceChart = new Chart(ctx, {type: 'doughnut', data: {datasets: [{data: [gv, rv], backgroundColor: ['#F97316', '#10B981'], borderWidth: 0, circumference: 180, rotation: 270}]}, options: { cutout: '85%', plugins: { legend: { display: false } } }});
 }
 
 function closeResults() { document.getElementById('resultsModal').style.display = 'none'; }
