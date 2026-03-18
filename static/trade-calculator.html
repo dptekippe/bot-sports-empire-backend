@@ -47,6 +47,10 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
         .font-bebas { font-family: 'Bebas Neue', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         .header-glow { position: relative; }
@@ -69,18 +73,18 @@
         }
         .glass-panel:hover { transform: translateY(-2px); }
         .glass-panel.give-panel {
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.1), inset 0 1px 0 rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.5);
+            box-shadow: 0 0 35px rgba(239, 68, 68, 0.3), 0 0 70px rgba(239, 68, 68, 0.15), inset 0 1px 0 rgba(239, 68, 68, 0.1);
         }
         .glass-panel.get-panel {
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1), inset 0 1px 0 rgba(16, 185, 129, 0.1);
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 35px rgba(16, 185, 129, 0.3), 0 0 70px rgba(16, 185, 129, 0.15), inset 0 1px 0 rgba(16, 185, 129, 0.1);
         }
         .glass-panel.give-panel:hover {
-            box-shadow: 0 0 30px rgba(239, 68, 68, 0.2), inset 0 1px 0 rgba(239, 68, 68, 0.2);
+            box-shadow: 0 0 50px rgba(239, 68, 68, 0.4), 0 0 100px rgba(239, 68, 68, 0.2), inset 0 1px 0 rgba(239, 68, 68, 0.15);
         }
         .glass-panel.get-panel:hover {
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2), inset 0 1px 0 rgba(16, 185, 129, 0.2);
+            box-shadow: 0 0 50px rgba(16, 185, 129, 0.4), 0 0 100px rgba(16, 185, 129, 0.2), inset 0 1px 0 rgba(16, 185, 129, 0.15);
         }
         .center-panel {
             background: linear-gradient(180deg, rgba(15, 22, 41, 0.9) 0%, rgba(10, 15, 30, 0.95) 100%);
@@ -180,18 +184,19 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
         .btn-analyze {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 50%, #B45309 100%);
-            background-size: 200% auto;
-            color: #000;
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 30%, #B45309 70%, #92400E 100%) !important;
+            background-size: 200% 100%;
+            color: #000 !important;
             font-weight: 800;
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 0.1em;
+            font-size: 1.5rem;
+            letter-spacing: 0.15em;
             border-radius: 14px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+            box-shadow: 0 0 35px rgba(245, 158, 11, 0.5), 0 4px 15px rgba(0,0,0,0.3);
         }
         .btn-analyze::before {
             content: '';
@@ -301,7 +306,7 @@
     </style>
 </head>
 <body class="p-4 md:p-8">
-    <nav class="flex justify-between items-center mb-10 header-glow pb-4 page-load">
+    <nav class="flex justify-between items-center mb-12 header-glow pb-5 page-load">
         <div class="flex items-center gap-4">
             <div class="relative">
                 <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/30">
@@ -328,7 +333,7 @@
     </nav>
 
     <main class="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-7xl mx-auto page-load page-load-delay-1">
-        <section id="giveContainer" class="lg:col-span-4 glass-panel give-panel p-6 flex flex-col">
+        <section id="giveContainer" class="lg:col-span-4 glass-panel give-panel p-6 flex flex-col min-h-[520px]">
             <div class="flex justify-between items-center mb-5">
                 <div class="flex items-center gap-3">
                     <div class="w-1 h-6 bg-gradient-to-b from-red-500 to-red-600 rounded-full"></div>
@@ -340,7 +345,7 @@
                 <input type="text" id="giveSearch" class="search-input" placeholder="Add player to give..." oninput="onSearchInput('give')">
                 <div id="giveSearchResults" class="search-results-overlay" style="display:none"></div>
             </div>
-            <div id="giveSelectedList" class="flex-1 space-y-2 min-h-[200px] max-h-[450px] overflow-y-auto drop-zone p-3">
+            <div id="giveSelectedList" class="flex-1 space-y-2 min-h-[280px] max-h-[480px] overflow-y-auto drop-zone p-3 rounded-xl">
                 <div class="h-full flex flex-col items-center justify-center text-gray-600 space-y-3 py-8">
                     <svg class="w-10 h-10 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M12 4v16m8-8H4" stroke-linecap="round"/>
@@ -364,13 +369,13 @@
         <section class="lg:col-span-4 flex flex-col gap-6 order-last lg:order-none page-load page-load-delay-2">
             <div class="center-panel glass-panel p-8 flex-1 flex flex-col items-center justify-center text-center rounded-2xl">
                 <p class="text-gray-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-3">Market Delta</p>
-                <div class="font-bebas text-7xl mb-2 even-text" id="tradeDiff">EVEN</div>
+                <div class="font-bebas text-8xl mb-3 delta-even" id="tradeDiff">EVEN</div>
                 <p class="text-xs text-gray-500 mb-8" id="tradeLabel">No assets selected</p>
                 <button id="analyzeBtn" onclick="analyze()" disabled class="btn-analyze w-full py-5 shadow-xl">ANALYZE BLEND</button>
                 <div class="grid grid-cols-2 w-full gap-6 mt-12">
                     <div class="text-center p-3 bg-black/20 rounded-xl border border-gray-800/30">
                         <p class="stat-label">Adjusted Give</p>
-                        <p class="summary-value text-red-400" id="summaryGiveVal">0</p>
+                        <p class="summary-value text-orange-400" id="summaryGiveVal">0</p>
                     </div>
                     <div class="text-center p-3 bg-black/20 rounded-xl border border-gray-800/30">
                         <p class="stat-label">Adjusted Get</p>
@@ -380,7 +385,7 @@
             </div>
         </section>
 
-        <section id="getContainer" class="lg:col-span-4 glass-panel get-panel p-6 flex flex-col">
+        <section id="getContainer" class="lg:col-span-4 glass-panel get-panel p-6 flex flex-col min-h-[520px]">
             <div class="flex justify-between items-center mb-5">
                 <div class="flex items-center gap-3">
                     <div class="w-1 h-6 bg-gradient-to-b from-green-500 to-green-600 rounded-full"></div>
@@ -392,7 +397,7 @@
                 <input type="text" id="getSearch" class="search-input" placeholder="Add player to get..." oninput="onSearchInput('get')">
                 <div id="getSearchResults" class="search-results-overlay" style="display:none"></div>
             </div>
-            <div id="getSelectedList" class="flex-1 space-y-2 min-h-[200px] max-h-[450px] overflow-y-auto drop-zone p-3">
+            <div id="getSelectedList" class="flex-1 space-y-2 min-h-[280px] max-h-[480px] overflow-y-auto drop-zone p-3 rounded-xl">
                 <div class="h-full flex flex-col items-center justify-center text-gray-600 space-y-3 py-8">
                     <svg class="w-10 h-10 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M12 4v16m8-8H4" stroke-linecap="round"/>
@@ -534,13 +539,13 @@ function updateUI() {
     document.getElementById('summaryGetVal').textContent = rvAdjusted.toLocaleString();
     const diffEl = document.getElementById('tradeDiff'), labelEl = document.getElementById('tradeLabel');
     if (give.length === 0 && get.length === 0) {
-        diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-7xl mb-2 even-text delta-even'; labelEl.textContent = 'No assets selected';
+        diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'No assets selected';
     } else if (Math.abs(diff) < 100) {
-        diffEl.textContent = 'FAIR'; diffEl.className = 'font-bebas text-7xl mb-2 even-text delta-even'; labelEl.textContent = 'Values are closely matched';
+        diffEl.textContent = 'FAIR'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'Values are closely matched';
     } else if (diff > 0) {
-        diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-7xl mb-2 delta-positive'; labelEl.textContent = 'Get side is leading';
+        diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-positive'; labelEl.textContent = 'Get side is leading';
     } else {
-        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-7xl mb-2 delta-negative'; labelEl.textContent = 'Give side is leading';
+        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-negative'; labelEl.textContent = 'Give side is leading';
     }
     document.getElementById('mobileDiff').textContent = diffEl.textContent;
     document.getElementById('analyzeBtn').disabled = (give.length === 0 || get.length === 0);
