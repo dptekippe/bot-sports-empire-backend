@@ -481,7 +481,7 @@
     </div>
 
 <script>
-let allPlayers = []; let give = []; let get = []; let balanceChart = null;
+let allPlayers = []; let give = []; let get = []; let balanceChart = null; let consensusCache = {};
 const KTC_MAX = 9999, KTC_POWER = 1.8085;
 
 function effectiveValue(raw) {
@@ -529,21 +529,19 @@ function removePlayer(id, side) {
 
 function updateUI() {
     renderSelectedList('give'); renderSelectedList('get');
-    const gvRaw = give.reduce((s, p) => s + p.value, 0);
-    const rvRaw = get.reduce((s, p) => s + p.value, 0);
-    // Use KTC effective values (power curve normalized) for trade comparison
-    const gvEff = give.reduce((s, p) => s + effectiveValue(p.value), 0);
-    const rvEff = get.reduce((s, p) => s + effectiveValue(p.value), 0);
+    // Use consensus (×10 to get 9999 scale) when available, else raw KTC
+    const gvEff = give.reduce((s, p) => s + effectiveValue((consensusCache[p.name] || p.value) * 10), 0);
+    const rvEff = get.reduce((s, p) => s + effectiveValue((consensusCache[p.name] || p.value) * 10), 0);
     const effDelta = rvEff - gvEff;
     // Stud bonus: only when one side has an elite player (7000+) dominating against weak pieces
     const STUD_THRESHOLD = 7000;
     const GAP_MULTIPLIER = 2.5;
     const BONUS_MULTIPLIER = 0.30;
     let giveBonus = 0, getBonus = 0;
-    const maxGive = give.length ? Math.max(...give.map(p => p.value)) : 0;
-    const maxGet = get.length ? Math.max(...get.map(p => p.value)) : 0;
-    const minGet = get.length ? Math.min(...get.map(p => p.value)) : 0;
-    const minGive = give.length ? Math.min(...give.map(p => p.value)) : 0;
+    const maxGive = give.length ? Math.max(...give.map(p => consensusCache[p.name] || p.value)) : 0;
+    const maxGet = get.length ? Math.max(...get.map(p => consensusCache[p.name] || p.value)) : 0;
+    const minGet = get.length ? Math.min(...get.map(p => consensusCache[p.name] || p.value)) : 0;
+    const minGive = give.length ? Math.min(...give.map(p => consensusCache[p.name] || p.value)) : 0;
     // Give side: stud dominating weak opponent pieces
     if (maxGive > STUD_THRESHOLD && minGet < STUD_THRESHOLD * 0.5 && maxGive > minGet * GAP_MULTIPLIER) {
         giveBonus = Math.round((effectiveValue(maxGive) - effectiveValue(minGet) * GAP_MULTIPLIER) * BONUS_MULTIPLIER);
@@ -599,15 +597,20 @@ async function analyze() {
     try {
         const resp = await fetch('/api/v2/consensus-values', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({player_ids: names, te_premium: tep})});
         const data = await resp.json();
+        // Store consensus values for use in updateUI
+        consensusCache = {};
+        data.forEach(p => consensusCache[p.name] = p.consensus);
         showModal(data, tep);
+        updateUI();
     } catch(e) { alert("API connection failed."); }
     finally { document.getElementById('analyzeBtn').textContent = "ANALYZE BLEND"; }
 }
 
 function showModal(data, tep) {
     const map = {}; data.forEach(p => map[p.name] = p);
-    const gv = give.reduce((s, p) => s + effectiveValue(map[p.name]?.consensus || p.value), 0);
-    const rv = get.reduce((s, p) => s + effectiveValue(map[p.name]?.consensus || p.value), 0);
+    // Consensus is 0-999 scale; scale to 9999 before applying power curve
+    const gv = give.reduce((s, p) => s + effectiveValue((map[p.name]?.consensus || p.value) * 10), 0);
+    const rv = get.reduce((s, p) => s + effectiveValue((map[p.name]?.consensus || p.value) * 10), 0);
     const diff = Math.round(rv - gv);
     document.getElementById('modalGiveVal').textContent = Math.round(gv).toLocaleString();
     document.getElementById('modalGetVal').textContent = Math.round(rv).toLocaleString();
