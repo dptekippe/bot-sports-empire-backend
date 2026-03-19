@@ -1,0 +1,63 @@
+{
+  "trade_id": "aiyuk_commanders_2026",
+  "created_at": "2026-03-19T14:03:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "win_now"},
+    "team_b_context": {"mode": "rebuild"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"player": "Brandon Aiyuk", "ktc_value": 7345, "position": "WR", "age": 28, "asset_type": "player"}],
+      "team_b_offers": [{"pick": "2026-1.07", "ktc_value": 6234, "position": "pick", "asset_type": "pick"}],
+      "team_a_total_value": 7345,
+      "team_b_total_value": 6234,
+      "value_difference": 1111,
+      "outcome": "team_a_wins",
+      "reasoning": "Aiyuk WR2 peak > mid1.07"
+    },
+    {
+      "step": 2,
+      "team_a_offers": [{"player": "Brandon Aiyuk", "ktc_value": 7345}],
+      "team_b_offers": [{"pick": "2026-1.07", "ktc_value": 6234}, {"pick": "2027-2.04", "ktc_value": 3412}],
+      "team_a_total_value": 7345,
+      "team_b_total_value": 9646,
+      "value_difference": -2301,
+      "outcome": "team_b_wins",
+      "reasoning": "Double picks beat age-28 WR"
+    },
+    {
+      "step": 3,
+      "team_a_offers": [{"player": "Brandon Aiyuk", "ktc_value": 7345}, {"player": "Isaiah Likely", "ktc_value": 4230, "position": "TE", "age": 26, "asset_type": "player"}],
+      "team_b_offers": [{"pick": "2026-1.07", "ktc_value": 6234}, {"pick": "2027-2.04", "ktc_value": 3412}, {"pick": "2026-3.01", "ktc_value": 1987}],
+      "team_a_total_value": 11575,
+      "team_b_total_value": 11633,
+      "value_difference": -58,
+      "outcome": "even",
+      "reasoning": "TE sweetener parity"
+    },
+    {
+      "step": 4,
+      "team_a_offers": [{"player": "Brandon Aiyuk", "ktc_value": 7345}, {"player": "Isaiah Likely", "ktc_value": 4230}, {"pick": "2027-3.10", "ktc_value": 1345}],
+      "team_b_offers": [{"pick": "2026-1.07", "ktc_value": 6234}, {"pick": "2027-1.10", "ktc_value": 5210}, {"pick": "2026-3.01", "ktc_value": 1987}],
+      "team_a_total_value": 12920,
+      "team_b_total_value": 13431,
+      "value_difference": -511,
+      "outcome": "team_b_wins",
+      "reasoning": "Late1 > late3 package"
+    },
+    {
+      "step": 5,
+      "team_a_offers": [{"player": "Brandon Aiyuk", "ktc_value": 7345}, {"player": "Isaiah Likely", "ktc_value": 4230}, {"player": "Jauan Jennings", "ktc_value": 2987, "position": "WR", "age": 29, "asset_type": "player"}],
+      "team_b_offers": [{"pick": "2026-1.07", "ktc_value": 6234}, {"pick": "2027-1.10", "ktc_value": 5210}, {"pick": "2026-3.01", "ktc_value": 1987}, {"player": "Chigoziem Okonkwo", "ktc_value": 4123, "position": "TE", "age": 27, "asset_type": "player"}],
+      "team_a_total_value": 14562,
+      "team_b_total_value": 21554,
+      "value_difference": -6992,
+      "outcome": "team_b_wins",
+      "reasoning": "Youth TE + picks overwhelm vets"
+    }
+  ],
+  "notes": "Aiyuk Commanders rumors + SF WR rebuild trajectory (2026)"
+}
