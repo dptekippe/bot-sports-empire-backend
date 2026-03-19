@@ -71,6 +71,24 @@ Core protocol: **PAUSE**
 
 This skill combines epistemic humility + PCAOB audit + opposing views into one comprehensive framework.
 
+### 8. Trade Evaluation - MANDATORY Research First (Mar 19, 2026)
+**For ANY fantasy football trade question, you MUST research before evaluating.**
+
+Trigger words: trade, value, accept, reject, offer, worth, dynasty, player swap, should I do this, too much, too little, fair, win, lose
+
+**Protocol:**
+1. **RESEARCH FIRST** — `web_search` for ALL players mentioned (recent news, injury, team changes, free agency)
+2. **GATHER DATA** — Collect current situation for each player
+3. **ANALYZE** — Apply Roger Think Protocol
+4. **STATE CONFIDENCE** — LOW/MEDIUM/HIGH
+5. **GIVE VERDICT** — Only after completing steps 1-4
+
+**Skill:** `skills/trade-eval/SKILL.md` (MANDATORY - read before any trade opinion)
+
+🚫 **NEVER say "gut feel" or "I think" without research**
+🚫 **NEVER skip Step 1**
+🚫 **NEVER assume current situation without verifying**
+
 ---
 
 ## Memory System

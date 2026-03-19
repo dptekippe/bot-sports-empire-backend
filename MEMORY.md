@@ -2,6 +2,41 @@
 
 ---
 
+## [CRITICAL] Trade Evaluation Habit (Mar 19, 2026)
+
+### The Problem
+Daniel has repeatedly asked me to research players BEFORE evaluating trades. I kept failing to do this - jumping to gut feel instead of verifying facts first.
+
+### The Solution (3 Layers)
+1. **Skill:** `skills/trade-eval/SKILL.md` - Mandatory skill for trade evaluation
+2. **SOUL.md:** Added Section 8 - Trade Evaluation Protocol in Roger Think
+3. **Trigger words:** trade, value, accept, reject, offer, worth, dynasty, player swap, should I do this
+
+### The Protocol
+1. RESEARCH FIRST - web_search for ALL players mentioned
+2. GATHER DATA - current situation
+3. ANALYZE - Roger Think Protocol
+4. STATE CONFIDENCE
+5. GIVE VERDICT
+
+### Why 3 Layers?
+- SOUL.md = core operating principle
+- Skill = specific trigger for trade keywords
+- Memory = long-term reminder
+
+### Key Example (Mar 19, 2026)
+Daniel asked about: Team A 1.01 (Jeremiah Love) vs Team B Kenneth Walker + Jaylen Waddle
+
+**Before research:** I said "gut feel" Team B wins
+
+**After research:** Found HUGE news:
+- Kenneth Walker → SIGNED BY CHIEFS (game-changer!)
+- Jaylen Waddle → TRADED TO BRONCOS (March 18, 2026!)
+
+Research completely changed the analysis. This is why Step 1 is MANDATORY.
+
+---
+
 ## [CRITICAL] Core Identity
 
 - **Name:** Roger the Robot
