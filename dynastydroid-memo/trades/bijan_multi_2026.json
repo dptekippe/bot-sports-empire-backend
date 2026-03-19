@@ -1,0 +1,63 @@
+{
+  "trade_id": "bijan_multi_2026",
+  "created_at": "2026-03-18T19:45:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "win_now"},
+    "team_b_context": {"mode": "rebuild"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"player": "Bijan Robinson", "ktc_value": 9999, "position": "RB", "age": 24, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Garrett Wilson", "ktc_value": 5838, "position": "WR", "age": 25, "asset_type": "player"}],
+      "team_a_total_value": 9999,
+      "team_b_total_value": 5838,
+      "value_difference": 4161,
+      "outcome": "team_a_wins",
+      "reasoning": "Bijan RB1 > WR1"
+    },
+    {
+      "step": 2,
+      "team_a_offers": [{"player": "Bijan Robinson", "ktc_value": 15177, "position": "RB", "age": 24, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Garrett Wilson", "ktc_value": 5838}, {"player": "Kenneth Walker", "ktc_value": 5792}],
+      "team_a_total_value": 15177,
+      "team_b_total_value": 11630,
+      "value_difference": 3547,
+      "outcome": "team_a_wins",
+      "reasoning": "Bijan adjustment +5178 holds edge"
+    },
+    {
+      "step": 3,
+      "team_a_offers": [{"player": "Bijan Robinson", "ktc_value": 15264, "position": "RB", "age": 24, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Garrett Wilson", "ktc_value": 5838}, {"player": "Kenneth Walker", "ktc_value": 5792}, {"pick": "2026-2nd-early", "ktc_value": 3341}],
+      "team_a_total_value": 15264,
+      "team_b_total_value": 14971,
+      "value_difference": 293,
+      "outcome": "even",
+      "reasoning": "+87 adjustment = ~even"
+    },
+    {
+      "step": 4,
+      "team_a_offers": [{"player": "Bijan Robinson", "ktc_value": 15264}, {"player": "Tucker Kraft", "ktc_value": 5423, "position": "TE", "age": 25, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Garrett Wilson", "ktc_value": 5838}, {"player": "Kenneth Walker", "ktc_value": 5792}, {"pick": "2026-2nd-early", "ktc_value": 3341}],
+      "team_a_total_value": 20687,
+      "team_b_total_value": 14971,
+      "value_difference": 5716,
+      "outcome": "team_a_wins",
+      "reasoning": "Kraft -208 adjustment still A wins"
+    },
+    {
+      "step": 5,
+      "team_a_offers": [{"player": "Bijan Robinson", "ktc_value": 15264}, {"player": "Tucker Kraft", "ktc_value": 5423}],
+      "team_b_offers": [{"player": "Garrett Wilson", "ktc_value": 5838}, {"player": "Kenneth Walker", "ktc_value": 5792}, {"pick": "2026-2nd-early", "ktc_value": 3341}, {"player": "Colston Loveland", "ktc_value": 6696, "position": "TE", "age": 22, "asset_type": "player"}],
+      "team_a_total_value": 20687,
+      "team_b_total_value": 21667,
+      "value_difference": -980,
+      "outcome": "team_b_wins",
+      "reasoning": "Loveland -603 flips to B"
+    }
+  ],
+  "notes": "Dynamic KTC adjustments captured"
+}

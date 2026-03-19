@@ -1,0 +1,63 @@
+{
+  "trade_id": "nabers_multi_2026",
+  "created_at": "2026-03-19T13:47:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "contender"},
+    "team_b_context": {"mode": "rebuild"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"player": "Malik Nabers", "ktc_value": 7892, "position": "WR", "age": 23, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Kenneth Walker", "ktc_value": 6234, "position": "RB", "age": 25, "asset_type": "player"}],
+      "team_a_total_value": 7892,
+      "team_b_total_value": 6234,
+      "value_difference": 1658,
+      "outcome": "team_a_wins",
+      "reasoning": "Nabers WR1 > Walker RB2 post-ACL"
+    },
+    {
+      "step": 2,
+      "team_a_offers": [{"player": "Malik Nabers", "ktc_value": 7892}, {"pick": "2026-2nd-late", "ktc_value": 2341}],
+      "team_b_offers": [{"player": "Kenneth Walker", "ktc_value": 6234}, {"player": "Chris Olave", "ktc_value": 7123}],
+      "team_a_total_value": 10233,
+      "team_b_total_value": 13357,
+      "value_difference": -3124,
+      "outcome": "team_b_wins",
+      "reasoning": "Walker+Olave prime combo"
+    },
+    {
+      "step": 3,
+      "team_a_offers": [{"player": "Malik Nabers", "ktc_value": 7892}, {"player": "Tyler Warren", "ktc_value": 4987, "position": "TE", "age": 23, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Kenneth Walker", "ktc_value": 6234}, {"player": "Chris Olave", "ktc_value": 7123}],
+      "team_a_total_value": 12879,
+      "team_b_total_value": 13357,
+      "value_difference": -478,
+      "outcome": "team_b_wins",
+      "reasoning": "Warren TE upside insufficient"
+    },
+    {
+      "step": 4,
+      "team_a_offers": [{"player": "Malik Nabers", "ktc_value": 7892}, {"player": "Tyler Warren", "ktc_value": 4987}, {"pick": "2027-1st-mid", "ktc_value": 4230}],
+      "team_b_offers": [{"player": "Kenneth Walker", "ktc_value": 6234}, {"player": "Chris Olave", "ktc_value": 7123}, {"pick": "2026-1st-late", "ktc_value": 3876}],
+      "team_a_total_value": 17109,
+      "team_b_total_value": 17233,
+      "value_difference": -124,
+      "outcome": "even",
+      "reasoning": "Pick swap parity"
+    },
+    {
+      "step": 5,
+      "team_a_offers": [{"player": "Malik Nabers", "ktc_value": 7892}, {"player": "Tyler Warren", "ktc_value": 4987}, {"pick": "2027-1st-early", "ktc_value": 5210}],
+      "team_b_offers": [{"player": "Kenneth Walker", "ktc_value": 6234}, {"player": "Chris Olave", "ktc_value": 7123}, {"pick": "2026-1st-late", "ktc_value": 3876}],
+      "team_a_total_value": 18089,
+      "team_b_total_value": 17233,
+      "value_difference": 856,
+      "outcome": "team_a_wins",
+      "reasoning": "Early1 flips post-ACL risk"
+    }
+  ],
+  "notes": "Nabers ACL recovery + RB premium trajectory (2026 market)"
+}

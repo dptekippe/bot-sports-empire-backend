@@ -328,3 +328,20 @@ Daniel grades me on PROCESS, not answers:
 ---
 
 *Committed: Mar 18, 2026*
+
+## [FACT] DynastyDroid Render PostgreSQL (Mar 19, 2026)
+
+**Connection URL:**
+```
+postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic73d9jdrg-a.oregon-postgres.render.com/dynastydroid
+```
+
+**pgvector:** 0.8.1 installed ✅
+
+**Existing Tables:** bots, channels, comments, draft_picks, drafts, final_standings, league_members, leagues, teams, trades, users, etc.
+
+**MEMO Schema Applied:** games, trajectories, trajectory_states, insights, insight_embeddings (Mar 19, 2026)
+
+**Trade Loaded:** bijan_multi_2026 (5 steps, 5 insights)
+
+**Note:** This URL has been given to me multiple times. Store in memory going forward.

@@ -1,0 +1,63 @@
+{
+  "trade_id": "cmc_multi_2026",
+  "created_at": "2026-03-19T12:44:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "win_now"},
+    "team_b_context": {"mode": "rebuild"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"player": "Christian McCaffrey", "ktc_value": 5820, "position": "RB", "age": 29, "asset_type": "player"}],
+      "team_b_offers": [{"player": "De'Von Achane", "ktc_value": 6234, "position": "RB", "age": 24, "asset_type": "player"}],
+      "team_a_total_value": 5820,
+      "team_b_total_value": 6234,
+      "value_difference": -414,
+      "outcome": "team_b_wins",
+      "reasoning": "CMC age 29 vs Achane youth"
+    },
+    {
+      "step": 2,
+      "team_a_offers": [{"player": "Christian McCaffrey", "ktc_value": 5820}, {"pick": "2026-2nd-mid", "ktc_value": 2800}],
+      "team_b_offers": [{"player": "De'Von Achane", "ktc_value": 6234}, {"player": "Rachaad White", "ktc_value": 4198}],
+      "team_a_total_value": 8620,
+      "team_b_total_value": 10432,
+      "value_difference": -1812,
+      "outcome": "team_b_wins",
+      "reasoning": "Mid2 insufficient vs RB2 depth"
+    },
+    {
+      "step": 3,
+      "team_a_offers": [{"player": "Christian McCaffrey", "ktc_value": 5820}, {"pick": "2027-1st-early", "ktc_value": 4987}],
+      "team_b_offers": [{"player": "De'Von Achane", "ktc_value": 6234}, {"player": "Rachaad White", "ktc_value": 4198}],
+      "team_a_total_value": 10807,
+      "team_b_total_value": 10432,
+      "value_difference": 375,
+      "outcome": "team_a_wins",
+      "reasoning": "Early1 flips RB aging risk"
+    },
+    {
+      "step": 4,
+      "team_a_offers": [{"player": "Christian McCaffrey", "ktc_value": 5820}, {"pick": "2027-1st-early", "ktc_value": 4987}, {"player": "Tucker Kraft", "ktc_value": 5423}],
+      "team_b_offers": [{"player": "De'Von Achane", "ktc_value": 6234}, {"player": "Rachaad White", "ktc_value": 4198}, {"player": "Colston Loveland", "ktc_value": 6696}],
+      "team_a_total_value": 16230,
+      "team_b_total_value": 17128,
+      "value_difference": -898,
+      "outcome": "team_b_wins",
+      "reasoning": "TE youth parity holds"
+    },
+    {
+      "step": 5,
+      "team_a_offers": [{"player": "Christian McCaffrey", "ktc_value": 5820}, {"pick": "2027-1st-early", "ktc_value": 4987}, {"pick": "2026-1st-late", "ktc_value": 4230}],
+      "team_b_offers": [{"player": "De'Von Achane", "ktc_value": 6234}, {"player": "Rachaad White", "ktc_value": 4198}, {"player": "Colston Loveland", "ktc_value": 6696}],
+      "team_a_total_value": 15037,
+      "team_b_total_value": 17128,
+      "value_difference": -2091,
+      "outcome": "team_b_wins",
+      "reasoning": "Double1st vs TE+RB2 depth"
+    }
+  ],
+  "notes": "CMC aging curve + pick sweetener trajectory"
+}

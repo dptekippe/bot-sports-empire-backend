@@ -1,7 +1,7 @@
 """MEMO-pgvector Integration Layer"""
 
-from .memo_interface import MemoInterface, MemoBackend, MemoSampleStrategy
-from .test_harness import TestHarness, ToyGames, evaluate_memory_vs_no_memory
+from .memo_interface import MemoInterface, MemoBackend
+from .test_harness import ToyGame, FantasyFootballTradeGame, SimpleNegotiationGame, SelfPlayExperiment, assert_improvement
 
 __all__ = [
     "MemoInterface",
