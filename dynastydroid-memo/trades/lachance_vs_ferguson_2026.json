@@ -1,0 +1,42 @@
+{
+  "trade_id": "lachance_vs_ferguson_2026",
+  "created_at": "2026-03-19T18:56:21.714271Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {
+      "mode": "contender"
+    },
+    "team_b_context": {
+      "mode": "rebuild"
+    }
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [
+        {
+          "player": "Luke LaPorta",
+          "ktc_value": 7500,
+          "position": "TE",
+          "age": 24,
+          "asset_type": "player"
+        }
+      ],
+      "team_b_offers": [
+        {
+          "player": "Jake Ferguson",
+          "ktc_value": 2500,
+          "position": "TE",
+          "age": 26,
+          "asset_type": "player"
+        }
+      ],
+      "team_a_total_value": 7500,
+      "team_b_total_value": 2500,
+      "value_difference": 5000,
+      "outcome": "team_a_wins",
+      "reasoning": "LaPorta elite TE at 24. Ferguson midTE1. 3x value gap."
+    }
+  ]
+}

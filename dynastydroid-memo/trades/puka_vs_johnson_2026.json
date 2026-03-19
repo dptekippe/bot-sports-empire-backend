@@ -1,0 +1,42 @@
+{
+  "trade_id": "puka_vs_johnson_2026",
+  "created_at": "2026-03-19T18:56:21.714243Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {
+      "mode": "contender"
+    },
+    "team_b_context": {
+      "mode": "rebuild"
+    }
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [
+        {
+          "player": "Puka Nacua",
+          "ktc_value": 9000,
+          "position": "WR",
+          "age": 24,
+          "asset_type": "player"
+        }
+      ],
+      "team_b_offers": [
+        {
+          "player": "Marquise Brown",
+          "ktc_value": 3000,
+          "position": "WR",
+          "age": 27,
+          "asset_type": "player"
+        }
+      ],
+      "team_a_total_value": 9000,
+      "team_b_total_value": 3000,
+      "value_difference": 6000,
+      "outcome": "team_a_wins",
+      "reasoning": "Puka WR3 overall at 24. Hollywood been in committee his whole career."
+    }
+  ]
+}

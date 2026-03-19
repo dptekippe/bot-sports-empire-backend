@@ -1,0 +1,42 @@
+{
+  "trade_id": "herbert_vs_minshew_2026",
+  "created_at": "2026-03-19T18:56:21.714268Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {
+      "mode": "contender"
+    },
+    "team_b_context": {
+      "mode": "rebuild"
+    }
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [
+        {
+          "player": "Justin Herbert",
+          "ktc_value": 5500,
+          "position": "QB",
+          "age": 27,
+          "asset_type": "player"
+        }
+      ],
+      "team_b_offers": [
+        {
+          "player": "Gardner Minshew",
+          "ktc_value": 800,
+          "position": "QB",
+          "age": 28,
+          "asset_type": "player"
+        }
+      ],
+      "team_a_total_value": 5500,
+      "team_b_total_value": 800,
+      "value_difference": 4700,
+      "outcome": "team_a_wins",
+      "reasoning": "Herbert still top-12 QB at 27. Minshew backup-tier. Elite vs stream."
+    }
+  ]
+}

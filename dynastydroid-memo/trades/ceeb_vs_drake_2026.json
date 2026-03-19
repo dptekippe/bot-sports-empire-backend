@@ -1,0 +1,42 @@
+{
+  "trade_id": "ceeb_vs_drake_2026",
+  "created_at": "2026-03-19T18:56:21.714245Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {
+      "mode": "contender"
+    },
+    "team_b_context": {
+      "mode": "rebuild"
+    }
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [
+        {
+          "player": "CeeDee Lamb",
+          "ktc_value": 8500,
+          "position": "WR",
+          "age": 26,
+          "asset_type": "player"
+        }
+      ],
+      "team_b_offers": [
+        {
+          "player": "Jahan Dotson",
+          "ktc_value": 2000,
+          "position": "WR",
+          "age": 25,
+          "asset_type": "player"
+        }
+      ],
+      "team_a_total_value": 8500,
+      "team_b_total_value": 2000,
+      "value_difference": 6500,
+      "outcome": "team_a_wins",
+      "reasoning": "Lamb elite alpha WR1. Dotson been disappointment. 4x value gap."
+    }
+  ]
+}

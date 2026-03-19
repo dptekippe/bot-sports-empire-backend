@@ -1,0 +1,42 @@
+{
+  "trade_id": "allen_vs_mahomes_2026",
+  "created_at": "2026-03-19T18:56:21.714223Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {
+      "mode": "contender"
+    },
+    "team_b_context": {
+      "mode": "rebuild"
+    }
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [
+        {
+          "player": "Josh Allen",
+          "ktc_value": 15000,
+          "position": "QB",
+          "age": 29,
+          "asset_type": "player"
+        }
+      ],
+      "team_b_offers": [
+        {
+          "player": "Patrick Mahomes",
+          "ktc_value": 11000,
+          "position": "QB",
+          "age": 30,
+          "asset_type": "player"
+        }
+      ],
+      "team_a_total_value": 15000,
+      "team_b_total_value": 11000,
+      "value_difference": 4000,
+      "outcome": "team_a_wins",
+      "reasoning": "Both elite but Allen younger (29 vs 30), Allen better rusher, Mahomes recovering from ACL tear."
+    }
+  ]
+}

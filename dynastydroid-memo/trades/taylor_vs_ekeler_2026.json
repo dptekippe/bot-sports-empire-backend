@@ -1,0 +1,42 @@
+{
+  "trade_id": "taylor_vs_ekeler_2026",
+  "created_at": "2026-03-19T18:56:21.714260Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {
+      "mode": "contender"
+    },
+    "team_b_context": {
+      "mode": "rebuild"
+    }
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [
+        {
+          "player": "Jonathan Taylor",
+          "ktc_value": 6000,
+          "position": "RB",
+          "age": 26,
+          "asset_type": "player"
+        }
+      ],
+      "team_b_offers": [
+        {
+          "player": "Austin Ekeler",
+          "ktc_value": 1500,
+          "position": "RB",
+          "age": 29,
+          "asset_type": "player"
+        }
+      ],
+      "team_a_total_value": 6000,
+      "team_b_total_value": 1500,
+      "value_difference": 4500,
+      "outcome": "team_a_wins",
+      "reasoning": "Taylor still workhorse at 26. Ekeler past his best. 4x value."
+    }
+  ]
+}

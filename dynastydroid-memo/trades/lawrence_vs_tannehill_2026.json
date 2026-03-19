@@ -1,0 +1,42 @@
+{
+  "trade_id": "lawrence_vs_tannehill_2026",
+  "created_at": "2026-03-19T18:56:21.714270Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {
+      "mode": "contender"
+    },
+    "team_b_context": {
+      "mode": "rebuild"
+    }
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [
+        {
+          "player": "Trevor Lawrence",
+          "ktc_value": 5000,
+          "position": "QB",
+          "age": 26,
+          "asset_type": "player"
+        }
+      ],
+      "team_b_offers": [
+        {
+          "player": "Ryan Tannehill",
+          "ktc_value": 500,
+          "position": "QB",
+          "age": 37,
+          "asset_type": "player"
+        }
+      ],
+      "team_a_total_value": 5000,
+      "team_b_total_value": 500,
+      "value_difference": 4500,
+      "outcome": "team_a_wins",
+      "reasoning": "Lawrence 26 with career year. Tannehill 37 and done. No contest."
+    }
+  ]
+}
