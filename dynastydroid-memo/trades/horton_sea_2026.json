@@ -1,0 +1,23 @@
+{
+  "trade_id": "horton_sea_2026",
+  "created_at": "2026-03-19T14:18:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "rebuild"},
+    "team_b_context": {"mode": "win_now"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"pick": "2026-2.early", "ktc_value": 3412, "position": "pick", "asset_type": "pick"}, {"pick": "2026-3.early", "ktc_value": 1987}],
+      "team_b_offers": [{"player": "Tory Horton", "ktc_value": 5234, "position": "WR", "age": 22, "asset_type": "player"}],
+      "team_a_total_value": 5399,
+      "team_b_total_value": 5234,
+      "value_difference": 165,
+      "outcome": "team_a_wins",
+      "reasoning": "Horton SEA shin recovery"
+    }
+  ],
+  "notes": "FantasyPros March: Rookie WR TDs"
+}

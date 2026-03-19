@@ -1,0 +1,33 @@
+{
+  "trade_id": "brooks_car_2026",
+  "created_at": "2026-03-19T14:16:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "contender"},
+    "team_b_context": {"mode": "rebuild"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"player": "Jonathon Brooks", "ktc_value": 6234, "position": "RB", "age": 22, "asset_type": "player"}],
+      "team_b_offers": [{"pick": "2026-2.03", "ktc_value": 4123, "position": "pick", "asset_type": "pick"}],
+      "team_a_total_value": 6234,
+      "team_b_total_value": 4123,
+      "value_difference": 2111,
+      "outcome": "team_a_wins",
+      "reasoning": "Brooks CAR RB2 post-Canale hire"
+    },
+    {
+      "step": 2,
+      "team_a_offers": [{"player": "Jonathon Brooks", "ktc_value": 6234}],
+      "team_b_offers": [{"pick": "2026-2.03", "ktc_value": 4123}, {"pick": "2027-3.08", "ktc_value": 987}],
+      "team_a_total_value": 6234,
+      "team_b_total_value": 5110,
+      "value_difference": 1124,
+      "outcome": "team_a_wins",
+      "reasoning": "Early3 insufficient"
+    }
+  ],
+  "notes": "FantasyPros March buy: Brooks"
+}

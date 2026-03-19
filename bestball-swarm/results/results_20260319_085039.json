@@ -1,0 +1,48 @@
+[
+  {
+    "episode_id": "ep_00000000",
+    "timestamp": "2026-03-19T08:50:41.166583",
+    "duration_ms": 1363.6589050292969,
+    "final_scores": {
+      "1": 1316.9,
+      "2": 1421.4,
+      "3": 1264.7,
+      "4": 1281.8,
+      "5": 1295.9,
+      "6": 1296.5,
+      "7": 1213.1,
+      "8": 1312.6,
+      "9": 1240.8,
+      "10": 1139.0,
+      "11": 1286.9,
+      "12": 1238.0
+    },
+    "wins": {
+      "1": 2,
+      "2": 5,
+      "3": 1,
+      "4": 2,
+      "5": 1,
+      "6": 2,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 4,
+      "12": 0
+    },
+    "draft_picks": [
+      {
+        "round_num": 1,
+        "team_id": 1,
+        "player_name": "Patrick Mahomes",
+        "position": "QB",
+        "adp": 1.5,
+        "projection": 353.2,
+        "agent_picks": {
+          "drafter": "Patrick Mahomes",
+          "valuator": "Geno Smith",
+          "optimizer": "Deshaun Watson"
+        },
+        "consensus_player": "Patrick Mahomes",
+        "consensus_score": 

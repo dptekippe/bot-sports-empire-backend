@@ -1,0 +1,23 @@
+{
+  "trade_id": "johnson_pit_2026",
+  "created_at": "2026-03-19T14:17:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "win_now"},
+    "team_b_context": {"mode": "contender"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"pick": "2026-3.early", "ktc_value": 1987, "position": "pick", "asset_type": "pick"}],
+      "team_b_offers": [{"player": "Kaleb Johnson", "ktc_value": 4987, "position": "RB", "age": 21, "asset_type": "player"}],
+      "team_a_total_value": 1987,
+      "team_b_total_value": 4987,
+      "value_difference": -3000,
+      "outcome": "team_b_wins",
+      "reasoning": "Johnson PIT post-Tomlin boost"
+    }
+  ],
+  "notes": "FantasyPros March: Steelers RB2 upside"
+}

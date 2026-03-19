@@ -1,0 +1,23 @@
+{
+  "trade_id": "gibson_plummet_2026",
+  "created_at": "2026-03-19T14:12:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "rebuild"},
+    "team_b_context": {"mode": "win_now"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"pick": "2026-2.03", "ktc_value": 4123, "position": "pick", "asset_type": "pick"}],
+      "team_b_offers": [{"player": "Antonio Gibson", "ktc_value": 2987, "position": "RB", "age": 28, "asset_type": "player"}],
+      "team_a_total_value": 4123,
+      "team_b_total_value": 2987,
+      "value_difference": 1136,
+      "outcome": "team_a_wins",
+      "reasoning": "Gibson committee role fade"
+    }
+  ],
+  "notes": "Gibson backfield competition"
+}

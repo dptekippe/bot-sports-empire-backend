@@ -1,0 +1,23 @@
+{
+  "trade_id": "hall_jets_2026",
+  "created_at": "2026-03-19T14:11:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "win_now"},
+    "team_b_context": {"mode": "contender"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"player": "Breece Hall", "ktc_value": 8234, "position": "RB", "age": 24, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Rhamondre Stevenson", "ktc_value": 4987, "position": "RB", "age": 27, "asset_type": "player"}],
+      "team_a_total_value": 8234,
+      "team_b_total_value": 4987,
+      "value_difference": 3247,
+      "outcome": "team_a_wins",
+      "reasoning": "Hall Jets RB1 > Stevenson RB2"
+    }
+  ],
+  "notes": "Hall post-injury value"
+}

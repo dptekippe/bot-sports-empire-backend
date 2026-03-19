@@ -1,0 +1,23 @@
+{
+  "trade_id": "mclaurin_cmd_2026",
+  "created_at": "2026-03-19T14:20:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "win_now"},
+    "team_b_context": {"mode": "contender"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"pick": "2026-2.mid", "ktc_value": 2987, "position": "pick", "asset_type": "pick"}],
+      "team_b_offers": [{"player": "Terry McLaurin", "ktc_value": 6234, "position": "WR", "age": 29, "asset_type": "player"}],
+      "team_a_total_value": 2987,
+      "team_b_total_value": 6234,
+      "value_difference": -3247,
+      "outcome": "team_b_wins",
+      "reasoning": "McLaurin WAS no Ertz TE"
+    }
+  ],
+  "notes": "FantasyPros March: CMD WR1 target"
+}
