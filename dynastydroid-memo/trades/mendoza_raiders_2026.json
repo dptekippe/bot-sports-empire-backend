@@ -1,0 +1,63 @@
+{
+  "trade_id": "mendoza_raiders_2026",
+  "created_at": "2026-03-19T14:02:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "rebuild"},
+    "team_b_context": {"mode": "contender"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"pick": "2026-1.03 (Raiders NFL #1)", "ktc_value": 9876, "position": "pick", "age": 0, "asset_type": "pick"}],
+      "team_b_offers": [{"player": "Tua Tagovailoa", "ktc_value": 8234, "position": "QB", "age": 28, "asset_type": "player"}],
+      "team_a_total_value": 9876,
+      "team_b_total_value": 8234,
+      "value_difference": 1642,
+      "outcome": "team_a_wins",
+      "reasoning": "Mendoza 1.03 futures > Tua age risk"
+    },
+    {
+      "step": 2,
+      "team_a_offers": [{"pick": "2026-1.03 (Raiders NFL #1)", "ktc_value": 9876}, {"pick": "2027-2.06", "ktc_value": 2987}],
+      "team_b_offers": [{"player": "Tua Tagovailoa", "ktc_value": 8234}, {"player": "De'Von Achane", "ktc_value": 6234}],
+      "team_a_total_value": 12863,
+      "team_b_total_value": 14468,
+      "value_difference": -1605,
+      "outcome": "team_b_wins",
+      "reasoning": "QB+RB1 beats 1.03 + 2.06"
+    },
+    {
+      "step": 3,
+      "team_a_offers": [{"pick": "2026-1.03 (Raiders NFL #1)", "ktc_value": 9876}, {"player": "Xavier Legette", "ktc_value": 5432, "position": "WR", "age": 25, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Tua Tagovailoa", "ktc_value": 8234}, {"player": "De'Von Achane", "ktc_value": 6234}],
+      "team_a_total_value": 15308,
+      "team_b_total_value": 14468,
+      "value_difference": 840,
+      "outcome": "team_a_wins",
+      "reasoning": "Legette WR2 flips QB+RB"
+    },
+    {
+      "step": 4,
+      "team_a_offers": [{"pick": "2026-1.03 (Raiders NFL #1)", "ktc_value": 9876}, {"pick": "2027-3.12", "ktc_value": 987}],
+      "team_b_offers": [{"player": "Tua Tagovailoa", "ktc_value": 8234}, {"player": "De'Von Achane", "ktc_value": 6234}, {"pick": "2026-3.04", "ktc_value": 1345}],
+      "team_a_total_value": 10863,
+      "team_b_total_value": 15813,
+      "value_difference": -4950,
+      "outcome": "team_b_wins",
+      "reasoning": "Late3 insufficient sweetener"
+    },
+    {
+      "step": 5,
+      "team_a_offers": [{"pick": "2026-1.03 (Raiders NFL #1)", "ktc_value": 9876}, {"player": "Drake London", "ktc_value": 7123, "position": "WR", "age": 24, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Tua Tagovailoa", "ktc_value": 8234}, {"player": "De'Von Achane", "ktc_value": 6234}, {"player": "Colston Loveland", "ktc_value": 6696}],
+      "team_a_total_value": 16999,
+      "team_b_total_value": 21164,
+      "value_difference": -4165,
+      "outcome": "team_b_wins",
+      "reasoning": "London WR1 < QB+RB+TE stack"
+    }
+  ],
+  "notes": "Mendoza Raiders 1.03 (NFL #1 equiv) futures market"
+}
