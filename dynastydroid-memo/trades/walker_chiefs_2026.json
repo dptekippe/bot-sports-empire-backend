@@ -1,0 +1,63 @@
+{
+  "trade_id": "walker_chiefs_2026",
+  "created_at": "2026-03-19T13:53:00Z",
+  "context": {
+    "league_type": "dynasty",
+    "scoring": "PPR",
+    "team_a_context": {"mode": "contender"},
+    "team_b_context": {"mode": "win_now"}
+  },
+  "steps": [
+    {
+      "step": 1,
+      "team_a_offers": [{"player": "Kenneth Walker III", "ktc_value": 6234, "position": "RB", "age": 25, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Rachaad White", "ktc_value": 4198, "position": "RB", "age": 27, "asset_type": "player"}],
+      "team_a_total_value": 6234,
+      "team_b_total_value": 4198,
+      "value_difference": 2036,
+      "outcome": "team_a_wins",
+      "reasoning": "Walker Chiefs landing spot premium (+800 post-signing)"
+    },
+    {
+      "step": 2,
+      "team_a_offers": [{"player": "Kenneth Walker III", "ktc_value": 7034, "position": "RB", "age": 25, "asset_type": "player"}],
+      "team_b_offers": [{"player": "Rachaad White", "ktc_value": 4198}, {"pick": "2026-2nd-mid", "ktc_value": 2800}],
+      "team_a_total_value": 7034,
+      "team_b_total_value": 6998,
+      "value_difference": 36,
+      "outcome": "even",
+      "reasoning": "Chiefs boost offsets mid2 sweetener"
+    },
+    {
+      "step": 3,
+      "team_a_offers": [{"player": "Kenneth Walker III", "ktc_value": 7034}, {"pick": "2027-3rd-late", "ktc_value": 987}],
+      "team_b_offers": [{"player": "Rachaad White", "ktc_value": 4198}, {"player": "Zack Moss", "ktc_value": 2987}, {"pick": "2026-2nd-mid", "ktc_value": 2800}],
+      "team_a_total_value": 8021,
+      "team_b_total_value": 9985,
+      "value_difference": -1964,
+      "outcome": "team_b_wins",
+      "reasoning": "RB2 depth + pick beats late3"
+    },
+    {
+      "step": 4,
+      "team_a_offers": [{"player": "Kenneth Walker III", "ktc_value": 7034}, {"pick": "2027-2nd-early", "ktc_value": 3412}],
+      "team_b_offers": [{"player": "Rachaad White", "ktc_value": 4198}, {"player": "Zack Moss", "ktc_value": 2987}, {"pick": "2026-1st-late", "ktc_value": 3876}],
+      "team_a_total_value": 10446,
+      "team_b_total_value": 12061,
+      "value_difference": -1615,
+      "outcome": "team_b_wins",
+      "reasoning": "Late1 > early2 in Mahomes offense"
+    },
+    {
+      "step": 5,
+      "team_a_offers": [{"player": "Kenneth Walker III", "ktc_value": 7034}, {"pick": "2027-1st-mid", "ktc_value": 4230}, {"player": "Tucker Kraft", "ktc_value": 5423}],
+      "team_b_offers": [{"player": "Rachaad White", "ktc_value": 4198}, {"player": "Zack Moss", "ktc_value": 2987}, {"pick": "2026-1st-late", "ktc_value": 3876}, {"player": "Colston Loveland", "ktc_value": 6696}],
+      "team_a_total_value": 16687,
+      "team_b_total_value": 16757,
+      "value_difference": -70,
+      "outcome": "even",
+      "reasoning": "TE parity + Chiefs RB1 holds value"
+    }
+  ],
+  "notes": "Walker Chiefs contract ($43M/3yr) + Mahomes boost trajectory"
+}
