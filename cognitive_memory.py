@@ -70,19 +70,58 @@ def get_openai_client() -> OpenAI:
     if _client is None:
         _client = OpenAI(
             api_key=OPENAI_API_KEY,
-            base_url="https://api.minimax.io/anthropic",
+            base_url="https://api.minimax.io/anthropic/v1",
             timeout=30,
         )
     return _client
 
 def embed_text(text: str) -> List[float]:
-    """Generate 1536-dim embedding via OpenAI text-embedding-3-small"""
-    client = get_openai_client()
-    response = client.embeddings.create(
-        model="text-embedding-3-small",
-        input=text[:8000]  # Truncate to avoid token limits
-    )
-    return response.data[0].embedding
+    """Generate 1536-dim embedding via OpenAI or fallback"""
+    # Try MiniMax first
+    try:
+        client = get_openai_client()
+        response = client.embeddings.create(
+            model="text-embedding-3-small",
+            input=text[:8000]
+        )
+        return response.data[0].embedding
+    except Exception as e:
+        print(f"   ⚠️ MiniMax embedding failed ({str(e)[:50]}...), trying HuggingFace...")
+    
+    # Fallback: Use HuggingFace inference API
+    try:
+        import requests
+        response = requests.post(
+            "https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2",
+            headers={"Content-Type": "application/json"},
+            json={"inputs": text[:500]},
+            timeout=30
+        )
+        if response.status_code == 200:
+            embedding = response.json()
+            if isinstance(embedding, list) and len(embedding) > 0:
+                # Normalize to 1536 dim
+                target_dim = 1536
+                if len(embedding) < target_dim:
+                    embedding.extend([0.0] * (target_dim - len(embedding)))
+                else:
+                    embedding = embedding[:target_dim]
+                return embedding
+    except Exception as e2:
+        print(f"   ⚠️ HuggingFace also failed: {str(e2)[:50]}")
+    
+    # Final fallback: Use mock embedding for testing (deterministic based on text hash)
+    if os.environ.get("MOCK_EMBEDDING", "").lower() in ("1", "true", "yes"):
+        import hashlib
+        h = hashlib.sha256(text.encode()).digest()
+        # Expand 32 bytes to 1536 floats using deterministic algorithm
+        embedding = []
+        for i in range(1536):
+            byte_idx = i % 32
+            embedding.append((h[byte_idx] / 255.0) * 2 - 1 + 0.1 * ((i * 7) % 17) / 17)
+        return embedding
+    
+    raise ValueError("All embedding providers failed. Set OPENAI_API_KEY, HF_TOKEN, or MOCK_EMBEDDING=1")
 
 # =============================================================================
 # DATABASE CONNECTION
@@ -236,6 +275,7 @@ def store_memory(
     parent_id: Optional[str] = None,
     metadata: Optional[Dict] = None,
     tags: Optional[List[str]] = None,
+    decision_outcome: Optional[str] = None,
 ) -> Optional[str]:
     """
     Store a memory with embedding in pgvector.
@@ -249,6 +289,7 @@ def store_memory(
         namespace=namespace,
         explicit_request=False,
         is_decision=(namespace == 'decision'),
+        decision_outcome=decision_outcome,
     )
     
     if decision.decision == StorageDecision.SKIP:
