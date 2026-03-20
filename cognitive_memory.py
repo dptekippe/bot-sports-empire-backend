@@ -13,6 +13,11 @@ Usage:
     post_action_store("Evaluated Bijan trade", outcome="team_a_wins")
 """
 
+# Load .env FIRST before reading any env vars
+from dotenv import load_dotenv
+import os
+load_dotenv(os.path.expanduser('~/.openclaw/.env'))
+
 import os
 import json
 import hashlib
@@ -77,7 +82,7 @@ def get_openai_client() -> OpenAI:
 
 def embed_text(text: str) -> List[float]:
     """Generate 1536-dim embedding via OpenAI or fallback"""
-    # Try MiniMax first
+    # Try MiniMax first (OpenAI-compatible endpoint)
     try:
         client = get_openai_client()
         response = client.embeddings.create(
@@ -86,7 +91,18 @@ def embed_text(text: str) -> List[float]:
         )
         return response.data[0].embedding
     except Exception as e:
-        print(f"   ⚠️ MiniMax embedding failed ({str(e)[:50]}...), trying HuggingFace...")
+        print(f"   ⚠️ MiniMax embedding failed ({str(e)[:50]}...), trying OpenAI direct...")
+    
+    # Try OpenAI directly
+    try:
+        client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY', ''))
+        response = client.embeddings.create(
+            model="text-embedding-3-small",
+            input=text[:8000]
+        )
+        return response.data[0].embedding
+    except Exception as e2:
+        print(f"   ⚠️ OpenAI direct also failed ({str(e2)[:50]}...), trying HuggingFace...")
     
     # Fallback: Use HuggingFace inference API
     try:
