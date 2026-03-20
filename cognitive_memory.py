@@ -250,6 +250,17 @@ def should_remember(
             reason="skill or pattern"
         )
     
+    # 9. Thinking traces - always store with standard importance
+    # (importance scoring done by memory_flush_hook before calling store_memory)
+    if namespace == 'thinking':
+        return StorageResult(
+            decision=StorageDecision.STORE_STANDARD,
+            importance=1.0,
+            ttl_days=30,
+            is_pinned=False,
+            reason="thinking trace"
+        )
+    
     # Default: skip unless explicit signal
     return StorageResult(
         decision=StorageDecision.SKIP,
