@@ -194,7 +194,7 @@ def should_remember(
     
     # 4. Facts should be verified before permanent storage
     if namespace == 'fact':
-        if source_type == 'web':
+        if source_type in ('web', 'web_ref'):
             return StorageResult(
                 decision=StorageDecision.STORE_TEMPORARY,
                 importance=0.7,
