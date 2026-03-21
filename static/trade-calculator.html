@@ -752,14 +752,17 @@ function updateUI() {
     // - Solo incoming: raw value
     // - Trade: premium-adjusted values when lowball detected
     let diff;
+    let soloMode = false;
     if (give.length > 0 && get.length === 0) {
-        // Only outgoing - raw value (no incoming to compare against)
-        diff = -Math.round(gvRaw);
+        // Solo outgoing - show raw value (positive = what you're giving up)
+        diff = Math.round(gvRaw);
+        soloMode = true;
     } else if (get.length > 0 && give.length === 0) {
-        // Only incoming - raw value (no outgoing to compare against)
+        // Solo incoming - show raw value (positive = what you're getting)
         diff = Math.round(rvRaw);
+        soloMode = true;
     } else {
-        // Both sides - use premium-adjusted values
+        // Both sides - delta = incoming - outgoing (can be +/-)
         diff = Math.round(rvPrem - gvPrem);
     }
     
@@ -777,6 +780,10 @@ function updateUI() {
     // Fair threshold: 1500 points (~15% of max value)
     if (give.length === 0 && get.length === 0) {
         diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'No assets selected';
+    } else if (soloMode) {
+        // Solo mode - show raw market value without +/- sign
+        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-even';
+        labelEl.textContent = give.length > 0 ? 'MARKET VALUE - You\'re giving up' : 'MARKET VALUE - You\'re getting';
     } else if (Math.abs(diff) < FAIR_THRESHOLD) {
         diffEl.textContent = 'FAIR'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'Values are closely matched';
     } else if (diff > 0) {
@@ -789,9 +796,14 @@ function updateUI() {
     document.getElementById('mobileDiff').textContent = diffEl.textContent;
     document.getElementById('analyzeBtn').disabled = ( give.length === 0 || get.length === 0 );
     document.getElementById('mobileSummary').style.display = (give.length > 0 || get.length > 0) ? 'flex' : 'none';
-    // Highlight winning side: positive diff = incoming (get) is winning (GOOD), negative diff = outgoing (give) is winning (BAD)
-    document.getElementById('getContainer').classList.toggle('winning-side', diff > FAIR_THRESHOLD);
-    document.getElementById('giveContainer').classList.toggle('winning-side', diff < -FAIR_THRESHOLD);
+    // Highlight winning side (only in trade mode, not solo)
+    if (!soloMode) {
+        document.getElementById('getContainer').classList.toggle('winning-side', diff > FAIR_THRESHOLD);
+        document.getElementById('giveContainer').classList.toggle('winning-side', diff < -FAIR_THRESHOLD);
+    } else {
+        document.getElementById('getContainer').classList.remove('winning-side');
+        document.getElementById('giveContainer').classList.remove('winning-side');
+    }
     document.getElementById('giveCount').textContent = give.length + ' Items';
     document.getElementById('getCount').textContent = get.length + ' Items';
 }
