@@ -606,6 +606,38 @@ const STUD_THRESHOLD = 8000;  // Elite player threshold (raw value)
 const PREMIUM_STUD_REFERENCE = 8200;  // Reference point for stud premium curve
 const PREMIUM_VALUE_REFERENCE = 9999;  // Reference point for value scaling
 
+// PICK PREMIUM: Early picks get premium when traded for lowball offers
+// 1.01=25%, 1.02=20%, 1.03=15%, 1.04-1.12=10%
+const PICK_PREMIUM = {
+    1: { 1: 0.25, 2: 0.20, 3: 0.15 },  // 1st round picks
+    2: { 1: 0.10, 2: 0.10, 3: 0.10, 4: 0.10, 5: 0.10, 6: 0.10, 7: 0.10, 8: 0.10, 9: 0.10, 10: 0.10, 11: 0.10, 12: 0.10 },  // 2nd round (all 10%)
+    3: { 1: 0.10, 2: 0.10, 3: 0.10, 4: 0.10, 5: 0.10, 6: 0.10, 7: 0.10, 8: 0.10, 9: 0.10, 10: 0.10, 11: 0.10, 12: 0.10 }   // 3rd+ round (all 10%)
+};
+
+/**
+ * Parse pick position from name like "2026 1.01" or "2027 2.05"
+ * Returns { round, position } or null if not a pick
+ */
+function parsePickPosition(name) {
+    if (!name || typeof name !== 'string') return null;
+    // Match patterns like "2026 1.01" or "2026 2.05"
+    const match = name.match(/^(\d{4})\s+(\d)\.(\d{2})$/);
+    if (!match) return null;
+    return {
+        year: parseInt(match[1]),
+        round: parseInt(match[2]),
+        position: parseInt(match[3])
+    };
+}
+
+/**
+ * Get pick premium percentage based on round and position
+ */
+function getPickPremiumPercent(round, position) {
+    if (!PICK_PREMIUM[round]) return 0;
+    return PICK_PREMIUM[round][position] || 0;
+}
+
 /**
  * Get player value from consensus cache or fallback to raw value.
  * Handles null/undefined gracefully.
@@ -750,11 +782,33 @@ function updateUI() {
         return playerValue; // Raw market value
     }
     
+    // Pick premium: 1.01=25%, 1.02=20%, 1.03=15%, 1.04-1.12=10% when incoming < 80% of pick value
+    const PICK_LOWBALL_THRESHOLD = 0.80;
+    function calcPickPremium(pickValue, incomingTotal) {
+        if (incomingTotal > 0 && incomingTotal < pickValue * PICK_LOWBALL_THRESHOLD) {
+            // Lowball detected for pick - apply pick premium
+            const pickInfo = parsePickPosition(p.name);
+            if (pickInfo) {
+                const premiumPct = getPickPremiumPercent(pickInfo.round, pickInfo.position);
+                if (premiumPct > 0) {
+                    return Math.round(pickValue * (1 + premiumPct));
+                }
+            }
+        }
+        return pickValue; // Raw market value
+    }
+    
     // Apply premium only when both sides have players AND there's a lowball
     // Solo = raw market, Trade with fair incoming = raw market
     const gvPrem = give.reduce((s, p) => {
         const val = getPlayerValue(p);
-        if (get.length > 0 && val >= STUD_THRESHOLD) {
+        if (p.pos === "Pick") {
+            // Pick premium logic
+            if (get.length > 0) {
+                return s + calcPickPremium(val, rvRaw);
+            }
+            return s + val;
+        } else if (get.length > 0 && val >= STUD_THRESHOLD) {
             return s + calcWithPremium(val, rvRaw);
         }
         return s + val;
@@ -762,7 +816,13 @@ function updateUI() {
     
     const rvPrem = get.reduce((s, p) => {
         const val = getPlayerValue(p);
-        if (give.length > 0 && val >= STUD_THRESHOLD) {
+        if (p.pos === "Pick") {
+            // Pick premium logic
+            if (give.length > 0) {
+                return s + calcPickPremium(val, gvRaw);
+            }
+            return s + val;
+        } else if (give.length > 0 && val >= STUD_THRESHOLD) {
             return s + calcWithPremium(val, gvRaw);
         }
         return s + val;
