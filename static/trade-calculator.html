@@ -782,16 +782,19 @@ function updateUI() {
         return playerValue; // Raw market value
     }
     
-    // Pick premium: 1.01=25%, 1.02=20%, 1.03=15%, 1.04-1.12=10% when incoming < 80% of pick value
+    // Pick premium: 1.01=25%, 1.02=20%, 1.03=15%, 1.04-1.12=10% when ANY incoming player is < 80% of pick value
     const PICK_LOWBALL_THRESHOLD = 0.80;
-    function calcPickPremium(pickValue, incomingTotal, pickName) {
-        if (incomingTotal > 0 && incomingTotal < pickValue * PICK_LOWBALL_THRESHOLD) {
-            // Lowball detected for pick - apply pick premium
-            const pickInfo = parsePickPosition(pickName);
-            if (pickInfo) {
-                const premiumPct = getPickPremiumPercent(pickInfo.round, pickInfo.position);
-                if (premiumPct > 0) {
-                    return Math.round(pickValue * (1 + premiumPct));
+    function calcPickPremium(pickValue, incomingPlayers, pickName) {
+        if (incomingPlayers.length > 0) {
+            // Check if ANY incoming player is below 80% of pick value
+            const hasLowball = incomingPlayers.some(p => getPlayerValue(p) < pickValue * PICK_LOWBALL_THRESHOLD);
+            if (hasLowball) {
+                const pickInfo = parsePickPosition(pickName);
+                if (pickInfo) {
+                    const premiumPct = getPickPremiumPercent(pickInfo.round, pickInfo.position);
+                    if (premiumPct > 0) {
+                        return Math.round(pickValue * (1 + premiumPct));
+                    }
                 }
             }
         }
@@ -803,9 +806,9 @@ function updateUI() {
     const gvPrem = give.reduce((s, p) => {
         const val = getPlayerValue(p);
         if (p.pos === "Pick") {
-            // Pick premium logic
+            // Pick premium logic - check if ANY incoming is lowball
             if (get.length > 0) {
-                return s + calcPickPremium(val, rvRaw, p.name);
+                return s + calcPickPremium(val, get, p.name);
             }
             return s + val;
         } else if (get.length > 0 && val >= STUD_THRESHOLD) {
@@ -817,9 +820,9 @@ function updateUI() {
     const rvPrem = get.reduce((s, p) => {
         const val = getPlayerValue(p);
         if (p.pos === "Pick") {
-            // Pick premium logic
+            // Pick premium logic - check if ANY incoming is lowball
             if (give.length > 0) {
-                return s + calcPickPremium(val, gvRaw, p.name);
+                return s + calcPickPremium(val, give, p.name);
             }
             return s + val;
         } else if (give.length > 0 && val >= STUD_THRESHOLD) {
