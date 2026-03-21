@@ -5,12 +5,12 @@ import numpy as np
 import pandas as pd
 from typing import Dict, List, Any
 
-def ktc_raw_adjustment(p: float, top_value: float = 9999, team_value: float = 8200) -> float:
+def ktc_total_value(p: float, top_value: float = 9999, team_value: float = 8200) -> float:
     """
-    KTC-style nonlinear raw adjustment.
+    Returns BASE RAW + ADJUSTMENT (total trade value). Matches KTC stud-flattening behavior.
     
     Formula applies compression to the raw KTC scale:
-    - Top players (near 9999) are compressed less
+    - Top players (near 9999) are compressed less (elite plateau)
     - Mid-tier players are compressed more
     - This creates the non-linear trade value curve
     
@@ -20,12 +20,13 @@ def ktc_raw_adjustment(p: float, top_value: float = 9999, team_value: float = 82
         team_value: Typical top team value threshold (8200)
     
     Returns:
-        Adjusted trade value on same 0-9999 scale
+        Total trade value (base + adjustment) on 0-9999+ scale
     """
-    term1 = 0.15 * (p / top_value) ** 8
-    term2 = 0.15 * (p / team_value) ** 1.3
-    term3 = 0.1 * (p / (top_value + 2000)) ** 1.28
-    return p * (0.1 + term1 + term2 + term3)
+    term1 = 0.15 * (p / top_value) ** 8  # Elite plateau
+    term2 = 0.15 * (p / team_value) ** 1.3  # Mid scaling
+    term3 = 0.1 * (p / (top_value + 2000)) ** 1.28  # Volume penalty
+    adjustment = p * (0.1 + term1 + term2 + term3)
+    return p + adjustment  # ✅ KEY FIX: total, not just premium
 
 
 def calculate_blended_trade_value(player_id: str, sources: Dict[str, List[float]]) -> Dict[str, float]:
@@ -50,7 +51,7 @@ def calculate_blended_trade_value(player_id: str, sources: Dict[str, List[float]
     blended_p = np.mean(values)
     
     # Nonlinear normalization
-    normalized = ktc_raw_adjustment(blended_p)
+    normalized = ktc_total_value(blended_p)
     
     # Stud value adjustment (KTC-like premium for elites)
     percentile = np.clip(blended_p / 10000, 0, 1)  # Assume 10k max scale

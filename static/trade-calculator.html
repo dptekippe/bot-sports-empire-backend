@@ -51,6 +51,30 @@
             0% { background-position: -200% center; }
             100% { background-position: 200% center; }
         }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.5); }
+        }
+        /* Enhanced animations */
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-glow { animation: glow-pulse 2s ease-in-out infinite; }
+        
+        /* Enhanced glassmorphism */
+        .glass-panel {
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        .glass-panel:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
         .font-bebas { font-family: 'Bebas Neue', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         .header-glow { position: relative; }
@@ -150,10 +174,23 @@
             border-color: var(--cyan); 
             background: rgba(255, 255, 255, 0.05); 
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
         }
         .player-card.selected { 
             border-color: var(--gold); 
             background: rgba(245, 158, 11, 0.08); 
+        }
+        /* Enhanced search result hover */
+        .search-result-item {
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+        .search-result-item:hover {
+            background: rgba(6, 182, 212, 0.15) !important;
+            transform: translateX(4px);
+        }
+        .search-result-item:active {
+            transform: scale(0.98);
         }
         .pos-badge {
             font-size: 0.65rem;
@@ -303,6 +340,27 @@
         .page-load-delay-1 { animation-delay: 0.1s; opacity: 0; animation-fill-mode: forwards; }
         .page-load-delay-2 { animation-delay: 0.2s; opacity: 0; animation-fill-mode: forwards; }
         .page-load-delay-3 { animation-delay: 0.3s; opacity: 0; animation-fill-mode: forwards; }
+        
+        /* Remove button styles - Fixed for X button functionality */
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #6B7280;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            line-height: 1;
+        }
+        .remove-btn:hover {
+            color: #EF4444;
+            background: rgba(239, 68, 68, 0.15);
+            transform: scale(1.1);
+        }
+        .remove-btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -342,7 +400,10 @@
                 <span class="text-[10px] font-mono text-gray-600 bg-black/30 px-2 py-1 rounded" id="giveCount">0 Items</span>
             </div>
             <div class="relative mb-4">
-                <input type="text" id="giveSearch" class="search-input" placeholder="Add player to give..." oninput="onSearchInput('give')">
+                <input type="text" id="giveSearch" class="search-input" placeholder="Add player to give..." oninput="onSearchInput('give')" autocomplete="off">
+                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors" onclick="document.getElementById('giveSearch').value=''; document.getElementById('giveSearchResults').style.display='none';">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
                 <div id="giveSearchResults" class="search-results-overlay" style="display:none"></div>
             </div>
             <div id="giveSelectedList" class="flex-1 space-y-2 min-h-[280px] max-h-[480px] overflow-y-auto drop-zone p-3 rounded-xl">
@@ -394,7 +455,10 @@
                 <span class="text-[10px] font-mono text-gray-600 bg-black/30 px-2 py-1 rounded" id="getCount">0 Items</span>
             </div>
             <div class="relative mb-4">
-                <input type="text" id="getSearch" class="search-input" placeholder="Add player to get..." oninput="onSearchInput('get')">
+                <input type="text" id="getSearch" class="search-input" placeholder="Add player to get..." oninput="onSearchInput('get')" autocomplete="off">
+                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors" onclick="document.getElementById('getSearch').value=''; document.getElementById('getSearchResults').style.display='none';">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
                 <div id="getSearchResults" class="search-results-overlay" style="display:none"></div>
             </div>
             <div id="getSelectedList" class="flex-1 space-y-2 min-h-[280px] max-h-[480px] overflow-y-auto drop-zone p-3 rounded-xl">
@@ -507,7 +571,44 @@ function getTradeValue(consensusValue, rawKtc, t) {
     return ktcRawAdjust(baseValue, t);
 }
 
-fetch('/ktc_values.json').then(r => r.json()).then(data => { allPlayers = data; updateUI(); });
+fetch('/static/ktc_values.json')
+    .then(r => r.json())
+    .then(data => { 
+        allPlayers = data; 
+        document.getElementById('giveSearch').placeholder = 'Add player to give...';
+        document.getElementById('getSearch').placeholder = 'Add player to get...';
+        updateUI(); 
+    })
+    .catch(err => {
+        console.error('Failed to load player data:', err);
+        document.getElementById('giveSearch').placeholder = 'Error loading players...';
+        document.getElementById('getSearch').placeholder = 'Error loading players...';
+    });
+
+// Close search results when clicking outside
+document.addEventListener('click', function(e) {
+    const giveSearch = document.getElementById('giveSearch');
+    const giveResults = document.getElementById('giveSearchResults');
+    const getSearch = document.getElementById('getSearch');
+    const getResults = document.getElementById('getSearchResults');
+    
+    if (giveSearch && !giveSearch.contains(e.target) && !giveResults.contains(e.target)) {
+        giveResults.style.display = 'none';
+    }
+    if (getSearch && !getSearch.contains(e.target) && !getResults.contains(e.target)) {
+        getResults.style.display = 'none';
+    }
+});
+
+// Keyboard support - Escape to close modals
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeResults();
+        // Close any open search results
+        document.getElementById('giveSearchResults').style.display = 'none';
+        document.getElementById('getSearchResults').style.display = 'none';
+    }
+});
 
 function onSearchInput(side) {
     const query = document.getElementById(side + 'Search').value.trim().toLowerCase();
@@ -518,7 +619,7 @@ function onSearchInput(side) {
     if (filtered.length === 0) {
         resultsEl.innerHTML = '<div class="p-4 text-xs text-gray-500 text-center font-bold">No players found</div>';
     } else {
-        resultsEl.innerHTML = filtered.map(p => `<div class="p-4 border-b border-gray-800 hover:bg-gray-800 cursor-pointer flex justify-between items-center transition-colors" onclick="addPlayerById('${p.id}', '${side}')"><div class="flex items-center gap-3"><span class="pos-badge pos-${p.pos}">${p.pos}</span><div class="flex flex-col"><span class="text-sm font-bold text-white">${p.name}</span><span class="text-[9px] text-gray-500 uppercase tracking-tighter">${p.team || 'Free Agent'}</span></div></div><div class="text-right"><span class="text-xs font-bebas text-amber-500 tracking-wider">${p.value.toLocaleString()}</span></div></div>`).join('');
+        resultsEl.innerHTML = filtered.map(p => `<div class="search-result-item p-4 border-b border-gray-800 cursor-pointer flex justify-between items-center transition-colors" onclick="addPlayerById('${p.id}', '${side}')"><div class="flex items-center gap-3"><span class="pos-badge pos-${p.pos}">${p.pos}</span><div class="flex flex-col"><span class="text-sm font-bold text-white">${p.name}</span><span class="text-[9px] text-gray-500 uppercase tracking-tighter">${p.team || 'Free Agent'}</span></div></div><div class="text-right"><span class="text-xs font-bebas text-amber-500 tracking-wider">${p.value.toLocaleString()}</span></div></div>`).join('');
     }
     resultsEl.style.display = 'block';
 }
@@ -590,7 +691,8 @@ function renderSelectedList(side) {
         return;
     }
     el.classList.add('has-items');
-    el.innerHTML = list.map(p => `<div class="player-card selected" onclick="removePlayer('${p.id}', '${side}')"><div class="flex items-center gap-2"><span class="pos-badge pos-${p.pos}">${p.pos}</span><span class="text-sm font-semibold">${p.name}</span></div><div class="flex items-center gap-2"><span class="text-xs font-bebas text-amber-500">${p.value.toLocaleString()}</span><span class="text-gray-600 hover:text-red-400">✕</span></div></div>`).join('');
+    // Fixed: Added explicit onclick to the X button element for better UX
+    el.innerHTML = list.map(p => `<div class="player-card selected"><div class="flex items-center gap-2"><span class="pos-badge pos-${p.pos}">${p.pos}</span><span class="text-sm font-semibold">${p.name}</span></div><div class="flex items-center gap-2"><span class="text-xs font-bebas text-amber-500">${p.value.toLocaleString()}</span><button type="button" class="remove-btn" onclick="removePlayer('${p.id}', '${side}')" title="Remove player">✕</button></div></div>`).join('');
 }
 
 async function analyze() {
