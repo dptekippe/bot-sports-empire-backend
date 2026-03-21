@@ -591,6 +591,7 @@
 <script>
 let allPlayers = []; let give = []; let get = []; let balanceChart = null; let consensusCache = {};
 const KTC_MAX = 11796;  // Tuned to match KTC outputs
+const FAIR_THRESHOLD = 1000;  // Fair trade threshold (10% of max value)
 
 /**
  * Pure KTC raw adjustment formula.
@@ -678,8 +679,12 @@ function addPlayerById(id, side) {
 }
 
 function removePlayer(id, side) {
-    if (side === 'give') give = give.filter(p => p.id !== id);
-    else get = get.filter(p => p.id !== id);
+    console.log('Removing player:', id, 'from', side);
+    if (side === 'give') {
+        give = give.filter(p => p.id !== id);
+    } else {
+        get = get.filter(p => p.id !== id);
+    }
     updateUI();
 }
 
@@ -690,16 +695,32 @@ function updateUI() {
     const allValues = [...give, ...get].map(p => consensusCache[p.name] || p.value);
     const tradeMax = Math.max(...allValues, KTC_MAX);
     
-    // RAW KTC values as Base Value
+    // RAW KTC values as Base Value - use these for delta calculation
     const gvRaw = give.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
     const rvRaw = get.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
     
-    // ADJUSTED values using ktcRawAdjust (for comparison)
+    // ADJUSTED values using ktcRawAdjust (for display/comparison only)
     const gvAdj = give.reduce((s, p) => s + ktcRawAdjust(consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value, tradeMax), 0);
     const rvAdj = get.reduce((s, p) => s + ktcRawAdjust(consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value, tradeMax), 0);
     
-    // Delta based on ADJUSTED values (positive = Give winning after compression)
-    const diff = Math.round(gvAdj - rvAdj);
+    // Delta calculation using RAW values:
+    // Formula: delta = outgoing - incoming
+    // - Only outgoing: delta = outgoing value (positive = you're giving up value)
+    // - Only incoming: delta = -incoming value (negative = you're getting value)
+    // - Both: delta = outgoing - incoming
+    // Positive delta = outgoing side is better (you're giving up more value)
+    // Negative delta = incoming side is better (you're getting more value)
+    let diff;
+    if (give.length > 0 && get.length === 0) {
+        // Only outgoing - show full outgoing value
+        diff = Math.round(gvRaw);
+    } else if (get.length > 0 && give.length === 0) {
+        // Only incoming - show negative of incoming value
+        diff = -Math.round(rvRaw);
+    } else {
+        // Both sides - delta = outgoing - incoming
+        diff = Math.round(gvRaw - rvRaw);
+    }
     
     // Display raw KTC values as Base Value
     document.getElementById('giveValue').textContent = gvRaw.toFixed(0);
@@ -709,20 +730,24 @@ function updateUI() {
     document.getElementById('summaryGiveVal').textContent = gvAdj.toFixed(0);
     document.getElementById('summaryGetVal').textContent = rvAdj.toFixed(0);
     const diffEl = document.getElementById('tradeDiff'), labelEl = document.getElementById('tradeLabel');
+    // Fair threshold: 1500 points (~15% of max value) - more reasonable for KTC scale
     if (give.length === 0 && get.length === 0) {
         diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'No assets selected';
-    } else if (Math.abs(diff) < 700) {
+    } else if (Math.abs(diff) < FAIR_THRESHOLD) {
         diffEl.textContent = 'FAIR'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'Values are closely matched';
     } else if (diff > 0) {
-        diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-positive'; labelEl.textContent = 'Give side winning';
+        // Positive delta = outgoing is better (you're giving up more value)
+        diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-positive'; labelEl.textContent = 'Outgoing side winning (you\'re giving up more)';
     } else {
-        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-negative'; labelEl.textContent = 'Get side winning';
+        // Negative delta = incoming is better (you're getting more value)
+        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-negative'; labelEl.textContent = 'Incoming side winning (you\'re getting more)';
     }
     document.getElementById('mobileDiff').textContent = diffEl.textContent;
     document.getElementById('analyzeBtn').disabled = ( give.length === 0 || get.length === 0 );
     document.getElementById('mobileSummary').style.display = (give.length > 0 || get.length > 0) ? 'flex' : 'none';
-    document.getElementById('getContainer').classList.toggle('winning-side', diff > 500);
-    document.getElementById('giveContainer').classList.toggle('winning-side', diff < -500);
+    // Highlight winning side: positive diff = incoming (get) is winning, negative diff = outgoing (give) is winning
+    document.getElementById('getContainer').classList.toggle('winning-side', diff > FAIR_THRESHOLD);
+    document.getElementById('giveContainer').classList.toggle('winning-side', diff < -FAIR_THRESHOLD);
     document.getElementById('giveCount').textContent = give.length + ' Items';
     document.getElementById('getCount').textContent = get.length + ' Items';
 }
@@ -735,8 +760,19 @@ function renderSelectedList(side) {
         return;
     }
     el.classList.add('has-items');
-    // Fixed: Added explicit onclick to the X button element for better UX
-    el.innerHTML = list.map(p => `<div class="player-card selected"><div class="flex items-center gap-2"><span class="pos-badge pos-${p.pos}">${p.pos}</span><span class="text-sm font-semibold">${p.name}</span></div><div class="flex items-center gap-2"><span class="text-xs font-bebas text-amber-500">${p.value.toLocaleString()}</span><button type="button" class="remove-btn" onclick="removePlayer('${p.id}', '${side}')" title="Remove player">✕</button></div></div>`).join('');
+    // Use data attributes and event delegation for reliable click handling
+    el.innerHTML = list.map(p => `<div class="player-card selected" data-player-id="${p.id}" data-side="${side}"><div class="flex items-center gap-2"><span class="pos-badge pos-${p.pos}">${p.pos}</span><span class="text-sm font-semibold">${p.name}</span></div><div class="flex items-center gap-2"><span class="text-xs font-bebas text-amber-500">${p.value.toLocaleString()}</span><button type="button" class="remove-btn" data-action="remove" data-player-id="${p.id}" data-side="${side}" title="Remove player">✕</button></div></div>`).join('');
+    
+    // Add click handler for remove buttons using event delegation
+    el.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const playerId = this.getAttribute('data-player-id');
+            const playerSide = this.getAttribute('data-side');
+            console.log('Remove button clicked:', playerId, playerSide);
+            removePlayer(playerId, playerSide);
+        });
+    });
 }
 
 async function analyze() {
@@ -760,19 +796,36 @@ function showModal(data, tep) {
     // Consensus is 0-999 scale; scale to 9999 before applying power curve
     const allVals = [...give, ...get].map(p => map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value);
     const tradeMax = Math.max(...allVals, KTC_MAX);
-    const gv = give.reduce((s, p) => s + ktcRawAdjust(map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value, tradeMax), 0);
-    const rv = get.reduce((s, p) => s + ktcRawAdjust(map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value, tradeMax), 0);
-    const diff = Math.round(gv - rv);  // positive = give winning
-    document.getElementById('modalGiveVal').textContent = Math.round(gv).toLocaleString();
-    document.getElementById('modalGetVal').textContent = Math.round(rv).toLocaleString();
+    
+    // Use RAW values for delta calculation
+    const gvRaw = give.reduce((s, p) => s + (map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value), 0);
+    const rvRaw = get.reduce((s, p) => s + (map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value), 0);
+    
+    // Adjusted values for display
+    const gvAdj = give.reduce((s, p) => s + ktcRawAdjust(map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value, tradeMax), 0);
+    const rvAdj = get.reduce((s, p) => s + ktcRawAdjust(map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value, tradeMax), 0);
+    
+    // Delta using same logic as updateUI
+    let diff;
+    if (give.length > 0 && get.length === 0) {
+        diff = Math.round(gvRaw);
+    } else if (get.length > 0 && give.length === 0) {
+        diff = -Math.round(rvRaw);
+    } else {
+        diff = Math.round(gvRaw - rvRaw);
+    }
+    
+    document.getElementById('modalGiveVal').textContent = Math.round(gvRaw).toLocaleString();
+    document.getElementById('modalGetVal').textContent = Math.round(rvRaw).toLocaleString();
     document.getElementById('modalDiffVal').textContent = (diff > 0 ? '+' : '') + diff.toLocaleString();
-    let msg = `KTC raw adjustment compression applied. Gap of ${Math.abs(diff)} points is ${Math.abs(diff) < 700 ? 'within fair trade range' : (diff > 0 ? 'favoring the give side' : 'favoring the get side')}.`;
+    
+    let msg = `Trade analysis complete. Gap of ${Math.abs(diff)} points is ${Math.abs(diff) < FAIR_THRESHOLD ? 'within fair trade range' : (diff > 0 ? 'favoring the outgoing side (you\'re giving up more value)' : 'favoring the incoming side (you\'re getting more value)')}.`;
     if (tep) msg += " Tight End Premium was active for this calculation.";
     document.getElementById('modalNarrative').textContent = msg;
     document.getElementById('resultsModal').style.display = 'flex';
     const ctx = document.getElementById('balanceChart').getContext('2d');
     if (balanceChart) balanceChart.destroy();
-    balanceChart = new Chart(ctx, {type: 'doughnut', data: {datasets: [{data: [gv, rv], backgroundColor: ['#F97316', '#10B981'], borderWidth: 0, circumference: 180, rotation: 270}]}, options: { cutout: '85%', plugins: { legend: { display: false } } }});
+    balanceChart = new Chart(ctx, {type: 'doughnut', data: {datasets: [{data: [gvAdj, rvAdj], backgroundColor: ['#F97316', '#10B981'], borderWidth: 0, circumference: 180, rotation: 270}]}, options: { cutout: '85%', plugins: { legend: { display: false } } }});
 }
 
 function closeResults() { document.getElementById('resultsModal').style.display = 'none'; }
