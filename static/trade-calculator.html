@@ -601,6 +601,21 @@
 let allPlayers = []; let give = []; let get = []; let balanceChart = null; let consensusCache = {};
 const KTC_MAX = 11796;  // Tuned to match KTC outputs
 const FAIR_THRESHOLD = 1000;  // Fair trade threshold (10% of max value)
+const LOWBALL_THRESHOLD = 0.75;  // 75% of player value = lowball threshold
+const STUD_THRESHOLD = 8000;  // Elite player threshold (raw value)
+const PREMIUM_STUD_REFERENCE = 8200;  // Reference point for stud premium curve
+const PREMIUM_VALUE_REFERENCE = 9999;  // Reference point for value scaling
+
+/**
+ * Get player value from consensus cache or fallback to raw value.
+ * Handles null/undefined gracefully.
+ */
+function getPlayerValue(p) {
+    if (consensusCache?.[p.name]) {
+        return consensusCache[p.name] * 10;
+    }
+    return p.value ?? 0;
+}
 
 /**
  * Pure KTC raw adjustment formula.
@@ -717,22 +732,19 @@ function updateUI() {
     renderSelectedList('give'); renderSelectedList('get');
     
     // Calculate trade max for formula - handle empty array edge case
-    const allValues = [...give, ...get].map(p => consensusCache[p.name] || p.value);
+    const allValues = [...give, ...get].map(p => getPlayerValue(p));
     const tradeMax = allValues.length > 0 ? Math.max(...allValues, KTC_MAX) : KTC_MAX;
     
     // RAW KTC values as Base Value
-    const gvRaw = give.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
-    const rvRaw = get.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
+    const gvRaw = give.reduce((s, p) => s + getPlayerValue(p), 0);
+    const rvRaw = get.reduce((s, p) => s + getPlayerValue(p), 0);
     
     // STUD PREMIUM: Apply to elite players (raw >= 8000) when incoming is a lowball (< 75% of player value)
     // Premium corrects KTC's undervaluation of studs vs draft picks
-    const LOWBALL_THRESHOLD = 0.75;
-    const STUD_THRESHOLD = 8000; // Elite player threshold
-    
     function calcWithPremium(playerValue, incomingTotal) {
         if (incomingTotal > 0 && incomingTotal < playerValue * LOWBALL_THRESHOLD) {
             // Lowball detected - apply stud premium
-            const adjFactor = 0.1 + 0.2 * Math.pow(playerValue / 9999, 1.5) + 0.1 * Math.pow(playerValue / 8200, 1.2);
+            const adjFactor = 0.1 + 0.2 * Math.pow(playerValue / PREMIUM_VALUE_REFERENCE, 1.5) + 0.1 * Math.pow(playerValue / PREMIUM_STUD_REFERENCE, 1.2);
             return Math.round(playerValue * (1 + adjFactor));
         }
         return playerValue; // Raw market value
@@ -741,7 +753,7 @@ function updateUI() {
     // Apply premium only when both sides have players AND there's a lowball
     // Solo = raw market, Trade with fair incoming = raw market
     const gvPrem = give.reduce((s, p) => {
-        const val = consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value;
+        const val = getPlayerValue(p);
         if (get.length > 0 && val >= STUD_THRESHOLD) {
             return s + calcWithPremium(val, rvRaw);
         }
@@ -749,7 +761,7 @@ function updateUI() {
     }, 0);
     
     const rvPrem = get.reduce((s, p) => {
-        const val = consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value;
+        const val = getPlayerValue(p);
         if (give.length > 0 && val >= STUD_THRESHOLD) {
             return s + calcWithPremium(val, gvRaw);
         }
@@ -776,12 +788,12 @@ function updateUI() {
     const displayGive = (give.length > 0 && get.length === 0) ? gvRaw : gvPrem;
     const displayGet = (get.length > 0 && give.length === 0) ? rvRaw : rvPrem;
     
-    document.getElementById('giveValue').textContent = displayGive.toFixed(0);
-    document.getElementById('getValue').textContent = displayGet.toFixed(0);
+    document.getElementById('giveValue').textContent = (displayGive ?? 0).toFixed(0);
+    document.getElementById('getValue').textContent = (displayGet ?? 0).toFixed(0);
     
     // Summary shows same values as main display for consistency
-    document.getElementById('summaryGiveVal').textContent = displayGive.toFixed(0);
-    document.getElementById('summaryGetVal').textContent = displayGet.toFixed(0);
+    document.getElementById('summaryGiveVal').textContent = (displayGive ?? 0).toFixed(0);
+    document.getElementById('summaryGetVal').textContent = (displayGet ?? 0).toFixed(0);
     const diffEl = document.getElementById('tradeDiff'), labelEl = document.getElementById('tradeLabel');
     // Fair threshold: 1500 points (~15% of max value)
     if (give.length === 0 && get.length === 0) {
