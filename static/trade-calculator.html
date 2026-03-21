@@ -396,14 +396,23 @@
             border-radius: 6px;
             transition: all 0.2s ease;
             line-height: 1;
+            opacity: 0.6;
         }
         .remove-btn:hover {
             color: #EF4444;
             background: rgba(239, 68, 68, 0.15);
             transform: scale(1.1);
+            opacity: 1;
         }
         .remove-btn:active {
             transform: scale(0.95);
+        }
+        /* Make remove button more visible by default */
+        .player-card .remove-btn {
+            opacity: 0.7;
+        }
+        .player-card:hover .remove-btn {
+            opacity: 1;
         }
     </style>
 </head>
@@ -692,13 +701,13 @@ document.addEventListener('click', function(e) {
 
 function removePlayer(id, side) {
     console.log('Removing player:', id, 'from', side);
-    // Ensure id comparison works (handle string/number mismatch)
-    const playerId = String(id);
+    // Normalize id for comparison (handle string/number mismatch)
+    const playerId = String(id).trim();
     if (side === 'give') {
-        give = give.filter(p => String(p.id) !== playerId);
+        give = give.filter(p => String(p.id).trim() !== playerId);
         console.log('give array after removal:', give.map(p => p.name));
     } else {
-        get = get.filter(p => String(p.id) !== playerId);
+        get = get.filter(p => String(p.id).trim() !== playerId);
         console.log('get array after removal:', get.map(p => p.name));
     }
     updateUI();
@@ -707,9 +716,9 @@ function removePlayer(id, side) {
 function updateUI() {
     renderSelectedList('give'); renderSelectedList('get');
     
-    // Calculate trade max for formula
+    // Calculate trade max for formula - handle empty array edge case
     const allValues = [...give, ...get].map(p => consensusCache[p.name] || p.value);
-    const tradeMax = Math.max(...allValues, KTC_MAX);
+    const tradeMax = allValues.length > 0 ? Math.max(...allValues, KTC_MAX) : KTC_MAX;
     
     // RAW KTC values as Base Value
     const gvRaw = give.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
@@ -830,7 +839,8 @@ function showModal(data, tep) {
     const map = {}; data.forEach(p => map[p.name] = p);
     // Consensus is 0-999 scale; scale to 9999 before applying power curve
     const allVals = [...give, ...get].map(p => map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value);
-    const tradeMax = Math.max(...allVals, KTC_MAX);
+    // Handle empty array edge case
+    const tradeMax = allVals.length > 0 ? Math.max(...allVals, KTC_MAX) : KTC_MAX;
     
     // Use RAW values for delta calculation
     const gvRaw = give.reduce((s, p) => s + (map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value), 0);
