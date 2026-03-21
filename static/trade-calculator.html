@@ -680,10 +680,14 @@ function addPlayerById(id, side) {
 
 function removePlayer(id, side) {
     console.log('Removing player:', id, 'from', side);
+    // Ensure id comparison works (handle string/number mismatch)
+    const playerId = String(id);
     if (side === 'give') {
-        give = give.filter(p => p.id !== id);
+        give = give.filter(p => String(p.id) !== playerId);
+        console.log('give array after removal:', give.map(p => p.name));
     } else {
-        get = get.filter(p => p.id !== id);
+        get = get.filter(p => String(p.id) !== playerId);
+        console.log('get array after removal:', get.map(p => p.name));
     }
     updateUI();
 }
@@ -704,22 +708,22 @@ function updateUI() {
     const rvAdj = get.reduce((s, p) => s + ktcRawAdjust(consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value, tradeMax), 0);
     
     // Delta calculation using RAW values:
-    // Formula: delta = outgoing - incoming
-    // - Only outgoing: delta = outgoing value (positive = you're giving up value)
-    // - Only incoming: delta = -incoming value (negative = you're getting value)
-    // - Both: delta = outgoing - incoming
-    // Positive delta = outgoing side is better (you're giving up more value)
-    // Negative delta = incoming side is better (you're getting more value)
+    // Formula: delta = incoming - outgoing
+    // - Only outgoing: delta = -outgoing value (negative = you're giving value)
+    // - Only incoming: delta = incoming value (positive = you're getting value)
+    // - Both: delta = incoming - outgoing
+    // Positive delta = you're getting more than you're giving (GOOD FOR YOU)
+    // Negative delta = you're giving more than you're getting (BAD FOR YOU)
     let diff;
     if (give.length > 0 && get.length === 0) {
-        // Only outgoing - show full outgoing value
-        diff = Math.round(gvRaw);
+        // Only outgoing - show negative (you're giving up value)
+        diff = -Math.round(gvRaw);
     } else if (get.length > 0 && give.length === 0) {
-        // Only incoming - show negative of incoming value
-        diff = -Math.round(rvRaw);
+        // Only incoming - show positive (you're getting value)
+        diff = Math.round(rvRaw);
     } else {
-        // Both sides - delta = outgoing - incoming
-        diff = Math.round(gvRaw - rvRaw);
+        // Both sides - delta = incoming - outgoing
+        diff = Math.round(rvRaw - gvRaw);
     }
     
     // Display raw KTC values as Base Value
@@ -736,16 +740,16 @@ function updateUI() {
     } else if (Math.abs(diff) < FAIR_THRESHOLD) {
         diffEl.textContent = 'FAIR'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'Values are closely matched';
     } else if (diff > 0) {
-        // Positive delta = outgoing is better (you're giving up more value)
-        diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-positive'; labelEl.textContent = 'Outgoing side winning (you\'re giving up more)';
+        // Positive delta = you're getting more than you're giving (GOOD FOR YOU)
+        diffEl.textContent = '+' + diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-positive'; labelEl.textContent = 'GOOD FOR YOU - add to outgoing';
     } else {
-        // Negative delta = incoming is better (you're getting more value)
-        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-negative'; labelEl.textContent = 'Incoming side winning (you\'re getting more)';
+        // Negative delta = you're giving more than you're getting (BAD FOR YOU)
+        diffEl.textContent = diff.toLocaleString(); diffEl.className = 'font-bebas text-8xl mb-3 delta-negative'; labelEl.textContent = 'BAD FOR YOU - add to incoming';
     }
     document.getElementById('mobileDiff').textContent = diffEl.textContent;
     document.getElementById('analyzeBtn').disabled = ( give.length === 0 || get.length === 0 );
     document.getElementById('mobileSummary').style.display = (give.length > 0 || get.length > 0) ? 'flex' : 'none';
-    // Highlight winning side: positive diff = incoming (get) is winning, negative diff = outgoing (give) is winning
+    // Highlight winning side: positive diff = incoming (get) is winning (GOOD), negative diff = outgoing (give) is winning (BAD)
     document.getElementById('getContainer').classList.toggle('winning-side', diff > FAIR_THRESHOLD);
     document.getElementById('giveContainer').classList.toggle('winning-side', diff < -FAIR_THRESHOLD);
     document.getElementById('giveCount').textContent = give.length + ' Items';
@@ -805,21 +809,22 @@ function showModal(data, tep) {
     const gvAdj = give.reduce((s, p) => s + ktcRawAdjust(map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value, tradeMax), 0);
     const rvAdj = get.reduce((s, p) => s + ktcRawAdjust(map[p.name]?.consensus ? map[p.name].consensus * 10 : p.value, tradeMax), 0);
     
-    // Delta using same logic as updateUI
+    // Delta using same logic as updateUI: delta = incoming - outgoing
+    // Positive = you're getting more (GOOD), Negative = you're giving more (BAD)
     let diff;
     if (give.length > 0 && get.length === 0) {
-        diff = Math.round(gvRaw);
+        diff = -Math.round(gvRaw);
     } else if (get.length > 0 && give.length === 0) {
-        diff = -Math.round(rvRaw);
+        diff = Math.round(rvRaw);
     } else {
-        diff = Math.round(gvRaw - rvRaw);
+        diff = Math.round(rvRaw - gvRaw);
     }
     
     document.getElementById('modalGiveVal').textContent = Math.round(gvRaw).toLocaleString();
     document.getElementById('modalGetVal').textContent = Math.round(rvRaw).toLocaleString();
     document.getElementById('modalDiffVal').textContent = (diff > 0 ? '+' : '') + diff.toLocaleString();
     
-    let msg = `Trade analysis complete. Gap of ${Math.abs(diff)} points is ${Math.abs(diff) < FAIR_THRESHOLD ? 'within fair trade range' : (diff > 0 ? 'favoring the outgoing side (you\'re giving up more value)' : 'favoring the incoming side (you\'re getting more value)')}.`;
+    let msg = `Trade analysis complete. Gap of ${Math.abs(diff)} points is ${Math.abs(diff) < FAIR_THRESHOLD ? 'within fair trade range (FAIR trade)' : (diff > 0 ? 'GOOD FOR YOU - you\'re getting more value than you\'re giving' : 'BAD FOR YOU - you\'re giving more value than you\'re getting')}.`;
     if (tep) msg += " Tight End Premium was active for this calculation.";
     document.getElementById('modalNarrative').textContent = msg;
     document.getElementById('resultsModal').style.display = 'flex';
