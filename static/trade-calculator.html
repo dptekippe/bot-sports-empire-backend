@@ -678,6 +678,18 @@ function addPlayerById(id, side) {
     updateUI();
 }
 
+// Document-level event delegation for remove buttons (more reliable)
+document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.remove-btn');
+    if (btn) {
+        e.stopPropagation();
+        const playerId = btn.getAttribute('data-player-id');
+        const playerSide = btn.getAttribute('data-side');
+        console.log('Remove button clicked via delegation:', playerId, playerSide);
+        removePlayer(playerId, playerSide);
+    }
+});
+
 function removePlayer(id, side) {
     console.log('Removing player:', id, 'from', side);
     // Ensure id comparison works (handle string/number mismatch)
@@ -699,42 +711,70 @@ function updateUI() {
     const allValues = [...give, ...get].map(p => consensusCache[p.name] || p.value);
     const tradeMax = Math.max(...allValues, KTC_MAX);
     
-    // RAW KTC values as Base Value - use these for delta calculation
+    // RAW KTC values as Base Value
     const gvRaw = give.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
     const rvRaw = get.reduce((s, p) => s + (consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value), 0);
     
-    // ADJUSTED values using ktcRawAdjust (for display/comparison only)
-    const gvAdj = give.reduce((s, p) => s + ktcRawAdjust(consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value, tradeMax), 0);
-    const rvAdj = get.reduce((s, p) => s + ktcRawAdjust(consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value, tradeMax), 0);
+    // STUD PREMIUM: Apply to elite players (raw >= 8000) when incoming is a lowball (< 75% of player value)
+    // Premium corrects KTC's undervaluation of studs vs draft picks
+    const LOWBALL_THRESHOLD = 0.75;
+    const STUD_THRESHOLD = 8000; // Elite player threshold
     
-    // Delta calculation using RAW values:
-    // Formula: delta = incoming - outgoing
-    // - Only outgoing: delta = -outgoing value (negative = you're giving value)
-    // - Only incoming: delta = incoming value (positive = you're getting value)
-    // - Both: delta = incoming - outgoing
-    // Positive delta = you're getting more than you're giving (GOOD FOR YOU)
-    // Negative delta = you're giving more than you're getting (BAD FOR YOU)
-    let diff;
-    if (give.length > 0 && get.length === 0) {
-        // Only outgoing - show negative (you're giving up value)
-        diff = -Math.round(gvRaw);
-    } else if (get.length > 0 && give.length === 0) {
-        // Only incoming - show positive (you're getting value)
-        diff = Math.round(rvRaw);
-    } else {
-        // Both sides - delta = incoming - outgoing
-        diff = Math.round(rvRaw - gvRaw);
+    function calcWithPremium(playerValue, incomingTotal) {
+        if (incomingTotal > 0 && incomingTotal < playerValue * LOWBALL_THRESHOLD) {
+            // Lowball detected - apply stud premium
+            const adjFactor = 0.1 + 0.2 * Math.pow(playerValue / 9999, 1.5) + 0.1 * Math.pow(playerValue / 8200, 1.2);
+            return Math.round(playerValue * (1 + adjFactor));
+        }
+        return playerValue; // Raw market value
     }
     
-    // Display raw KTC values as Base Value
-    document.getElementById('giveValue').textContent = gvRaw.toFixed(0);
-    document.getElementById('getValue').textContent = rvRaw.toFixed(0);
+    // Apply premium only when both sides have players AND there's a lowball
+    // Solo = raw market, Trade with fair incoming = raw market
+    const gvPrem = give.reduce((s, p) => {
+        const val = consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value;
+        if (get.length > 0 && val >= STUD_THRESHOLD) {
+            return s + calcWithPremium(val, rvRaw);
+        }
+        return s + val;
+    }, 0);
     
-    // Summary shows ADJUSTED totals for comparison
-    document.getElementById('summaryGiveVal').textContent = gvAdj.toFixed(0);
-    document.getElementById('summaryGetVal').textContent = rvAdj.toFixed(0);
+    const rvPrem = get.reduce((s, p) => {
+        const val = consensusCache[p.name] ? consensusCache[p.name] * 10 : p.value;
+        if (give.length > 0 && val >= STUD_THRESHOLD) {
+            return s + calcWithPremium(val, gvRaw);
+        }
+        return s + val;
+    }, 0);
+    
+    // Delta calculation:
+    // - Solo outgoing: raw value (no premium, no counterparty)
+    // - Solo incoming: raw value
+    // - Trade: premium-adjusted values when lowball detected
+    let diff;
+    if (give.length > 0 && get.length === 0) {
+        // Only outgoing - raw value (no incoming to compare against)
+        diff = -Math.round(gvRaw);
+    } else if (get.length > 0 && give.length === 0) {
+        // Only incoming - raw value (no outgoing to compare against)
+        diff = Math.round(rvRaw);
+    } else {
+        // Both sides - use premium-adjusted values
+        diff = Math.round(rvPrem - gvPrem);
+    }
+    
+    // Display values: use RAW for solo, PREMIUM for trades (consistency)
+    const displayGive = (give.length > 0 && get.length === 0) ? gvRaw : gvPrem;
+    const displayGet = (get.length > 0 && give.length === 0) ? rvRaw : rvPrem;
+    
+    document.getElementById('giveValue').textContent = displayGive.toFixed(0);
+    document.getElementById('getValue').textContent = displayGet.toFixed(0);
+    
+    // Summary shows same values as main display for consistency
+    document.getElementById('summaryGiveVal').textContent = displayGive.toFixed(0);
+    document.getElementById('summaryGetVal').textContent = displayGet.toFixed(0);
     const diffEl = document.getElementById('tradeDiff'), labelEl = document.getElementById('tradeLabel');
-    // Fair threshold: 1500 points (~15% of max value) - more reasonable for KTC scale
+    // Fair threshold: 1500 points (~15% of max value)
     if (give.length === 0 && get.length === 0) {
         diffEl.textContent = 'EVEN'; diffEl.className = 'font-bebas text-8xl mb-3 delta-even'; labelEl.textContent = 'No assets selected';
     } else if (Math.abs(diff) < FAIR_THRESHOLD) {
@@ -767,16 +807,7 @@ function renderSelectedList(side) {
     // Use data attributes and event delegation for reliable click handling
     el.innerHTML = list.map(p => `<div class="player-card selected" data-player-id="${p.id}" data-side="${side}"><div class="flex items-center gap-2"><span class="pos-badge pos-${p.pos}">${p.pos}</span><span class="text-sm font-semibold">${p.name}</span></div><div class="flex items-center gap-2"><span class="text-xs font-bebas text-amber-500">${p.value.toLocaleString()}</span><button type="button" class="remove-btn" data-action="remove" data-player-id="${p.id}" data-side="${side}" title="Remove player">✕</button></div></div>`).join('');
     
-    // Add click handler for remove buttons using event delegation
-    el.querySelectorAll('.remove-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const playerId = this.getAttribute('data-player-id');
-            const playerSide = this.getAttribute('data-side');
-            console.log('Remove button clicked:', playerId, playerSide);
-            removePlayer(playerId, playerSide);
-        });
-    });
+    // Remove button clicks handled by document-level event delegation (see above)
 }
 
 async function analyze() {
