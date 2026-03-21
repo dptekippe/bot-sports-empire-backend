@@ -4,12 +4,27 @@ Pre-Action Memory Search Hook
 
 Purpose: Search memory before significant actions to provide context
 Connected to pgvector on Render PostgreSQL
+
+Integrates with cognitive_memory.py for enhanced recall:
+- memories table: Fast keyword search
+- agent_memories table: Semantic search via OpenAI embeddings
 """
 
 import os
+import sys
 import json
 import datetime
 from typing import Dict, List, Optional
+
+# Add workspace to path for cognitive_memory import
+sys.path.insert(0, '/Users/danieltekippe/.openclaw/workspace')
+
+# Import cognitive_memory for enhanced recall
+try:
+    import cognitive_memory
+    COGNITIVE_MEMORY_AVAILABLE = True
+except ImportError:
+    COGNITIVE_MEMORY_AVAILABLE = False
 
 # Database configuration - Render PostgreSQL
 DATABASE_URL = os.environ.get(
@@ -122,20 +137,39 @@ def pre_action_memory_search(context: Dict) -> Optional[List[Dict]]:
         # Still return recent memories even without keywords
         keywords = ["recent"]
     
-    # Perform safe search
+    # Perform safe search on memories table (pgvector keyword search)
     query = " ".join(keywords)
     results = memory_search_safe(query, max_results=5)
+    
+    # ALSO call cognitive_memory.pre_action_recall() for semantic search
+    cognitive_results = None
+    if COGNITIVE_MEMORY_AVAILABLE:
+        try:
+            # Build query from context
+            query_text = context.get('command', '') or context.get('user_request', '') or context.get('message', '') or " ".join(keywords)
+            cognitive_context = cognitive_memory.pre_action_recall(query_text)
+            if cognitive_context:
+                print(f"[Memory Contract] Cognitive memory found context")
+                # cognitive_context is a formatted string, convert to result dict for compatibility
+                cognitive_results = [{"content": cognitive_context, "source": "cognitive_memory"}]
+        except Exception as e:
+            print(f"[Memory Contract] Cognitive memory search failed: {e}")
     
     # Log for compliance tracking
     log_search(context, keywords, results)
     
     if results:
-        print(f"[Memory Contract] Found {len(results)} relevant memories")
+        print(f"[Memory Contract] Found {len(results)} relevant memories (pgvector)")
         for i, r in enumerate(results[:3]):
             print(f"  [{i+1}] {r.get('memory_type', 'unknown')} (score: {r.get('hybrid_score', 'N/A')})")
     else:
         print(f"[Memory Contract] No memories found (continuing anyway)")
     
+    # Combine results - cognitive results first (higher priority), then pgvector
+    if cognitive_results and results:
+        return cognitive_results + results
+    elif cognitive_results:
+        return cognitive_results
     return results
 
 # Test function
