@@ -11,23 +11,40 @@ Date: Mar 5, 2026 | Phase: Memory Systems Overhaul | Version 8.0
 - All crons reported "ok" while failing silently
 
 ### What We Fixed
-- Session Memory cron: Added VALIDATION checks
-- Added Memory Health Check cron (30 min)
-- Added Memory Heartbeat cron (30 min)
-- Subconscious/Muscle Memory crons: Fixed hardcoded Feb 20 dates
+- Session Memory cron: Added VALIDATION checks (later found to be isolated session issue)
+- Session Memory now uses proactive main-session writes (no cron dependency)
 - Dream Protocol: Fixed schedule (3 AM Chicago)
 - Created ~/shared_memory/ with core identity files
 - Full backup pushed to GitHub mirror
 
-### Current Crons
-| Cron | Frequency | Status |
-|------|-----------|--------|
-| Session Memory | 30 min | ✅ Updated with validation |
-| Memory Health Check | 30 min | ✅ NEW |
-| Memory Heartbeat | 30 min | ✅ NEW |
-| Subconscious Soul | 4 hrs | ✅ Fixed dynamic date |
-| Muscle Memory | 4 hrs | ✅ Fixed dynamic date |
-| Git Sync | 30 sec | ✅ Running |
+### Executive Decision (Mar 22, 2026)
+- Removed: Memory Health Check, Memory Heartbeat (unnecessary 30-min distractions)
+- Removed: Subconscious Soul, Muscle Memory (abandoned, stale since Feb)
+
+### Current Crons - ACTUAL STATUS (Updated Mar 22)
+| Cron | Frequency | Status | Notes |
+|------|-----------|--------|-------|
+| Session Memory | 30 min | ❌ **DISABLED** | Cron runs in isolated session, cannot access main session transcript |
+| Roger Memory Cleanup | daily 3am | ✅ Running | Daily memory file cleanup |
+| session-backup | daily 9pm | ✅ Running | Daily session backup |
+| Git Sync | 30 sec | ✅ Running | Working as expected |
+
+**Removed (Mar 22):** Memory Health Check, Memory Heartbeat, Subconscious Soul, Muscle Memory - all abandoned/unnecessary per executive decision
+
+### ⚠️ CRITICAL ISSUES
+- **Session Memory**: DISABLED because cron runs in isolated session context and cannot access `agent:main:main` session transcript
+- **False "ok" Claims**: Memory Health/Heartbeat crons report success but only check their own activity, not actual session capture
+- **Root Cause**: OpenClaw cron jobs run in restricted session context - cannot see main agent's conversation
+
+### Session Memory Cron - Technical Details
+**Problem**: The cron job runs in `sessionKey: agent:shadow:cron` which is isolated from the main agent session `agent:main:main`. When the cron tries to read session transcript, it reads its OWN transcript (just the cron prompt), not the user's conversation with the main agent.
+
+**Current Workaround**: Main session writes memory proactively (no longer relying on cron)
+
+**Possible Fixes** (not yet implemented):
+1. Use OpenClaw's `sessions_history` API from an external process to capture main session
+2. Configure cron with `sessionTarget: "main"` if OpenClaw supports it
+3. Use external observer pattern (like MaxClaw) to capture session from outside
 
 ### Memory Validation Reflex (MANDATORY)
 Every wakeup:

@@ -26,11 +26,10 @@ try:
 except ImportError:
     COGNITIVE_MEMORY_AVAILABLE = False
 
-# Database configuration - Render PostgreSQL
-DATABASE_URL = os.environ.get(
-    "DATABASE_URL",
-    "postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic73d9jdrg-a.oregon-postgres.render.com/dynastydroid"
-)
+# Database configuration - Environment variable REQUIRED
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is required")
 
 def extract_keywords(context: Dict) -> List[str]:
     """Extract search keywords from context"""

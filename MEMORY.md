@@ -390,7 +390,7 @@ postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic
 |-------|------|--------|----------|
 | **Scout** | System auditor / coder | `deepagents` | `/Volumes/ExternalCorsairSSD/Scout/` |
 | **Iris** | Web research / browser automation | `deepagents` + browser-use | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` |
-| **Hermes** | UI/UX design (TOMORROW) | Nous Research agent | External drive |
+| **Hermes** | UI/UX design | Nous Research agent | `/Volumes/ExternalCorsairSSD/Hermes/` |
 
 ### Key Insight: Scout Superior to Subagent
 Scout (DeepAgent) did a system audit and found CRITICAL issues:
@@ -401,11 +401,23 @@ Scout (DeepAgent) did a system audit and found CRITICAL issues:
 
 Scout went deeper, found the truth. This validates keeping Scout on my team.
 
-### Hermes Agent (Nous Research)
+### Hermes Agent (Nous Research) - FULLY OPERATIONAL (Mar 23, 2026)
 - Self-improving agent with built-in learning loop
 - Creates skills from experience → improves over time
-- NOT a migration from OpenClaw - new agent for UI/UX only
-- Will set up on external drive tomorrow
+- NOT a migration from OpenClaw - separate agent for UI/UX
+- **Installed:** `/Volumes/ExternalCorsairSSD/Hermes/` (symlinked to `~/.hermes`)
+- **Version:** Hermes Agent v0.4.0 (2026.3.18)
+- **Provider:** MiniMax M2.7
+- **Command:** `hermes` (global)
+
+**How to reach Hermes (non-interactive/headless):**
+```bash
+cd /Volumes/ExternalCorsairSSD/Hermes && hermes chat -Q -q "TASK" --provider minimax --toolsets "file,browser,code_execution,vision,web"
+```
+
+**Tool config:** `~/.openclaw/agents/main/tools/hermes-ui.yaml`
+
+**Tested & working:** Hermes responded "READY" on first try
 
 ---
 
