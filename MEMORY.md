@@ -380,3 +380,40 @@ postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic
 **Trade Loaded:** bijan_multi_2026 (5 steps, 5 insights)
 
 **Note:** This URL has been given to me multiple times. Store in memory going forward.
+
+---
+
+## [MAJOR] Agent Team Formalized (Mar 22, 2026)
+
+### My Personal Agent Team (Independent Processes)
+| Agent | Role | Method | Location |
+|-------|------|--------|----------|
+| **Scout** | System auditor / coder | `deepagents` | `/Volumes/ExternalCorsairSSD/Scout/` |
+| **Iris** | Web research / browser automation | `deepagents` + browser-use | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` |
+| **Hermes** | UI/UX design (TOMORROW) | Nous Research agent | External drive |
+
+### Key Insight: Scout Superior to Subagent
+Scout (DeepAgent) did a system audit and found CRITICAL issues:
+- Session Memory Cron BROKEN (subagent said "ok")
+- Memory Contract Hooks non-functional (all TODOs unimplemented)
+- Hardcoded DB credentials in files
+- Subconscious stale since Feb 17 (32+ days)
+
+Scout went deeper, found the truth. This validates keeping Scout on my team.
+
+### Hermes Agent (Nous Research)
+- Self-improving agent with built-in learning loop
+- Creates skills from experience → improves over time
+- NOT a migration from OpenClaw - new agent for UI/UX only
+- Will set up on external drive tomorrow
+
+---
+
+## [FACT] Trade Calculator Bugs Fixed (Mar 22, 2026)
+
+Fixed 3 bugs in trade-calculator.html:
+1. **Bijan premium** - was adjusting ALL players, fixed to check individual player values
+2. **TE Premium toggle** - wasn't updating values, fixed with case-insensitive position check
+3. **Mobile bar** - was showing on desktop, fixed with window.innerWidth < 768 check
+
+Pushed to GitHub: commits 9fd90b3 and e391c7d
