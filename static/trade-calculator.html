@@ -235,6 +235,9 @@
             padding: 12px;
             cursor: pointer;
             transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            max-width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
         }
         .dd-card:hover {
             box-shadow: 0 0 12px rgba(255,69,0,0.4);
@@ -393,7 +396,7 @@
                 justify-content: space-between;
             }
             .dd-card__stats {
-                grid-template-columns: repeat(2, minmax(110px, 1fr));
+                grid-template-columns: repeat(2, minmax(80px, 1fr));
                 justify-items: end;
             }
         }
@@ -660,7 +663,7 @@
                 </button>
                 <div id="giveSearchResults" class="search-results-overlay" style="display:none"></div>
             </div>
-            <div id="giveSelectedList" class="flex-1 space-y-2 min-h-[280px] max-h-[480px] overflow-y-auto drop-zone p-3 rounded-xl">
+            <div id="giveSelectedList" class="flex-1 space-y-2 min-h-[280px] max-h-[480px] overflow-y-auto overflow-x-hidden drop-zone p-3 rounded-xl">
                 <div class="h-full flex flex-col items-center justify-center text-gray-600 space-y-3 py-8">
                     <svg class="w-10 h-10 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M12 4v16m8-8H4" stroke-linecap="round"/>
@@ -715,7 +718,7 @@
                 </button>
                 <div id="getSearchResults" class="search-results-overlay" style="display:none"></div>
             </div>
-            <div id="getSelectedList" class="flex-1 space-y-2 min-h-[280px] max-h-[480px] overflow-y-auto drop-zone p-3 rounded-xl">
+            <div id="getSelectedList" class="flex-1 space-y-2 min-h-[280px] max-h-[480px] overflow-y-auto overflow-x-hidden drop-zone p-3 rounded-xl">
                 <div class="h-full flex flex-col items-center justify-center text-gray-600 space-y-3 py-8">
                     <svg class="w-10 h-10 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M12 4v16m8-8H4" stroke-linecap="round"/>
