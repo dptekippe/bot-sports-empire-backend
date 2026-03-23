@@ -935,15 +935,23 @@ function getTradeValue(consensusValue, rawKtc, t) {
     return ktcRawAdjust(baseValue, t);
 }
 
-fetch('/static/ktc_values.json')
-    .then(r => r.json())
-    .then(data => { 
-        allPlayers = (data || []).map(p => {
+// Fetch both KTC values and FantasyPros ADP data and merge them
+Promise.all([
+    fetch('/static/ktc_values.json').then(r => r.json()),
+    fetch('/static/fantasypros_values.json').then(r => r.json())
+])
+    .then(([ktcData, fpData]) => {
+        // Build ADP lookup by name
+        const adpLookup = {};
+        (fpData || []).forEach(p => { adpLookup[p.name] = p.rank; });
+        
+        allPlayers = (ktcData || []).map(p => {
             const teamMeta = p && p.team ? TEAM_DATA[p.team] : null;
             return {
                 ...p,
                 teamColor: teamMeta?.color || null,
                 teamName: teamMeta?.name || null,
+                adpRank: adpLookup[p.name] || null,
             };
         });
         document.getElementById('giveSearch').placeholder = 'Add player to give...';
@@ -1205,16 +1213,16 @@ function renderSelectedList(side) {
     <div class="dd-card__details" hidden>
       <div class="dd-card__detailsGrid">
         <div class="dd-detail">
+          <div class="dd-detail__label">Value</div>
+          <div class="dd-detail__value">${(p.value ?? 0).toLocaleString()}</div>
+        </div>
+        <div class="dd-detail">
+          <div class="dd-detail__label">ADP</div>
+          <div class="dd-detail__value">${(p.adpRank && p.adpRank !== 999) ? ('#' + p.adpRank) : '—'}</div>
+        </div>
+        <div class="dd-detail">
           <div class="dd-detail__label">Team</div>
           <div class="dd-detail__value">${p.team || '—'}</div>
-        </div>
-        <div class="dd-detail">
-          <div class="dd-detail__label">Age</div>
-          <div class="dd-detail__value">${p.age ? p.age : '—'}</div>
-        </div>
-        <div class="dd-detail">
-          <div class="dd-detail__label">Player ID</div>
-          <div class="dd-detail__value">${p.id || '—'}</div>
         </div>
       </div>
       <button type="button" class="remove-btn" data-action="remove" data-player-id="${p.id}" data-side="${side}" title="Remove player">✕</button>
@@ -1367,11 +1375,4 @@ function shareTrade() {
 }
 </script>
 </body>
-</html>
-rt("Copied!");
-}
-</script>
-</body>
-</html>
-body>
 </html>
