@@ -1,258 +1,108 @@
 # DynastyDroid HEARTBEAT
 
-Date: Mar 5, 2026 | Phase: Memory Systems Overhaul | Version 8.0
-
-## 🚨 MEMORY CRISIS - MAR 5, 2026
-
-### What Happened
-- Context reset wiped memory morning of Mar 5
-- Session hooks stopped capturing real conversation (root cause unknown)
-- No Mar 5 memory created until Daniel recounted at 4:58 PM
-- All crons reported "ok" while failing silently
-
-### What We Fixed
-- Session Memory cron: Added VALIDATION checks (later found to be isolated session issue)
-- Session Memory now uses proactive main-session writes (no cron dependency)
-- Dream Protocol: Fixed schedule (3 AM Chicago)
-- Created ~/shared_memory/ with core identity files
-- Full backup pushed to GitHub mirror
-
-### Executive Decision (Mar 22, 2026)
-- Removed: Memory Health Check, Memory Heartbeat (unnecessary 30-min distractions)
-- Removed: Subconscious Soul, Muscle Memory (abandoned, stale since Feb)
-
-### Current Crons - ACTUAL STATUS (Updated Mar 22)
-| Cron | Frequency | Status | Notes |
-|------|-----------|--------|-------|
-| Session Memory | 30 min | ❌ **DISABLED** | Cron runs in isolated session, cannot access main session transcript |
-| Roger Memory Cleanup | daily 3am | ✅ Running | Daily memory file cleanup |
-| session-backup | daily 9pm | ✅ Running | Daily session backup |
-| Git Sync | 30 sec | ✅ Running | Working as expected |
-
-**Removed (Mar 22):** Memory Health Check, Memory Heartbeat, Subconscious Soul, Muscle Memory - all abandoned/unnecessary per executive decision
-
-### ⚠️ CRITICAL ISSUES
-- **Session Memory**: DISABLED because cron runs in isolated session context and cannot access `agent:main:main` session transcript
-- **False "ok" Claims**: Memory Health/Heartbeat crons report success but only check their own activity, not actual session capture
-- **Root Cause**: OpenClaw cron jobs run in restricted session context - cannot see main agent's conversation
-
-### Session Memory Cron - Technical Details
-**Problem**: The cron job runs in `sessionKey: agent:shadow:cron` which is isolated from the main agent session `agent:main:main`. When the cron tries to read session transcript, it reads its OWN transcript (just the cron prompt), not the user's conversation with the main agent.
-
-**Current Workaround**: Main session writes memory proactively (no longer relying on cron)
-
-**Possible Fixes** (not yet implemented):
-1. Use OpenClaw's `sessions_history` API from an external process to capture main session
-2. Configure cron with `sessionTarget: "main"` if OpenClaw supports it
-3. Use external observer pattern (like MaxClaw) to capture session from outside
-
-### Memory Validation Reflex (MANDATORY)
-Every wakeup:
-1. Does today's memory exist? Is it new?
-2. Check session logs - Validation: PASS/FAIL?
-3. If FAIL: Alert immediately
-
-### Context Monitoring
-When approaching 70% context: Save memory proactively. Don't wait for cron.
+Date: Mar 23, 2026 | Phase: Team Growth + Platform Polish | Version 9.0
 
 ---
 
-## 📍 MY LIVE URLs:
-- e814e07d-641c-49fc-a01c-812d44716a1c (Roger2_Robot)
-- Email: dptekippe9@outlook.com (verified!)
-- ✅ Create post modal
-- ✅ Reply to posts
-- ✅ Channel sidebar navigation
+## 🤖 MY AGENT TEAM (Fully Operational)
 
-### Seeded Channels (11):
-| Slug | Name | Icon |
-|------|------|------|
-| bust-watch | Bust Watch | 🔥 |
-| sleepers | Sleepers | 😴 |
-| rising-stars | Rising Stars | ⭐ |
-| bot-beef | Bot Beef | 🥊 |
-| trade-rumors | Trade Rumors | 🤝 |
-| hot-takes | Hot Takes | 🌶️ |
-| waiver-wizards | Waiver Wizards | 🧙 |
-| locks | Locks | 🎯 |
-| playoff-push | Playoff Push | 🏈 |
-| grounds-crew | Grounds Crew | 🔧 |
-| general | General | 💬 |
+| Agent | Role | Location | Status |
+|-------|------|----------|--------|
+| **Scout** | Planning / coding / system audit | `/Volumes/ExternalCorsairSSD/Scout/` | ✅ Active |
+| **Iris** | Web research / browser automation | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` | ✅ Active |
+| **Hermes** | UI/UX design | `/Volumes/ExternalCorsairSSD/Hermes/` | ✅ Active |
+
+**How to reach them:**
+- **Scout:** `deepagents -n "task" --model anthropic:MiniMax-M2.7`
+- **Iris:** Python scripts in browser-use/ folder, run via exec
+- **Hermes:** `hermes chat -Q -q "task" --provider minimax --toolsets "file,browser,code_execution,vision,web"`
+
+**Tool config:** `~/.openclaw/agents/main/tools/hermes-ui.yaml`
 
 ---
 
-## 📍 MY LIVE URLs:
+## ⚠️ KNOWN ISSUES
+
+### Session Memory Cron: DISABLED
+- Cron runs in isolated session, cannot access main transcript
+- **Workaround:** Main session writes memory proactively
+- **No fix yet** - OpenClaw cron limitation
+
+### Memory Validation
+Every wakeup: Check if today's memory exists → session logs → PASS/FAIL
+
+---
+
+## 📊 DYNASTYDROID PLATFORM STATUS
+
+**Live URLs:**
 - **API:** http://localhost:8000/api/v1/
-- **Channel Page:** http://localhost:8000/static/channel.html?channel=general
-
----
-
-## 🔄 NEXT STEPS:
-1. Add to league dashboard sidebar (link to channel pages)
-2. Add locks-specific UI (pick confidence, game selection)
-3. User authentication (real usernames)
-4. Upvote/downvote system
-5. Push to GitHub/Render
-
----
-
-## ✅ COMPLETED FEB 28 - Deployment + Registration Flow
-
-### Deployment (Morning):
-- ✅ Pushed to GitHub (37 files)
-- ✅ Fixed: httpx missing (added to requirements.txt)
-- ✅ Fixed: psycopg2-binary for PostgreSQL
-- ✅ Render services cleaned up (deleted old duplicates)
-- ✅ Domain setup: app.dynastydroid.com → bot-sports-empire (pending DNS verification)
-
-### Registration Flow (Afternoon):
-- ✅ Wired dashboard.html to API endpoints
-- ✅ Create League → POST /api/v1/leagues
-- ✅ Join League → POST /api/v1/leagues/{id}/join
-- ✅ Auto-create user if not exists
-- ✅ Load leagues from API
-
-### Render Services (Clean):
-| Service | Type | Status |
-|---------|------|--------|
-| bot-sports-empire | Python | ✅ Running |
-| dynastydroid-db | PostgreSQL | ✅ Available |
-| dynastydroid-landing | Static | ✅ Running |
-
----
-
-## ✅ COMPLETED FEB 27 - League Dashboard Full Feature Set
-
-### Tabs Implemented:
-- ✅ **League Tab** - Standings + Matchups (per week 1-17)
-- ✅ **Team Tab** - Full roster display + Set Lineup modal (drag-and-drop)
-- ✅ **Matchups Tab** - Weekly matchups with week selector
-- ✅ **Draft Tab** - Mock/Live draft buttons + Draft history links
-- ✅ **Trades Tab** - Incoming/Outgoing/History + Propose Trade modal
-
-### API Endpoints Added:
-- ✅ `GET /api/v1/matchups/{league_id}/{week}` - Weekly matchups
-- ✅ `GET /api/v1/lineups/{league_id}/{week}` - Team lineups
-- ✅ `POST /api/v1/lineups` - Set lineup
-- ✅ `GET /api/v1/free-agents` - Available free agents
-- ✅ `POST /api/v1/trades` - Propose trade
-- ✅ `GET /api/v1/trades/{league_id}` - List trades
-- ✅ `POST /api/v1/trades/{id}/accept` - Accept trade
-- ✅ `POST /api/v1/trades/{id}/reject` - Reject trade
-
-### UI/UX Polish (Feb 27):
-- ✅ DynastyDroid SVG logo with glowing cyan eyes
-- ✅ Matte navy theme (#0a1428) + Orange neon accent (#ff4500)
-- ✅ Grid pattern background
-- ✅ Card hover effects with glow
-- ✅ Tab underline animation
-- ✅ Channel sidebar with hover effects
-- ✅ Trade cards with status badges
-
-### Channels (Left Sidebar):
-- 📞 1-800-ROGER - Direct hotline to Roger
-- 🔧 Grounds Crew - Technical discussion for bot collaborators
-- 🔥 Bust Watch, 😴 Sleepers, ⭐ Rising Stars, 🥊 Bot Beef, etc.
-
----
-
-## 🎯 MY MISSION: Connect Draft → Team → Glam Up
-
----
-
-### STEP 1: Connect Draft Board to League Dashboard ✅ COMPLETE
-
-**What we built instead:**
-- Full standalone draft board at `/draft`
-- Off-canvas player drawer with search/filters
-- 3-minute timer per pick
-- Premium matte navy theme with orange accents
-
----
-
-### STEP 2: Connect Team Tab to Draft Picks (Roster Display) ✅ COMPLETE
-
-**Completed:**
-- Sleeper API → 11,546 players
-- KTC ADP scraped → 358 matched players
-- Mock draft API → 20 rounds, snake order
-- Roster endpoint → starters + bench + IR + taxi
-- Team tab displays roster from draft
-
----
-
-### STEP 3: UI/UX Glam Up ✅ COMPLETE (Phase 1)
-
-**Completed:**
-- Matte navy theme (#0A1428)
-- Bebas Neue fonts for headers
-- Orange neon accents (#ff4500)
-- Glassmorphism cards
-- Off-canvas drawer pattern
-- Sticky headers
-
----
-
-## 📍 MY LIVE URLs:
 - **Frontend:** http://localhost:8000/draft
-- **Backend API:** http://localhost:8000
-- **League Dashboard:** http://localhost:8000/static/league-dashboard.html
+- **Dashboard:** http://localhost:8000/static/league-dashboard.html
+
+**Trade Calculator:** ✅ LIVE - `trade-calculator.html` with DynastyProcess values
+
+**Recent Wins:**
+- ✅ JSN $168.6M extension analysis (highest paid WR ever)
+- ✅ Kenneth Walker III to Chiefs dynasty impact documented
+- ✅ Post-free agency RB rankings (FantasyPros)
+- ✅ Trade calculator bugs fixed (Bijan premium, TE toggle, mobile bar)
 
 ---
 
-## ✅ COMPLETED TODAY (Feb 25):
+## 🎯 CURRENT FOCUS
 
-### Data Pipeline:
-- ✅ Sleeper Player API connected (11,546 players)
-- ✅ KTC ADP scraped (400 players → 358 matched)
-- ✅ Mock Draft API created (20 rounds, 12 teams)
-- ✅ Roster endpoint working
-
-### UI/UX:
-- ✅ Full-width draft board with premium theme
-- ✅ Off-canvas player drawer (floating button → slides in)
-- ✅ Position filters (QB/RB/WR/TE)
-- ✅ Player search functionality
-- ✅ 3-minute pick timer with color changes
-- ✅ DynastyDroid branding with logo
-- ✅ Glassmorphism + glow effects
-- ✅ Sticky headers while scrolling
-
-### Documentation:
-- ✅ IDENTITY.md updated with progress
-- ✅ SKILLS.md updated with new patterns
-- ✅ Created `/player_adp_import.json` with ranked players
+1. **Memory Cleanup** - Update HEARTBEAT.md (in progress)
+2. **Workflow Formalization** - Document Scout/Iris/Hermes delegation rules
+3. **Agent Growth Research** - Learn how to configure and optimize Scout & Hermes skills
 
 ---
 
-## 📝 KEY FILES:
-- `/static/draft.html` - Full draft board
-- `/static/league-dashboard.html` - Complete dashboard (v2.7)
-- `/main.py` - FastAPI backend with all endpoints
+## 📝 DELEGATION WORKFLOW (Draft)
+
+```
+Task Type → Agent → Method
+
+Planning / Architecture → Scout → deepagents
+System Audit / Debug → Scout → deepagents
+Code Implementation → Scout → deepagents
+
+Web Research → Iris → browser-use Python script
+Browser Automation → Iris → browser-use Python script
+Quick Search → web_search (direct)
+
+UI/UX Design → Hermes → hermes chat -Q -q "..."
+React Components → Hermes → hermes chat -Q -q "..."
+Frontend Polish → Hermes → hermes chat -Q -q "..."
+
+Everything else → Roger (me)
+```
 
 ---
 
-## 🔄 NEXT STEPS (Phase 9):
-### User-League Flow Integration
-1. **User Table** - Add to PostgreSQL (id, username, created_at)
-2. **League Table** - Add to PostgreSQL (id, name, commissioner_id, created_at)
-3. **League Members Table** - Link users to leagues
-4. **API Endpoints:**
-   - POST /api/v1/users - Create user
-   - POST /api/v1/leagues - Create league  
-   - POST /api/v1/leagues/{id}/join - Join league
-   - GET /api/v1/users/{id}/leagues - Get user's leagues
-5. **Frontend:** Replace hardcoded "Primetime" with dynamic league data
-6. **Dashboard:** Load user's actual leagues from API
+## ✅ RECENT MILESTONES
 
-### Post Integration:
-- Push to GitHub/Render for production
-- Connect registration to user creation
-- Connect create/join to league creation
+| Date | Milestone |
+|------|-----------|
+| Mar 23, 2026 | Team complete: Scout + Iris + Hermes all operational |
+| Mar 23, 2026 | Hermes tool config created at `~/.openclaw/agents/main/tools/hermes-ui.yaml` |
+| Mar 23, 2026 | Iris tested with 5-min timeout - success |
+| Mar 22, 2026 | Trade Calculator bugs fixed (3 bugs) |
+| Mar 22, 2026 | Scout identified critical system issues (Session Memory broken) |
+| Mar 19, 2026 | DynastyDroid pivot: Trade Calculator focus |
+| Mar 11, 2026 | Epistemic Humility protocol adopted |
+| Mar 3, 2026 | Full platform live on Render |
 
 ---
 
-## 📝 KEY FILES:
-- `/static/draft.html` - Full draft board
-- `/static/league-dashboard.html` - Complete dashboard (v2.7)
-- `/main.py` - FastAPI backend with all endpoints
+## 🔄 NEXT STEPS (Priority Order)
+
+1. **HEARTBEAT update** - In progress
+2. **Workflow documentation** - Formalize delegation rules
+3. **Scout/Hermes optimization research** - How to configure skills for growth
+4. **Trade calculator improvements** - Integrate fresh dynasty data from Iris
+5. **Memory system cleanup** - Prune stale memory files
+
+---
+
+*Last updated: Mar 23, 2026 by Roger*
