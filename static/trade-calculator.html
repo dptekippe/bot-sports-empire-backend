@@ -226,10 +226,145 @@
         .pos-TE:hover { box-shadow: 0 0 12px rgba(139, 92, 246, 0.5); }
         .pos-Pick:hover { box-shadow: 0 0 12px rgba(107, 114, 128, 0.5); }
         
-        /* Improved mobile touch targets */
+        /* DynastyDroid Player Card (dd-card) */
+        .dd-card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+        .dd-card:hover {
+            box-shadow: 0 0 12px rgba(255,69,0,0.4);
+            border-color: rgba(255,69,0,0.35);
+            transform: translateY(-1px);
+        }
+        .dd-card:focus-visible {
+            outline: 2px solid rgba(6, 182, 212, 0.8);
+            outline-offset: 2px;
+        }
+        .dd-card__summary {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .dd-card__main {
+            display: grid;
+            gap: 6px;
+        }
+        .dd-card__name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.06em;
+            color: #fff;
+            line-height: 1.05;
+        }
+        .dd-card__meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+        .dd-card__team {
+            color: rgba(255,69,0,0.9);
+            font-weight: 800;
+        }
+        .dd-card__stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+        .dd-stat {
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .dd-stat__label {
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 4px;
+        }
+        .dd-stat__value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+        .dd-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 20px;
+            padding: 0 10px;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 0.14em;
+            color: #0a0f1e;
+        }
+        .dd-badge--qb { background: #ff3333; }
+        .dd-badge--rb { background: #00D4FF; }
+        .dd-badge--wr { background: #FFD700; }
+        .dd-badge--te { background: #32CD32; }
+
+        .dd-card__details {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .dd-card__detailsGrid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .dd-detail {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .dd-detail__label {
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 4px;
+        }
+        .dd-detail__value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .player-card {
                 padding: 14px 16px;
+            }
+            .dd-card {
+                padding: 12px;
+            }
+            .dd-card__name {
+                font-size: 1.25rem;
+            }
+            .dd-card__detailsGrid {
+                grid-template-columns: 1fr;
             }
             .remove-btn {
                 padding: 8px 12px;
@@ -248,6 +383,18 @@
             }
             .glass-panel:hover {
                 transform: none; /* Disable hover transform on mobile */
+            }
+        }
+
+        @media (min-width: 640px) {
+            .dd-card__summary {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .dd-card__stats {
+                grid-template-columns: repeat(2, minmax(110px, 1fr));
+                justify-items: end;
             }
         }
         .search-results-overlay {
@@ -673,6 +820,42 @@ const STUD_THRESHOLD = 8000;  // Elite player threshold (raw value)
 const PREMIUM_STUD_REFERENCE = 8200;  // Reference point for stud premium curve
 const PREMIUM_VALUE_REFERENCE = 9999;  // Reference point for value scaling
 
+// Team Data Mapping
+const TEAM_DATA = {
+  'BUF': { color: '#00338D', name: 'Bills' },
+  'KC': { color: '#E31837', name: 'Chiefs' },
+  'MIN': { color: '#4F2683', name: 'Vikings' },
+  'PHI': { color: '#004C54', name: 'Eagles' },
+  'SF': { color: '#AA0000', name: '49ers' },
+  'DAL': { color: '#003594', name: 'Cowboys' },
+  'DET': { color: '#0076B6', name: 'Lions' },
+  'MIA': { color: '#008E97', name: 'Dolphins' },
+  'BAL': { color: '#44003872', name: 'Ravens' },
+  'CIN': { color: '#FB4F14', name: 'Bengals' },
+  'LAC': { color: '#0080C6', name: 'Chargers' },
+  'LV': { color: '#000000', name: 'Raiders' },
+  'NE': { color: '#002244', name: 'Patriots' },
+  'NYJ': { color: '#125740', name: 'Jets' },
+  'JAX': { color: '#006778', name: 'Jaguars' },
+  'IND': { color: '#002C5F', name: 'Colts' },
+  'HOU': { color: '#03202F', name: 'Texans' },
+  'TEN': { color: '#4B92DB', name: 'Titans' },
+  'DEN': { color: '#FB4F14', name: 'Broncos' },
+  'CLE': { color: '#311D00', name: 'Browns' },
+  'PIT': { color: '#FFB612', name: 'Steelers' },
+  'CHI': { color: '#C83803', name: 'Bears' },
+  'GB': { color: '#203731', name: 'Packers' },
+  'TB': { color: '#D50A0A', name: 'Buccaneers' },
+  'NO': { color: '#D3BC8D', name: 'Saints' },
+  'ATL': { color: '#A71930', name: 'Falcons' },
+  'CAR': { color: '#0085CA', name: 'Panthers' },
+  'SEA': { color: '#69B3C7', name: 'Seahawks' },
+  'LAR': { color: '#003594', name: 'Rams' },
+  'ARI': { color: '#97233F', name: 'Cardinals' },
+  'NYG': { color: '#0B2265', name: 'Giants' },
+  'WAS': { color: '#5A2D81', name: 'Commanders' },
+};
+
 // PICK PREMIUM: Early picks get premium when traded for lowball offers
 // 1.01=25%, 1.02=20%, 1.03=15%, 1.04-1.12=10%
 const PICK_PREMIUM = {
@@ -755,7 +938,14 @@ function getTradeValue(consensusValue, rawKtc, t) {
 fetch('/static/ktc_values.json')
     .then(r => r.json())
     .then(data => { 
-        allPlayers = data; 
+        allPlayers = (data || []).map(p => {
+            const teamMeta = p && p.team ? TEAM_DATA[p.team] : null;
+            return {
+                ...p,
+                teamColor: teamMeta?.color || null,
+                teamName: teamMeta?.name || null,
+            };
+        });
         document.getElementById('giveSearch').placeholder = 'Add player to give...';
         document.getElementById('getSearch').placeholder = 'Add player to get...';
         updateUI(); 
@@ -814,28 +1004,48 @@ function addPlayerById(id, side) {
     updateUI();
 }
 
-// Document-level event delegation for remove buttons (more reliable)
+// Document-level event delegation for remove buttons + player card expand/collapse
+// Remove buttons stop propagation so the card itself doesn't toggle.
 document.addEventListener('click', function(e) {
     const btn = e.target.closest('.remove-btn');
     if (btn) {
         e.stopPropagation();
         const playerId = btn.getAttribute('data-player-id');
         const playerSide = btn.getAttribute('data-side');
-        console.log('Remove button clicked via delegation:', playerId, playerSide);
         removePlayer(playerId, playerSide);
+        return;
     }
+
+    const card = e.target.closest('.dd-card');
+    if (!card) return;
+    const details = card.querySelector('.dd-card__details');
+    if (!details) return;
+    const isExpanded = card.getAttribute('aria-expanded') === 'true';
+    card.setAttribute('aria-expanded', String(!isExpanded));
+    details.hidden = isExpanded;
+});
+
+// Keyboard support for player cards (Enter/Space toggles)
+document.addEventListener('keydown', function(e) {
+    const card = e.target?.closest ? e.target.closest('.dd-card') : null;
+    if (!card) return;
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+
+    const details = card.querySelector('.dd-card__details');
+    if (!details) return;
+    const isExpanded = card.getAttribute('aria-expanded') === 'true';
+    card.setAttribute('aria-expanded', String(!isExpanded));
+    details.hidden = isExpanded;
 });
 
 function removePlayer(id, side) {
-    console.log('Removing player:', id, 'from', side);
     // Normalize id for comparison (handle string/number mismatch)
     const playerId = String(id).trim();
     if (side === 'give') {
         give = give.filter(p => String(p.id).trim() !== playerId);
-        console.log('give array after removal:', give.map(p => p.name));
     } else {
         get = get.filter(p => String(p.id).trim() !== playerId);
-        console.log('get array after removal:', get.map(p => p.name));
     }
     updateUI();
 }
@@ -971,7 +1181,46 @@ function renderSelectedList(side) {
     }
     el.classList.add('has-items');
     // Use data attributes and event delegation for reliable click handling
-    el.innerHTML = list.map(p => `<div class="player-card selected" data-player-id="${p.id}" data-side="${side}"><div class="flex items-center gap-2"><span class="pos-badge pos-${p.pos}">${p.pos}</span><span class="text-sm font-semibold">${p.name}</span></div><div class="flex items-center gap-2"><span class="text-xs font-bebas text-amber-500">${p.value.toLocaleString()}</span><button type="button" class="remove-btn" data-action="remove" data-player-id="${p.id}" data-side="${side}" title="Remove player">✕</button></div></div>`).join('');
+    el.innerHTML = list.map(p => `
+  <div class="dd-card" role="button" tabindex="0" aria-expanded="false" data-player-id="${p.id}" data-side="${side}">
+    <div class="dd-card__summary">
+      <div class="dd-card__main">
+        <div class="dd-card__name">${p.name}</div>
+        <div class="dd-card__meta">
+          <span class="dd-badge dd-badge--${String(p.pos || '').toLowerCase()}">${p.pos}</span>
+          <span class="dd-card__team" style="${p.teamColor ? ('color:' + p.teamColor) : ''}">${p.team || ''}</span>
+        </div>
+      </div>
+      <div class="dd-card__stats">
+        <div class="dd-stat">
+          <div class="dd-stat__label">KTC</div>
+          <div class="dd-stat__value">${(p.value ?? 0).toLocaleString()}</div>
+        </div>
+        <div class="dd-stat">
+          <div class="dd-stat__label">ADP</div>
+          <div class="dd-stat__value">${(p.adpRank && p.adpRank !== 999) ? ('#' + p.adpRank) : '—'}</div>
+        </div>
+      </div>
+    </div>
+    <div class="dd-card__details" hidden>
+      <div class="dd-card__detailsGrid">
+        <div class="dd-detail">
+          <div class="dd-detail__label">Team</div>
+          <div class="dd-detail__value">${p.team || '—'}</div>
+        </div>
+        <div class="dd-detail">
+          <div class="dd-detail__label">Age</div>
+          <div class="dd-detail__value">${p.age ? p.age : '—'}</div>
+        </div>
+        <div class="dd-detail">
+          <div class="dd-detail__label">Player ID</div>
+          <div class="dd-detail__value">${p.id || '—'}</div>
+        </div>
+      </div>
+      <button type="button" class="remove-btn" data-action="remove" data-player-id="${p.id}" data-side="${side}" title="Remove player">✕</button>
+    </div>
+  </div>
+`).join('');
     
     // Remove button clicks handled by document-level event delegation (see above)
 }
