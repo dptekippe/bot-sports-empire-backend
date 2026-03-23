@@ -356,10 +356,6 @@
             box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
         }
         .summary-value { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.5rem; }
-        .info-footer {
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
-            border-top: 1px solid rgba(55, 65, 81, 0.3);
-        }
         @keyframes pulse-glow {
             0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.2); }
             70% { box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
@@ -414,6 +410,56 @@
         .player-card:hover .remove-btn {
             opacity: 1;
         }
+        /* Trade Grade Badge */
+        .grade-badge {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            line-height: 1;
+            padding: 0.5rem 1.25rem;
+            border-radius: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .grade-A-plus { background: linear-gradient(135deg, #10B981, #059669); color: white; box-shadow: 0 0 30px rgba(16, 185, 129, 0.5); }
+        .grade-A { background: linear-gradient(135deg, #34D399, #10B981); color: white; box-shadow: 0 0 25px rgba(16, 185, 129, 0.4); }
+        .grade-B-plus { background: linear-gradient(135deg, #F59E0B, #D97706); color: white; box-shadow: 0 0 25px rgba(245, 158, 11, 0.4); }
+        .grade-B { background: linear-gradient(135deg, #FBBF24, #F59E0B); color: black; box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
+        .grade-C { background: linear-gradient(135deg, #9CA3AF, #6B7280); color: white; box-shadow: 0 0 15px rgba(156, 163, 175, 0.3); }
+        .grade-D { background: linear-gradient(135deg, #F97316, #EA580C); color: white; box-shadow: 0 0 20px rgba(249, 115, 22, 0.4); }
+        .grade-F { background: linear-gradient(135deg, #EF4444, #DC2626); color: white; box-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
+        /* Confidence Meter */
+        .confidence-bar-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            height: 24px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+        .confidence-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.8s ease-out;
+        }
+        .confidence-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        /* Scenario Probabilities */
+        .scenario-bar {
+            display: flex;
+            height: 32px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .scenario-win { background: linear-gradient(90deg, #10B981, #34D399); }
+        .scenario-even { background: linear-gradient(90deg, #6B7280, #9CA3AF); }
+        .scenario-lose { background: linear-gradient(90deg, #EF4444, #F87171); }
+        .scenario-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -442,6 +488,14 @@
             </label>
         </div>
     </nav>
+
+<script>
+    // TE Premium toggle listener - clear consensus cache and recalculate when toggled
+    document.getElementById('tePremium').addEventListener('change', function() {
+        consensusCache = {};  // Clear cached API values so TE premium recalculates correctly
+        updateUI();
+    });
+</script>
 
     <main class="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-7xl mx-auto page-load page-load-delay-1">
         <section id="giveContainer" class="lg:col-span-4 glass-panel give-panel p-6 flex flex-col min-h-[520px]">
@@ -536,23 +590,6 @@
         </section>
     </main>
 
-    <footer class="info-footer mt-8 py-4 px-6 max-w-7xl mx-auto page-load page-load-delay-3">
-        <div class="flex flex-wrap items-center justify-between gap-4 text-[10px] text-gray-600">
-            <div class="flex items-center gap-6">
-                <span class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    Data: KeepTradeCut + DynastyProcess
-                </span>
-                <span>Updated: March 2026</span>
-            </div>
-            <div class="flex items-center gap-4">
-                <span class="text-gray-700">DynastyDroid v2.0</span>
-                <span class="text-gray-800">|</span>
-                <span>Superflex + TEP Enabled</span>
-            </div>
-        </div>
-    </footer>
-
     <div id="resultsModal" class="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm" style="display:none">
         <div class="glass-panel w-full max-w-3xl p-8 max-h-[90vh] overflow-y-auto border-cyan-500/30">
             <div class="flex justify-between items-start mb-6">
@@ -579,6 +616,36 @@
                     <div class="bg-cyan-500/5 p-4 rounded-xl border border-cyan-500/20">
                         <p class="text-[10px] font-bold text-cyan-400 uppercase mb-2">Roger AI Insights</p>
                         <p id="modalNarrative" class="text-gray-300 text-xs italic leading-relaxed"></p>
+                    </div>
+                    <!-- Trade Grade Badge -->
+                    <div class="mt-4 flex items-center justify-center gap-4">
+                        <span class="text-[10px] text-gray-500 uppercase tracking-wider">Trade Grade</span>
+                        <span id="tradeGrade" class="grade-badge grade-B">B</span>
+                    </div>
+                    <!-- Confidence Meter -->
+                    <div class="mt-4 p-3 bg-black/20 rounded-xl border border-gray-800/30">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] text-gray-500 uppercase tracking-wider">Confidence</span>
+                            <span id="confidenceValue" class="confidence-label text-cyan-400">75%</span>
+                        </div>
+                        <div class="confidence-bar-container">
+                            <div id="confidenceBar" class="confidence-bar-fill bg-gradient-to-r from-cyan-500 to-cyan-400" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <!-- Scenario Probabilities -->
+                    <div class="mt-4 p-3 bg-black/20 rounded-xl border border-gray-800/30">
+                        <p class="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Scenario Probabilities</p>
+                        <div class="scenario-bar" id="scenarioBar">
+                            <div id="winBar" class="scenario-win flex items-center justify-center" style="width: 33%">
+                                <span id="winPct" class="scenario-label text-white">WIN 33%</span>
+                            </div>
+                            <div id="evenBar" class="scenario-even flex items-center justify-center" style="width: 33%">
+                                <span id="evenPct" class="scenario-label text-white">EVEN 33%</span>
+                            </div>
+                            <div id="loseBar" class="scenario-lose flex items-center justify-center" style="width: 34%">
+                                <span id="losePct" class="scenario-label text-white">LOSE 34%</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -639,14 +706,27 @@ function getPickPremiumPercent(round, position) {
 }
 
 /**
+ * Get TE Premium value (500 if checkbox is checked, else 0)
+ */
+const getTEPremiumValue = () => document.getElementById('tePremium').checked ? 500 : 0;
+
+/**
  * Get player value from consensus cache or fallback to raw value.
+ * Adds TE Premium for TE players when enabled.
  * Handles null/undefined gracefully.
  */
 function getPlayerValue(p) {
+    let baseValue;
     if (consensusCache?.[p.name]) {
-        return consensusCache[p.name] * 10;
+        baseValue = consensusCache[p.name] * 10;
+    } else {
+        baseValue = p.value ?? 0;
     }
-    return p.value ?? 0;
+    // Add TE Premium for tight ends
+    if (p.pos?.toUpperCase() === 'TE') {
+        baseValue += getTEPremiumValue();
+    }
+    return baseValue;
 }
 
 /**
@@ -773,8 +853,8 @@ function updateUI() {
     
     // STUD PREMIUM: Apply to elite players (raw >= 8000) when incoming is a lowball (< 75% of player value)
     // Premium corrects KTC's undervaluation of studs vs draft picks
-    function calcWithPremium(playerValue, incomingTotal) {
-        if (incomingTotal > 0 && incomingTotal < playerValue * LOWBALL_THRESHOLD) {
+    function calcWithPremium(playerValue, incomingPlayers) {
+        if (incomingPlayers.length > 0 && incomingPlayers.some(p => getPlayerValue(p) < playerValue * LOWBALL_THRESHOLD)) {
             // Lowball detected - apply stud premium
             const adjFactor = 0.1 + 0.2 * Math.pow(playerValue / PREMIUM_VALUE_REFERENCE, 1.5) + 0.1 * Math.pow(playerValue / PREMIUM_STUD_REFERENCE, 1.2);
             return Math.round(playerValue * (1 + adjFactor));
@@ -812,7 +892,7 @@ function updateUI() {
             }
             return s + val;
         } else if (get.length > 0 && val >= STUD_THRESHOLD) {
-            return s + calcWithPremium(val, rvRaw);
+            return s + calcWithPremium(val, get);
         }
         return s + val;
     }, 0);
@@ -826,7 +906,7 @@ function updateUI() {
             }
             return s + val;
         } else if (give.length > 0 && val >= STUD_THRESHOLD) {
-            return s + calcWithPremium(val, gvRaw);
+            return s + calcWithPremium(val, give);
         }
         return s + val;
     }, 0);
@@ -872,7 +952,9 @@ function updateUI() {
     }
     document.getElementById('mobileDiff').textContent = diffEl.textContent;
     document.getElementById('analyzeBtn').disabled = ( give.length === 0 || get.length === 0 );
-    document.getElementById('mobileSummary').style.display = (give.length > 0 || get.length > 0) ? 'flex' : 'none';
+    // Only show mobile summary on actual mobile devices (screen < 768px)
+    const isMobile = window.innerWidth < 768;
+    document.getElementById('mobileSummary').style.display = isMobile && (give.length > 0 || get.length > 0) ? 'flex' : 'none';
     // Highlight winning side: positive diff = incoming (get) is winning (GOOD), negative diff = outgoing (give) is winning (BAD)
     document.getElementById('getContainer').classList.toggle('winning-side', diff > FAIR_THRESHOLD);
     document.getElementById('giveContainer').classList.toggle('winning-side', diff < -FAIR_THRESHOLD);
@@ -936,9 +1018,88 @@ function showModal(data, tep) {
         diff = Math.round(rvRaw - gvRaw);
     }
     
+    // Calculate Trade Grade based on margin
+    const margin = Math.abs(diff);
+    const maxValue = Math.max(gvRaw, rvRaw, 1);
+    const marginPct = (margin / maxValue) * 100;
+    let grade = 'C';
+    let gradeClass = 'grade-C';
+    if (diff > 0) {
+        // Good trade - grade based on how good
+        if (marginPct >= 50) { grade = 'A+'; gradeClass = 'grade-A-plus'; }
+        else if (marginPct >= 30) { grade = 'A'; gradeClass = 'grade-A'; }
+        else if (marginPct >= 20) { grade = 'B+'; gradeClass = 'grade-B-plus'; }
+        else if (marginPct >= 10) { grade = 'B'; gradeClass = 'grade-B'; }
+        else { grade = 'C'; gradeClass = 'grade-C'; }
+    } else if (diff < 0) {
+        // Bad trade - grade based on how bad
+        if (marginPct >= 50) { grade = 'F'; gradeClass = 'grade-F'; }
+        else if (marginPct >= 30) { grade = 'D'; gradeClass = 'grade-D'; }
+        else if (marginPct >= 20) { grade = 'D'; gradeClass = 'grade-D'; }
+        else if (marginPct >= 10) { grade = 'C'; gradeClass = 'grade-C'; }
+        else { grade = 'B'; gradeClass = 'grade-B'; }
+    }
+    // Even trade
+    if (diff === 0) { grade = 'B'; gradeClass = 'grade-B'; }
+    
+    // Calculate Confidence based on trade size and certainty
+    // Larger trades with more assets = higher confidence
+    const assetCount = give.length + get.length;
+    const avgValue = (gvRaw + rvRaw) / 2;
+    let confidence = 65; // Base confidence
+    if (assetCount >= 4) confidence += 15;
+    else if (assetCount >= 2) confidence += 10;
+    if (avgValue > 15000) confidence += 10;
+    else if (avgValue > 8000) confidence += 5;
+    if (marginPct < 10) confidence += 10; // Clear verdict = higher confidence
+    confidence = Math.min(confidence, 98); // Cap at 98%
+    
+    // Calculate Scenario Probabilities
+    // Win = positive diff, Lose = negative diff, Even = within threshold
+    let winPct, evenPct, losePct;
+    if (diff > 0) {
+        // Positive outcome scenarios
+        if (marginPct >= 30) {
+            winPct = 75; evenPct = 15; losePct = 10;
+        } else if (marginPct >= 15) {
+            winPct = 60; evenPct = 25; losePct = 15;
+        } else {
+            winPct = 45; evenPct = 35; losePct = 20;
+        }
+    } else if (diff < 0) {
+        // Negative outcome scenarios
+        if (marginPct >= 30) {
+            winPct = 10; evenPct = 15; losePct = 75;
+        } else if (marginPct >= 15) {
+            winPct = 15; evenPct = 25; losePct = 60;
+        } else {
+            winPct = 20; evenPct = 35; losePct = 45;
+        }
+    } else {
+        // Even trade
+        winPct = 33; evenPct = 34; losePct = 33;
+    }
+    
     document.getElementById('modalGiveVal').textContent = Math.round(gvRaw).toLocaleString();
     document.getElementById('modalGetVal').textContent = Math.round(rvRaw).toLocaleString();
     document.getElementById('modalDiffVal').textContent = (diff > 0 ? '+' : '') + diff.toLocaleString();
+    
+    // Update Trade Grade
+    const gradeEl = document.getElementById('tradeGrade');
+    gradeEl.textContent = grade;
+    gradeEl.className = 'grade-badge ' + gradeClass;
+    
+    // Update Confidence Meter
+    document.getElementById('confidenceValue').textContent = confidence + '%';
+    document.getElementById('confidenceBar').style.width = confidence + '%';
+    
+    // Update Scenario Probabilities
+    document.getElementById('winBar').style.width = winPct + '%';
+    document.getElementById('evenBar').style.width = evenPct + '%';
+    document.getElementById('loseBar').style.width = losePct + '%';
+    document.getElementById('winPct').textContent = 'WIN ' + winPct + '%';
+    document.getElementById('evenPct').textContent = 'EVEN ' + evenPct + '%';
+    document.getElementById('losePct').textContent = 'LOSE ' + losePct + '%';
     
     let msg = `Trade analysis complete. Gap of ${Math.abs(diff)} points is ${Math.abs(diff) < FAIR_THRESHOLD ? 'within fair trade range (FAIR trade)' : (diff > 0 ? 'GOOD FOR YOU - you\'re getting more value than you\'re giving' : 'BAD FOR YOU - you\'re giving more value than you\'re getting')}.`;
     if (tep) msg += " Tight End Premium was active for this calculation.";
@@ -957,4 +1118,11 @@ function shareTrade() {
 }
 </script>
 </body>
+</html>
+rt("Copied!");
+}
+</script>
+</body>
+</html>
+body>
 </html>
