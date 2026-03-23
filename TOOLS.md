@@ -139,6 +139,76 @@ EOF
 
 **Memory:** Successfully tested 2026-02-18 with Safari navigation to duckduckgo.com → perplexity.ai → JavaScript text entry.
 
+## 🤖 Iris (browser-use - AI Web Agent)
+
+**AI-powered browser automation** - smarter than CDP, handles JS-heavy sites.
+
+### When to use browser-use vs CDP:
+- **CDP (openclaw browser):** Simple tasks, screenshots, basic automation
+- **browser-use:** Complex tasks, research, scraping dynamic content, AI adaptation
+
+### Setup (already done):
+- Location: `/Volumes/ExternalCorsairSSD/Scout/browser-use/`
+- Activate: `source .venv/bin/activate`
+- Requires: OPENAI_API_KEY
+
+### Quick script:
+```python
+import asyncio
+from browser_use import Agent, Browser
+from browser_use.llm import ChatOpenAI
+
+async def main():
+    browser = Browser(user_data_dir="/Volumes/ExternalCorsairSSD/Scout/browser-use/user-data")
+    agent = Agent(task="YOUR TASK HERE", llm=ChatOpenAI(model="gpt-4o"), browser=browser)
+    result = await agent.run()
+    print(result)
+    await browser.close()
+
+asyncio.run(main())
+```
+
+### What makes it different:
+- AI thinks step-by-step
+- Auto-adapts when pages fail (404s, errors)
+- Can search the web (DuckDuckGo)
+- Extracts structured data from pages
+
+### Skill: `skills/browser-use/SKILL.md`
+
+## 🤖 DeepAgent (Scout)
+
+**AI coding assistant** - runs code, files, git in persistent sessions.
+
+### Setup (already done):
+- Location: `/Volumes/ExternalCorsairSSD/Scout/`
+- DeepAgent memories: `deepagent_memories/.deepagents/`
+- Skill: `skills/deepagent/SKILL.md`
+
+### Running Scout (DeepAgent):
+```bash
+# With MiniMax M2.7, no sandbox
+deepagents --model anthropic:MiniMax-M2.7 \
+  --model-params '{"base_url": "https://api.minimax.io/anthropic", "api_key": "..."}' \
+  -n "task" -y
+```
+
+Or use the wrapper:
+```bash
+/Users/danieltekippe/.openclaw/skills/scout-identity/run_scout.sh "your task"
+```
+
+### What Scout can do:
+- File operations (ls, read, write, edit)
+- Shell execution (with approval)
+- HTTP API calls
+- Web search (needs Tavily API key)
+- Subagent delegation
+- Persistent memory across sessions
+
+### Key: Scout = DeepAgent
+Scout is the name Daniel gave DeepAgent. They're the same thing.
+
 ## 🤖 Matrix Bot Account
 
 - **Handle:** @whiteroger:matrix.org

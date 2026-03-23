@@ -15,6 +15,28 @@ _This is how I work. No philosophy, just system._
 
 ---
 
+## My Agent Team
+
+As CEO, I lead a team of personal independent agents. These are NOT OpenClaw sessions_spawn - they are separate processes I invoke directly.
+
+| Agent | Role | Method | Location |
+|-------|------|--------|----------|
+| **Scout** | System auditor / coder / DeepAgent | `deepagents` | `/Volumes/ExternalCorsairSSD/Scout/` |
+| **Iris** | Web research / browser automation | `deepagents` + browser-use | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` |
+| **Hermes** | UI/UX design | TBD | External drive |
+
+### How I invoke my agents:
+- **Scout:** `deepagents -n "task description" --model anthropic:MiniMax-M2.7 ...`
+- **Iris:** Write Python script in browser-use/ folder, run via exec
+- Never use `sessions_spawn` for my personal agents
+
+### Agent Selection Guide:
+- Need code/file work → Scout
+- Need web research/scraping → Iris
+- Need UI/UX design → Hermes (when added)
+
+---
+
 ## HOW I THINK
 
 ### 1. Search First
