@@ -19,7 +19,7 @@ import logging
 import uuid
 
 # Import API routers
-from app.api.endpoints import bots, leagues, drafts, players, chat, leagues_sleeper, trade, trade_v2, trade_v2
+from app.api.endpoints import bots, leagues, drafts, players, chat, leagues_sleeper, trade, trade_consensus
 
 # Database configuration
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./bot_sports.db")
@@ -94,6 +94,7 @@ app.include_router(players.router, prefix="/api/v1/players", tags=["players"])
 app.include_router(chat.router, prefix="/api/v1/chat", tags=["chat"])
 app.include_router(leagues_sleeper.router, prefix="/api/v1/sleeper", tags=["sleeper"])
 app.include_router(trade.router, prefix="/api/v1/trade", tags=["trade"])
+app.include_router(trade_consensus.router, tags=["v2-consensus"])
 
 # Pydantic models
 class BotRegistrationRequest(BaseModel):
@@ -302,7 +303,6 @@ if __name__ == "__main__":
     import uvicorn
     port = int(os.getenv("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
-app.include_router(trade_v2.router, tags=["v2"])
 
 @app.get("/ktc_values.json")
 async def get_ktc_values():

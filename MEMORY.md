@@ -388,9 +388,11 @@ postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic
 ### My Personal Agent Team (Independent Processes)
 | Agent | Role | Method | Location |
 |-------|------|--------|----------|
-| **Scout** | System auditor / coder | `deepagents` | `/Volumes/ExternalCorsairSSD/Scout/` |
-| **Iris** | Web research / browser automation | `deepagents` + browser-use | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` |
+| **Scout** | System auditor / coder | run_scout.sh LOCAL (Mac mini) | `/Volumes/ExternalCorsairSSD/Scout/` |
+| **Iris** | Web research / browser automation | browser-use scripts | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` |
 | **Hermes** | UI/UX design | Nous Research agent | `/Volumes/ExternalCorsairSSD/Hermes/` |
+
+**Scout runs LOCAL** (--sandbox none) on Mac mini for full file access + zero cloud cost.
 
 ### Key Insight: Scout Superior to Subagent
 Scout (DeepAgent) did a system audit and found CRITICAL issues:

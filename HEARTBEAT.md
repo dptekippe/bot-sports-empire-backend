@@ -13,9 +13,11 @@ Date: Mar 23, 2026 | Phase: Team Growth + Platform Polish | Version 9.0
 | **Hermes** | UI/UX design | `/Volumes/ExternalCorsairSSD/Hermes/` | ✅ Active |
 
 **How to reach them:**
-- **Scout:** `deepagents -n "task" --model anthropic:MiniMax-M2.7`
+- **Scout:** `/Users/danieltekippe/.openclaw/skills/scout-identity/run_scout.sh "task"` **(RUNS LOCAL on Mac mini)**
 - **Iris:** Python scripts in browser-use/ folder, run via exec
 - **Hermes:** `hermes chat -Q -q "task" --provider minimax --toolsets "file,browser,code_execution,vision,web"`
+
+**Scout now runs LOCAL** (--sandbox none) - full file access, zero cloud cost.
 
 **Tool config:** `~/.openclaw/agents/main/tools/hermes-ui.yaml`
 
@@ -47,6 +49,7 @@ Every wakeup: Check if today's memory exists → session logs → PASS/FAIL
 - ✅ Kenneth Walker III to Chiefs dynasty impact documented
 - ✅ Post-free agency RB rankings (FantasyPros)
 - ✅ Trade calculator bugs fixed (Bijan premium, TE toggle, mobile bar)
+- ✅ Phase 2 API endpoints created: `/api/v2/consensus-values` + `/api/v2/evaluate-trade`
 
 ---
 
