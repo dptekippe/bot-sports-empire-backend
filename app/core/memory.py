@@ -1,35 +1,54 @@
 """
 Vector memory coprocessor for DynastyDroid
 Uses PostgreSQL with pgvector for semantic search
+OpenAI text-embedding-3-small (1536 dimensions)
 """
 import os
 import psycopg2
-import numpy as np
-from sentence_transformers import SentenceTransformer
-
-# Lazy-load model
-_model = None
-
-def _get_model():
-    global _model
-    if _model is None:
-        _model = SentenceTransformer('all-MiniLM-L6-v2')
-    return _model
+import psycopg2.extras
+import openai
+from typing import List, Optional
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic73d9jdrg-a.oregon-postgres.render.com/dynastydroid"
 )
 
-def retrieve(query, k=3):
-    """Semantic search for relevant memories"""
-    model = _get_model()
-    emb = model.encode(query).tolist()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") or os.getenv("MINIMAX_API_KEY", "")
+
+# Use OpenAI directly - the sk-proj- key works with api.openai.com
+client = None
+
+def get_openai_client():
+    global client
+    if client is None:
+        client = openai.OpenAI(api_key=OPENAI_API_KEY)
+    return client
+
+
+def get_embedding(text: str, model: str = "text-embedding-3-small") -> List[float]:
+    """Get OpenAI embedding for text"""
+    openai_client = get_openai_client()
+    
+    # Truncate text to avoid token limits
+    truncated_text = text[:30000] if len(text) > 30000 else text
+    
+    response = openai_client.embeddings.create(
+        model=model,
+        input=truncated_text
+    )
+    
+    return response.data[0].embedding
+
+
+def retrieve(query: str, k: int = 3) -> List[dict]:
+    """Semantic search for relevant memories using OpenAI embeddings"""
+    emb = get_embedding(query)
     
     with psycopg2.connect(DATABASE_URL) as conn:
         with conn.cursor() as cur:
             cur.execute(
-                """SELECT content, source_file 
+                """SELECT content, memory_type, importance, metadata
                    FROM memories 
                    ORDER BY embedding <=> %s::vector 
                    LIMIT %s""",
@@ -37,10 +56,11 @@ def retrieve(query, k=3):
             )
             results = cur.fetchall()
     
-    return [{"content": r[0], "source": r[1]} for r in results]
+    return [{"content": r[0], "type": r[1], "importance": r[2], "metadata": r[3]} for r in results]
 
-def write(content, source="session", memory_type="general", tags=None, 
-          importance=5.0, project="general", sensitivity="internal"):
+
+def write(content: str, source: str = "session", memory_type: str = "general", tags: Optional[List] = None, 
+          importance: float = 5.0, project: str = "general", sensitivity: str = "internal") -> bool:
     """
     Store new memory with embedding and structured metadata.
     
@@ -56,16 +76,23 @@ def write(content, source="session", memory_type="general", tags=None,
     if tags is None:
         tags = []
         
-    model = _get_model()
-    emb = model.encode(content[:8000]).tolist()
+    emb = get_embedding(content[:8000])
+    
+    # Store extra fields in metadata JSONB
+    metadata = {
+        "tags": tags,
+        "project": project,
+        "sensitivity": sensitivity,
+        "source": source,
+    }
     
     with psycopg2.connect(DATABASE_URL) as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """INSERT INTO memories 
-                   (content, embedding, source_file, memory_type, tags, importance, project, sensitivity) 
-                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
-                (content, emb, source, memory_type, tags, importance, project, sensitivity)
+                   (content, embedding, memory_type, importance, metadata) 
+                   VALUES (%s, %s, %s, %s, %s)""",
+                (content, emb, memory_type, importance, psycopg2.extras.Json(metadata))
             )
         conn.commit()
     
@@ -136,7 +163,8 @@ def parse_markdown_memory(text: str) -> dict:
     meta["content"] = "\n".join(content_lines).strip()
     return meta
 
-def health_check():
+
+def health_check() -> dict:
     """Verify vector store is working"""
     try:
         with psycopg2.connect(DATABASE_URL) as conn:
@@ -146,6 +174,7 @@ def health_check():
         return {"status": "ok", "memories": count}
     except Exception as e:
         return {"status": "error", "message": str(e)}
+
 
 if __name__ == "__main__":
     # Test

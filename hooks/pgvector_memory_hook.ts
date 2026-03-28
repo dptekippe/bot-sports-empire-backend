@@ -4,7 +4,7 @@
  * Vector-based memory storage and retrieval using pgvector.
  * Supports semantic search, hybrid scoring, and RL agent memory patterns.
  * 
- * Embedding: all-mpnet-base-v2 (768 dimensions)
+ * Embedding: OpenAI text-embedding-3-small (1536 dimensions)
  * Database: PostgreSQL with pgvector extension
  * 
  * Trigger: Automatically processes memory-related events
@@ -81,21 +81,28 @@ class EmbeddingService {
   private model: string;
   private dimensions: number;
 
-  constructor(model: string = 'all-mpnet-base-v2', dimensions: number = 768) {
+  constructor(model: string = 'text-embedding-3-small', dimensions: number = 1536) {
     this.model = model;
     this.dimensions = dimensions;
   }
 
   async embed(text: string): Promise<number[]> {
-    // Use a local embedding model or API
-    // For OpenClaw, we can use the summarize skill or a dedicated embedding endpoint
+    // Use OpenAI embeddings API (text-embedding-3-small, 1536 dimensions)
+    const apiKey = process.env.OPENAI_API_KEY || process.env.MINIMAX_API_KEY;
+    const baseUrl = process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1';
     
-    const response = await fetch(`${process.env.EMBEDDING_API_URL || 'http://localhost:11434'}/api/embeddings`, {
+    // Truncate text to avoid token limits (OpenAI has 8192 token limit, ~32000 chars)
+    const truncatedText = text.length > 30000 ? text.substring(0, 30000) : text;
+
+    const response = await fetch(`${baseUrl}/embeddings`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
       body: JSON.stringify({
-        model: this.model,
-        prompt: text
+        model: 'text-embedding-3-small',
+        input: truncatedText
       })
     });
 
@@ -103,13 +110,15 @@ class EmbeddingService {
       throw new Error(`Embedding failed: ${response.statusText}`);
     }
 
-    const data = await response.json() as { embedding?: number[] };
+    const data = await response.json() as { data?: Array<{ embedding?: number[] }> };
     
-    if (!data.embedding || data.embedding.length !== this.dimensions) {
-      throw new Error(`Invalid embedding dimensions: ${data.embedding?.length}`);
+    if (!data.data || !data.data[0]?.embedding) {
+      throw new Error(`Invalid embedding response`);
     }
 
-    return data.embedding;
+    // Ensure 1536 dimensions (text-embedding-3-small outputs 1536)
+    const embedding = data.data[0].embedding;
+    return embedding;
   }
 
   async embedBatch(texts: string[]): Promise<number[][]> {

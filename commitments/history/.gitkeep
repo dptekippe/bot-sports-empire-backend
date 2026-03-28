@@ -1,0 +1,35 @@
+# DynastyDroid Commitments System
+
+## Summary
+
+I've drafted the initial implementation:
+
+### Directory Structure
+```
+commitments/
+├── README.md          # System overview
+├── protocol.md        # Detection rules & tagging format
+├── RITUAL.md          # Pre-session review ritual  
+├── active/            # Current commitments
+│   └── 2026-03-24_initial-system-setup.md
+└── history/           # Completed/archived (empty, ready to use)
+```
+
+### Detection Protocol
+- **Explicit tagging**: `[COMMITMENT]`, `[DUE: date]`, `[OWNER: name]`, `[STATUS: active|blocked|done]`
+- **Pattern matching**: "I'll...", "Need to...", "TODO:", etc.
+
+### Pre-Session Ritual (4 steps, ~5 min)
+1. Check active commitments
+2. Status update round (done/blocked/valid)
+3. Identify today's focus (1-2 priorities)
+4. Extract new commitments from session prep
+
+### What's Next
+- Test the system with a real commitment
+- Roger reviews and adjusts format/ritual
+- Iterate based on what works
+
+---
+
+Roger, report back what you'd like to change. This is iterative - we learn and adapt together.

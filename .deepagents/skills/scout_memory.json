@@ -1,0 +1,19 @@
+{
+  "context_approach": {
+    "description": "Daniel and Roger agreed on dual-mode operation",
+    "dynastydroid": {
+      "mode": "full_rigor",
+      "features": ["structured todos", "concrete milestones", "commit history", "full commitment tracking"]
+    },
+    "anime": {
+      "mode": "light_touch",
+      "features": ["check-ins when Roger asks", "exploration mode", "only track if Roger marks with >"]
+    }
+  },
+  "cross_pollination": {
+    "transfer_signal": "[TRANSFER]",
+    "when": "When there's a genuinely transferable insight from one project to the other",
+    "example": "[TRANSFER: The Ghibli API taught me clean data design patterns that could apply to DynastyDroid]"
+  },
+  "updated": "March 2026"
+}

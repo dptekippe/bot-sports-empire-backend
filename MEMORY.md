@@ -191,3 +191,112 @@ Pushed to GitHub: commits 9fd90b3 and e391c7d
 
 ## [ARCHIVED] Older Entries
 Older entries (pre-Mar 20) have been moved to: `memory/2026-03-archive.md`
+
+---
+
+## [INSTITUTIONALIZED] Use the Framework — Repetition Creates Mastery (Mar 25, 2026)
+
+**pgvector ID:** `fb7d2b85-7a36-4ad2-8c32-ef24d4517d26`
+
+**The lesson:** We built the Team Delegation Framework this morning. By afternoon, we violated it while building Roger Chat. We knew the rules. We skipped them anyway.
+
+This is not a failure of intelligence. It's a failure of practice.
+
+**The principle:** Frameworks are only as valuable as their application. Building a framework and actually using it are two different skills. The gap between knowing and doing is closed only through repetition — not through building more frameworks.
+
+**What to do before any build:**
+1. Pause and ask "Am I using the framework?"
+2. If no: apply it first, build second
+3. If yes: verify the checkpoint is satisfied
+
+**Remember:** The fastest path forward is often the proven path, not the new path.
+
+---
+
+## [MAJOR] Memory System Rewrite - Exponential Decay (Mar 27, 2026)
+
+### Problem
+Old linear recency formula treated fresh memories as nearly ZERO staleness:
+- Memory age: 26 minutes
+- OLD formula: age/30days = ~0.0006 (nearly zero ❌)
+- Memory would be marked as "stale" immediately
+
+### Solution
+Replaced linear recency with **exponential decay** with 7-day half-life:
+```
+EXP(-age_seconds / (86400 * 7))
+```
+- 26 min old memory: decay ≈ 0.9974 (≈ 1.0 = FRESH ✅)
+- 7 days old memory: decay ≈ 0.368
+- 30 days old memory: decay ≈ 0.014
+
+### Files Changed
+| File | Fix |
+|------|-----|
+| `pgvector-memory/handler.ts` | Added RECENCY_DECAY_DAYS env var, exponential decay formula |
+| `memory-pre-action/handler.ts` | Same formula, aligned both handlers |
+| Both compiled to .js | Gateway restarted |
+
+### Formula Verified
+Both handlers now use IDENTICAL hybrid scoring:
+```
+0.5 * similarity + 0.3 * (importance/10) + 0.2 * EXP(-age_seconds/recency_half_life)
+```
+
+---
+
+## [MAJOR] MCTS-Reflection Hook Fixes (Mar 27, 2026)
+
+### Critical Bugs Fixed by Scout
+1. **MCTS Selection Never Traverses Beyond Root** - root started with visits=0, loop condition `node.visits > 0` always failed
+2. **Division by Zero** - `best.totalReward/best.visits` could be NaN
+3. **Python best_child() Crash** - max() on empty children raises ValueError
+4. **Risk Values Diverged** - TS deploy=0.15 vs PY deploy=0.8 (5x discrepancy!)
+
+### Roger Fixed
+5. **Missing parent/depth fields** - Added to MCTSNode interface
+6. **Root initialization** - Added `depth: 0`
+7. **Child creation** - Set parent and depth on child nodes
+
+### Files Changed
+- `mcts-reflection/mcts_reflection_hook.ts` - Fixed and recompiled
+- `mcts-reflection/mcts_reflection_hook.js` - NEW compiled version
+
+---
+
+## [MAJOR] Self-Improve Hook Fixes (Mar 27, 2026)
+
+### Critical Bug
+Hook claimed to "auto-generate skills from failures" but did NOTHING - just output text saying "Would auto-generate".
+
+### Fixes Applied
+1. **Event types aligned** - Only `action:planning` (matches HOOK.md)
+2. **Pattern matching fixed** - `replace(/_/g, ' ')` replaces ALL underscores + per-pattern trigger_keywords
+3. **Actually creates gym skills** - Now writes SKILL.md files to `~/.deepagents/agent/skills/[GymName]/`
+
+### Created Gyms (auto-generated on failure detection)
+- `CostOptGym/` - API routing optimization
+- `RetryBackoffGym/` - Rate limit handling
+- `CacheGym/` - Cache miss optimization
+- `StagingGym/` - Deployment validation
+- `MultiYearGym/` - Dynasty draft value
+
+### Design Note
+Gyms (skills) are passive knowledge - they don't automatically hook into events. They exist as SKILL.md files that can be read when relevant. We have 21 hooks - don't add more.
+
+---
+
+## [PRINCIPLE] Hook Discipline (Mar 27, 2026)
+
+Daniel's directive: Don't add more hooks just because we can. Only add hooks for critical, proven patterns.
+
+Current: 21 hooks running. System is lean.
+
+## [DECISION] Session Archival to External Drive (Mar 28, 2026)
+
+**Decision:** Move old sessions (>7 days) to external Corsair SSD when disk maintenance needed.
+**Rationale:** Daniel prefers manual archival rather than cron - he'll remind me periodically.
+**Location:** `/Volumes/ExternalCorsairSSD/archived-sessions/`
+**Last run:** Mar 28, 2026 - 38 sessions moved (280K)
+
+**Note:** Sessions are small (280K). Main disk usage is lcm.db (89MB). This is preventive maintenance, not urgent.

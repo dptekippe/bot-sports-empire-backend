@@ -55,9 +55,11 @@ Every wakeup: Check if today's memory exists → session logs → PASS/FAIL
 
 ## 🎯 CURRENT FOCUS
 
-1. **Memory Cleanup** - Update HEARTBEAT.md (in progress)
-2. **Workflow Formalization** - Document Scout/Iris/Hermes delegation rules
-3. **Agent Growth Research** - Learn how to configure and optimize Scout & Hermes skills
+1. **agents.md institutionalization** - ✅ COMPLETED (Scout + Hermes + Iris all have agents.md with Team Delegation Framework wake-up)
+2. **Roger Chat post-mortem** - Completed (repo deleted, lessons documented)
+3. **Scout/Hermes agents.md verification** - ✅ COMPLETED (both confirmed they see and understand wake-up protocol)
+4. **Shopify project** - Waiting for brother to share theme code (purekure.com)
+5. **Memory system cleanup** - Pending
 
 ---
 
@@ -87,7 +89,11 @@ Everything else → Roger (me)
 
 | Date | Milestone |
 |------|-----------|
-| Mar 25, 2026 | **Team Delegation Framework v0.1** created on external SSD shared drive |
+| Mar 27, 2026 | **Memory System Rewrite** - Exponential decay recency formula deployed |
+| Mar 27, 2026 | **MCTS-Reflection Hook Fixed** - Tree traversal, division by zero, parent/depth tracking |
+| Mar 27, 2026 | **Self-Improve Hook Fixed** - Now actually creates gym skills |
+| Mar 25, 2026 | **Team Delegation Framework v1.1** completed (4-way review + post-Roger-Chat failure update with Pre-Build Verification Checkpoint) |
+| Mar 25, 2026 | **agents.md for all agents** - Created Scout/Hermes/Iris agents.md with Team Delegation Framework wake-up requirement + verified both Scout + Hermes confirmed |
 | Mar 23, 2026 | Team complete: Scout + Iris + Hermes all operational |
 | Mar 23, 2026 | Hermes tool config created at `~/.openclaw/agents/main/tools/hermes-ui.yaml` |
 | Mar 23, 2026 | Iris tested with 5-min timeout - success |
@@ -101,12 +107,29 @@ Everything else → Roger (me)
 
 ## 🔄 NEXT STEPS (Priority Order)
 
-1. **HEARTBEAT update** - In progress
-2. **Workflow documentation** - Formalize delegation rules
-3. **Scout/Hermes optimization research** - How to configure skills for growth
-4. **Trade calculator improvements** - Integrate fresh dynasty data from Iris
-5. **Memory system cleanup** - Prune stale memory files
+1. **Hook audit** - ⚠️ AUDIT ALL GYM HOOKS AND META-GYM HOOK (Mar 27, 2026)
+   - Concern: Gym hooks and meta-gym hook may have same bugs as hooks reviewed today
+   - Same patterns = likely same bugs (event type mismatches, broken logic, hardcoded values)
+   - Will follow same 6-step process: review → evaluate → Scout review → merge → remediate → report
+2. **Trade calculator improvements** - Integrate fresh dynasty data from Iris
+3. **Memory system cleanup** - Prune stale memory files
+4. **Shopify project** - Waiting for brother to share theme code (purekure.com)
 
 ---
 
-*Last updated: Mar 23, 2026 by Roger*
+## 🔄 POST-MORTEM: Roger Chat Failure (Mar 25, 2026)
+
+**What failed:** Roger Chat deployment to Cloudflare Pages
+**Root cause:** App expected OpenAI-compatible API (`/api/v1/chat/completions`) but OpenClaw gateway uses custom protocol
+**Resolution:** Deleted GitHub repo, using OpenClaw Dashboard instead
+
+**Lessons learned:**
+- Scout: Should have verified API protocol before building
+- Hermes: Should have designed error states first, not last
+- Roger: Should have followed Technical Review Gates from own framework
+
+**Key insight:** We built Team Delegation Framework TODAY to prevent this, then violated it immediately.
+
+---
+
+*Last updated: Mar 27, 2026 by Roger*
