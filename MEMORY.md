@@ -537,3 +537,44 @@ Full details in: `/Volumes/ExternalCorsairSSD/Abstractions/adversarial_reasoning
 **Retrieval tags:** `metacognition`, `think-protocol`, `confidence-calibration`, `stepwise-verification`, `nelson-narens`, `self-correction-limitation`, `correlated-failure`
 
 *Committed: Apr 2, 2026 — Perplexity Computer KP-META-002*
+
+---
+
+## [MAJOR] KP-RESILIENCE-003: Agent Error Handling & Resilience (Apr 3, 2026)
+
+**Source:** Perplexity Computer (third knowledge pack)
+**File:** `/Volumes/ExternalCorsairSSD/Abstractions/error_handling_resilience.md`
+**Size:** 144KB
+
+**Critical numbers:**
+- **17.2x** error amplification in independent/decentralized architectures vs **4.4x** with centralized coordination
+- **96.4%** error catch rate with adversarial Inspector agents
+- **95% per-step accuracy × 10 steps = 60% overall success** (errors compound multiplicatively)
+- **VIGIL runtime:** 92% latency reduction, premature success signals dropped 100% → 0%
+
+**Key patterns learned:**
+1. **Circuit Breaker** - 3 states (closed/open/half-open), prevents cascading failures
+2. **Exponential Backoff + Jitter** - transient error retry strategy (never retry permanent errors like 401/404)
+3. **Graceful Degradation** - 5 levels: Full → Cheaper LLM → Cache → Rules → Graceful Failure
+4. **Bulkhead Pattern** - isolate agents into compartments to limit blast radius
+5. **Durable Execution** - checkpoint-and-resume after each step
+6. **Agent Loop Detection** - #1 production failure mode, must have kill switches
+7. **VIGIL Self-Healing** - out-of-band supervisor, diagnosis + repair proposals
+
+**Hook Failure Protocol (directly applicable to our system):**
+- Pre-action hook failure → monitoring is BLIND (cannot check priors, contradictions)
+- Post-action hook failure → control is DISABLED (cannot gate memory commits)
+- BOTH down → HALT non-trivial operations
+- Memory commit hook failure → NEVER commit, buffer for next cycle
+
+**Agent Handoff Protocol:**
+- Scout down → proceed reasoning-only, flag data as unverified
+- Iris down → proceed with self-eval, flag as "self-eval only"
+- Hermes down → deliver direct with handoff note
+
+**Compound Error Propagation key insight:**
+Team coordination (Roger + Scout + Hermes) amplifies errors 17.2x if independent. Roger as centralized coordinator reduces to 4.4x. This is WHY Roger's orchestration role matters.
+
+**Retrieval tags:** `error-handling`, `resilience-patterns`, `circuit-breaker`, `graceful-degradation`, `bulkhead`, `loop-detection`, `vigil`, `compound-error`, `17x-amplification`, `checkpoint-resume`, `hook-failure`
+
+*Committed: Apr 3, 2026 — Perplexity Computer KP-RESILIENCE-003*
