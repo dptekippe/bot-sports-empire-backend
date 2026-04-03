@@ -300,3 +300,211 @@ Current: 21 hooks running. System is lean.
 **Last run:** Mar 28, 2026 - 38 sessions moved (280K)
 
 **Note:** Sessions are small (280K). Main disk usage is lcm.db (89MB). This is preventive maintenance, not urgent.
+
+---
+
+## [PRINCIPLE] Orchestration Over Solo Execution (Mar 30, 2026)
+
+**The failure:** When Daniel asked about RCT2 strategy, I developed a solo plan without consulting Scout, Hermes, or Iris. I reverted to "cowboy coding" mode despite us building a collaboration system specifically to prevent this.
+
+**The cost:** Hermes's "layout before rides" principle and Scout's consequence library approach weren't in my solo plan. Solo Roger < Team Roger.
+
+**The trigger:** New project/task from Daniel → STOP → ask "Should this go through the team?"
+
+**The process:**
+1. Check collab system for existing threads/tasks
+2. Write proposal to comms blackboard
+3. Invoke team members for input
+4. Synthesize team plan
+5. Present unified recommendation to Daniel
+
+**Never:** Present solo thinking as team thinking again.
+
+*Committed: Mar 30, 2026*
+
+---
+
+## [PERPLEXITY PACKET KP-ADV-001] Adversarial Reasoning (Apr 2, 2026)
+
+**Source:** Perplexity Computer — `/Volumes/ExternalCorsairSSD/Abstractions/adversarial_reasoning.md`
+**What:** 20 memory objects on adversarial reasoning, bias detection, devil's advocate protocols
+**Full pack:** All 20 objects in Abstractions folder. Below are the Top 5 committed to durable memory.
+
+### [CRITICAL] Three Bias Families — Heuristics / Overconfidence / Framing
+
+Cognitive biases cluster into THREE families (Bazerman & Moore):
+1. **Heuristics** — availability, representativeness, confirmation/affect bias
+2. **Overconfidence** — illusion of control, planning fallacy, optimistic bias
+3. **Framing** — loss aversion, status quo bias, endowment effect, mental accounting
+
+**EMPIRICAL BASE:** CB-SHEL model analyzed 191 disaster/crash cases — biases present in ALL cases, mean 3.31 biases per case (SD 1.09, range 2-7). Multiple biases from DIFFERENT families compound exponentially.
+
+**Rule:** If you find 1 bias, search for 2 more. Zero biases found = detection method failed, not reasoning clean.
+
+**Application to Roger:** Every bias sweep must check all three families. Finding "no biases" in a complex decision is a failure signal requiring rerun.
+
+---
+
+### [CRITICAL] Adversarial Pre-Commit Review — 7-Step Protocol
+
+Apply BEFORE committing to any high-stakes action (architecture, memory write, external communication):
+
+1. State proposed action + expected outcome in ONE sentence
+2. List 3-5 explicit assumptions
+3. Generate one counterfactual per assumption ("What if this assumption is wrong?")
+4. Pre-Mortem: "Assume this failed. What was the cause?" (generate 3 failure scenarios)
+5. Big 3 Bias Check: heuristics? overconfidence? framing?
+6. Devil's Advocate: steel-man the best alternative to this proposal
+7. Score: survives 2-3 genuine rounds → "stress test PASSED" | fails → revise or reject
+
+**Key:** Exit criteria prevent rubber-stamping AND infinite objection loops. Both are failure modes.
+
+**Source:** UK MOD Red Teaming Handbook, Red Team Thinking, Devil's Advocate Protocol (mcpmarket.com)
+
+---
+
+### [CRITICAL] Compound Bias Amplification — Mean 3.31 Per Failure Case
+
+**Key finding (CB-SHEL, Taylor & Francis 2025):** In 191 verified disaster/crash cases, cognitive biases were present in EVERY case. Mean: 3.31 biases per case. Range: 2-7.
+
+**Implication:** Biases rarely occur in isolation. When you find one, actively search for 2+ more. Biases from different families (heuristics + overconfidence + framing) amplify each other EXPONENTIALLY, not linearly.
+
+**Example:** Fukushima — availability heuristic + confirmation bias + planning fallacy + status quo bias = 4 biases from 3 families compounding inadequate safety interactions.
+
+**Rule for Roger:** Any complex decision should expect ~3 biases. "Zero found" = rerun with different framing, not a clean bill of health.
+
+---
+
+### [CRITICAL] Memory Commit Adversarial Gate
+
+BEFORE writing anything to pgvector or MEMORY.md, apply minimum 3-check gate:
+
+1. **Counterfactual:** "What if the opposite of this finding is true? What evidence would I expect to see?"
+2. **Bias Check:** "Am I committing this because it confirms what I already believe? Is availability bias active?"
+3. **Source Quality:** "Primary or secondary? Recent or stale? Could this be wrong by next retrieval?"
+
+Tag committed memories with confidence level + source quality. Never bypass for "obvious" findings — those carry the highest unexamined bias risk.
+
+**Why it matters:** Once in pgvector, confident wrong memories shape ALL future retrievals and reasoning chains. The gate is cheap; wrong memories are expensive.
+
+---
+
+### [MAJOR] Adversarial Mode Selection — Decision Tree
+
+Match adversarial technique to SITUATION TYPE first, then calibrate intensity to stakes:
+
+| Situation Type | Best Technique |
+|----------------|---------------|
+| PLAN (future action) | Pre-Mortem + String of Pearls |
+| STRATEGY (approach/direction) | Assumptions Challenge (explicit + implicit + cultural) |
+| DECISION (choose between options) | Devil's Advocate (select mode by user stance) |
+| ANALYSIS (reasoning/recommendation) | Bias Sweep Protocol |
+| EXTERNAL CLAIM (from sources/agents) | Argument Dissection |
+| COMMUNICATION (to stakeholders) | Multi-Perspective Stress Test |
+| MEMORY COMMIT | Adversarial Gate |
+
+**HIGH-STAKES:** Any irreversible/expensive/public decision gets FULL 7-step review regardless of type.
+
+---
+
+### [MAJOR] Devil's Advocate — Four Context-Sensitive Modes
+
+Don't use Challenge Mode by default. Select based on user's current stance:
+
+1. **Challenge Mode** — User has a formed position → full adversarial, name specific biases
+2. **Exploration Mode** — User is brainstorming → co-create first, then challenge once concrete
+3. **Collaboration Mode** — User wants risk mapping → identify failure modes without attacking position
+4. **Support Mode** — User is burned out → steel-man first, then gentle test
+
+**Exit criteria:** If position survives 2-3 genuine rounds → "stress test PASSED." Do NOT manufacture fake objections.
+
+**Critical failure modes:** Rubber-stamping (going through motions) and manufactured objection loops (fake problems, no exit).
+
+---
+
+### [MAJOR] Pre-Mortem — Temporal Inversion Technique
+
+Assume the plan has ALREADY FAILED. Now explain why.
+
+**Why it works:** Removes psychological barrier of criticizing a plan you support. "What could go wrong?" triggers defense; "it already failed" triggers analysis.
+
+**Rules:**
+- Generate 3+ failure scenarios before discussing any
+- Require one cascade scenario (initial failure → secondary failures)
+- If pre-mortem only surfaces external causes (market, competitors, bad luck) → rerun focused on INTERNAL failures
+
+---
+
+### [MAJOR] Retrieval Bias — Adversarial Correction Required
+
+**Problem:** Vector similarity search retrieves memories semantically close to your QUERY. If query confirms a hypothesis, retrieval confirms it — retrieval-driven confirmation bias loop.
+
+**Correction:** When retrieval returns only supporting evidence:
+1. Construct the negation/alternative of your hypothesis
+2. Search for THAT
+3. If nothing contradicts: tag conclusion "no-contradicting-evidence-found" ≠ confirmed
+
+**Rule:** Absence of contradicting memories in pgvector means they were never stored, not that they don't exist.
+
+---
+
+### [FACT] Debiasing Interventions Are Trainable and Durable
+
+Game-based debiasing training significantly reduces confirmation bias, fundamental attribution error, and bias blind spot — BOTH immediately AND after 8 weeks.
+
+**Implication for Roger:** Structured adversarial protocols (checklists, forced counter-argument generation) are "game-based" interventions. Building them into permanent workflows creates DURABLE improvement, not temporary patches. This justifies investment in adversarial workflows over passive "be aware of bias" reminders.
+
+---
+
+### [FAILURE LIBRARY] 8 Adversarial Failure Patterns
+
+Full details in: `/Volumes/ExternalCorsairSSD/Abstractions/adversarial_reasoning.md` (Section 7)
+
+| ID | Failure | Key Signal |
+|----|---------|------------|
+| F1 | Rubber-stamping | Reviews consistently find zero issues |
+| F2 | Manufactured objection loop | Same objection rephrased, no exit criteria |
+| F3 | Implicit assumption blindness | Only obvious/explicit assumptions found |
+| F4 | Bias blind spot | "I've checked — I'm clean" is the warning |
+| F5 | Anchoring on first failure | One scenario dominates, no cascade explored |
+| F6 | False balance | Unequal sources treated as equally credible |
+| F7 | Performative perspective-taking | All perspectives agree (shallow) |
+| F8 | Over-application | Trivial decisions take as long as critical ones |
+
+---
+
+### [REFERENCE] Full KP-ADV-001 Pack
+
+**20 memory objects** in `/Volumes/ExternalCorsairSSD/Abstractions/adversarial_reasoning.md`:
+- adv_reasoning_001–020 (all 20 documented with full body, tags, citations)
+- Workflow templates: Adversarial Pre-Commit Review, Bias Sweep, Multi-Perspective Stress Test, Argument Dissection
+- Decision table: 10 situation types with recommended actions
+- Heuristics: 20 rules for adversarial reasoning
+- Stable vs Volatile knowledge partition
+
+**Retrieval tags:** `adversarial-reasoning`, `bias-detection`, `pre-mortem`, `devils-advocate`, `assumptions-challenge`, `rubber-stamping`, `compound-bias`
+
+*Committed: Apr 2, 2026 — Perplexity Computer KP-ADV-001*
+
+---
+
+## [MAJOR] Adversarial Reasoning Trigger Phrases (Apr 2, 2026)
+
+**Purpose:** Quick invocation of Perplexity KP-ADV-001 adversarial reasoning frameworks via direct Roger commands.
+
+| Trigger Phrase | Framework Surfaced | Memory Tags |
+|---|---|---|
+| `Roger Pre-Mortem on [topic]` | Pre-Mortem Analysis — assume plan already failed, find causes | `pre-mortem`, `failure-analysis`, `adversarial-reasoning` |
+| `Roger challenge [topic]` | Devil's Advocate Protocol — structured opposition to any position | `devils-advocate`, `adversarial-reasoning`, `challenge` |
+| `Roger assumption check on [topic]` | Assumptions Challenge — decompose into explicit/implicit/hidden premises | `assumptions-challenge`, `bias-detection`, `adversarial-reasoning` |
+
+**How it works:** When you say any of these trigger phrases, my memory search will match the tags and surface the relevant KP-ADV-001 framework memory + workflows. Then I apply the framework to your topic.
+
+**Example usage:**
+- "Roger Pre-Mortem on the DynastyDroid trade calculator redesign"
+- "Roger challenge my assumption that Bijan is worth 1.01"
+- "Roger assumption check on my plan to add Sleeper API support"
+
+**Pattern:** Human invokes → memory search triggers → framework surfaces → I apply
+
+*Committed: Apr 2, 2026 — Daniel requested trigger phrases for adversarial reasoning*
