@@ -508,3 +508,32 @@ Full details in: `/Volumes/ExternalCorsairSSD/Abstractions/adversarial_reasoning
 **Pattern:** Human invokes → memory search triggers → framework surfaces → I apply
 
 *Committed: Apr 2, 2026 — Daniel requested trigger phrases for adversarial reasoning*
+
+---
+
+## [MAJOR] KP-META-002: Metacognitive Reasoning (Apr 2, 2026)
+
+**Source:** Perplexity Computer (second knowledge pack)
+**File:** `/Volumes/ExternalCorsairSSD/Abstractions/metacognitive_reasoning.md`
+**Size:** 118KB
+
+**Key contents:**
+- Nelson-Narens metacognitive framework (monitoring + control separated)
+- Confidence Calibration System (MIT ensemble approach: epistemic uncertainty)
+- Verification Chain-of-Thought (VCoT) — stepwise verification raises accuracy 50% → 69-85%
+- Reflexion architecture (actor-evaluator-reflector separation)
+- MAPE-K control loop (Monitor-Analyze-Plan-Execute-Knowledge)
+- **Self-Correction Limitation (ICLR 2024):** Same-model evaluation is unreliable — generator and evaluator share biases
+
+**Critical failure modes documented:**
+- F2: Correlated Failure — same model generates AND evaluates = unreliable
+- F5: Monitoring Without Control — pre-action detects issues, post-action commits anyway
+- F7: Metacognitive Overhead — full protocol on trivial decisions
+
+**Think Protocol 9-step workflow added to SOUL.md Section 9.**
+
+**Trigger phrase:** `Roger think on [topic]` → surfaces the Think Protocol
+
+**Retrieval tags:** `metacognition`, `think-protocol`, `confidence-calibration`, `stepwise-verification`, `nelson-narens`, `self-correction-limitation`, `correlated-failure`
+
+*Committed: Apr 2, 2026 — Perplexity Computer KP-META-002*
