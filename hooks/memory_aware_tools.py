@@ -17,7 +17,7 @@ MEMORY_CONTRACT_ENABLED = os.getenv('MEMORY_CONTRACT_ENABLED', 'true')
 # Import our memory contract hooks
 try:
     sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-    from pre_action_memory import pre_action_memory_search
+    from pre_action_memory import pre_action_memory_search, pre_action_recall
     from post_decision_memory import post_decision_memory_persistence
     from compliance_tracker import get_compliance_status
     from config_loader import get_config
@@ -31,6 +31,10 @@ except ImportError as e:
     def pre_action_memory_search(context):
         print(f"[Memory Contract WARNING] Pre-action search unavailable: {context.get('tool')}")
         return []
+    
+    def pre_action_recall(query, domain=None, limit=3):
+        print(f"[Memory Contract WARNING] Explicit recall unavailable for: {query[:50]}...")
+        return ""
     
     def post_decision_memory_persistence(decision, outcome, metadata):
         print(f"[Memory Contract WARNING] Post-decision write unavailable: {decision[:50]}...")
@@ -188,6 +192,50 @@ def check_compliance():
     except Exception as e:
         print(f"[Memory Contract ERROR] Compliance check failed: {e}")
         return {"status": "error", "error": str(e)}
+
+# =============================================================================
+# OPENCLAW TOOL EXPOSURE (2026-04-03 spec)
+# =============================================================================
+
+"""
+The pre_action_recall function is exposed as an OpenClaw tool for explicit use:
+
+Tool Name: memory_recall
+Description: Retrieve relevant memories from Roger's memory store
+Parameters:
+  - query (string): Search query
+  - domain (string, optional): Filter by domain (architecture, trade, memory-system, agent-ops, project, episodic)
+  - limit (integer, optional): Max results, default 3, max 5
+
+Usage from agent:
+  result = pre_action_recall("dynasty trade Bijan Robinson", domain="trade", limit=3)
+  # Returns formatted memory context string for injection
+
+This is integrated into the hook system via:
+  - pre_action_memory.py: pre_action_recall() function
+  - cognitive_memory.py: pre_action_recall() semantic wrapper
+  - memory_aware_tools.py: before_tool_use() calls pre_action_recall automatically
+"""
+
+def explicit_recall(query: str, domain: str = None, limit: int = 3) -> str:
+    """
+    Explicit recall function for agent to call directly.
+    Use this for intentional memory lookups.
+    
+    Args:
+        query: Search query string
+        domain: Optional domain filter
+        limit: Max results (default 3, max 5)
+    
+    Returns:
+        Formatted memory context string
+    """
+    return pre_action_recall(query, domain=domain, limit=limit)
+
+
+# =============================================================================
+# EXAMPLE USAGE PATTERNS
+# =============================================================================
 
 # Example usage patterns for the agent
 def example_agent_workflow():

@@ -170,20 +170,40 @@ def calculate_stud_dominance_bonus(
 
 
 def calculate_stud_bonus_for_side(
-    side_values: List[float],
-    other_side_total: float,
-    threshold: float = 0.35,
+    elite_player_value: float,
+    other_side_values: List[float],
+    threshold: float = 0.70,
     multiplier: float = 0.25
 ) -> Tuple[float, str]:
     """
-    Calculate stud bonus for the entire side (highest value player only).
-    Returns bonus amount and description for the side's stud player.
+    Calculate stud dominance bonus based on individual player values.
+    
+    If ANY single player on the smaller side has a value less than threshold
+    (default 70%) of the elite player's value, the bonus applies.
+    
+    This discourages trading an elite player for "scraps" - pieces that are
+    too small relative to the elite player.
+    
+    Args:
+        elite_player_value: Value of the elite player on the larger side
+        other_side_values: List of individual player values on the smaller side
+        threshold: Minimum ratio (default 0.70 = 70%)
+        multiplier: Bonus multiplier on the weak piece difference
+        
+    Returns: (bonus_amount, description)
     """
-    if not side_values or other_side_total <= 0:
+    if not other_side_values or elite_player_value <= 0:
         return 0, ""
     
-    max_value = max(side_values)
-    return calculate_stud_dominance_bonus(max_value, other_side_total, threshold, multiplier)
+    min_acceptable = elite_player_value * threshold
+    
+    for player_value in other_side_values:
+        if player_value < min_acceptable:
+            deficit = min_acceptable - player_value
+            bonus = deficit * multiplier
+            return bonus, f"Stud bonus: {bonus:.0f} (weak piece: {player_value:.0f} < {threshold:.0%} of {elite_player_value:.0f})"
+    
+    return 0, ""
 
 
 def calculate_position_scarcity(
@@ -514,8 +534,17 @@ def calculate_trade_equity(
     stud_side = ""
     
     if include_stud_bonus and give_total > 0 and get_total > 0:
-        give_bonus, give_desc = calculate_stud_bonus_for_side(give_values, get_total)
-        get_bonus, get_desc = calculate_stud_bonus_for_side(get_values, give_total)
+        # Check if smaller side has weak pieces relative to elite on larger side
+        # give_bonus: any weak piece in give_values relative to elite in get_values
+        give_bonus, give_desc = calculate_stud_bonus_for_side(
+            max(get_values) if get_values else 0,
+            give_values
+        )
+        # get_bonus: any weak piece in get_values relative to elite in give_values
+        get_bonus, get_desc = calculate_stud_bonus_for_side(
+            max(give_values) if give_values else 0,
+            get_values
+        )
         
         # Apply bonus to whichever side's stud provides more value to the trade
         if give_bonus > get_bonus:

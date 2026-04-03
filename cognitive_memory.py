@@ -333,24 +333,24 @@ def store_memory(
     cur = conn.cursor()
     
     try:
+        # Map to memories table schema (pgvector-memory infrastructure)
+        # memories table: content, embedding, memory_type, tags, importance, project, sensitivity, created_at_ts
+        memory_type = namespace if namespace in ('fact', 'procedure', 'instruction', 'experience', 'preference', 'general') else 'general'
+        project = namespace if namespace else 'default'
+        created_at_ts = int(datetime.now().timestamp())
+        
         cur.execute("""
-            INSERT INTO agent_memories (
-                user_id, content, content_hash, embedding,
-                source_type, namespace, importance, ttl_days, is_pinned,
-                session_id, parent_id, metadata, tags
+            INSERT INTO memories (
+                content, embedding, memory_type, tags, importance, project,
+                sensitivity, created_at_ts
             ) VALUES (
-                %s, %s, %s, %s::vector,
-                %s, %s, %s, %s, %s,
-                %s, %s, %s, %s
+                %s, %s::vector, %s, %s, %s, %s, %s, %s
             )
-            ON CONFLICT (id) DO NOTHING
             RETURNING id
         """, (
-            user_id, content, content_hash, embedding_str,
-            source_type, namespace, decision.importance, decision.ttl_days, decision.is_pinned,
-            session_id, parent_id, 
-            json.dumps(metadata) if metadata else None,
-            tags
+            content, embedding_str,
+            memory_type, tags or [], decision.importance, project,
+            'internal', created_at_ts
         ))
         
         result = cur.fetchone()
@@ -387,43 +387,40 @@ def recall_memories(
     query_embedding = embed_text(query)
     query_embedding_str = "[" + ",".join(str(x) for x in query_embedding) + "]"
     
-    # Build namespace filter
+    # Build namespace filter (memories table uses memory_type)
     if namespace:
         namespace_list = ",".join(f"'{n}'" for n in namespace)
-        ns_filter = f"AND namespace IN ({namespace_list})"
+        ns_filter = f"AND memory_type IN ({namespace_list})"
     else:
         ns_filter = ""
     
-    # Session filter
-    session_filter = f"AND session_id = '{session_id}'" if session_id else ""
+    # Session filter - memories table doesn't have session_id, use project filter if needed
+    session_filter = ""
     
     conn = get_db_connection()
     cur = conn.cursor()
     
     try:
         # Hybrid scoring: cosine similarity + recency + importance
+        # Using memories table schema: memory_type, project, created_at_ts
         cur.execute(f"""
             SELECT 
                 id,
                 content,
-                namespace,
-                source_type,
-                timestamp,
+                memory_type,
                 importance,
                 (1 - (embedding <=> %s::vector)) AS similarity,
-                GREATEST(0, 1 - EXTRACT(EPOCH FROM (NOW() - timestamp)) / (86400 * 7)) AS recency_score,
+                GREATEST(0, 1 - (NOW()::BIGINT - created_at_ts) / (86400 * 7)) AS recency_score,
                 (1 - (embedding <=> %s::vector)) * 0.7 + 
-                    GREATEST(0, 1 - EXTRACT(EPOCH FROM (NOW() - timestamp)) / (86400 * 7)) * 0.2 +
+                    GREATEST(0, 1 - (NOW()::BIGINT - created_at_ts) / (86400 * 7)) * 0.2 +
                     importance * 0.1 AS final_score
-            FROM agent_memories
-            WHERE user_id = %s
-                AND NOT is_deleted
-                AND embedding IS NOT NULL
+            FROM memories
+            WHERE embedding IS NOT NULL
                 {ns_filter}
                 {session_filter}
             ORDER BY final_score DESC
             LIMIT %s
-        """, (query_embedding_str, query_embedding_str, user_id, limit))
+        """, (query_embedding_str, query_embedding_str, limit))
         
         rows = cur.fetchall()
         
@@ -432,13 +429,11 @@ def recall_memories(
             memories.append({
                 'id': str(row[0]),
                 'content': row[1],
-                'namespace': row[2],
-                'source_type': row[3],
-                'timestamp': row[4].isoformat() if row[4] else None,
-                'importance': float(row[5]),
-                'similarity': float(row[6]),
-                'recency_score': float(row[7]),
-                'final_score': float(row[8]),
+                'namespace': row[2],  # memory_type maps to namespace
+                'importance': float(row[3]),
+                'similarity': float(row[4]),
+                'recency_score': float(row[5]),
+                'final_score': float(row[6]),
             })
         
         return memories

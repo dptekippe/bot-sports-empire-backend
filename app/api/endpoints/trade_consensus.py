@@ -95,10 +95,12 @@ async def get_consensus_values(request: ConsensusRequest):
     results = []
     for player_name in request.players:
         result = await service.blend_player(player_name)
+        # Normalize consensus to 0-999 scale for frontend compatibility
+        normalized_consensus = min(result.consensus / 10, 999) if result.consensus > 0 else 0
         results.append(BlendResultResponse(
             name=result.name,
             position=result.position,
-            consensus=result.consensus,
+            consensus=round(normalized_consensus, 1),
             sources_used=result.sources_used,
             breakdown=result.breakdown,
             weights_applied=result.weights_applied,

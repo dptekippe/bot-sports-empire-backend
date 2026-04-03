@@ -227,22 +227,29 @@ class ValueBlenderService:
         self.te_premium = te_premium
         self.TE_PREMIUM_MULTIPLIER = 1.65
         
-        # Initialize adapters
+        # Initialize adapters - 50/50 KTC/DynastyProcess blend (no FantasyPros)
         self.adapters: List[SourceAdapter] = [
-            DynastyProcessAdapter(0.50),  # Highest weight - data-driven
-            KTCAAdapter(0.30),             # KTC crowdsourced
-            FantasyProsAdapter(0.20),      # FantasyPros ECR
+            DynastyProcessAdapter(0.50),  # Data-driven values
+            KTCAAdapter(0.50),             # Crowdsourced values
         ]
         
         # Cache for fetched values
         self._cache: Dict[str, List[PlayerValue]] = {}
         self._player_index: Dict[str, Dict[str, PlayerValue]] = {}
+        
+        # Max values for each source (for percentage normalization)
+        self._max_values: Dict[str, float] = {}
     
     async def initialize(self) -> None:
         """Fetch values from all sources"""
         for adapter in self.adapters:
             values = await adapter.fetch()
             self._cache[adapter.name] = values
+            
+            # Track max value for percentage normalization
+            if values:
+                max_val = max(pv.value for pv in values)
+                self._max_values[adapter.name] = max_val
             
             # Build player index
             for pv in values:
@@ -279,13 +286,20 @@ class ValueBlenderService:
         breakdown = {}
         weights_used = {}
         
+        # Use percentage-based normalization for fair blending
+        # KTC scale: 0-9999, DynastyProcess can go to ~10208
+        OUTPUT_SCALE = 9999  # Normalize to KTC's max
+        
         for adapter in self.adapters:
             if adapter.name in player_sources:
                 pv = player_sources[adapter.name]
+                max_val = self._max_values.get(adapter.name, 9999)
+                # Normalize to percentage of max, then scale to output
+                normalized_val = (pv.value / max_val) * OUTPUT_SCALE
                 weight = adapter.weight
                 total_weight += weight
-                weighted_sum += pv.value * weight
-                breakdown[adapter.name] = pv.value
+                weighted_sum += normalized_val * weight
+                breakdown[adapter.name] = pv.value  # Keep raw for display
                 weights_used[adapter.name] = weight
         
         if total_weight > 0:

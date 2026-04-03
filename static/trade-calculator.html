@@ -9,9 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0f1e;
-            --card: #0f1629;
-            --border: rgba(55, 65, 81, 0.5);
+            --bg: #0A1428;
+            --card: #0D1A35;
+            --border: rgba(255, 69, 0, 0.2);
+            --accent: #ff4500;
+            --accent-glow: rgba(255, 69, 0, 0.4);
             --gold: #F59E0B;
             --gold-dark: #D97706;
             --cyan: #06B6D4;
@@ -24,19 +26,14 @@
         body {
             background-color: var(--bg);
             background-image: 
-                radial-gradient(ellipse at 20% 0%, rgba(239, 68, 68, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 100%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpath d='M30 0L60 15v22L30 52 0 37V15z' fill='none' stroke='rgba(55,65,81,0.08)' stroke-width='0.5'/%3E%3C/svg%3E");
+                radial-gradient(ellipse at 20% 0%, rgba(255, 69, 0, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 0%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(255, 69, 0, 0.04) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpath d='M30 0L60 15v22L30 52 0 37V15z' fill='none' stroke='rgba(255,69,0,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
             background-size: 100% 100%, 60px 52px, 100% 100%;
-            color: #F3F4F6;
+            color: #FFFFFF;
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            animation: bgShift 20s ease-in-out infinite alternate;
-        }
-        @keyframes bgShift {
-            0% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
-            100% { background-position: 10% 10%, 0% 0%, 0% 0%, 0% 0%; }
         }
         @keyframes pulse-even {
             0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.1); }
@@ -56,14 +53,18 @@
             50% { transform: translateY(-5px); }
         }
         @keyframes glow-pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.5); }
+            0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+            50% { box-shadow: 0 0 40px var(--accent-glow); }
+        }
+        @keyframes accent-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 69, 0, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 69, 0, 0.5); }
         }
         /* Enhanced animations */
         .animate-float { animation: float 3s ease-in-out infinite; }
         .animate-glow { animation: glow-pulse 2s ease-in-out infinite; }
         
-        /* Enhanced glassmorphism */
+        /* Glassmorphism panels */
         .glass-panel {
             background: var(--card);
             backdrop-filter: blur(16px);
@@ -85,8 +86,8 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.5), transparent);
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+            background: linear-gradient(90deg, transparent, rgba(255, 69, 0, 0.5), transparent);
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.3);
         }
         .glass-panel {
             background: var(--card);
@@ -111,9 +112,9 @@
             box-shadow: 0 0 50px rgba(16, 185, 129, 0.4), 0 0 100px rgba(16, 185, 129, 0.2), inset 0 1px 0 rgba(16, 185, 129, 0.15);
         }
         .center-panel {
-            background: linear-gradient(180deg, rgba(15, 22, 41, 0.9) 0%, rgba(10, 15, 30, 0.95) 100%);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            box-shadow: 0 0 40px rgba(245, 158, 11, 0.05);
+            background: linear-gradient(180deg, rgba(13, 26, 53, 0.9) 0%, rgba(10, 20, 40, 0.95) 100%);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            box-shadow: 0 0 40px rgba(255, 69, 0, 0.05);
         }
         .drop-zone {
             border: 2px dashed rgba(100, 116, 139, 0.4);
@@ -156,15 +157,15 @@
         }
         .search-input:focus {
             outline: none;
-            border-color: var(--cyan);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
         }
         .search-input::placeholder {
             color: #6B7280;
         }
         /* Focus visible for accessibility */
         .search-input:focus-visible {
-            outline: 2px solid var(--cyan);
+            outline: 2px solid var(--accent);
             outline-offset: 2px;
         }
         .player-card {
@@ -179,14 +180,14 @@
             align-items: center;
         }
         .player-card:hover { 
-            border-color: var(--cyan); 
+            border-color: var(--accent); 
             background: rgba(255, 255, 255, 0.05); 
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.2);
         }
         .player-card.selected { 
-            border-color: var(--gold); 
-            background: rgba(245, 158, 11, 0.08); 
+            border-color: var(--accent); 
+            background: rgba(255, 69, 0, 0.08); 
         }
         /* Enhanced search result hover */
         .search-result-item {
@@ -194,7 +195,7 @@
             cursor: pointer;
         }
         .search-result-item:hover {
-            background: rgba(6, 182, 212, 0.15) !important;
+            background: rgba(255, 69, 0, 0.15) !important;
             transform: translateX(4px);
         }
         .search-result-item:active {
@@ -218,12 +219,12 @@
         /* Enhanced position badges with subtle glow */
         .pos-badge:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 10px currentColor;
+            box-shadow: 0 0 10px var(--accent);
         }
         .pos-QB:hover { box-shadow: 0 0 12px rgba(239, 68, 68, 0.5); }
         .pos-RB:hover { box-shadow: 0 0 12px rgba(16, 185, 129, 0.5); }
         .pos-WR:hover { box-shadow: 0 0 12px rgba(59, 130, 246, 0.5); }
-        .pos-TE:hover { box-shadow: 0 0 12px rgba(139, 92, 246, 0.5); }
+        .pos-TE:hover { box-shadow: 0 0 12px rgba(255, 69, 0, 0.6); }
         .pos-Pick:hover { box-shadow: 0 0 12px rgba(107, 114, 128, 0.5); }
         
         /* DynastyDroid Player Card (dd-card) */
@@ -240,9 +241,9 @@
             box-sizing: border-box;
         }
         .dd-card:hover {
-            box-shadow: 0 0 12px rgba(255,69,0,0.4);
-            border-color: rgba(255,69,0,0.35);
-            transform: translateY(-1px);
+            box-shadow: 0 0 15px rgba(255,69,0,0.5);
+            border-color: rgba(255,69,0,0.5);
+            transform: translateY(-2px);
         }
         .dd-card:focus-visible {
             outline: 2px solid rgba(6, 182, 212, 0.8);
@@ -275,7 +276,7 @@
             text-transform: uppercase;
         }
         .dd-card__team {
-            color: rgba(255,69,0,0.9);
+            color: #ff4500;
             font-weight: 800;
         }
         .dd-card__stats {
@@ -415,9 +416,9 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
         .btn-analyze {
-            background: linear-gradient(135deg, #F59E0B 0%, #D97706 30%, #B45309 70%, #92400E 100%) !important;
+            background: linear-gradient(135deg, #ff4500 0%, #e03e00 30%, #cc3700 70%, #b33000 100%) !important;
             background-size: 200% 100%;
-            color: #000 !important;
+            color: #fff !important;
             font-weight: 800;
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.5rem;
@@ -426,8 +427,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            text-shadow: 0 1px 0 rgba(255,255,255,0.3);
-            box-shadow: 0 0 35px rgba(245, 158, 11, 0.5), 0 4px 15px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 0 35px rgba(255, 69, 0, 0.5), 0 4px 15px rgba(0,0,0,0.3);
         }
         .btn-analyze::before {
             content: '';
@@ -441,7 +442,7 @@
         }
         .btn-analyze:hover:not(:disabled) { 
             transform: scale(1.03); 
-            box-shadow: 0 0 40px rgba(245, 158, 11, 0.5);
+            box-shadow: 0 0 50px rgba(255, 69, 0, 0.6);
             background-position: right center;
         }
         .btn-analyze:hover:not(:disabled)::before { left: 100%; }
@@ -449,6 +450,7 @@
         .even-text { animation: pulse-even 3s ease-in-out infinite; }
         .delta-positive { color: #10B981; text-shadow: 0 0 30px rgba(16, 185, 129, 0.5); }
         .delta-negative { color: #EF4444; text-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
+        .delta-fair { color: #ff4500; text-shadow: 0 0 30px rgba(255, 69, 0, 0.5); }
         .delta-even { color: #9CA3AF; text-shadow: 0 0 20px rgba(156, 163, 175, 0.3); }
         .stat-value {
             font-family: 'JetBrains Mono', monospace;
@@ -507,9 +509,9 @@
         }
         .summary-value { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.5rem; }
         @keyframes pulse-glow {
-            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.2); }
-            70% { box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.2); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 69, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); }
         }
         .winning-side { animation: pulse-glow 2s infinite; }
         .mobile-bar {
@@ -616,16 +618,16 @@
     <nav class="flex justify-between items-center mb-12 header-glow pb-5 page-load">
         <div class="flex items-center gap-4">
             <div class="relative">
-                <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/30">
+                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/30">
                     <svg viewBox="0 0 24 24" class="w-7 h-7 text-slate-900" fill="currentColor">
                         <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14V22H3V14A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z" />
                     </svg>
                 </div>
-                <div class="absolute -inset-2 bg-gradient-to-r from-amber-500/20 to-amber-600/20 rounded-xl blur-xl -z-10"></div>
+                <div class="absolute -inset-2 bg-gradient-to-r from-orange-500/20 to-orange-600/20 rounded-xl blur-xl -z-10"></div>
             </div>
             <div>
                 <span class="text-3xl font-bold tracking-tighter font-bebas block leading-none text-white">DYNASTY DROID</span>
-                <span class="text-[10px] text-amber-500/80 uppercase tracking-[0.3em] font-bold">AI Trade Engine</span>
+                <span class="text-[10px] text-orange-500/80 uppercase tracking-[0.3em] font-bold">AI Trade Engine</span>
             </div>
         </div>
         <div class="flex items-center gap-6">
@@ -693,7 +695,7 @@
                 <div class="grid grid-cols-2 w-full gap-6 mt-12">
                     <div class="text-center p-3 bg-black/20 rounded-xl border border-gray-800/30">
                         <p class="stat-label">Adjusted Give</p>
-                        <p class="summary-value text-orange-400" id="summaryGiveVal">0</p>
+                        <p class="summary-value text-red-400" id="summaryGiveVal">0</p>
                     </div>
                     <div class="text-center p-3 bg-black/20 rounded-xl border border-gray-800/30">
                         <p class="stat-label">Adjusted Get</p>
@@ -741,7 +743,7 @@
     </main>
 
     <div id="resultsModal" class="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm" style="display:none">
-        <div class="glass-panel w-full max-w-3xl p-8 max-h-[90vh] overflow-y-auto border-cyan-500/30">
+        <div class="glass-panel w-full max-w-3xl p-8 max-h-[90vh] overflow-y-auto border-orange-500/30">
             <div class="flex justify-between items-start mb-6">
                 <h2 class="text-4xl font-bold font-bebas tracking-tight">ANALYSIS RESULTS</h2>
                 <button onclick="closeResults()" class="text-gray-500 hover:text-white text-xl">✕</button>
@@ -763,8 +765,8 @@
                             <span class="text-xl font-bebas text-green-400" id="modalGetVal">0</span>
                         </div>
                     </div>
-                    <div class="bg-cyan-500/5 p-4 rounded-xl border border-cyan-500/20">
-                        <p class="text-[10px] font-bold text-cyan-400 uppercase mb-2">Roger AI Insights</p>
+                    <div class="bg-orange-500/5 p-4 rounded-xl border border-orange-500/20">
+                        <p class="text-[10px] font-bold text-orange-400 uppercase mb-2">Roger AI Insights</p>
                         <p id="modalNarrative" class="text-gray-300 text-xs italic leading-relaxed"></p>
                     </div>
                     <!-- Trade Grade Badge -->
@@ -776,10 +778,10 @@
                     <div class="mt-4 p-3 bg-black/20 rounded-xl border border-gray-800/30">
                         <div class="flex justify-between items-center mb-2">
                             <span class="text-[10px] text-gray-500 uppercase tracking-wider">Confidence</span>
-                            <span id="confidenceValue" class="confidence-label text-cyan-400">75%</span>
+                            <span id="confidenceValue" class="confidence-label text-orange-400">75%</span>
                         </div>
                         <div class="confidence-bar-container">
-                            <div id="confidenceBar" class="confidence-bar-fill bg-gradient-to-r from-cyan-500 to-cyan-400" style="width: 75%"></div>
+                            <div id="confidenceBar" class="confidence-bar-fill bg-gradient-to-r from-orange-500 to-orange-400" style="width: 75%"></div>
                         </div>
                     </div>
                     <!-- Scenario Probabilities -->
@@ -1241,8 +1243,10 @@ async function analyze() {
     const names = [...give, ...get].map(p => p.name);
     document.getElementById('analyzeBtn').textContent = "CALCULATING...";
     try {
-        const resp = await fetch('/api/v2/consensus-values', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({player_ids: names, te_premium: tep})});
-        const data = await resp.json();
+        const resp = await fetch('/api/v2/consensus-values', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({players: names, te_premium: tep})});
+        const json = await resp.json();
+        // API returns {results: [...], summary: {...}} - extract results array
+        const data = json.results || json;
         // Store consensus values for use in updateUI
         consensusCache = {};
         data.forEach(p => consensusCache[p.name] = p.consensus);

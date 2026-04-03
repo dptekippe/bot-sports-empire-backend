@@ -120,119 +120,63 @@ async def get_consensus_values(player_names: List[str], te_premium: bool = False
     
     Method:
     1. Min-max normalize each source to 0-100%
-    2. Average the percentages
+    2. Average the percentages (50/50 split)
     3. Multiply by 999 to get 0-999 range
     
     Weights:
-    - KTC: 40% (crowdsourced)
-    - DynastyProcess: 30% (data-driven)
-    - DLF: 20% (expert)
-    - Sleeper Trades: 10% (recent market)
+    - KTC: 50% (crowdsourced)
+    - DynastyProcess: 50% (data-driven)
     """
     results = []
     
     # Get all sources
     ktc = get_ktc_values(player_names)
     dp = get_dynastyprocess_values(player_names)
-    dlf = get_dlf_values(player_names)
-    sleeper = get_sleeper_trade_values(player_names)
-    fantasypros = get_fantasypros_values(player_names)
-    draftsharks = get_draftsharks_values(player_names)
     
-    # Find max for each source (for normalization)
-    all_ktc = list(ktc.values())
-    all_dp = list(dp.values())
-    all_dlf = list(dlf.values())
-    all_sleeper = list(sleeper.values())
-    all_fp = list(fantasypros.values())
-    all_ds = list(draftsharks.values())
-    
-    max_ktc = max(all_ktc) if all_ktc and max(all_ktc) > 0 else 1
-    max_dp = max(all_dp) if all_dp and max(all_dp) > 0 else 1
-    max_dlf = max(all_dlf) if all_dlf and max(all_dlf) > 0 else 1
-    max_sleeper = max(all_sleeper) if all_sleeper and max(all_sleeper) > 0 else 1
-    max_fp = max(all_fp) if all_fp and max(all_fp) > 0 else 1
-    max_ds = max(all_ds) if all_ds and max(all_ds) > 0 else 1
+    # Load full KTC data for position info
+    json_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "static", "ktc_values.json")
+    ktc_players = []
+    try:
+        with open(json_path, 'r') as f:
+            ktc_players = json.load(f)
+    except Exception as e:
+        print(f"KTC load error for positions: {e}")
     
     for name in player_names:
         ktc_val = ktc.get(name, 0)
         dp_val = dp.get(name, 0)
-        dlf_val = dlf.get(name, 0)
-        sleeper_val = sleeper.get(name, 0)
-        fp_val = fantasypros.get(name, 0)
-        ds_val = draftsharks.get(name, 0)
         
-        # Min-max normalize to 0-100%
-        ktc_pct = (ktc_val / max_ktc) * 100 if max_ktc > 0 else 0
-        dp_pct = (dp_val / max_dp) * 100 if max_dp > 0 else 0
-        dlf_pct = (dlf_val / max_dlf) * 100 if max_dlf > 0 else 0
-        sleeper_pct = (sleeper_val / max_sleeper) * 100 if max_sleeper > 0 else 0
-        fp_pct = (fp_val / max_fp) * 100 if max_fp > 0 else 0
-        ds_pct = (ds_val / max_ds) * 100 if max_ds > 0 else 0
-        
-        # Calculate weighted average percentage
-        values = []
-        weights = []
-        
-        if ktc_val > 0:
-            values.append(ktc_pct)
-            weights.append(0.30)
-        if dp_val > 0:
-            values.append(dp_pct)
-            weights.append(0.25)
-        if dlf_val > 0:
-            values.append(dlf_pct)
-            weights.append(0.15)
-        if sleeper_val > 0:
-            values.append(sleeper_pct)
-            weights.append(0.10)
-        if fp_val > 0:
-            values.append(fp_pct)
-            weights.append(0.15)
-        if ds_val > 0:
-            values.append(ds_pct)
-            weights.append(0.15)
-        
-        if values and weights:
-            avg_pct = sum(v * w for v, w in zip(values, weights)) / sum(weights)
-        else:
-            avg_pct = 0
-        
-        # Get position
+        # Get position from KTC
         pos = "WR"
-        for p in json.loads(open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "static", "ktc_values.json")).read()):
+        for p in ktc_players:
             if p['name'] == name:
                 pos = p.get('pos', 'WR')
                 break
         
-        # Determine consensus based on value scale
-        max_val = max(ktc_val, dp_val, dlf_val, sleeper_val, fp_val, ds_val)
+        # Calculate raw weighted average (both sources now on 0-9999 scale)
+        # DynastyProcess and KTC both use same scale, no percentage normalization needed
+        raw_values = []
+        raw_weights = []
         
-        if pos == "Pick":
-            # Picks: use KTC directly (already scaled)
-            consensus = ktc_val if ktc_val > 0 else max_val
-        elif max_val > 2000:
-            # High values (KTC scale ~0-10000) - need normalization
-            consensus = (avg_pct / 100) * 999
-        elif max_val > 0:
-            # Already scaled values - use max
-            consensus = max_val
+        if ktc_val > 0:
+            raw_values.append(ktc_val)
+            raw_weights.append(0.50)
+        if dp_val > 0:
+            raw_values.append(dp_val)
+            raw_weights.append(0.50)
+        
+        if raw_values and raw_weights:
+            total_weight = sum(raw_weights)
+            consensus = sum(v * w for v, w in zip(raw_values, raw_weights)) / total_weight
         else:
             consensus = 0
-        
-        # Get position from KTC
-        pos = "WR"
-        for p in json.loads(open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "static", "ktc_values.json")).read()):
-            if p['name'] == name:
-                pos = p['pos']
-                break
         
         # Apply TE premium if enabled
         if te_premium and pos == "TE":
             consensus = apply_te_premium(consensus, pos, True)
         
         # Determine sources used
-        sources = sum(1 for v in [ktc_val, dp_val, dlf_val, sleeper_val, fp_val, ds_val] if v > 0)
+        sources = sum(1 for v in [ktc_val, dp_val] if v > 0)
         
         results.append({
             "player_id": name,
@@ -240,13 +184,9 @@ async def get_consensus_values(player_names: List[str], te_premium: bool = False
             "position": pos,
             "ktc": ktc_val,
             "dynastyprocess": dp_val,
-            "dlf": dlf_val,
-            "sleeper_trades": sleeper_val,
-            "fantasypros": round(fp_val, 1),
-            "draftsharks": round(ds_val, 1),
             "consensus": round(consensus, 1),
             "sources_used": sources,
-            "blend_weights": {"ktc": 0.25, "dynastyprocess": 0.2, "dlf": 0.1, "sleeper": 0.1, "fantasypros": 0.15, "draftsharks": 0.2}
+            "blend_weights": {"ktc": 0.50, "dynastyprocess": 0.50}
         })
     
     return results

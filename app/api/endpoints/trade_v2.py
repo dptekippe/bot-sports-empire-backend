@@ -41,7 +41,7 @@ class PlayerValue(BaseModel):
 # 1. MULTI-SOURCE VALUES (KTC + DLF + DynastyProcess)
 @router.post("/consensus-values")
 async def get_consensus_values(request: ConsensusRequest):
-    """Blends KTC + DynastyProcess + DLF + Sleeper Trades (multi-source)"""
+    """Blends KTC + DynastyProcess (50/50)"""
     if BLENDER_AVAILABLE:
         return await compute_blend(request.player_ids, request.te_premium)
     

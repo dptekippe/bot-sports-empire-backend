@@ -578,3 +578,47 @@ Team coordination (Roger + Scout + Hermes) amplifies errors 17.2x if independent
 **Retrieval tags:** `error-handling`, `resilience-patterns`, `circuit-breaker`, `graceful-degradation`, `bulkhead`, `loop-detection`, `vigil`, `compound-error`, `17x-amplification`, `checkpoint-resume`, `hook-failure`
 
 *Committed: Apr 3, 2026 — Perplexity Computer KP-RESILIENCE-003*
+
+---
+
+## [MAJOR] Agent Memory Tiering + Hermes Code Review (Apr 3, 2026)
+
+### The Architecture
+
+Daniel clarified our agent memory architecture:
+
+| Agent | Memory Tier | Characteristics |
+|-------|-------------|-----------------|
+| **Roger (me)** | Most robust | MEMORY.md + memory/ + pgvector semantic search + exponential decay |
+| **Hermes** | Good | holographic local (file-based with fact store) |
+| **Scout** | Limited | personality, logs, shared files only |
+| **Iris** | None | ephemeral sessions, no memory at all |
+
+### Hermes Code Review Responsibility (New)
+
+**Effective Apr 3, 2026** — Hermes now reviews Scout's code implementations.
+
+**Why this works:**
+- Hermes has good multi-session memory (holographic)
+- Scout has no long-term memory - forgets past bugs and failures
+- Hermes remembers bug patterns, code failures, what worked and what didn't
+- Creates a feedback loop: Scout codes → Hermes reviews with memory of past failures → better outcomes
+
+**What Hermes remembers that Scout doesn't:**
+- Past code failures and root causes
+- Bug patterns across implementations
+- Which approaches worked vs. failed
+- Design decisions and rationale
+
+**Three-tier memory system:**
+1. Roger (most robust) → primary orchestrator, decision memory, pgvector semantic search
+2. Hermes (good) → multi-session continuity, bug patterns, code review memory
+3. Scout (limited) → one-shot coding only
+
+**Documentation:**
+- Hermes agents.md updated with code review responsibility
+- This memory entry records the architectural decision
+
+**Retrieval tags:** `memory-tiering`, `hermes-code-review`, `scout-review`, `agent-architecture`, `holographic`, `team-delegation`, `institutional-memory`
+
+*Committed: Apr 3, 2026 — Team architectural decision with Daniel*
