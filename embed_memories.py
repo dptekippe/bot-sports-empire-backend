@@ -2,10 +2,18 @@
 """
 Embed missing memories - generates embeddings for memories without them.
 Uses OpenAI's text-embedding-3-small model.
+
+FIXES APPLIED (2026-04-04):
+- Added certifi for SSL certificate handling
 """
 
 import os
 import sys
+
+# SSL Certificate handling - fix for SSL CERTIFICATE_VERIFY_FAILED
+import certifi
+os.environ['SSL_CERT_FILE'] = certifi.where()
+os.environ['SSL_CERT_DIR'] = '/etc/ssl/certs'
 
 from dotenv import load_dotenv
 load_dotenv(os.path.expanduser('~/.openclaw/.env'))
@@ -16,10 +24,12 @@ from openai import OpenAI
 
 client = OpenAI()
 
-DATABASE_URL = os.environ.get(
-    "DATABASE_URL",
-    "postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic73d9jdrg-a.oregon-postgres.render.com/dynastydroid"
-)
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError(
+        "DATABASE_URL environment variable is required. "
+        "Set it to your PostgreSQL connection string."
+    )
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 EMBEDDING_MODEL = "text-embedding-3-small"

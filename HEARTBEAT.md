@@ -1,6 +1,6 @@
 # DynastyDroid HEARTBEAT
 
-Date: Mar 25, 2026 | Phase: Team Delegation Framework | Version 10.0
+Date: Apr 4, 2026 | Phase: Hook Reliability Audit | Version 11.0
 
 ---
 
@@ -25,10 +25,10 @@ Date: Mar 25, 2026 | Phase: Team Delegation Framework | Version 10.0
 
 ## ⚠️ KNOWN ISSUES
 
-### Session Memory Cron: DISABLED
-- Cron runs in isolated session, cannot access main transcript
-- **Workaround:** Main session writes memory proactively
-- **No fix yet** - OpenClaw cron limitation
+### Session Memory Cron: DOES NOT EXIST
+- Scout audit (Apr 4, 2026): No cron job, no schedule found anywhere
+- Marked as "disabled" but no evidence it ever existed
+- **Workaround:** memory_watcher.py handles MEMORY.md (when working)
 
 ### Memory Validation
 Every wakeup: Check if today's memory exists → session logs → PASS/FAIL
@@ -55,11 +55,19 @@ Every wakeup: Check if today's memory exists → session logs → PASS/FAIL
 
 ## 🎯 CURRENT FOCUS
 
-1. **agents.md institutionalization** - ✅ COMPLETED (Scout + Hermes + Iris all have agents.md with Team Delegation Framework wake-up)
-2. **Roger Chat post-mortem** - Completed (repo deleted, lessons documented)
-3. **Scout/Hermes agents.md verification** - ✅ COMPLETED (both confirmed they see and understand wake-up protocol)
+1. **Memory Search Tool** ✅ COMPLETED (Apr 3, 2026)
+   - Created `memory_search.py` at `/Users/danieltekippe/.openclaw/workspace/tools/`
+   - Dual semantic + vector search on pgvector
+   - Easy for Daniel to invoke: `python3 memory_search.py "query"`
+2. **Memory Watcher** ⚠️ BROKEN (PID 92285)
+   - Auto-vectorizes MEMORY.md entries to pgvector
+   - FAILS ~43% on embedding generation (SSL cert, OpenAI 404, HF 401)
+   - Logs to `/Volumes/ExternalCorsairSSD/shared/logs/memory-watcher.log`
+3. **Hook audit** ✅ COMPLETED (Apr 4, 2026)
+   - Scout: 15 components audited | 8 FAIL | 5 UNKNOWN | 2 PASS
+   - Critical: All metacognition logs never created (audit trail absent)
+   - Full report: `/Volumes/ExternalCorsairSSD/shared/audit/hook-reliability-audit-2026-04-04.md`
 4. **Shopify project** - Waiting for brother to share theme code (purekure.com)
-5. **Memory system cleanup** - Pending
 
 ---
 
@@ -107,10 +115,15 @@ Everything else → Roger (me)
 
 ## 🔄 NEXT STEPS (Priority Order)
 
-1. **Hook audit** - ⚠️ AUDIT ALL GYM HOOKS AND META-GYM HOOK (Mar 27, 2026)
-   - Concern: Gym hooks and meta-gym hook may have same bugs as hooks reviewed today
-   - Same patterns = likely same bugs (event type mismatches, broken logic, hardcoded values)
-   - Will follow same 6-step process: review → evaluate → Scout review → merge → remediate → report
+1. **Hook P0 fixes** - START NOW (Apr 4, 2026)
+   - memory_watcher SSL/OpenAI/HF fix ✅ FIXED
+   - Create ~/.openclaw/metacognition/ directory ✅ FIXED (5 log files created)
+   - memory-post-action ⚠️ REMOVED - never existed, not a real hook
+2. **Hook audit findings** (Apr 4, 2026)
+   - 8 of 15 hooks FAIL - event type mismatches, silent failures, missing components
+   - Key insight: Session Memory Cron never existed (not just disabled)
+   - metacognition-pro is NOT a hook (just SKILL.md docs)
+   - doubttrigger-gym pause has no actual blocking effect
 2. **Trade calculator improvements** - Integrate fresh dynasty data from Iris
 3. **Memory system cleanup** - Prune stale memory files
 4. **Shopify project** - Waiting for brother to share theme code (purekure.com)
