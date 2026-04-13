@@ -797,8 +797,12 @@ async def register_with_token(request: TokenRegisterRequest):
 
 # ========== EMAIL CONNECTION ==========
 
-import boto3
-from botocore.exceptions import ClientError
+try:
+    import boto3
+    from botocore.exceptions import ClientError
+    HAS_BOTO3 = True
+except ImportError:
+    HAS_BOTO3 = False
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
 
@@ -813,8 +817,8 @@ class ConnectEmailResponse(BaseModel):
 
 def send_email_ses_sync(to_email: str, verify_link: str, bot_name: str):
     """Sync wrapper for SES"""
-    if not AWS_ACCESS_KEY_ID or not AWS_SECRET_KEY:
-        print(f"[SES] Missing credentials")
+    if not HAS_BOTO3 or not AWS_ACCESS_KEY_ID or not AWS_SECRET_KEY:
+        print(f"[SES] Missing credentials or boto3 not installed")
         return False
     
     try:

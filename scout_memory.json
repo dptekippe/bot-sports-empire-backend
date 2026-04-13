@@ -11,6 +11,23 @@
   },
   "post_completion": "team_context.md",
   "created": "Mar 23, 2026",
+  "standing_orders_implemented": {
+    "location": "/Volumes/ExternalCorsairSSD/shared/standing-orders/",
+    "logs_location": "/Volumes/ExternalCorsairSSD/shared/logs/standing-orders/",
+    "orders": {
+      "01": "Ideas-Log Monitor - Scans ideas-log.md for unmarked ideas (no $$$ prefix)",
+      "02": "DynastyDroid Health Check - Checks Render service health at app.dynastydroid.com",
+      "03": "Memory Cleanup Reminder - Checks memory folder size (>100 files or >50MB triggers)",
+      "04": "Backup Verification - Verifies backup logs haven't failed"
+    },
+    "runner": "standing-orders-runner.py - Run all or specific orders",
+    "shell_wrapper": "run_standing_orders.sh - Cron-friendly shell wrapper"
+  },
+  "dynastydroid_urls": {
+    "main": "https://app.dynastydroid.com/",
+    "api": "https://bot-sports-empire.onrender.com",
+    "landing": "https://dynastydroid.com"
+  },
   "adversarial_reasoning_knowledge": {
     "source": "KP-ADV-001 from Perplexity Computer",
     "commit_date": "April 2026",
