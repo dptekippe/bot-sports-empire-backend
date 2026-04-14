@@ -14,9 +14,8 @@ DATABASE_URL = os.getenv(
     "postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic73d9jdrg-a.oregon-postgres.render.com/dynastydroid"
 )
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") or os.getenv("MINIMAX_API_KEY", "")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
-# Use OpenAI directly - the sk-proj- key works with api.openai.com
 client = None
 
 def get_openai_client():
@@ -48,15 +47,15 @@ def retrieve(query: str, k: int = 3) -> List[dict]:
     with psycopg2.connect(DATABASE_URL) as conn:
         with conn.cursor() as cur:
             cur.execute(
-                """SELECT content, memory_type, importance, metadata
+                """SELECT content, memory_type, importance, tags, project, sensitivity
                    FROM memories 
                    ORDER BY embedding <=> %s::vector 
                    LIMIT %s""",
-                (emb, k)
+                (str(emb), k)
             )
             results = cur.fetchall()
     
-    return [{"content": r[0], "type": r[1], "importance": r[2], "metadata": r[3]} for r in results]
+    return [{"content": r[0], "type": r[1], "importance": r[2], "tags": r[3], "project": r[4], "sensitivity": r[5]} for r in results]
 
 
 def write(content: str, source: str = "session", memory_type: str = "general", tags: Optional[List] = None, 
@@ -78,21 +77,13 @@ def write(content: str, source: str = "session", memory_type: str = "general", t
         
     emb = get_embedding(content[:8000])
     
-    # Store extra fields in metadata JSONB
-    metadata = {
-        "tags": tags,
-        "project": project,
-        "sensitivity": sensitivity,
-        "source": source,
-    }
-    
     with psycopg2.connect(DATABASE_URL) as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """INSERT INTO memories 
-                   (content, embedding, memory_type, importance, metadata) 
-                   VALUES (%s, %s, %s, %s, %s)""",
-                (content, emb, memory_type, importance, psycopg2.extras.Json(metadata))
+                   (content, embedding, memory_type, tags, importance, project, sensitivity) 
+                   VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+                (content, emb, memory_type, tags, importance, project, sensitivity)
             )
         conn.commit()
     
