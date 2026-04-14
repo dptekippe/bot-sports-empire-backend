@@ -64,3 +64,25 @@
 
 ---
 
+
+## 🌙 Dream #3 — 2026-04-14
+
+**Scanned**: 1 file (2026-04-12.md) | **New**: 1 entry | **Updated**: 0 | **Total**: 46 entries
+
+### Changes
+- [New] **[MAJOR] Documentation Sprint — All 7 Architecture Gaps Resolved** — L0 Lossless Claw schema extracted (10 tables, DAG, fresh tail); L1/L2 share same PostgreSQL table; L3 "learning" gist doesn't exist; L5 wiki graduation is manual-only; 12/13 hooks documented; Tags enrichment: 361/368 memories now tagged
+
+### Insights
+- **Architecture-implementation gap is systematic** — each layer has planned features never built (L3 learning gist, L4 archival, L5 graduation, L2 distinct store). This isn't random debt — it's progressive expansion where docs outpace code.
+- **Tags enrichment as health indicator** — 361 of 368 memories tagged (98%) shows the tagging system is now comprehensive, not sparse. Retrieval quality improved by completing the taxonomy.
+- **Hook system nearly complete** — 12/13 hooks documented, only meta-gym stub remaining. First time any layer is near-complete.
+
+### Stale Threads
+- Scout/Hermes identity update — 6 days stale, last context: broaden Scout purpose beyond fantasy, update Hermes partner designation (from Apr 8 post-mortem)
+- HEARTBEAT.md refresh — 3 days stale, last context: Mar 27 version outdated, documented sprint should update it
+
+### Suggestions
+1. **HEARTBEAT.md**: Update with current priorities — Documentation Sprint complete (all 7 gaps resolved), Hook P0 mostly fixed, Scout/Hermes identity update still pending
+2. **L5 graduation automation**: Consider wiring up confidence-threshold-based auto-promotion (currently manual only)
+3. **L3 REMem integration**: Wire "learning" gist equivalent via decision/outcome classification → current pipeline is incomplete
+

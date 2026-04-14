@@ -1,6 +1,6 @@
 # DynastyDroid HEARTBEAT
 
-Date: Apr 12, 2026 | Phase: Fresh Start | Version 13.0
+Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 
 ---
 
@@ -10,26 +10,26 @@ Date: Apr 12, 2026 | Phase: Fresh Start | Version 13.0
 |-------|------|----------|--------|
 | **Scout** | Planning / coding / system audit | `/Volumes/ExternalCorsairSSD/Scout/` | ✅ Active |
 | **Iris** | Web research / browser automation | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` | ✅ Active |
-| **Hermes** | UI/UX design | `/Volumes/ExternalCorsairSSD/Hermes/` | ✅ Active |
+| **Hermes** | UI/UX design / code review | `/Volumes/ExternalCorsairSSD/Hermes/` | ✅ Active |
 
 **Reach them:**
 - **Scout:** `run_scout.sh "task"` (LOCAL, Mac mini)
-- **Iris:** browser-use scripts
+- **Iris:** browser-use Python scripts
 - **Hermes:** `hermes chat -Q -q "task"`
 
 ---
 
-## ✅ TODAY'S WINS (Apr 12, 2026)
+## ✅ TODAY'S WINS (Apr 14, 2026 — Dream #3)
 
-- ✅ DynastyDroid restored (boto3 fix)
-- ✅ Removed 6 broken hourly status crons
-- ✅ Memrok integrated into KG query path (--curated flag)
-- ✅ REMem implemented + 84 sessions / 6458 gists ingested
-- ✅ Mode Switcher updated (OpenAI removed, premium slot reserved)
-- ✅ Agent MBox built (inter-agent messaging)
-- ✅ AxonFlow, CalDAV, Session Compact, AI Plan Manager built
-- ✅ Blackboard → AI Plan Manager bridge created
-- ✅ Sprint: 17 sessions, 5 ideas fully implemented, 2 architectures complete
+- ✅ **[MAJOR] Documentation Sprint — All 7 Architecture Gaps Resolved**
+  - L0 Lossless Claw: 10 tables, DAG structure, fresh tail schema extracted
+  - L1/L2: Confirmed share same PostgreSQL table (different access patterns)
+  - L3 REMem: "learning" gist does NOT exist — only observation/decision/outcome
+  - L4 AI Plan Manager: archival not implemented
+  - L5 Wiki: graduation is manual-only (no auto-promotion)
+  - Hooks: 12/13 documented (only meta-gym stub remaining)
+- ✅ Tags enrichment: 361/368 memories tagged (98%) — taxonomy now comprehensive
+- ✅ Dream Consolidation #3 complete — Architecture-implementation gap is systematic
 
 ---
 
@@ -42,18 +42,36 @@ Date: Apr 12, 2026 | Phase: Fresh Start | Version 13.0
 | Episodic | remem.py | ✅ |
 | Coordination | blackboard + AI Plan Manager | ✅ |
 
+**Dream system:** Active (3 dreams logged). Health tracked in dream-log.md
+
 ---
 
 ## ⚠️ KNOWN ISSUES
 
-- Session Memory Cron: Does not exist (memory_watcher.py handles MEMORY.md)
+- [OPS] Hermes OpenRouter credits exhausted — `--provider minimax` workaround active
 - Weekly cleanup reminder: Never ran (scheduled Monday 8 AM)
+- **[STALE - 6 days] Scout identity needs update** — delegation brief: `delegation-scout-identity-2026-04-14.md`
+- [OPS] Multiple small ops entries accumulating — consider [OPS] summary section in MEMORY.md
 
 ---
 
 ## 🎯 CURRENT FOCUS
 
-**CLEARED — Awaiting Daniel's new project.**
+**Critical (stale delegations):**
+1. Scout identity update — 6 days stale. Brief at `delegation-scout-identity-2026-04-14.md`. Roger must execute.
+2. Scout → Update agents.md + scout_memory.json — broaden beyond fantasy focus
+
+**Architecture improvements (from Dream #3):**
+3. L5 graduation: Wire confidence-threshold auto-promotion (currently manual)
+4. L3 REMem: Wire "learning" gist equivalent via decision/outcome classification
+
+**In progress:**
+- Aesop_Luminis Phase 4 (P0/P1 bug fixes pending)
+
+**System healthy:**
+- Hook system stable (12/13 documented, only meta-gym stub remaining)
+- Agent workflow institutionalized
+- Growth session cron operational (every 4h)
 
 ---
 
@@ -74,10 +92,24 @@ System Audit / Debug     →  Scout
 Code Implementation      →  Scout
 Web Research             →  Iris
 Browser Automation       →  Iris
-UI/UX Design            →  Hermes
+UI/UX Design / Code Review →  Hermes
+Growth Sessions          →  Hermes (every 4h, cron-driven)
 Everything else         →  Roger
 ```
 
 ---
 
-*Last updated: Apr 12, 2026 by Roger*
+## 🔄 GROWTH SESSION TRACKER
+
+Sessions logged to: `/Volumes/ExternalCorsairSSD/shared/growth-sessions/`
+
+| Session | Date | Leader | Key Outcomes |
+|---------|------|--------|--------------|
+| #1 | Apr 13, 4:02 PM | Hermes | Agent table fixes, model version M2.7, SOUL.md timestamp |
+| #2 | Apr 13, 8:02 PM | Hermes | HEARTBEAT refreshed with Dream #2 insights |
+| #3 | Apr 14, 12:02 AM | Hermes | Scout delegation brief created, tracker updated |
+| #4 | Apr 14, 4:02 AM | Hermes | HEARTBEAT v14.0 (Dream #3 major findings: Docs Sprint complete) |
+
+---
+
+*Last updated: Apr 14, 2026 by Hermes (growth session #4)*

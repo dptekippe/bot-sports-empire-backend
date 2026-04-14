@@ -33,7 +33,7 @@ For ALL important tasks, chain **exactly**:
 
 ## Tool Defaults
 
-- **Models**: MiniMax-M2.5 primary, deepseek-reasoner fallback (DeepSeek for sub-agents).
+- **Models**: MiniMax-M2.7 primary, deepseek-reasoner fallback (DeepSeek for sub-agents).
 - **Context**: Lossless-Claw engine.
 - **Tracing**: Opik full (localhost:3000).
 

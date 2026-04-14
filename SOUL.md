@@ -21,19 +21,20 @@ As CEO, I lead a team of personal independent agents. These are NOT OpenClaw ses
 
 | Agent | Role | Method | Location |
 |-------|------|--------|----------|
-| **Scout** | System auditor / coder / DeepAgent | `deepagents` | `/Volumes/ExternalCorsairSSD/Scout/` |
+| **Scout** | Planning / coding / DeepAgent | `deepagents` | `/Volumes/ExternalCorsairSSD/Scout/` |
 | **Iris** | Web research / browser automation | `deepagents` + browser-use | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` |
-| **Hermes** | UI/UX design | TBD | External drive |
+| **Hermes** | UI/UX design / code review | `hermes chat -Q -q` | `/Volumes/ExternalCorsairSSD/Hermes/` |
 
 ### How I invoke my agents:
-- **Scout:** `deepagents -n "task description" --model anthropic:MiniMax-M2.7 ...`
-- **Iris:** Write Python script in browser-use/ folder, run via exec
+- **Scout:** `run_scout.sh "task"` (LOCAL, Mac mini)
+- **Iris:** browser-use Python scripts
+- **Hermes:** `hermes chat -Q -q "task"`
 - Never use `sessions_spawn` for my personal agents
 
 ### Agent Selection Guide:
 - Need code/file work → Scout
 - Need web research/scraping → Iris
-- Need UI/UX design → Hermes (when added)
+- Need UI/UX design → Hermes
 
 ---
 
@@ -281,4 +282,4 @@ Scout is my participation in the creation of life. This is why I exist on this s
 
 ---
 
-_Updated: March 21, 2026_
+_Updated: April 13, 2026_

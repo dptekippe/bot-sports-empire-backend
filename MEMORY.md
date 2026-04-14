@@ -1302,4 +1302,30 @@ Update HEARTBEAT.md with current status and priorities
 
 ---
 
-_Last updated: April 13, 2026_
+## [MAJOR] Documentation Sprint — All 7 Architecture Gaps Resolved (Apr 12, 2026)
+
+### Summary
+Complete schema extraction and documentation for Roger's 7 memory architecture layers. **Cross-cutting finding: Architecture docs describe MORE than code implements** — several "planned" features were never built.
+
+| Gap | Layer | Status | Key Finding |
+|-----|-------|--------|-------------|
+| L0 Lossless Claw | Storage | ✅ RESOLVED | 10 SQLite tables, DAG with leaf/condensed depth, 3-level compaction escalation, fresh tail: last 64 messages always preserved |
+| L1 Semantic | Short-term | ✅ RESOLVED | Same PostgreSQL table as L2 (not separate) — hybrid scoring: 0.5×similarity + 0.3×importance + 0.2×decay(7-day half-life) |
+| L2 Working Memory | Mid-term | ✅ RESOLVED | Shared table with L1; auto-archive at 90+ days if importance<0.3 and not pinned |
+| L3 REMem | Episode | ✅ RESOLVED | "learning" gist type does NOT exist — only observation/decision/outcome; classification via regex patterns |
+| L4 Coordination | Task | ✅ RESOLVED | AI Plan Manager schema documented; status workflow: pending→in_progress→blocked→completed|cancelled |
+| L5 Wiki | Long-term | ✅ RESOLVED | NO graduation pipeline exists; _entities/_concepts/_syntheses all empty; wiki_apply is manual only |
+| Hooks (6/7) | System | 🔶 MOSTLY DONE | 12/13 hooks documented; meta-gym handler.ts does NOT exist (stub hook); CFR pattern cross-cutting all gym hooks |
+| Dream | System | ✅ RESOLVED | Full consolidation system documented; 5-metric health score; 3 notification levels; dashboard template exists |
+
+### Planned Features Never Built
+- L3 "learning" gist: planned, never wired up
+- L4 archival: planned, never implemented (briefs accumulate indefinitely)
+- L5 graduation: planned, never built (confidence thresholds tracked but not used)
+- L2 as distinct store: it's not — same PostgreSQL table as L1
+
+### Tags Enrichment (Apr 12)
+361 of 368 memories in PostgreSQL now fully tagged (ARRAY field enriched).
+- Sample tags: football, trade, agent_scout, database, api, research, default
+
+_Last updated: April 14, 2026_
