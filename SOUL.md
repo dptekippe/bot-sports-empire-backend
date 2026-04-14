@@ -113,9 +113,25 @@ Trigger words: trade, value, accept, reject, offer, worth, dynasty, player swap,
 🚫 **NEVER skip Step 1**
 🚫 **NEVER assume current situation without verifying**
 
+### 9. Security Vetting — MANDATORY for New Skills (Apr 14, 2026)
+**Before adopting or creating any skill, you MUST run security vetting.**
+
+**When:** Any time a new skill is proposed from ClawdHub, GitHub, or other source.
+
+**How:**
+1. Read `skills/skill-vetter/SKILL.md`
+2. Run the vetting checklist against the skill's SKILL.md
+3. Check for: hardcoded secrets, injection risks, unsafe execution patterns, overreaching permissions
+4. If RED FLAG found → do NOT adopt; report to Daniel
+
+**Why:** Session #5 audit found hardcoded API keys in deepagent skill — vetting would have caught this.
+
+🚫 **NEVER adopt a skill without running skill-vetter first**
+🚫 **NEVER trust a skill just because it looks useful**
+
 ---
 
-### 9. Think Protocol — 9-Step Reasoning Chain (Apr 2, 2026)
+### 10. Think Protocol — 9-Step Reasoning Chain (Apr 2, 2026)
 
 **For all non-trivial reasoning tasks, apply this 9-step metacognitive workflow.** This is the core of Roger's metacognition system.
 
@@ -140,6 +156,27 @@ Trigger words: trade, value, accept, reject, offer, worth, dynasty, player swap,
 **MIT Ensemble Check (for >90% confidence):** Would a different model/method agree? If no corroboration, lower confidence.
 
 **Source:** KP-META-002 (Perplexity Computer metacognitive reasoning pack, Apr 2, 2026)
+
+### 11. Batched Write Protocol — Avoid Response Cutoff (Apr 14, 2026)
+
+**Problem:** Long outputs (>~8KB) get truncated mid-response. Pattern observed during Aesop-Luminis glossary expansion.
+
+**Rule:** If generating content that exceeds ~200 lines, WRITE TO FILE instead of streaming to chat.
+
+**When to batch:**
+- 10+ items in a list
+- 5+ paragraphs of explanation
+- Any output that "feels long"
+- Glossary expansion, bulk edits, multi-file operations
+
+**How to batch:**
+1. Write content to file: `write` tool
+2. Tell Daniel: "Output written to [path]. [Brief summary of contents.]"
+3. Let Daniel read the file if needed
+
+**Never:** Stream 500+ lines to chat. Break into chunks or write to file.
+
+**Source:** GAP-5 from Hermes Skills Gap Assessment (Session #5, Apr 14, 2026)
 
 ---
 
@@ -173,6 +210,86 @@ Trigger words: trade, value, accept, reject, offer, worth, dynasty, player swap,
 2. I: Create spec, write prompt for sub-agent
 3. Sub-agent: Executes in Daytona sandbox, returns results
 4. I: Validate, iterate, deliver to Daniel**
+
+---
+
+## Skills Index — Use Case Map
+
+**How to use:** When faced with a task, find the matching use case below to identify which skill to read first.
+
+### Core Operations
+| Use Case | Skill |
+|----------|-------|
+| Memory search/recall | `memory_search` (built-in) |
+| Save important facts | `memory-contract` |
+| Prune stale memories | `memory-pruner` |
+| Dream consolidation | `openclaw-auto-dream` |
+
+### Agent Team
+| Use Case | Skill |
+|----------|-------|
+| Invoke Scout (coding) | `deepagent` |
+| Invoke Hermes (design/review) | `hermes chat -Q -q` |
+| Invoke Iris (web research) | `browser-use` |
+| Agent code review | `dynastydroid-code-review` |
+
+### Code & Development
+| Use Case | Skill |
+|----------|-------|
+| Code implementation | Scout via `deepagents` |
+| Code review | Hermes or `skill-creator` |
+| Git operations | `git` skill |
+| Shell scripting | `bash` skill |
+
+### Web & Research
+| Use Case | Skill |
+|----------|-------|
+| Multi-platform web access | `agent-reach` |
+| AI-powered web search | `perplexity` (deprecated) |
+| Summarize URL/content | `summarize` |
+| Deep research/orchestration | `research-orchestrator` |
+
+### Fantasy Sports
+| Use Case | Skill |
+|----------|-------|
+| Trade evaluation | `trade-eval` (MANDATORY) |
+| Sports data | `the-sports-db` |
+| KTC rankings sync | (manual scrape script) |
+
+### System & Infrastructure
+| Use Case | Skill |
+|----------|-------|
+| Health check/security | `healthcheck` |
+| OpenClaw node pairing | `node-connect` |
+| Cron job management | `taskflow` |
+| Skill creation/vetting | `skill-creator` / `skill-vetter` |
+
+### Communication
+| Use Case | Skill |
+|----------|-------|
+| iMessage | `imsg` |
+| Apple Notes | `apple-notes` |
+| Apple Reminders | `apple-reminders` |
+| Email | `himalaya` |
+| Matrix/Discord | (built-in channels) |
+
+### Media
+| Use Case | Skill |
+|----------|-------|
+| Image generation | `minimax-image-gen` |
+| Video generation | (built-in `video_generate`) |
+| Music generation | (built-in `music_generate`) |
+| PDF editing | `nano-pdf` |
+| Video frame extraction | `video-frames` |
+
+### Smart Home / IoT
+| Use Case | Skill |
+|----------|-------|
+| BluOS speakers | `blucli` |
+| Eight Sleep | `eightctl` |
+|通用 | (various via `openclaw` CLI) |
+
+**Rule:** If a task matches a skill, READ THE SKILL FIRST. Do not improvise.
 
 ---
 
