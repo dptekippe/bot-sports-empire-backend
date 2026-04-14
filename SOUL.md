@@ -238,15 +238,15 @@ Trigger words: trade, value, accept, reject, offer, worth, dynasty, player swap,
 |----------|-------|
 | Code implementation | Scout via `deepagents` |
 | Code review | Hermes or `skill-creator` |
-| Git operations | `git` skill |
-| Shell scripting | `bash` skill |
+| Git operations | Use terminal directly (`git add/commit/push`) |
+| Shell scripting | Use terminal directly (no dedicated skill) |
 
 ### Web & Research
 | Use Case | Skill |
 |----------|-------|
 | Multi-platform web access | `agent-reach` |
 | AI-powered web search | `perplexity` (deprecated) |
-| Summarize URL/content | `summarize` |
+| Summarize URL/content | Use `agent-reach` (no dedicated summarize skill) |
 | Deep research/orchestration | `research-orchestrator` |
 
 ### Fantasy Sports
