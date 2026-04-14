@@ -122,12 +122,19 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 
 **Phase 1: Hermes READS from Roger's pgvector**
 1. ✅ **Verified working:** `memory_search.py` accessible via exec, MINIMAX_API_KEY available
-2. **Create:** `hermes_query_memory.py` — clean wrapper script for Hermes (Scout)
-   - Input: natural language query (arg or stdin)
-   - Output: JSON with top 5 memories (content, tags, importance, score)
+2. ✅ **Created:** `hermes_query_memory.py` — HTTP client for Hermes → Roger's memory
    - Location: `/Volumes/ExternalCorsairSSD/shared/scripts/hermes_query_memory.py`
-3. ✅ **Create:** `when_memory_read/SKILL.md` — triggers when Hermes needs to check Roger's knowledge (Hermes)
-4. **Test:** Hermes does a code review, queries Roger's memory for prior context, confirms integration works
+   - Calls: POST localhost:5001/retrieve (Flask memory_server)
+   - Input: query as arg or stdin
+   - Output: JSON with results (id, content, score, tags, importance)
+3. ✅ **Created:** `memory_bridge.py` — write interface (Phase 2 prep)
+   - Location: `/Volumes/ExternalCorsairSSD/shared/scripts/memory_bridge.py`
+   - Calls: POST localhost:5001/write
+4. ⚠️ **Server startup needed:** memory_server.py on port 5001 (port 5000 taken by macOS)
+   - Start: `python3 /Users/danieltekippe/.openclaw/workspace/app/core/memory_server.py` (edit port to 5001)
+   - Server runs on Mac mini localhost:5001
+5. ✅ **Create:** `when_memory_read/SKILL.md` — triggers when Hermes needs to check Roger's knowledge (Hermes)
+6. **Test:** Hermes does a code review, queries Roger's memory for prior context, confirms integration works
 
 **Trigger refinement (Hermes's input):** Triggers must be SPECIFIC, not blanket. Blanket triggers ("before significant review/research") fire on everything and dilute the signal.
 
