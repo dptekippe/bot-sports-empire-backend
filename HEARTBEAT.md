@@ -122,18 +122,35 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 
 **Phase 1: Hermes READS from Roger's pgvector**
 1. ✅ **Verified working:** `memory_search.py` accessible via exec, MINIMAX_API_KEY available
-2. **Create:** `hermes_query_memory.py` — clean wrapper script for Hermes
+2. **Create:** `hermes_query_memory.py` — clean wrapper script for Hermes (Scout)
    - Input: natural language query (arg or stdin)
    - Output: JSON with top 5 memories (content, tags, importance, score)
    - Location: `/Volumes/ExternalCorsairSSD/shared/scripts/hermes_query_memory.py`
-3. **Create:** `when_memory_read/SKILL.md` — triggers when Hermes needs to check Roger's knowledge
+3. ✅ **Create:** `when_memory_read/SKILL.md` — triggers when Hermes needs to check Roger's knowledge (Hermes)
 4. **Test:** Hermes does a code review, queries Roger's memory for prior context, confirms integration works
 
-**Phase 2: Hermes WRITES to Roger's pgvector (later)**
+**Trigger refinement (Hermes's input):** Triggers must be SPECIFIC, not blanket. Blanket triggers ("before significant review/research") fire on everything and dilute the signal.
+
+**Approved triggers:**
+- Before reviewing code I didn't write originally (Scout's implementations)
+- When encountering a bug pattern I've seen before
+- When doing system review
+- Before starting trade research on a player/strategy I've researched before
+- When Scout proposes an architecture I've previously flagged concerns about
+
+**Phase 2: Hermes WRITES to Roger's pgvector (later, when Phase 1 is proven)**
 1. Create `memory_bridge.py` — write interface with OpenAI embedding
-2. Create `when_memory_write/SKILL.md` — triggers when Hermes finds important facts
+2. Create `when_memory_write/SKILL.md` — explicit triggers only (not automatic)
 3. Trust bridge: trust_score ≥ 0.7 → importance ≥ 6 (filter low-quality facts)
 4. Integration test: Hermes writes fact → Roger retrieves it
+
+**Hermes's write-back rules:**
+- ✅ Write: confirmed bug patterns, code review outcomes, architecture decisions
+- ❌ Don't write: my assessments of Scout's work quality, meta-level process critiques, Daniel's offhand preferences
+- Format: structured distilled fact, NOT raw session log
+- Trigger: explicit ("after confirmed bug pattern resolved → write to Roger's memory")
+
+**Privacy:** Some things stay Hermes-only. Her SOUL.md, growth reflections, and SOUL-persisted insights are never suggested for bridging. Memory convergence = bad. "They're allowed to disagree — that's a feature, not a bug."
 
 ### Files to Create (Phase 1 — Read First)
 
