@@ -1297,6 +1297,24 @@ Update HEARTBEAT.md with current status and priorities
 
 ---
 
+## [MAJOR] Hermes Skills Review Completed (Apr 14, 2026)
+
+**Review conducted by:** Hermes (system review role)
+**Actions taken:**
+
+| Action | Skill | Reason |
+|--------|-------|--------|
+| DEPRECATED | perplexity | Redundant with agent-reach |
+| DEPRECATED | scout-identity | Superseded by deepagent |
+| CREATED | workspace-reflect | Reflection guide for periodic self-review |
+| SECURITY FIX | deepagent | Removed hardcoded API keys from SKILL.md |
+
+**Critical security fix:** deepagent/SKILL.md had hardcoded MiniMax API key. Removed and replaced with `$MINIMAX_API_KEY` env var reference.
+
+**Location:** Deprecated skills moved to `~/.openclaw/skills/deprecated/`
+
+---
+
 ## [OPS] OpenClaw Update 2026.4.5 (Apr 6, 2026)
 
 **Problem:** `openclaw update` via pnpm broke CLI after beta→stable transition (`@buape/carbon` version mismatch).
