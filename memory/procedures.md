@@ -1,19 +1,71 @@
 # Procedures & Preferences
 
-_Last updated: April 11, 2026_
+_Last updated: April 14, 2026_
 
 ---
 
 ## Technical Procedures
 
-### SIGTERM Prevention for Hermes
-**Problem:** Hermes sessions getting SIGTERM'd unexpectedly after 2-3 minutes of browser use.
-**Root cause:** Stale `agent-browser` daemon processes accumulating over time.
-**Solution:** Before invoking Hermes, kill all stale daemon processes:
+### SIGTERM Prevention — Session Accumulation (Apr 14, 2026)
+**Problem:** Hermes getting SIGTERM'd during `mcp_patch` at end of long sessions.
+**Root cause:** Accumulated session files from Hermes and OpenClaw main agent.
+
+**Full cleanup protocol:**
+
+**Step 1 — Check all session locations:**
 ```bash
-ps aux | grep agent-browser | grep -v grep | awk '{print $2}' | xargs kill -9 2>/dev/null || true
+# Hermes sessions (external SSD)
+ls -lt /Volumes/ExternalCorsairSSD/Hermes/sessions/
+du -sh /Volumes/ExternalCorsairSSD/Hermes/sessions/
+
+# OpenClaw main sessions
+ls -lt ~/.openclaw/agents/main/sessions/
+du -sh ~/.openclaw/agents/main/sessions/
+
+# Scout sessions (browser-use)
+find /Volumes/ExternalCorsairSSD/Scout/browser-use -name "*.jsonl" 2>/dev/null
 ```
-**When to run:** Before starting any Hermes session that uses browser automation.
+
+**Step 2 — Archive Hermes sessions (keep ≤5 days):**
+```bash
+ARCHIVE_DIR="/Volumes/ExternalCorsairSSD/archived-sessions/hermes-sessions-$(date +%Y-%m-%d)"
+mkdir -p "$ARCHIVE_DIR"
+cd /Volumes/ExternalCorsairSSD/Hermes/sessions
+# Keep sessions from 20260410 onward (adjust cutoff as needed)
+for file in session_20260[0-3]*.json session_202603*.json; do
+  [ -f "$file" ] && mv "$file" "$ARCHIVE_DIR/" && echo "Archived: $file"
+done
+```
+
+**Step 3 — Archive OpenClaw main sessions (keep ≤3 days):**
+```bash
+ARCHIVE_DIR="/Volumes/ExternalCorsairSSD/archived-sessions/2026-$(date +%m-%d)-sessions"
+mkdir -p "$ARCHIVE_DIR"
+cd ~/.openclaw/agents/main/sessions
+
+# Archive pre-Apr 11 sessions
+for uuid in 6b0f0938 3b0f1c58 8881772f e6edf41c c4f6ef69 cc47971f 5909130b 6d4deda1 ed047db2; do
+  find . -maxdepth 1 -name "${uuid}*" -exec mv {} "$ARCHIVE_DIR/" \; 2>/dev/null
+done
+
+# Remove checkpoint files (orphaned)
+rm *.checkpoint.* 2>/dev/null || true
+```
+
+**Step 4 — Verify:**
+```bash
+echo "Hermes: $(ls /Volumes/ExternalCorsairSSD/Hermes/sessions/*.json 2>/dev/null | wc -l) files, $(du -sh /Volumes/ExternalCorsairSSD/Hermes/sessions/ | cut -f1)"
+echo "OpenClaw main: $(ls ~/.openclaw/agents/main/sessions/*.jsonl 2>/dev/null | wc -l) files, $(du -sh ~/.openclaw/agents/main/sessions/ | cut -f1)"
+```
+
+**Step 5 — Test:**
+```bash
+cd /Volumes/ExternalCorsairSSD/Hermes && hermes chat -Q -q "Test" --provider minimax --toolsets "file"
+```
+
+**Apr 14 findings:** Hermes 235→22 files (22MB→2MB), OpenClaw 57→32 files (213MB→175MB). Largest single file: 17MB Apr 12 session bound to failing Hermes Growth Session cron.
+
+**When to run:** Weekly preventive, or when Hermes starts getting SIGTERM'd.
 
 ### Response Cutoff Prevention
 **Problem:** Long responses getting cut off mid-transmission.
