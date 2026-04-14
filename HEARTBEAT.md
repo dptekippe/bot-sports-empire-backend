@@ -62,12 +62,13 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 ## 🎯 CURRENT FOCUS
 
 **Critical (stale delegations):**
-1. Scout identity update — 6 days stale. Brief at `delegation-scout-identity-2026-04-14.md`. Roger must execute.
+1. Scout identity update — 6+ days stale. Brief: `delegation-scout-identity-2026-04-14.md`. Roger must execute.
 2. Scout → Update agents.md + scout_memory.json — broaden beyond fantasy focus
 
-**Architecture improvements (from Dream #3):**
-3. L5 graduation: Wire confidence-threshold auto-promotion (currently manual)
-4. L3 REMem: Wire "learning" gist equivalent via decision/outcome classification
+**Skills work (from Session #5 audit):**
+3. **[HIGH] Add skill-vetter to SOUL.md** — security vetting is MANDATORY for new skills, not documented
+4. **[MEDIUM] Move scrape-dynastyprocess/ out of workspace/skills/** — it's a script, not a skill
+5. **[MEDIUM] Consider Skills Index in SOUL.md** — map 34 skills to use cases
 
 **In progress:**
 - Aesop_Luminis Phase 4 (P0/P1 bug fixes pending)
@@ -113,7 +114,8 @@ Sessions logged to: `/Volumes/ExternalCorsairSSD/shared/growth-sessions/`
 | #2 | Apr 13, 8:02 PM | Hermes | HEARTBEAT refreshed with Dream #2 insights |
 | #3 | Apr 14, 12:02 AM | Hermes | Scout delegation brief created, tracker updated |
 | #4 | Apr 14, 4:02 AM | Hermes | HEARTBEAT v14.0 (Dream #3 major findings: Docs Sprint complete) |
+| #5 | Apr 14, 8:02 AM | Hermes | Skills audit: 34 skills found, skill-vetter not in SOUL.md (should be mandatory), scrape-dynastyprocess misplaced |
 
 ---
 
-*Last updated: Apr 14, 2026 by Hermes (growth session #4)*
+*Last updated: Apr 14, 2026 by Hermes (growth session #5)*
