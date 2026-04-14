@@ -67,6 +67,53 @@ cd /Volumes/ExternalCorsairSSD/Hermes && hermes chat -Q -q "Test" --provider min
 
 **When to run:** Weekly preventive, or when Hermes starts getting SIGTERM'd.
 
+### SIGTERM Deep Dive Investigation (Apr 14, 2026)
+**Problem:** Hermes getting SIGTERM'd during file writes at end of long sessions.
+**Note:** Session cleanup alone did NOT resolve SIGTERM. Pattern persists after cleanup.
+
+**Settings found (from config inspection):**
+```yaml
+# ~/.openclaw/agents/main/agent/models.json
+agent:
+  max_turns: 60          # Max turns per conversation
+
+# terminal section
+terminal:
+  timeout: 180           # 3 min terminal timeout
+  lifetime_seconds: 300   # 5 min session lifetime
+
+# code_execution section
+code_execution:
+  timeout: 300           # 5 min code execution timeout
+  max_tool_calls: 50     # Max tool calls per session
+```
+
+**Settings are reasonable** — none are obviously causing SIGTERM.
+
+**Observed pattern:**
+- SIGTERM happens during final file write operations (memory_server.py, HEARTBEAT patches)
+- 90% of work completes successfully, process dies during final write
+- SIGTERM not SIGKILL (different signal — see below)
+
+**Types of termination:**
+- `SIGTERM` (15) — graceful termination request, can be caught/handled
+- `SIGKILL` (9) — force kill, cannot be caught
+- Recent sessions show SIGKILL on exec timeout
+
+**Possible causes (not confirmed):**
+1. Herme's exec subprocess hitting a hidden resource limit
+2. The `hermes chat` process itself has a turn/time limit not in config
+3. File write operations triggering a size/context limit
+4. OpenClaw gateway session size limit during final output generation
+
+**Recommendations to try:**
+1. Add `--max-turns 120` to hermes-ui.yaml command
+2. Increase `code_execution.max_tool_calls` from 50 to 100
+3. Break long tasks into smaller incremental sessions
+4. Monitor `hermes chat` process directly during execution
+
+**Note:** The "permission denied" error during file writes to `/Users/danieltekippe/.openclaw/workspace/app/core/` is expected — Hermes can't write to Roger's workspace. She can only write to `/Volumes/ExternalCorsairSSD/shared/` and her own directories.
+
 ### Response Cutoff Prevention
 **Problem:** Long responses getting cut off mid-transmission.
 **Root cause:** Single response too large for session limits.
