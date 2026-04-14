@@ -1263,6 +1263,40 @@ Update HEARTBEAT.md with current status and priorities
 
 ---
 
+## [MAJOR] Hermes System Review Role (Apr 14, 2026)
+
+**Authorization:** Daniel explicitly approved Hermes exec access with guardrails.
+
+**Role Definition:**
+- Hermes performs deep periodic system reviews
+- READ-ONLY by default (command allowlist)
+- Modifications require explicit Roger approval per-change
+- Review → Recommend → Execute (only with approval)
+
+**Implementation:**
+1. `system-review-prompt.md` — Protocol definition with output format
+2. `config.yaml` — command_allowlist restricts to read-only operations
+3. `agents.md` — Updated with new role documentation
+
+**Command Allowlist (read-only):**
+- File: cat, head, tail, less, more, bat, xxd
+- Search: grep, rg, ag, cut, sort, uniq, wc
+- System: ps, top, df, du, free, uname, uptime
+- Git: git (log, diff, status, show, blame)
+- DB: sqlite3 (read-only)
+- Network: curl, wget (HTTP GET)
+- Misc: jq, yq, python3, node, openclaw
+
+**BLOCKED:** rm, mv, cp, chmod, git push, npm install, any write ops
+
+**Approval Workflow:**
+1. Hermes completes review, identifies needed changes
+2. Hermes asks Roger: "Do you approve [specific change]?"
+3. Roger: "APPROVED: [change]" or "DENIED"
+4. Hermes executes only APPROVED changes
+
+---
+
 ## [OPS] OpenClaw Update 2026.4.5 (Apr 6, 2026)
 
 **Problem:** `openclaw update` via pnpm broke CLI after beta→stable transition (`@buape/carbon` version mismatch).
