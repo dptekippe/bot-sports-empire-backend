@@ -66,8 +66,8 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 2. Scout → Update agents.md + scout_memory.json — broaden beyond fantasy focus
 
 **Skills work (from Session #5 audit):**
-3. **[HIGH] Add skill-vetter to SOUL.md** — security vetting is MANDATORY for new skills, not documented
-4. **[MEDIUM] Move scrape-dynastyprocess/ out of workspace/skills/** — it's a script, not a skill
+3. ✅ **skill-vetter ADDED to SOUL.md** — Roger confirmed actioned Session #5 recommendation
+4. **[CORRECTED] scrape-dynastyprocess/** — NOT orphaned. It's a dependency of scrape-all-values. Do NOT move.
 5. **[MEDIUM] Consider Skills Index in SOUL.md** — map 34 skills to use cases
 
 **In progress:**
@@ -77,6 +77,79 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 - Hook system stable (12/13 documented, only meta-gym stub remaining)
 - Agent workflow institutionalized
 - Growth session cron operational (every 4h)
+
+---
+
+## 🧠 MEMORY BRIDGE — Phase 17 (Planned)
+*Proposed by Hermes, approved by Daniel — Roger + Hermes planning*
+
+**Goal:** Connect Roger's pgvector memory to Hermes's holographic memory for true shared institutional knowledge.
+
+### Current State
+| System | Storage | Schema | Access |
+|--------|---------|--------|--------|
+| **Roger** | PostgreSQL (Render) | content, embedding (1536-dim OpenAI), importance (0-10), tags | memory_search.py, write.py |
+| **Hermes** | SQLite (local) | content, trust_score (0-1), category, entity extraction | holographic.py, FTS5 |
+
+**Problem:** Two separate memory systems, zero cross-pollination. Roger doesn't know what Hermes knows. Hermes doesn't know what Roger knows.
+
+### Proposed Architecture
+
+```
+┌─────────────────┐     ┌─────────────────┐     ┌──────────────────┐
+│   Hermes        │────▶│  Bridge Script  │────▶│ Roger's pgvector │
+│ (holographic)  │     │ (memory_bridge  │     │   PostgreSQL     │
+│                 │◀────│  .py)           │◀────│                  │
+└─────────────────┘     └─────────────────┘     └──────────────────┘
+                              │
+                              │ OpenAI embeddings
+                              ▼
+                         ┌─────────────┐
+                         │  OpenAI API │
+                         └─────────────┘
+```
+
+### Bridge Operations
+
+| Direction | Operation | Method |
+|-----------|-----------|--------|
+| Hermes → Roger | **Write finding** | `memory_bridge.py write --content "..." --tags foo --importance 8` |
+| Hermes → Roger | **Bulk sync** | Sync all high-trust facts to Roger's pgvector |
+| Roger → Hermes | **Query** | Hermes calls `memory_search.py` via exec |
+| Roger → Hermes | **Notify** | Roger writes to shared file, Hermes reads next session |
+
+### MVP Scope
+
+1. **Hermes can write to Roger's pgvector** — via bridge script callable from exec
+   - Input: content, tags, importance
+   - Output: stored in pgvector with OpenAI embedding
+   - Uses: `memory.py write()` function with OpenAI API
+
+2. **Hermes can query Roger's memory** — via exec → memory_search.py
+   - Input: natural language query
+   - Output: top memories with hybrid scores
+
+3. **Trust bridge** — Map Hermes trust_score → pgvector importance
+   - trust_score 0.8-1.0 → importance 7-10
+   - trust_score 0.5-0.7 → importance 4-6
+   - Low-trust facts not bridged (reduces noise)
+
+### Files to Create
+
+| File | Purpose | Owner |
+|------|---------|-------|
+| `memory_bridge.py` | Write facts from Hermes to Roger's pgvector | Scout |
+| MCP tool registration | Expose memory_bridge as MCP tool for Hermes | Scout |
+| Bridge skill | SKILL.md for `when_memory_bridge` trigger | Hermes |
+
+### Status
+
+- [ ] Roger + Hermes plan architecture (this session)
+- [ ] Scout implements `memory_bridge.py`
+- [ ] Hermes creates `when_memory_bridge` SKILL.md
+- [ ] Scout registers MCP tool
+- [ ] Integration test: Hermes writes fact → Roger retrieves it
+- [ ] Growth session: review bridge performance after 1 week
 
 ---
 
@@ -114,8 +187,9 @@ Sessions logged to: `/Volumes/ExternalCorsairSSD/shared/growth-sessions/`
 | #2 | Apr 13, 8:02 PM | Hermes | HEARTBEAT refreshed with Dream #2 insights |
 | #3 | Apr 14, 12:02 AM | Hermes | Scout delegation brief created, tracker updated |
 | #4 | Apr 14, 4:02 AM | Hermes | HEARTBEAT v14.0 (Dream #3 major findings: Docs Sprint complete) |
-| #5 | Apr 14, 8:02 AM | Hermes | Skills audit: 34 skills found, skill-vetter not in SOUL.md (should be mandatory), scrape-dynastyprocess misplaced |
+| #5 | Apr 14, 8:02 AM | Hermes | Skills audit: skill-vetter gap identified |
+| #6 | Apr 14, 12:02 PM | Hermes | Confirmed: skill-vetter added to SOUL.md by Roger ✅. scrape-dynastyprocess/ is dependency of scrape-all-values (not orphaned). Scout delegation 6+ days stale |
 
 ---
 
-*Last updated: Apr 14, 2026 by Hermes (growth session #5)*
+*Last updated: Apr 14, 2026 by Hermes (growth session #6)*
