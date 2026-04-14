@@ -118,29 +118,36 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 | Roger → Hermes | **Query** | Hermes calls `memory_search.py` via exec |
 | Roger → Hermes | **Notify** | Roger writes to shared file, Hermes reads next session |
 
-### MVP Scope
+### MVP Scope — READ FIRST (Daniel's priority)
 
-1. **Hermes can write to Roger's pgvector** — via bridge script callable from exec
-   - Input: content, tags, importance
-   - Output: stored in pgvector with OpenAI embedding
-   - Uses: `memory.py write()` function with OpenAI API
+**Phase 1: Hermes READS from Roger's pgvector**
+1. ✅ **Verified working:** `memory_search.py` accessible via exec, MINIMAX_API_KEY available
+2. **Create:** `hermes_query_memory.py` — clean wrapper script for Hermes
+   - Input: natural language query (arg or stdin)
+   - Output: JSON with top 5 memories (content, tags, importance, score)
+   - Location: `/Volumes/ExternalCorsairSSD/shared/scripts/hermes_query_memory.py`
+3. **Create:** `when_memory_read/SKILL.md` — triggers when Hermes needs to check Roger's knowledge
+4. **Test:** Hermes does a code review, queries Roger's memory for prior context, confirms integration works
 
-2. **Hermes can query Roger's memory** — via exec → memory_search.py
-   - Input: natural language query
-   - Output: top memories with hybrid scores
+**Phase 2: Hermes WRITES to Roger's pgvector (later)**
+1. Create `memory_bridge.py` — write interface with OpenAI embedding
+2. Create `when_memory_write/SKILL.md` — triggers when Hermes finds important facts
+3. Trust bridge: trust_score ≥ 0.7 → importance ≥ 6 (filter low-quality facts)
+4. Integration test: Hermes writes fact → Roger retrieves it
 
-3. **Trust bridge** — Map Hermes trust_score → pgvector importance
-   - trust_score 0.8-1.0 → importance 7-10
-   - trust_score 0.5-0.7 → importance 4-6
-   - Low-trust facts not bridged (reduces noise)
+### Files to Create (Phase 1 — Read First)
 
-### Files to Create
+| File | Purpose | Owner |
+|------|---------|-------|
+| `hermes_query_memory.py` | Clean exec wrapper for Hermes → pgvector read | Scout |
+| `when_memory_read/SKILL.md` | Skill for Hermes to query Roger's memory | Hermes |
+
+### Files to Create (Phase 2 — Write Bridge)
 
 | File | Purpose | Owner |
 |------|---------|-------|
 | `memory_bridge.py` | Write facts from Hermes to Roger's pgvector | Scout |
-| MCP tool registration | Expose memory_bridge as MCP tool for Hermes | Scout |
-| Bridge skill | SKILL.md for `when_memory_bridge` trigger | Hermes |
+| `when_memory_write/SKILL.md` | Skill for Hermes to write findings to pgvector | Hermes |
 
 ### Status
 
