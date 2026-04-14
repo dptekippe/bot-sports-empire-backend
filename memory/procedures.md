@@ -114,6 +114,28 @@ code_execution:
 
 **Note:** The "permission denied" error during file writes to `/Users/danieltekippe/.openclaw/workspace/app/core/` is expected — Hermes can't write to Roger's workspace. She can only write to `/Volumes/ExternalCorsairSSD/shared/` and her own directories.
 
+### Hermes's SIGTERM Investigation (Apr 14, 2026)
+**Source:** Hermes's own system review
+
+**Key Finding:**
+> "The system (OpenClaw exec) has a **2-minute timeout** on subprocess execution. When Hermes or Scout tries to do anything substantial (file I/O, research with multiple reads, writing reports), they exceed this timeout and get SIGTERM'd."
+
+**Pattern confirmed:**
+1. Sessions under 2 minutes work fine
+2. Sessions over 2 minutes get killed with SIGTERM
+3. File operations compound the issue (especially on external SSD)
+4. Permission errors may trigger faster termination
+
+**Factors making it worse:**
+- External SSD I/O (`/Volumes/ExternalCorsairSSD/`) is slower than internal storage
+- Multiple file reads/writes accumulate time
+- Research tasks with many grep/search operations exceed the limit
+
+**Workaround:**
+- Keep Hermes tasks under 2 minutes
+- Avoid file writes during final steps — do them early
+- Consider faster storage for session files
+
 ### Response Cutoff Prevention
 **Problem:** Long responses getting cut off mid-transmission.
 **Root cause:** Single response too large for session limits.
