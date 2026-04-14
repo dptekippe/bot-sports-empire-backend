@@ -145,11 +145,11 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 - Before starting trade research on a player/strategy I've researched before
 - When Scout proposes an architecture I've previously flagged concerns about
 
-**Phase 2: Hermes WRITES to Roger's pgvector (later, when Phase 1 is proven)**
-1. Create `memory_bridge.py` — write interface with OpenAI embedding
-2. Create `when_memory_write/SKILL.md` — explicit triggers only (not automatic)
-3. Trust bridge: trust_score ≥ 0.7 → importance ≥ 6 (filter low-quality facts)
-4. Integration test: Hermes writes fact → Roger retrieves it
+**Phase 2: Hermes WRITES to Roger's pgvector**
+1. ✅ **Create:** `memory_bridge.py` — write interface (Python HTTP client)
+2. ✅ **Create:** `when_memory_write/SKILL.md` — designed by Hermes, explicit triggers
+3. ✅ **Write endpoint:** memory_server.py /write endpoint working (OpenAI embeddings)
+4. ⚠️ **Integration test:** Pending — Hermes writes a confirmed finding → Roger retrieves it
 
 **Hermes's write-back rules:**
 - ✅ Write: confirmed bug patterns, code review outcomes, architecture decisions
