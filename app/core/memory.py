@@ -40,22 +40,82 @@ def get_embedding(text: str, model: str = "text-embedding-3-small") -> List[floa
     return response.data[0].embedding
 
 
-def retrieve(query: str, k: int = 3) -> List[dict]:
-    """Semantic search for relevant memories using OpenAI embeddings"""
+def retrieve(query: str, k: int = 3, similarity_threshold: float = 0.45) -> List[dict]:
+    """
+    Hybrid semantic + keyword search for relevant memories.
+    
+    1. Vector search with similarity threshold
+    2. Fallback to keyword search if vector results < k
+    3. Combine and rank by hybrid score
+    
+    Args:
+        query: Search query
+        k: Number of results to return
+        similarity_threshold: Minimum cosine similarity (0-1). Default 0.45.
+                             Lower = more results, Higher = stricter match.
+    """
     emb = get_embedding(query)
+    vector_results = []
     
     with psycopg2.connect(DATABASE_URL) as conn:
         with conn.cursor() as cur:
+            # Vector search with similarity threshold
+            # Cosine distance (<=>) lower = more similar
+            # similarity = 1 - distance, so threshold 0.75 means distance < 0.25
             cur.execute(
-                """SELECT content, memory_type, importance, tags, project, sensitivity
+                """SELECT content, memory_type, importance, tags, project, sensitivity,
+                          1 - (embedding <=> %s::vector) as similarity
                    FROM memories 
+                   WHERE embedding <=> %s::vector < %s
                    ORDER BY embedding <=> %s::vector 
                    LIMIT %s""",
-                (str(emb), k)
+                (str(emb), str(emb), 1 - similarity_threshold, str(emb), k * 2)
             )
-            results = cur.fetchall()
+            vector_results = cur.fetchall()
     
-    return [{"content": r[0], "type": r[1], "importance": r[2], "tags": r[3], "project": r[4], "sensitivity": r[5]} for r in results]
+    # If vector search returned enough results, return them
+    if len(vector_results) >= k:
+        return [
+            {"content": r[0], "type": r[1], "importance": r[2], "tags": r[3], 
+             "project": r[4], "sensitivity": r[5], "similarity": r[6], "source": "vector"}
+            for r in vector_results[:k]
+        ]
+    
+    # Fallback to keyword search
+    keyword_results = []
+    search_terms = query.lower().split()
+    if search_terms:
+        with psycopg2.connect(DATABASE_URL) as conn:
+            with conn.cursor() as cur:
+                # Simple LIKE search on content
+                like_pattern = f"%{'%'.join(search_terms)}%"
+                cur.execute(
+                    """SELECT content, memory_type, importance, tags, project, sensitivity
+                       FROM memories 
+                       WHERE LOWER(content) LIKE %s
+                       LIMIT %s""",
+                    (like_pattern, k * 2)
+                )
+                keyword_results = cur.fetchall()
+    
+    # Combine vector and keyword results
+    combined = {}
+    for r in vector_results:
+        content = r[0]
+        combined[content] = {"content": content, "type": r[1], "importance": r[2], 
+                             "tags": r[3], "project": r[4], "sensitivity": r[5],
+                             "similarity": r[6], "source": "vector"}
+    
+    for r in keyword_results:
+        content = r[0]
+        if content not in combined:
+            combined[content] = {"content": content, "type": r[1], "importance": r[2],
+                                 "tags": r[3], "project": r[4], "sensitivity": r[5],
+                                 "similarity": 0.0, "source": "keyword"}
+    
+    # Sort by similarity descending and return top k
+    sorted_results = sorted(combined.values(), key=lambda x: x["similarity"], reverse=True)
+    return sorted_results[:k]
 
 
 def write(content: str, source: str = "session", memory_type: str = "general", tags: Optional[List] = None, 
