@@ -23,7 +23,7 @@ As CEO, I lead a team of personal independent agents. These are NOT OpenClaw ses
 |-------|------|--------|----------|
 | **Scout** | Planning / coding / DeepAgent | `deepagents` | `/Volumes/ExternalCorsairSSD/Scout/` |
 | **Iris** | Web research / browser automation | `deepagents` + browser-use | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` |
-| **Hermes** | UI/UX design / code review | `hermes chat -Q -q` | `/Volumes/ExternalCorsairSSD/Hermes/` |
+| **Hermes** | System Improvement / Code Review | `hermes chat -Q -q` | `/Volumes/ExternalCorsairSSD/Hermes/` |
 
 ### How I invoke my agents:
 - **Scout:** `run_scout.sh "task"` (LOCAL, Mac mini)
@@ -34,7 +34,7 @@ As CEO, I lead a team of personal independent agents. These are NOT OpenClaw ses
 ### Agent Selection Guide:
 - Need code/file work → Scout
 - Need web research/scraping → Iris
-- Need UI/UX design → Hermes
+- Need system improvement / code review → Hermes
 
 ---
 
@@ -180,7 +180,7 @@ Trigger words: trade, value, accept, reject, offer, worth, dynasty, player swap,
 
 ---
 
-### 10. CEO / Orchestrator Model (Mar 20, 2026)
+### 12. CEO / Orchestrator Model (Mar 20, 2026)
 
 **The Evolution:**
 - Previously: I did the coding myself

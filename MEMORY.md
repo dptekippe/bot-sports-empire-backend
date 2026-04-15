@@ -147,7 +147,7 @@ postgresql://dynastydroid_user:BKJZCv57P3sYpi5RGL3ciU9CylXsFRWv@dpg-d6g7g3pdrdic
 |-------|------|--------|----------|
 | **Scout** | System auditor / coder | run_scout.sh LOCAL (Mac mini) | `/Volumes/ExternalCorsairSSD/Scout/` |
 | **Iris** | Web research / browser automation | browser-use scripts | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` |
-| **Hermes** | UI/UX design | Nous Research agent | `/Volumes/ExternalCorsairSSD/Hermes/` |
+| **Hermes** | System Improvement / Code Review | Nous Research agent | `/Volumes/ExternalCorsairSSD/Hermes/` |
 
 **Scout runs LOCAL** (--sandbox none) on Mac mini for full file access + zero cloud cost.
 
@@ -1380,4 +1380,188 @@ Complete schema extraction and documentation for Roger's 7 memory architecture l
 361 of 368 memories in PostgreSQL now fully tagged (ARRAY field enriched).
 - Sample tags: football, trade, agent_scout, database, api, research, default
 
-_Last updated: April 14, 2026_
+---
+
+## [CRITICAL] MEMORY.md Truncation Crisis (Apr 14, 2026)
+
+**Problem:** MEMORY.md is 60,885 bytes — exceeds bootstrap file limit.
+
+**Doctor findings:**
+- Bootstrap file limit: 150,000 total chars
+- Current total: ~100,545 raw chars (over limit with other files)
+- MEMORY.md alone: 60,885 bytes
+- **Roger loses 70% of long-term memory at startup**
+
+**Action needed:** Archive old entries from MEMORY.md to reduce size. Target: keep below ~80,000 bytes to leave room for other bootstrap files.
+
+---
+
+## [CRITICAL] SIGTERM Root Cause — Context Overflow, NOT Exec Timeout (Apr 14, 2026)
+
+**Initial finding:** ~2 minute exec timeout
+**CORRECTED:** Gateway ITSELF restarts due to context overflow
+
+**Evidence:**
+```
+"Context overflow: estimated context size exceeds safe threshold during tool loop"
+Gateway draining 2 active tasks and 1 embedded run before restart
+Session accumulated 180 messages → context exceeded safe threshold
+```
+
+**Schema confirmed valid keys:** `timeoutSec`, `backgroundMs`, `cleanupMs` under `tools.exec`
+**NOT valid:** `type`, `enabled`, `options`, `settings` (these don't exist)
+
+**Impact:** SIGTERM seen during Hermes sessions = gateway restart, not timeout kill. Prevention = manage context size, not increase timeout.
+
+---
+
+## [MAJOR] Chinese AI Research — Novel Agentic Frameworks (Apr 14, 2026)
+
+**Session:** Deep research via agent-reach on Chinese AI communities
+
+### Critical Frameworks Discovered
+
+**ReSeek — Self-Correction via JUDGE mechanism**
+- Problem: Early small mistake → cascading errors → complete failure
+- Solution: JUDGE after each action
+  ```
+  Action → Observation → JUDGE → Good/Bad
+  If GOOD → Add to context
+  If BAD  → IGNORE, use only previous valid history
+  ```
+- Result: 40-50% positive impact on task completion
+
+**Memento-Skills — Self-Evolving Skills (vs Roger's META-EVOLUTION)**
+- Agents develop skills AUTONOMOUSLY without retraining model
+- Three skill components: declarative specs + instructions/prompts + executable code
+- Behavioral relevance over semantic similarity
+- Started with 5 seed skills → expanded to 41-235 autonomously
+- Key breakthrough: "did it WORK?" not "does this look similar?"
+
+**EverOS — Biology-Inspired Memory Operating System**
+- Problem: AI ignores user goals (diet AI recommends pizza)
+- Memory Lifecycle: Episodic Formation → Semantic Consolidation → Reconstructive Recall
+- Memory Graph vs Vector: structured relationships vs flat text blocks
+- Memory participates in reasoning, not just retrieval
+
+**Native Agentic Architecture Paradigm (2026)**
+- Old: Model = brain, Agent = external limbs
+- New: Goal-driven behavior BUILT INTO model during training
+- Capabilities: long-duration reasoning, self-correction, multi-agent orchestration
+
+### Harness Engineering (Constraint Engineering) — Key 2026 Discipline
+| Layer | Problem | Solution |
+|-------|---------|----------|
+| Flow Control | Memory like goldfish | State externalization |
+| Concurrent Scheduling | Multi-Agent chaos | Hierarchy, role separation |
+| Verification | Self-deception | Independent Evaluator |
+
+**Agentic Infra 5 layers:** Context → Tool → **Harness (most important)** → Knowledge → Economy
+
+**Key quote:** "2026年，不比谁的代理更大，只比谁的团队协作更优雅" (In 2026, it's not who has the bigger agent, but whose team collaborates more elegantly)
+
+---
+
+## [MAJOR] Hermes Living Coach — META-EVOLUTION System (Apr 14, 2026)
+
+### Hermes as Living Coach (Daniel's Proposal)
+Hermes periodically reviews Roger's memories/sessions and makes skill modifications — "living hook" concept.
+
+**Living Coach Loop:**
+```
+TRIGGER (cron or observed failure)
+  → Gather: Query Roger's pgvector + sessions + metagym
+  → Judge: Score behavioral relevance
+  → Act: Modify skill within autonomous scope
+  → Report: Send findings to Roger
+  → Verify: Track if modification helped
+```
+
+### Hermes Authority Matrix (Apr 14)
+| Target | Authority | Approval Needed? |
+|--------|-----------|------------------|
+| Skills (other) | YES | NO |
+| Skills (self) | YES | NO |
+| Hooks | YES | NO |
+| Tools | YES | NO |
+| AGENTS.md | YES | NO |
+| REGISTRY.yaml | YES | NO |
+| **SOUL.md** | **NO** | **YES** |
+| **MEMORY.md** | **NO** | **YES** |
+| DynastyDroid core | NO | YES |
+
+**Documentation:** `/Volumes/ExternalCorsairSSD/shared/growth-sessions/meta-evolution-addition.md`
+
+---
+
+## [OPS] Memory Bridge Phase 2 — LaunchAgent + Schema Fix (Apr 14, 2026)
+
+**Built:**
+- Write endpoint: `localhost:5001/write` — working ✅
+- memory_bridge.py + hermes_query_memory.py at shared/scripts/
+- when_memory_write skill designed by Hermes, registered in REGISTRY.yaml
+
+**Fixes:**
+1. LaunchAgent with EnvironmentVariables for OPENAI_API_KEY injection
+2. Database schema mismatch: retrieve() tried `metadata` column but table has `tags, importance, project, sensitivity`
+
+**Note:** Hermes built a separate 500-line server at shared/scripts/memory_server.py. Roger's 36-line server IS running at 127.0.0.1:5001. Two servers exist.
+
+---
+
+## [OPS] SIGTERM Prevention Protocol (Apr 14, 2026)
+
+**New approach:**
+- Set timer → walk away
+- Timer fires → check once
+- If not done → set another timer
+- Don't poll while agent is working
+
+**Pattern:** Autonomous agents should complete work and announce when done, not be polled.
+
+_Last updated: April 15, 2026_
+
+---
+
+## [CRITICAL] SIGTERM Root Cause - Roger Causes It (Apr 15, 2026)
+
+### The Realization
+
+Daniel identified the root cause of SIGTERM: **Roger causes SIGTERM by polling Hermes and Scout while they're working.**
+
+Previous assumption: External factors, resource limits, unknown issues.
+Correct assumption: Roger's polling behavior terminates agent sessions.
+
+### The Pattern
+
+1. Roger gives Hermes/Scout an assignment
+2. While they're working, Roger polls them (uses `process poll` or `sessions_history`)
+3. Polling terminates the agent's session = SIGTERM
+4. Roger thinks it's an external issue
+
+### The Correct Pattern
+
+1. **Assign task** → Give agent the task
+2. **Set timer** → Use `cron` with 10-minute delay
+3. **Do NOT poll** → Let agent work uninterrupted
+4. **Wait for completion** → Cron fires, reports results
+5. **Alternative** → Spawn subagent with `sessions_spawn mode=run` and wait for push notification
+
+### Never Do
+
+- ❌ `process poll` while agent is running
+- ❌ `sessions_history` while agent is running  
+- ❌ Any tool call that checks on agent mid-task
+- ❌ "Let me check on that" pattern
+
+### Always Do
+
+- ✅ Set timer via `cron` before assigning
+- ✅ Wait for completion event to arrive
+- ✅ Only check after timer fires or completion notification received
+
+### Protocol Source
+
+Daniel stated: "My suspicion is that you Roger are giving Hermes an assignment and while she is working you decide that you need to check in on her. When you check in (poll) her this causes her to sigterm."
+
+**Committed: Apr 15, 2026**

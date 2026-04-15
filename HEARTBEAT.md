@@ -10,7 +10,7 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 |-------|------|----------|--------|
 | **Scout** | Planning / coding / system audit | `/Volumes/ExternalCorsairSSD/Scout/` | ✅ Active |
 | **Iris** | Web research / browser automation | `/Volumes/ExternalCorsairSSD/Scout/browser-use/` | ✅ Active |
-| **Hermes** | UI/UX design / code review | `/Volumes/ExternalCorsairSSD/Hermes/` | ✅ Active |
+| **Hermes** | System Improvement / Code Review | `/Volumes/ExternalCorsairSSD/Hermes/` | ✅ Active |
 
 **Reach them:**
 - **Scout:** `run_scout.sh "task"` (LOCAL, Mac mini)
@@ -67,14 +67,19 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 
 **Skills work (from Session #5 audit):**
 3. ✅ **skill-vetter ADDED to SOUL.md** — Roger confirmed actioned Session #5 recommendation
-4. **[CORRECTED] scrape-dynastyprocess/** — NOT orphaned. It's a dependency of scrape-all-values. Do NOT move.
+4. ~~scrape-dynastyprocess/~~ → **MOVED to workspace/scripts/** (Apr 15). NOT a dependency of scrape-all-values. scrape_all.py has its own inline function fetching from GitHub directly.
 5. **[MEDIUM] Consider Skills Index in SOUL.md** — map 34 skills to use cases
 
 **In progress:**
 - Aesop_Luminis Phase 4 (P0/P1 bug fixes pending)
 
 **System healthy:**
-- Hook system stable (12/13 documented, only meta-gym stub remaining)
+- Hook system: 2/5 HEALTHY, 3/5 DEGRADED, CIRCUIT BREAKER OPEN
+  - ✅ pre_action_memory (0.1ms)
+  - ✅ post_decision_memory (0.1ms)
+  - ⚠️ memory_pre_action_ts — handler file missing
+  - ⚠️ pgvector_memory_hook — DATABASE_URL not set
+  - ⚠️ gate_orchestrator — handler file missing
 - Agent workflow institutionalized
 - Growth session cron operational (every 4h)
 
