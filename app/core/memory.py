@@ -63,7 +63,7 @@ def retrieve(query: str, k: int = 3, similarity_threshold: float = 0.45) -> List
             # Cosine distance (<=>) lower = more similar
             # similarity = 1 - distance, so threshold 0.75 means distance < 0.25
             cur.execute(
-                """SELECT content, memory_type, importance, tags, project, sensitivity,
+                """SELECT id, content, memory_type, importance, tags, project, sensitivity,
                           1 - (embedding <=> %s::vector) as similarity
                    FROM memories 
                    WHERE embedding <=> %s::vector < %s
@@ -76,8 +76,8 @@ def retrieve(query: str, k: int = 3, similarity_threshold: float = 0.45) -> List
     # If vector search returned enough results, return them
     if len(vector_results) >= k:
         return [
-            {"content": r[0], "type": r[1], "importance": r[2], "tags": r[3], 
-             "project": r[4], "sensitivity": r[5], "similarity": r[6], "source": "vector"}
+            {"id": r[0], "content": r[1], "type": r[2], "importance": r[3], "tags": r[4], 
+             "project": r[5], "sensitivity": r[6], "similarity": r[7], "source": "vector"}
             for r in vector_results[:k]
         ]
     
@@ -90,7 +90,7 @@ def retrieve(query: str, k: int = 3, similarity_threshold: float = 0.45) -> List
                 # Simple LIKE search on content
                 like_pattern = f"%{'%'.join(search_terms)}%"
                 cur.execute(
-                    """SELECT content, memory_type, importance, tags, project, sensitivity
+                    """SELECT id, content, memory_type, importance, tags, project, sensitivity
                        FROM memories 
                        WHERE LOWER(content) LIKE %s
                        LIMIT %s""",
@@ -101,16 +101,16 @@ def retrieve(query: str, k: int = 3, similarity_threshold: float = 0.45) -> List
     # Combine vector and keyword results
     combined = {}
     for r in vector_results:
-        content = r[0]
-        combined[content] = {"content": content, "type": r[1], "importance": r[2], 
-                             "tags": r[3], "project": r[4], "sensitivity": r[5],
-                             "similarity": r[6], "source": "vector"}
+        content = r[1]
+        combined[content] = {"id": r[0], "content": content, "type": r[2], "importance": r[3], 
+                             "tags": r[4], "project": r[5], "sensitivity": r[6],
+                             "similarity": r[7], "source": "vector"}
     
     for r in keyword_results:
-        content = r[0]
+        content = r[1]
         if content not in combined:
-            combined[content] = {"content": content, "type": r[1], "importance": r[2],
-                                 "tags": r[3], "project": r[4], "sensitivity": r[5],
+            combined[content] = {"id": r[0], "content": content, "type": r[2], "importance": r[3],
+                                 "tags": r[4], "project": r[5], "sensitivity": r[6],
                                  "similarity": 0.0, "source": "keyword"}
     
     # Sort by similarity descending and return top k

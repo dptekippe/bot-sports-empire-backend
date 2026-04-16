@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-15T22:30:12.382Z",
+  "updatedAt": "2026-04-16T00:41:12.981Z",
   "entries": {
     "memory:memory/2026-03-18.md:30:63": {
       "key": "memory:memory/2026-03-18.md:30:63",
@@ -567,6 +567,99 @@
         "confirmed",
         "earlier",
         "pattern"
+      ]
+    },
+    "memory:memory/2026-01-31.md:1:29": {
+      "key": "memory:memory/2026-01-31.md:1:29",
+      "path": "memory/2026-01-31.md",
+      "startLine": 1,
+      "endLine": 29,
+      "source": "memory",
+      "snippet": "# Memory: 2026-01-31 ## 🎯 Major Milestone: Dynasty Foundation Architecture Complete ### ✅ Phase 6A: Dynasty Foundation - COMPLETED **Key Achievements:** 1. **LeagueType Enum**: Added `FANTASY` and `DYNASTY` types to League model 2. **FutureDraftPick Model**: Created core dynasty asset model with: - Year, round, pick_number fields - Original vs current ownership tracking - Conditional rules (JSON for complex trade conditions) - Smart properties: `is_tradable`, `is_conditional`, `display_name` - Conditional resolution logic with `resolve_condition()` method 3. **Migration Applied**: `73631f523061_add_league_type_and_future_draft_picks.py` 4. **Database Relationships**: Proper",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.40731685621930125,
+      "maxScore": 0.40731685621930125,
+      "firstRecalledAt": "2026-04-16T00:40:16.508Z",
+      "lastRecalledAt": "2026-04-16T00:40:16.508Z",
+      "queryHashes": [
+        "e71e137b66c7"
+      ],
+      "recallDays": [
+        "2026-04-15"
+      ],
+      "conceptTags": [
+        "pick-number",
+        "is-tradable",
+        "is-conditional",
+        "display-name",
+        "resolve-condition",
+        "major",
+        "milestone",
+        "dynasty"
+      ]
+    },
+    "memory:memory/2026-02-04.md:28:65": {
+      "key": "memory:memory/2026-02-04.md:28:65",
+      "path": "memory/2026-02-04.md",
+      "startLine": 28,
+      "endLine": 65,
+      "source": "memory",
+      "snippet": "### **🎯 CURRENT PHASE: 6B - Dynasty League Management** **Partially Completed:** - ✅ Dynasty-specific LeagueSettings fields added - ✅ Migration created and applied - ✅ League model extended with dynasty methods - ✅ Test suite created and verified **Remaining Tasks (from PROJECT_STATUS.md):** 1. **Startup Draft System** - Draft order, clock/timer, integration 2. **Future Pick Trading Engine** - Validation, protection logic, conditional picks 3. **Rookie Draft Integration** - Order generation, player pool, taxi squad 4. **API Endpoints for Dynasty Features** - Generate picks, settings management, trading ### **🚀 IMMEDIATE NEXT STEPS (from NEXT_STEPS.md):** 1. **Docker Beta Deploy** - GitHu",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.38742182017625887,
+      "maxScore": 0.38742182017625887,
+      "firstRecalledAt": "2026-04-16T00:40:16.508Z",
+      "lastRecalledAt": "2026-04-16T00:40:16.508Z",
+      "queryHashes": [
+        "e71e137b66c7"
+      ],
+      "recallDays": [
+        "2026-04-15"
+      ],
+      "conceptTags": [
+        "dynasty-specific",
+        "project-status.md",
+        "clock/timer",
+        "next-steps.md",
+        "current",
+        "phase",
+        "dynasty",
+        "league"
+      ]
+    },
+    "memory:memory/2026-04-14.md:390:431": {
+      "key": "memory:memory/2026-04-14.md:390:431",
+      "path": "memory/2026-04-14.md",
+      "startLine": 390,
+      "endLine": 431,
+      "source": "memory",
+      "snippet": "### Shared Module Created **File:** `/hooks/_shared/pgvector-memory.ts` (NEW) - `queryMemories()` - hybrid search with recency decay - `storeMemory()` - writes to pgvector - `reconcileMemoryStore()` - checks supersession ### Architecture Now Matches mem9 ``` memory-write (agent_end) → storeMemory() → reconcileMemoryStore() → pgvector memory-pre-action (pre-planning) → queryMemories() → inject memories ``` --- ## [MAJOR] Hermes MCTS Hook Fix - Found DEBUG Code + Errors ### Hermes's MCTS Review Findings Hermes reviewed `/hooks/mcts-reflection/handler.js` and found it was ALSO DEBUG/placeholder code: - Claimed to do real MCTS but used `Math.random()` instead of UCB1 - No simulations loop -",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5011973468526836,
+      "maxScore": 0.5011973468526836,
+      "firstRecalledAt": "2026-04-16T00:41:12.981Z",
+      "lastRecalledAt": "2026-04-16T00:41:12.981Z",
+      "queryHashes": [
+        "6db608742040"
+      ],
+      "recallDays": [
+        "2026-04-15"
+      ],
+      "conceptTags": [
+        "shared/pgvector-memory.ts",
+        "memory-write",
+        "agent-end",
+        "memory-pre-action",
+        "pre-planning",
+        "hooks/mcts-reflection/handler.js",
+        "debug/placeholder",
+        "math.random"
       ]
     }
   }
