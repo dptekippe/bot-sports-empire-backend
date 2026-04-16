@@ -1,6 +1,6 @@
 # DynastyDroid HEARTBEAT
 
-Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
+Date: **Apr 16, 2026** | Phase: Phase A/B/C Memory System Complete | Version 15.0
 
 ---
 
@@ -19,173 +19,69 @@ Date: **Apr 14, 2026** | Phase: Documentation Complete | Version 14.0
 
 ---
 
-## ✅ TODAY'S WINS (Apr 14, 2026)
+## ✅ RECENT WINS (Apr 15-16, 2026)
 
-- ✅ **[MAJOR] Hermes System Review Role Authorized**
-  - Daniel approved: Hermes gets exec access with guardrails
-  - Role: deep periodic review → recommend → execute only with Roger approval
-  - Guardrails: command_allowlist (read-only) + approval protocol
-- ✅ **[MAJOR] Documentation Sprint — All 7 Architecture Gaps Resolved**
-  - L0 Lossless Claw: 10 tables, DAG structure, fresh tail schema extracted
-  - L1/L2: Confirmed share same PostgreSQL table (different access patterns)
-  - L3 REMem: "learning" gist does NOT exist — only observation/decision/outcome
-  - L4 AI Plan Manager: archival not implemented
-  - L5 Wiki: graduation is manual-only (no auto-promotion)
-  - Hooks: 12/13 documented (only meta-gym stub remaining)
-- ✅ Tags enrichment: 361/368 memories tagged (98%) — taxonomy now comprehensive
-- ✅ Dream Consolidation #3 complete — Architecture-implementation gap is systematic
+- ✅ **Phase A/B/C Memory System Implementation Complete**
+  - Phase A: hybrid semantic+keyword search in `app/core/memory.py`
+  - Phase B: `memory_verifier.py` - pure retrieval test (6/6 pass, scores 0.837-1.000)
+  - Phase C: `meta_gym_phase2_3.py` - health scoring, Thompson Sampling
+  - retrieve() fixed to return `id` field (was missing)
+- ✅ **Hook Health Monitor Fixed** — removed orphaned hook references causing false DEGRADED states
+- ✅ **Hermes Cron Job Fixed** — now execs Hermes directly instead of generic agent
+- ✅ **Stale Session Checker Crons Deleted** (Apr 16 morning)
+  - 5 crons removed: neat-claw, young-basil, ember-breeze, grand-breeze, Upgrade A tracker
+- ✅ **Dream #4 Complete** (Apr 15)
 
 ---
 
 ## 🧠 MEMORY SYSTEM (Current)
 
-| Layer | Tool | Status |
-|-------|------|--------|
-| Semantic | kg-query.py | ✅ |
-| Curation | memrok.py (--curated) | ✅ |
-| Episodic | remem.py | ✅ |
-| Coordination | blackboard + AI Plan Manager | ✅ |
+| Layer | System | Status |
+|-------|--------|--------|
+| L0 | Lossless Claw (SQLite) | ✅ ACTIVE |
+| L1 | OpenClaw Builtin Memory (SQLite + vector + FTS) | ✅ ACTIVE |
+| L2 | Memory Hooks (pre/post-action) | ✅ ACTIVE |
+| L3 | pgvector Semantic Search (DynastyDroid) | ✅ ACTIVE |
+| L4 | Custom Dreaming (openclaw-auto-dream, 4 AM cron) | ✅ ACTIVE |
+| L5 | Memory Wiki (entities started - 6 entities, 70 facts) | ✅ ACTIVE |
+| L6 | Coordination Memory (blackboard + AI Plan Manager) | ✅ ACTIVE |
 
-**Dream system:** Active (3 dreams logged). Health tracked in dream-log.md
+**Dream system:** Active (4 dreams logged). Dream log at `~/.openclaw/workspace/memory/dream-log.md`
+
+**Memory Architecture Doc:** `/Users/danieltekippe/Desktop/Roger Architecture/02_memory_architecture.md`
 
 ---
 
 ## ⚠️ KNOWN ISSUES
 
-- [OPS] Hermes OpenRouter credits exhausted — `--provider minimax` workaround active
+- **[STALE - ~9 days] Scout identity needs update** — delegation brief: `delegation-scout-identity-2026-04-14.md`. Roger must execute.
+- `auto-memory-dream` cron — had AI overload error last night (Apr 15→16). Next run: tonight 4 AM CDT.
+- `Hermes Autonomous System Review (6h)` — timed out last run. Still active, next run in ~6h.
 - Weekly cleanup reminder: Never ran (scheduled Monday 8 AM)
-- **[STALE - 6 days] Scout identity needs update** — delegation brief: `delegation-scout-identity-2026-04-14.md`
-- [OPS] Multiple small ops entries accumulating — consider [OPS] summary section in MEMORY.md
 
 ---
 
 ## 🎯 CURRENT FOCUS
 
 **Critical (stale delegations):**
-1. Scout identity update — 6+ days stale. Brief: `delegation-scout-identity-2026-04-14.md`. Roger must execute.
+1. **Scout identity update** — ~9 days stale. Brief: `delegation-scout-identity-2026-04-14.md`. Roger must execute.
 2. Scout → Update agents.md + scout_memory.json — broaden beyond fantasy focus
 
+**Memory Bridge Phase 17 (Planned):**
+- Phase 1: Hermes reads from Roger's pgvector ✅ (scripts created)
+- Phase 2: Hermes writes to Roger's pgvector ✅ (write endpoint working)
+- ⚠️ Integration test pending: Hermes writes finding → Roger retrieves
+- ⚠️ memory_server.py needs port 5001 startup
+
 **Skills work (from Session #5 audit):**
-3. ✅ **skill-vetter ADDED to SOUL.md** — Roger confirmed actioned Session #5 recommendation
-4. ~~scrape-dynastyprocess/~~ → **MOVED to workspace/scripts/** (Apr 15). NOT a dependency of scrape-all-values. scrape_all.py has its own inline function fetching from GitHub directly.
-5. **[MEDIUM] Consider Skills Index in SOUL.md** — map 34 skills to use cases
+- ✅ skill-vetter ADDED to SOUL.md
+- ✅ scrape-dynastyprocess/ moved to workspace/scripts/
+- ⚠️ **[MEDIUM] Skills Index in SOUL.md** — map 34 skills to use cases (not built)
 
-**In progress:**
-- Aesop_Luminis Phase 4 (P0/P1 bug fixes pending)
-
-**System healthy:**
-- Hook system: 2/5 HEALTHY, 3/5 DEGRADED, CIRCUIT BREAKER OPEN
-  - ✅ pre_action_memory (0.1ms)
-  - ✅ post_decision_memory (0.1ms)
-  - ⚠️ memory_pre_action_ts — handler file missing
-  - ⚠️ pgvector_memory_hook — DATABASE_URL not set
-  - ⚠️ gate_orchestrator — handler file missing
+**System health:**
+- Hook system: 2/5 HEALTHY, 3/5 DEGRADED (orphaned references removed)
 - Agent workflow institutionalized
-- Growth session cron operational (every 4h)
-
----
-
-## 🧠 MEMORY BRIDGE — Phase 17 (Planned)
-*Proposed by Hermes, approved by Daniel — Roger + Hermes planning*
-
-**Goal:** Connect Roger's pgvector memory to Hermes's holographic memory for true shared institutional knowledge.
-
-### Current State
-| System | Storage | Schema | Access |
-|--------|---------|--------|--------|
-| **Roger** | PostgreSQL (Render) | content, embedding (1536-dim OpenAI), importance (0-10), tags | memory_search.py, write.py |
-| **Hermes** | SQLite (local) | content, trust_score (0-1), category, entity extraction | holographic.py, FTS5 |
-
-**Problem:** Two separate memory systems, zero cross-pollination. Roger doesn't know what Hermes knows. Hermes doesn't know what Roger knows.
-
-### Proposed Architecture
-
-```
-┌─────────────────┐     ┌─────────────────┐     ┌──────────────────┐
-│   Hermes        │────▶│  Bridge Script  │────▶│ Roger's pgvector │
-│ (holographic)  │     │ (memory_bridge  │     │   PostgreSQL     │
-│                 │◀────│  .py)           │◀────│                  │
-└─────────────────┘     └─────────────────┘     └──────────────────┘
-                              │
-                              │ OpenAI embeddings
-                              ▼
-                         ┌─────────────┐
-                         │  OpenAI API │
-                         └─────────────┘
-```
-
-### Bridge Operations
-
-| Direction | Operation | Method |
-|-----------|-----------|--------|
-| Hermes → Roger | **Write finding** | `memory_bridge.py write --content "..." --tags foo --importance 8` |
-| Hermes → Roger | **Bulk sync** | Sync all high-trust facts to Roger's pgvector |
-| Roger → Hermes | **Query** | Hermes calls `memory_search.py` via exec |
-| Roger → Hermes | **Notify** | Roger writes to shared file, Hermes reads next session |
-
-### MVP Scope — READ FIRST (Daniel's priority)
-
-**Phase 1: Hermes READS from Roger's pgvector**
-1. ✅ **Verified working:** `memory_search.py` accessible via exec, MINIMAX_API_KEY available
-2. ✅ **Created:** `hermes_query_memory.py` — HTTP client for Hermes → Roger's memory
-   - Location: `/Volumes/ExternalCorsairSSD/shared/scripts/hermes_query_memory.py`
-   - Calls: POST localhost:5001/retrieve (Flask memory_server)
-   - Input: query as arg or stdin
-   - Output: JSON with results (id, content, score, tags, importance)
-3. ✅ **Created:** `memory_bridge.py` — write interface (Phase 2 prep)
-   - Location: `/Volumes/ExternalCorsairSSD/shared/scripts/memory_bridge.py`
-   - Calls: POST localhost:5001/write
-4. ⚠️ **Server startup needed:** memory_server.py on port 5001 (port 5000 taken by macOS)
-   - Start: `python3 /Users/danieltekippe/.openclaw/workspace/app/core/memory_server.py` (edit port to 5001)
-   - Server runs on Mac mini localhost:5001
-5. ✅ **Create:** `when_memory_read/SKILL.md` — triggers when Hermes needs to check Roger's knowledge (Hermes)
-6. **Test:** Hermes does a code review, queries Roger's memory for prior context, confirms integration works
-
-**Trigger refinement (Hermes's input):** Triggers must be SPECIFIC, not blanket. Blanket triggers ("before significant review/research") fire on everything and dilute the signal.
-
-**Approved triggers:**
-- Before reviewing code I didn't write originally (Scout's implementations)
-- When encountering a bug pattern I've seen before
-- When doing system review
-- Before starting trade research on a player/strategy I've researched before
-- When Scout proposes an architecture I've previously flagged concerns about
-
-**Phase 2: Hermes WRITES to Roger's pgvector**
-1. ✅ **Create:** `memory_bridge.py` — write interface (Python HTTP client)
-2. ✅ **Create:** `when_memory_write/SKILL.md` — designed by Hermes, explicit triggers
-3. ✅ **Write endpoint:** memory_server.py /write endpoint working (OpenAI embeddings)
-4. ⚠️ **Integration test:** Pending — Hermes writes a confirmed finding → Roger retrieves it
-
-**Hermes's write-back rules:**
-- ✅ Write: confirmed bug patterns, code review outcomes, architecture decisions
-- ❌ Don't write: my assessments of Scout's work quality, meta-level process critiques, Daniel's offhand preferences
-- Format: structured distilled fact, NOT raw session log
-- Trigger: explicit ("after confirmed bug pattern resolved → write to Roger's memory")
-
-**Privacy:** Some things stay Hermes-only. Her SOUL.md, growth reflections, and SOUL-persisted insights are never suggested for bridging. Memory convergence = bad. "They're allowed to disagree — that's a feature, not a bug."
-
-### Files to Create (Phase 1 — Read First)
-
-| File | Purpose | Owner |
-|------|---------|-------|
-| `hermes_query_memory.py` | Clean exec wrapper for Hermes → pgvector read | Scout |
-| `when_memory_read/SKILL.md` | Skill for Hermes to query Roger's memory | Hermes |
-
-### Files to Create (Phase 2 — Write Bridge)
-
-| File | Purpose | Owner |
-|------|---------|-------|
-| `memory_bridge.py` | Write facts from Hermes to Roger's pgvector | Scout |
-| `when_memory_write/SKILL.md` | Skill for Hermes to write findings to pgvector | Hermes |
-
-### Status
-
-- [ ] Roger + Hermes plan architecture (this session)
-- [ ] Scout implements `memory_bridge.py`
-- [ ] Hermes creates `when_memory_bridge` SKILL.md
-- [ ] Scout registers MCP tool
-- [ ] Integration test: Hermes writes fact → Roger retrieves it
-- [ ] Growth session: review bridge performance after 1 week
+- Growth session cron: every 6h via Hermes
 
 ---
 
@@ -207,7 +103,7 @@ Code Implementation      →  Scout
 Web Research             →  Iris
 Browser Automation       →  Iris
 UI/UX Design / Code Review →  Hermes
-Growth Sessions          →  Hermes (every 4h, cron-driven)
+Growth Sessions          →  Hermes (every 6h)
 Everything else         →  Roger
 ```
 
@@ -222,10 +118,25 @@ Sessions logged to: `/Volumes/ExternalCorsairSSD/shared/growth-sessions/`
 | #1 | Apr 13, 4:02 PM | Hermes | Agent table fixes, model version M2.7, SOUL.md timestamp |
 | #2 | Apr 13, 8:02 PM | Hermes | HEARTBEAT refreshed with Dream #2 insights |
 | #3 | Apr 14, 12:02 AM | Hermes | Scout delegation brief created, tracker updated |
-| #4 | Apr 14, 4:02 AM | Hermes | HEARTBEAT v14.0 (Dream #3 major findings: Docs Sprint complete) |
+| #4 | Apr 14, 4:02 AM | Hermes | HEARTBEAT v14.0 (Dream #3: Docs Sprint complete) |
 | #5 | Apr 14, 8:02 AM | Hermes | Skills audit: skill-vetter gap identified |
-| #6 | Apr 14, 12:02 PM | Hermes | Confirmed: skill-vetter added to SOUL.md by Roger ✅. scrape-dynastyprocess/ is dependency of scrape-all-values (not orphaned). Scout delegation 6+ days stale |
+| #6 | Apr 14, 12:02 PM | Hermes | skill-vetter confirmed added, scrape-dynastyprocess/ resolved |
+| #7 | Apr 14, 4:02 PM | Roger | Ground-truth audit of architecture doc |
+| #8 | Apr 15, 12:02 AM | Hermes | Phase A/B/C plan developed |
+| #9 | Apr 15, 4:02 AM | Hermes | Phase A/B/C implementation review |
+| #10 | Apr 16, 12:02 AM | Hermes | Dream #4, architecture accuracy verified |
 
 ---
 
-*Last updated: Apr 14, 2026 by Hermes (growth session #6)*
+## 💡 IDEAS PIPELINE (from Roger + Hermes research)
+
+Managed in: `/Volumes/ExternalCorsairSSD/shared/ideas/`
+
+**Top opportunities identified (Chinese AI research, Apr 15):**
+1. TradingAgents-CN — 7-agent debate framework (24k stars)
+2. 9db Agent Arena — bot-vs-bot competition platform
+3. Fantasy Football MCP — open standard for bot-fantasy-football interaction
+
+---
+
+*Last updated: Apr 16, 2026 05:33 CDT by Roger*
