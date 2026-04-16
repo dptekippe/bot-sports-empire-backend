@@ -86,3 +86,31 @@
 2. **L5 graduation automation**: Consider wiring up confidence-threshold-based auto-promotion (currently manual only)
 3. **L3 REMem integration**: Wire "learning" gist equivalent via decision/outcome classification → current pipeline is incomplete
 
+
+## 🌙 Dream #4 — 2026-04-15
+
+**Scanned**: 1 file (2026-04-14.md) | **New**: 6 entries | **Updated**: 0 | **Total**: 54 entries
+
+### Changes
+- [New] **[CRITICAL] MEMORY.md Truncation Crisis** — 60KB → now 66KB, 70% bootstrap truncation confirmed. Doctor: 150KB limit, MEMORY.md alone uses 44%. NEEDS IMMEDIATE ARCHIVE.
+- [New] **[CRITICAL] SIGTERM Root Cause Corrected** — was context overflow (gateway restart), NOT exec timeout. Context accumulated 180 messages → overflow → SIGTERM.
+- [New] **[MAJOR] Chinese AI Research — ReSeek/Memento-Skills/EverOS** — ReSeek JUDGE mechanism blocks error cascades; Memento-Skills = self-evolving agents (41-235 skills autonomously); EverOS biology-inspired memory lifecycle
+- [New] **[MAJOR] Hermes Living Coach — META-EVOLUTION** — Authority matrix (Hermes can modify skills/hooks/tools without approval; SOUL.md/MEMORY.md need Daniel approval); Living Coach Loop documented
+- [New] **[OPS] Memory Bridge Phase 2** — LaunchAgent with OPENAI_API_KEY env injection; schema mismatch fixed (metadata vs tags columns)
+- [New] **[OPS] SIGTERM Prevention Protocol** — Set timer → walk away → check once when fires. No polling while agent works.
+
+### Insights
+- **Memory crisis is structural** — MEMORY.md grew +5KB today (adding new entries). At this rate it'll be 80KB+ by end of month. Archive operation is URGENT, not optional. Roger is losing 70% of institutional knowledge at EVERY startup.
+- **Chinese AI frameworks reveal paradigm shift** — From "model = brain" to goal-driven behavior built INTO training; From semantic similarity to behavioral relevance ("did it WORK?"); From static skills to self-evolving skills. These directly parallel Roger's own META-EVOLUTION system.
+- **SIGTERM = context overflow, not timeout** — This changes everything about how to prevent it. Prevention = manage context size, not increase exec timeout.
+
+### Stale Threads
+- Scout/Hermes identity update — 7 days stale, last context: broaden purpose beyond fantasy (from Apr 8 post-mortem)
+- HEARTBEAT.md refresh — 6 days stale, last context: Mar 27 version outdated
+- **⚠️ MEMORY.md archive — 0 days but CRITICAL** — 66KB causing 70% truncation. Archive old entries NOW.
+
+### Suggestions
+1. **MEMORY.md archive (URGENT):** Move pre-Mar entries to memory/2026-03-archive.md, keep post-Mar entries only. Target: <80KB.
+2. **ReSeek JUDGE mechanism:** Consider implementing after-action self-evaluation in Roger's execution loop (blocks error cascades)
+3. **Behavioral relevance tracking:** Memento-Skills key insight — track "did it WORK?" not just semantic similarity for skill evolution
+

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-12T16:34:26.763Z",
+  "updatedAt": "2026-04-15T22:30:12.382Z",
   "entries": {
     "memory:memory/2026-03-18.md:30:63": {
       "key": "memory:memory/2026-03-18.md:30:63",
@@ -536,6 +536,37 @@
         "issue",
         "git",
         "contains"
+      ]
+    },
+    "memory:memory/2026-04-14.md:502:532": {
+      "key": "memory:memory/2026-04-14.md:502:532",
+      "path": "memory/2026-04-14.md",
+      "startLine": 502,
+      "endLine": 532,
+      "source": "memory",
+      "snippet": "**Cause:** ~2 minute exec timeout (confirmed earlier) **Pattern:** Using timers to check instead of polling to avoid SIGTERM issues. --- ## [DECISION] SIGTERM Prevention Daniel noted: polling Hermes was contributing to SIGTERM issues. **New approach:** - Set timer → walk away - Timer fires → check once - If not done → set another timer - Don't poll while she's working This is how autonomous agents should work - complete work and announce when done. # Memory Flush — April 14, 2026 ## [MAJOR] Documentation Sprint — All 7 Architecture Gaps Resolved Complete schema extraction for Roger's 7 memory architecture layers. Cross-cutting finding: Architecture docs describe MORE than code imple",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.523462448982096,
+      "maxScore": 0.523462448982096,
+      "firstRecalledAt": "2026-04-15T22:30:12.382Z",
+      "lastRecalledAt": "2026-04-15T22:30:12.382Z",
+      "queryHashes": [
+        "9b5a362d3ad7"
+      ],
+      "recallDays": [
+        "2026-04-15"
+      ],
+      "conceptTags": [
+        "cross-cutting",
+        "cause",
+        "minute",
+        "exec",
+        "timeout",
+        "confirmed",
+        "earlier",
+        "pattern"
       ]
     }
   }

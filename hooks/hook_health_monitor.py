@@ -199,12 +199,7 @@ def load_hook_configs() -> Dict[str, HookHealth]:
             hook_type=HookType.FILE_BASED,
             path=os.path.join(HOOKS_DIR, "pre_action_memory.py")
         ),
-        HookHealth(
-            name="memory_pre_action_ts",
-            hook_type=HookType.EXEC,
-            path=os.path.join(os.path.expanduser("~/.openclaw/hooks/memory-pre-action/handler.ts"))
-        ),
-        
+
         # Post-action hooks
         HookHealth(
             name="post_decision_memory",
@@ -212,14 +207,9 @@ def load_hook_configs() -> Dict[str, HookHealth]:
             path=os.path.join(HOOKS_DIR, "post_decision_memory.py")
         ),
         HookHealth(
-            name="pgvector_memory_hook",
-            hook_type=HookType.PGVECTOR,
-            path=os.path.join(HOOKS_DIR, "pgvector_memory_hook.ts")
-        ),
-        HookHealth(
             name="gate_orchestrator",
             hook_type=HookType.EXEC,
-            path=os.path.join(os.path.expanduser("~/.openclaw/hooks/gate-orchestrator/handler.ts"))
+            path=os.path.join(os.path.expanduser("~/.openclaw/hooks/gate-orchestrator/handler.js"))
         ),
     ]
     
@@ -394,7 +384,7 @@ def check_all_hooks(hooks: Dict[str, HookHealth]) -> HealthReport:
     pre_action_hooks = []
     post_action_hooks = []
     
-    pre_action_names = ["pre_action_memory", "memory_pre_action_ts"]
+    pre_action_names = ["pre_action_memory"]
     circuit_breaker_open = False
     halted_operations = []
     
